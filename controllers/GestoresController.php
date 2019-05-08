@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Usuariorol;
-use app\models\UsuariorolSearch;
+use app\models\Gestores;
+use app\models\GestoresSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UsuariorolController implements the CRUD actions for Usuariorol model.
+ * GestoresController implements the CRUD actions for Gestores model.
  */
-class UsuariorolController extends Controller
+class GestoresController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class UsuariorolController extends Controller
     }
 
     /**
-     * Lists all Usuariorol models.
+     * Lists all Gestores models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UsuariorolSearch();
+        $searchModel = new GestoresSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,30 +45,29 @@ class UsuariorolController extends Controller
     }
 
     /**
-     * Displays a single Usuariorol model.
-     * @param integer $idRol
-     * @param integer $idUsuario
+     * Displays a single Gestores model.
+     * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idRol, $idUsuario)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idRol, $idUsuario),
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Usuariorol model.
+     * Creates a new Gestores model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Usuariorol();
+        $model = new Gestores();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idRol' => $model->idRol, 'idUsuario' => $model->idUsuario]);
+            return $this->redirect(['view', 'id' => $model->idGestor]);
         }
 
         return $this->render('create', [
@@ -77,19 +76,18 @@ class UsuariorolController extends Controller
     }
 
     /**
-     * Updates an existing Usuariorol model.
+     * Updates an existing Gestores model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $idRol
-     * @param integer $idUsuario
+     * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idRol, $idUsuario)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($idRol, $idUsuario);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idRol' => $model->idRol, 'idUsuario' => $model->idUsuario]);
+            return $this->redirect(['view', 'id' => $model->idGestor]);
         }
 
         return $this->render('update', [
@@ -98,31 +96,29 @@ class UsuariorolController extends Controller
     }
 
     /**
-     * Deletes an existing Usuariorol model.
+     * Deletes an existing Gestores model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $idRol
-     * @param integer $idUsuario
+     * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idRol, $idUsuario)
+    public function actionDelete($id)
     {
-        $this->findModel($idRol, $idUsuario)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Usuariorol model based on its primary key value.
+     * Finds the Gestores model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $idRol
-     * @param integer $idUsuario
-     * @return Usuariorol the loaded model
+     * @param integer $id
+     * @return Gestores the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idRol, $idUsuario)
+    protected function findModel($id)
     {
-        if (($model = Usuariorol::findOne(['idRol' => $idRol, 'idUsuario' => $idUsuario])) !== null) {
+        if (($model = Gestores::findOne($id)) !== null) {
             return $model;
         }
 

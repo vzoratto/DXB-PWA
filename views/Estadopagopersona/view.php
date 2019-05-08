@@ -4,20 +4,20 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Usuariorol */
+/* @var $model app\models\Estadopagopersona */
 
-$this->title = $model->idRol;
-$this->params['breadcrumbs'][] = ['label' => 'Usuariorols', 'url' => ['index']];
+$this->title = $model->idEstadoPago;
+$this->params['breadcrumbs'][] = ['label' => 'Estadopagopersonas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="usuariorol-view">
+<div class="estadopagopersona-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'idRol' => $model->idRol, 'idUsuario' => $model->idUsuario], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'idRol' => $model->idRol, 'idUsuario' => $model->idUsuario], [
+        <?= Html::a('Update', ['update', 'idEstadoPago' => $model->idEstadoPago, 'idPersona' => $model->idPersona], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'idEstadoPago' => $model->idEstadoPago, 'idPersona' => $model->idPersona], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,8 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idRol',
-            'idUsuario',
+            'idEstadoPago',
+            'idPersona',
+            'fechaPago',
         ],
     ]) ?>
 

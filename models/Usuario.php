@@ -10,10 +10,11 @@ use Yii;
  * @property int $idUsuario
  * @property int $cuilUsuario
  * @property string $claveUsuario
+ * @property int $idRol
  *
+ * @property Gestores[] $gestores
  * @property Persona[] $personas
- * @property Usuariorol[] $usuariorols
- * @property Rol[] $rols
+ * @property Rol $rol
  */
 class Usuario extends \yii\db\ActiveRecord
 {
@@ -31,9 +32,10 @@ class Usuario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cuilUsuario', 'claveUsuario'], 'required'],
-            [['cuilUsuario'], 'integer'],
+            [['cuilUsuario', 'claveUsuario', 'idRol'], 'required'],
+            [['cuilUsuario', 'idRol'], 'integer'],
             [['claveUsuario'], 'string', 'max' => 32],
+            [['idRol'], 'exist', 'skipOnError' => true, 'targetClass' => Rol::className(), 'targetAttribute' => ['idRol' => 'idRol']],
         ];
     }
 
@@ -46,7 +48,16 @@ class Usuario extends \yii\db\ActiveRecord
             'idUsuario' => 'Id Usuario',
             'cuilUsuario' => 'Cuil Usuario',
             'claveUsuario' => 'Clave Usuario',
+            'idRol' => 'Id Rol',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGestores()
+    {
+        return $this->hasMany(Gestores::className(), ['idUsuario' => 'idUsuario']);
     }
 
     /**
@@ -60,16 +71,8 @@ class Usuario extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUsuariorols()
+    public function getRol()
     {
-        return $this->hasMany(Usuariorol::className(), ['idUsuario' => 'idUsuario']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRols()
-    {
-        return $this->hasMany(Rol::className(), ['idRol' => 'idRol'])->viaTable('usuariorol', ['idUsuario' => 'idUsuario']);
+        return $this->hasOne(Rol::className(), ['idRol' => 'idRol']);
     }
 }

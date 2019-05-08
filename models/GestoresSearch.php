@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Usuariorol;
+use app\models\Gestores;
 
 /**
- * UsuariorolSearch represents the model behind the search form of `app\models\Usuariorol`.
+ * GestoresSearch represents the model behind the search form of `app\models\Gestores`.
  */
-class UsuariorolSearch extends Usuariorol
+class GestoresSearch extends Gestores
 {
     /**
      * {@inheritdoc}
@@ -17,7 +17,8 @@ class UsuariorolSearch extends Usuariorol
     public function rules()
     {
         return [
-            [['idRol', 'idUsuario'], 'integer'],
+            [['idGestor', 'idUsuario'], 'integer'],
+            [['nombreGestor', 'apellidoGestor', 'telefonoGestor'], 'safe'],
         ];
     }
 
@@ -39,7 +40,7 @@ class UsuariorolSearch extends Usuariorol
      */
     public function search($params)
     {
-        $query = Usuariorol::find();
+        $query = Gestores::find();
 
         // add conditions that should always apply here
 
@@ -57,9 +58,13 @@ class UsuariorolSearch extends Usuariorol
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idRol' => $this->idRol,
+            'idGestor' => $this->idGestor,
             'idUsuario' => $this->idUsuario,
         ]);
+
+        $query->andFilterWhere(['like', 'nombreGestor', $this->nombreGestor])
+            ->andFilterWhere(['like', 'apellidoGestor', $this->apellidoGestor])
+            ->andFilterWhere(['like', 'telefonoGestor', $this->telefonoGestor]);
 
         return $dataProvider;
     }

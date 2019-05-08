@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\UsuariorolSearch */
+/* @var $searchModel app\models\GestoresSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Usuariorols';
+$this->title = 'Gestores';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="usuariorol-index">
+<div class="gestores-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Usuariorol', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Gestores', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,7 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idRol',
+            'idGestor',
+            'nombreGestor',
+            'apellidoGestor',
+            'telefonoGestor',
             'idUsuario',
 
             ['class' => 'yii\grid\ActionColumn'],

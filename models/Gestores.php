@@ -5,22 +5,24 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "usuariorol".
+ * This is the model class for table "gestores".
  *
- * @property int $idRol
+ * @property int $idGestor
+ * @property string $nombreGestor
+ * @property string $apellidoGestor
+ * @property string $telefonoGestor
  * @property int $idUsuario
  *
- * @property Rol $rol
  * @property Usuario $usuario
  */
-class Usuariorol extends \yii\db\ActiveRecord
+class Gestores extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'usuariorol';
+        return 'gestores';
     }
 
     /**
@@ -29,10 +31,10 @@ class Usuariorol extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idRol', 'idUsuario'], 'required'],
-            [['idRol', 'idUsuario'], 'integer'],
-            [['idRol', 'idUsuario'], 'unique', 'targetAttribute' => ['idRol', 'idUsuario']],
-            [['idRol'], 'exist', 'skipOnError' => true, 'targetClass' => Rol::className(), 'targetAttribute' => ['idRol' => 'idRol']],
+            [['idUsuario'], 'required'],
+            [['idUsuario'], 'integer'],
+            [['nombreGestor', 'apellidoGestor'], 'string', 'max' => 64],
+            [['telefonoGestor'], 'string', 'max' => 32],
             [['idUsuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['idUsuario' => 'idUsuario']],
         ];
     }
@@ -43,17 +45,12 @@ class Usuariorol extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idRol' => 'Id Rol',
+            'idGestor' => 'Id Gestor',
+            'nombreGestor' => 'Nombre Gestor',
+            'apellidoGestor' => 'Apellido Gestor',
+            'telefonoGestor' => 'Telefono Gestor',
             'idUsuario' => 'Id Usuario',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRol()
-    {
-        return $this->hasOne(Rol::className(), ['idRol' => 'idRol']);
     }
 
     /**

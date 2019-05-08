@@ -4,24 +4,26 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\UsuarioSearch */
+/* @var $model app\models\GestoresSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="usuario-search">
+<div class="gestores-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
+    <?= $form->field($model, 'idGestor') ?>
+
+    <?= $form->field($model, 'nombreGestor') ?>
+
+    <?= $form->field($model, 'apellidoGestor') ?>
+
+    <?= $form->field($model, 'telefonoGestor') ?>
+
     <?= $form->field($model, 'idUsuario') ?>
-
-    <?= $form->field($model, 'cuilUsuario') ?>
-
-    <?= $form->field($model, 'claveUsuario') ?>
-
-    <?= $form->field($model, 'idRol') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
