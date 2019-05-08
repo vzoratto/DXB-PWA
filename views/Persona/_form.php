@@ -42,7 +42,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idPersonaEmergencia')->textInput() ?>
 
-    <?= $form->field($model, 'idEstadoPago')->textInput() ?>
+    <?= $form->field($model, 'idResultado')->textInput() ?>
+
+    <?= $form->field($model, 'idEncuesta')->textInput() ?>
 
     <?= $form->field($model, 'deshabilitado')->textInput() ?>
 
