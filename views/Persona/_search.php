@@ -47,9 +47,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'idPersonaEmergencia') ?>
 
-    <?php // echo $form->field($model, 'idResultado') ?>
-
-    <?php // echo $form->field($model, 'idEncuesta') ?>
+    <?php // echo $form->field($model, 'idEstadoPago') ?>
 
     <?php // echo $form->field($model, 'deshabilitado') ?>
 

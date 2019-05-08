@@ -42,8 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'idFichaMedica',
             //'fechaInscPersona',
             //'idPersonaEmergencia',
-            //'idResultado',
-            //'idEncuesta',
+            //'idEstadoPago',
             //'deshabilitado',
 
             ['class' => 'yii\grid\ActionColumn'],
