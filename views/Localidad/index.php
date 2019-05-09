@@ -33,6 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
-]); ?>
-
+    ]); ?>
+    <?= yii\jui\DatePicker::widget(['name' => 'attributeName']) ?>
 </div>
