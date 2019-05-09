@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\LocalidadSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Localidads';
+$this->title = 'Localidades';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="localidad-index">
@@ -33,7 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
-
+]); ?>
 
 </div>
