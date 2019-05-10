@@ -12,21 +12,21 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model1, 'cuilUsuario')->textInput() ?>
+    <?= $form->field($usuario, 'cuilUsuario')->textInput() ?>
 
-    <?= $form->field($model, 'nombrePersona')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($persona, 'nombrePersona')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'apellidoPersona')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($persona, 'apellidoPersona')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'fechaNacPersona')->textInput() ?>
+    <?= $form->field($persona, 'fechaNacPersona')->textInput() ?>
 
-    <?= $form->field($model, 'idSexoPersona')->textInput() ?>
+    <?= $form->field($persona, 'idSexoPersona')->textInput() ?>
 
-    <?= $form->field($model, 'nacionalidadPersona')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($persona, 'nacionalidadPersona')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'telefonoPersona')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($persona, 'telefonoPersona')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'mailPersona')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true]) ?>
 
 
 

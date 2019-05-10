@@ -42,7 +42,12 @@ class InscripcionController extends Controller
     public function actionIndex()
     {
 
-        return $this->render('index');
+        $persona = new \app\models\Persona(); //Instanciamos una variable
+        $usuario = new \app\models\Usuario(); //Instanciamos una variable
+        $personaDireccion = new \app\models\Personadireccion(); //Instanciamos una variable
+        $fichaMedica = new \app\models\Fichamedica(); //Instanciamos una variable
+        $datosEmergencia = new \app\models\Personaemergencia();
+        return $this->render('index',['persona'=>$persona,'usuario'=>$usuario,'personaDireccion'=>$personaDireccion,'fichaMedica'=>$fichaMedica,'datosEmergencia'=>$datosEmergencia]);
     }
 
 
@@ -59,12 +64,12 @@ class InscripcionController extends Controller
     public function actionDatoscontacto()
     {
 
-        $model = new \app\models\Personadireccion(); //Instanciamos una variable
-        $model1 = new \app\models\Persona(); //Instanciamos una variable
+        $personaDireccion = new \app\models\Personadireccion(); //Instanciamos una variable
+        $persona= new \app\models\Persona(); //Instanciamos una variable
 
         return $this->render('datoscontacto', [
-            'model' => $model,
-            'model1' => $model1,
+            'personaDireccion' => $personaDireccion,
+            'persona' => $persona,
         ]);
     }
     

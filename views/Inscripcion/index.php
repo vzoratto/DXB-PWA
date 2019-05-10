@@ -11,22 +11,20 @@ $this->params['breadcrumbs'][] = $this->title;
     'items' => [
         [
             'label' => 'Datos Personales',
-            'content' => $this->render('datospersonales', [
-                'model' => $model,
-            ]) ,
+            'content' =>$this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario]),
         ],
         [
             'label' => 'Datos de contacto',
-            'content' => '',
+            'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona]),
 
         ],
         [
             'label' => 'Datos medicos',
-            'content' => '',
+            'content' => $this->render('datosmedicos',['fichaMedica'=>$fichaMedica]),
         ],
         [
             'label' => 'Contacto de emergencia',
-            'content' => '',
+            'content' => $this->render('contactoemergencia',['datosEmergencia'=>$datosEmergencia]),
         ],
         [
             'label' => 'Encuesta',
