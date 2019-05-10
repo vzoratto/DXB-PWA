@@ -11,6 +11,9 @@ use yii\widgets\ActiveForm;
 <div class="personadireccion-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <?= $form->field($model1, 'telefonoPersona')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model1, 'mailPersona')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'idLocalidad')->textInput() ?>
 

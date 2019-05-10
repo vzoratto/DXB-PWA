@@ -48,36 +48,59 @@ class InscripcionController extends Controller
 
     public function actionContactoemergencia()
     {
+        $model = new \app\models\Personaemergencia(); //Instanciamos una variable
 
-        return $this->render('contactoemergencia');
+        return $this->render('contactoemergencia', [
+            'model' => $model,
+        ]);
     }
     
     
     public function actionDatoscontacto()
     {
 
-        return $this->render('datoscontacto');
+        $model = new \app\models\Personadireccion(); //Instanciamos una variable
+        $model1 = new \app\models\Persona(); //Instanciamos una variable
+
+        return $this->render('datoscontacto', [
+            'model' => $model,
+            'model1' => $model1,
+        ]);
     }
     
     
     public function actionDatosmedicos()
     {
 
-        return $this->render('datosmedicos');
+        $model = new \app\models\Fichamedica(); //Instanciamos una variable
+
+        return $this->render('datosmedicos', [
+            'model' => $model,
+        ]);
     }
     
     
     public function actionDatospersonales()
     {
 
-        return $this->render('datospersonales');
+        $model = new \app\models\Persona(); //Instanciamos una variable
+        $model1 = new \app\models\Usuario(); //Instanciamos una variable
+
+        return $this->render('datospersonales', [
+            'model' => $model,
+            'model1' => $model1,
+        ]);
     }
 
 
     public function actionEncuesta()
     {
 
-        return $this->render('encuesta');
+        $model = new \app\models\Encuesta(); //Instanciamos una variable
+
+        return $this->render('encuesta', [
+            'model' => $model,
+        ]);
     }
     
 }
