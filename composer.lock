@@ -4,8 +4,98 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d421aa52082501d25660b51b84c54c4",
+    "content-hash": "843811df6ead39cb3dc793e3d4bf46fc",
     "packages": [
+        {
+            "name": "arturoliveira/yii2-excelview",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://bitbucket.org/artur_oliveira/yii2-excelview.git",
+                "reference": "80124fd9865c08c3d382c1559873098f5b668818"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://bitbucket.org/artur_oliveira/yii2-excelview/get/80124fd9865c08c3d382c1559873098f5b668818.zip",
+                "reference": "80124fd9865c08c3d382c1559873098f5b668818",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-grid": "*",
+                "phpoffice/phpexcel": "1.8.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "arturoliveira\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Artur Oliveira",
+                    "email": "artur.oliveira@gmail.com"
+                }
+            ],
+            "description": "ExcelView",
+            "keywords": [
+                "OpenXML",
+                "excel",
+                "extension",
+                "spreadsheet",
+                "xls",
+                "xlsx",
+                "yii2"
+            ],
+            "time": "2014-10-16T17:06:43+00:00"
+        },
+        {
+            "name": "beastbytes/yii2-wizard",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beastbytes/yii2-wizard.git",
+                "reference": "ad776a28a0504ee40e36d1aa179c2e9e3c861992"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beastbytes/yii2-wizard/zipball/ad776a28a0504ee40e36d1aa179c2e9e3c861992",
+                "reference": "ad776a28a0504ee40e36d1aa179c2e9e3c861992",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "beastbytes\\wizard\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Yates",
+                    "email": "chris.l.yates@gmail.com"
+                }
+            ],
+            "description": "Yii2 extension to handle multi-form wizards",
+            "keywords": [
+                "Behavior",
+                "Forms",
+                "form",
+                "wizard",
+                "yii2"
+            ],
+            "time": "2015-07-26T20:46:28+00:00"
+        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.4.1",
@@ -238,6 +328,51 @@
             "time": "2014-09-09T13:34:57+00:00"
         },
         {
+            "name": "drsdre/yii2-wizardwidget",
+            "version": "1.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/drsdre/yii2-wizardwidget.git",
+                "reference": "51ef01d315875830af2565121fe1f3b1bf32850c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/drsdre/yii2-wizardwidget/zipball/51ef01d315875830af2565121fe1f3b1bf32850c",
+                "reference": "51ef01d315875830af2565121fe1f3b1bf32850c",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": ">=2.0.6",
+                "yiisoft/yii2-bootstrap": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "drsdre\\wizardwidget\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "A.F.Schuurman",
+                    "email": "andre.schuurman+yii2-wizardwidget@gmail.com"
+                }
+            ],
+            "description": "Multi step wizard widget using tabs to guide a user through steps to complete a task. Based on the Form wizard (using tabs) from lukepzak (see http://bootsnipp.com/snippets/featured/form-wizard-using-tabs).",
+            "keywords": [
+                "extension",
+                "tabs",
+                "ui",
+                "widget",
+                "wizard",
+                "yii2"
+            ],
+            "time": "2016-12-28T13:00:02+00:00"
+        },
+        {
             "name": "egulias/email-validator",
             "version": "2.1.7",
             "source": {
@@ -340,6 +475,373 @@
                 "html"
             ],
             "time": "2018-02-23T01:58:20+00:00"
+        },
+        {
+            "name": "kartik-v/yii2-dialog",
+            "version": "v1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-dialog.git",
+                "reference": "c38616d719f52530749457c022ca6134d0ad31ce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-dialog/zipball/c38616d719f52530749457c022ca6134d0ad31ce",
+                "reference": "c38616d719f52530749457c022ca6134d0ad31ce",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-krajee-base": ">=2.0.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\dialog\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "An asset bundle for bootstrap3-dialog for Yii 2.0 framework.",
+            "homepage": "https://github.com/kartik-v/yii2-dialog",
+            "keywords": [
+                "alert",
+                "bootstrap",
+                "dialog",
+                "extension",
+                "modal",
+                "yii2"
+            ],
+            "time": "2018-10-09T08:08:51+00:00"
+        },
+        {
+            "name": "kartik-v/yii2-grid",
+            "version": "v3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-grid.git",
+                "reference": "b4384299da378d15667d82d5a5bd9eb2cb23abde"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/b4384299da378d15667d82d5a5bd9eb2cb23abde",
+                "reference": "b4384299da378d15667d82d5a5bd9eb2cb23abde",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-dialog": "~1.0"
+            },
+            "suggest": {
+                "kartik-v/yii2-mpdf": "For exporting grids to PDF"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\grid\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Yii 2 GridView on steroids. Various enhancements and utilities for the Yii 2.0 GridView widget.",
+            "homepage": "https://github.com/kartik-v/yii2-grid",
+            "keywords": [
+                "extension",
+                "grid",
+                "widget",
+                "yii2"
+            ],
+            "time": "2019-03-12T17:04:35+00:00"
+        },
+        {
+            "name": "kartik-v/yii2-krajee-base",
+            "version": "v2.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-krajee-base.git",
+                "reference": "9ddb662bdf49fdb671a90853912a40418a26a0dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/9ddb662bdf49fdb671a90853912a40418a26a0dd",
+                "reference": "9ddb662bdf49fdb671a90853912a40418a26a0dd",
+                "shasum": ""
+            },
+            "suggest": {
+                "yiisoft/yii2-bootstrap": "for Krajee extensions to work with Bootstrap 3.x version",
+                "yiisoft/yii2-bootstrap4": "for Krajee extensions to work with Bootstrap 4.x version"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\base\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Base library and foundation components for all Yii2 Krajee extensions.",
+            "homepage": "https://github.com/kartik-v/yii2-krajee-base",
+            "keywords": [
+                "base",
+                "extension",
+                "foundation",
+                "krajee",
+                "widget",
+                "yii2"
+            ],
+            "time": "2019-03-13T17:14:54+00:00"
+        },
+        {
+            "name": "kartik-v/yii2-widget-switchinput",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-widget-switchinput.git",
+                "reference": "10afe2ac8274da9371b43aaf69e99fc553f1b947"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-switchinput/zipball/10afe2ac8274da9371b43aaf69e99fc553f1b947",
+                "reference": "10afe2ac8274da9371b43aaf69e99fc553f1b947",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-krajee-base": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\switchinput\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "A Yii2 wrapper widget for the Bootstrap Switch plugin to use checkboxes & radios as toggle switchinputes (sub repo split from yii2-widgets)",
+            "homepage": "https://github.com/kartik-v/yii2-widget-switchinput",
+            "keywords": [
+                "bootstrap",
+                "extension",
+                "form",
+                "input",
+                "jquery",
+                "plugin",
+                "switchinput",
+                "toggle",
+                "widget",
+                "yii2"
+            ],
+            "time": "2018-02-07T11:45:58+00:00"
+        },
+        {
+            "name": "npm-asset/bootstrap",
+            "version": "4.3.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.3.1.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "pceuropa/yii2-email",
+            "version": "1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://gitlab.com/pceuropa/yii2-email.git",
+                "reference": "dbbf434a80f3147fcd57c3bd764c784f2aeb8e2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://gitlab.com/api/v4/projects/pceuropa%2Fyii2-email/repository/archive.zip?sha=dbbf434a80f3147fcd57c3bd764c784f2aeb8e2c",
+                "reference": "dbbf434a80f3147fcd57c3bd764c784f2aeb8e2c",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2-swiftmailer": "~2.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "pceuropa\\email\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rafal Marguzewicz",
+                    "email": "info@pceuropa.net"
+                }
+            ],
+            "description": "Widget help send email. Have validate input email.",
+            "keywords": [
+                " autoresponder",
+                " email",
+                "extension",
+                "yii2"
+            ],
+            "time": "2018-08-11T17:55:23+00:00"
+        },
+        {
+            "name": "pceuropa/yii2-forms",
+            "version": "2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pceuropa/yii2-forms.git",
+                "reference": "f2fae2865eadb0904ab50fda0850869ecc3b682d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pceuropa/yii2-forms/zipball/f2fae2865eadb0904ab50fda0850869ecc3b682d",
+                "reference": "f2fae2865eadb0904ab50fda0850869ecc3b682d",
+                "shasum": ""
+            },
+            "require": {
+                "pceuropa/yii2-email": "*",
+                "php": ">=7.0.0",
+                "yiisoft/yii2": "^2.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "pceuropa\\forms\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rafal Marguzewicz",
+                    "email": "info@pceuropa.net",
+                    "homepage": "https://pceuropa.net/"
+                }
+            ],
+            "description": "Form builder or code generator for Yii2. List GridView of forms. Saving form data in a databases.",
+            "homepage": "https://pceuropa.net/yii2-extensions/yii2-forms",
+            "keywords": [
+                "bootstrap form",
+                "drag end drop",
+                "dynamic model",
+                "extension",
+                "form builder",
+                "form creator",
+                "without model",
+                "yii2"
+            ],
+            "time": "2018-08-16T07:43:30+00:00"
+        },
+        {
+            "name": "phpoffice/phpexcel",
+            "version": "1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPOffice/PHPExcel.git",
+                "reference": "e69a5e4d0ffa7fb6f171859e0a04346e580df30b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/e69a5e4d0ffa7fb6f171859e0a04346e580df30b",
+                "reference": "e69a5e4d0ffa7fb6f171859e0a04346e580df30b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-xml": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPExcel": "Classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Maarten Balliauw",
+                    "homepage": "http://blog.maartenballiauw.be"
+                },
+                {
+                    "name": "Mark Baker"
+                },
+                {
+                    "name": "Franck Lefevre",
+                    "homepage": "http://blog.rootslabs.net"
+                },
+                {
+                    "name": "Erik Tilt"
+                }
+            ],
+            "description": "PHPExcel - OpenXML - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
+            "homepage": "http://phpexcel.codeplex.com",
+            "keywords": [
+                "OpenXML",
+                "excel",
+                "php",
+                "spreadsheet",
+                "xls",
+                "xlsx"
+            ],
+            "abandoned": "phpoffice/phpspreadsheet",
+            "time": "2014-03-02T15:22:49+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -800,6 +1302,75 @@
                 "yii2"
             ],
             "time": "2019-04-23T13:18:43+00:00"
+        },
+        {
+            "name": "yiisoft/yii2-bootstrap4",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-bootstrap4.git",
+                "reference": "149f0ff76255dcbd66bc3474efc15785824924d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap4/zipball/149f0ff76255dcbd66bc3474efc15785824924d9",
+                "reference": "149f0ff76255dcbd66bc3474efc15785824924d9",
+                "shasum": ""
+            },
+            "require": {
+                "npm-asset/bootstrap": "^4.2",
+                "yiisoft/yii2": "~2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "<7",
+                "yiisoft/yii2-coding-standards": "~2.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\bootstrap4\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Paul Klimov",
+                    "email": "klimov.paul@gmail.com"
+                },
+                {
+                    "name": "Alexander Makarov",
+                    "email": "sam@rmcreative.ru",
+                    "homepage": "http://rmcreative.ru/"
+                },
+                {
+                    "name": "Antonio Ramirez",
+                    "email": "amigo.cobos@gmail.com"
+                },
+                {
+                    "name": "Simon Karlen",
+                    "email": "simi.albi@gmail.com"
+                },
+                {
+                    "name": "Qiang Xue",
+                    "email": "qiang.xue@gmail.com",
+                    "homepage": "http://www.yiiframework.com/"
+                }
+            ],
+            "description": "The Twitter Bootstrap extension for the Yii framework",
+            "keywords": [
+                "bootstrap",
+                "bootstrap4",
+                "yii2"
+            ],
+            "time": "2019-04-30T19:59:00+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -3299,7 +3870,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -3620,7 +4191,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "kartik-v/yii2-widget-switchinput": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
