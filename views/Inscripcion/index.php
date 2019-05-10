@@ -11,7 +11,9 @@ $this->params['breadcrumbs'][] = $this->title;
     'items' => [
         [
             'label' => 'Datos Personales',
-            'content' => '',
+            'content' => $this->render('datospersonales', [
+                'model' => $model,
+            ]) ,
         ],
         [
             'label' => 'Datos de contacto',

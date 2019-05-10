@@ -45,5 +45,39 @@ class InscripcionController extends Controller
         return $this->render('index');
     }
 
+
+    public function actionContactoemergencia()
+    {
+
+        return $this->render('contactoemergencia');
+    }
+    
+    
+    public function actionDatoscontacto()
+    {
+
+        return $this->render('datoscontacto');
+    }
+    
+    
+    public function actionDatosmedicos()
+    {
+
+        return $this->render('datosmedicos');
+    }
+    
+    
+    public function actionDatospersonales()
+    {
+
+        return $this->render('datospersonales');
+    }
+
+
+    public function actionEncuesta()
+    {
+
+        return $this->render('encuesta');
+    }
     
 }
