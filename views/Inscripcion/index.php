@@ -1,30 +1,36 @@
 <?php
 use yii\helpers\Html;
 use yii\jui\Tabs;
+use yii\widgets\ActiveForm;
 $this->title = 'Formulario de inscripcion';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="inscripciones-index">
 
+    <?php $form = ActiveForm::begin([
+        'method'=>'post',
+        "action"=>"index.php?r=inscripcion%2Fstore"
+    ]); ?>
     <h1><?= Html::encode($this->title) ?></h1>
     <?php echo Tabs::widget([
     'items' => [
         [
             'label' => 'Datos Personales',
-            'content' =>$this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario]),
+            'content' =>$this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form]),
         ],
         [
             'label' => 'Datos de contacto',
-            'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona]),
+            'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona,'form'=>$form]),
 
         ],
         [
             'label' => 'Datos medicos',
-            'content' => $this->render('datosmedicos',['fichaMedica'=>$fichaMedica]),
+            'content' => $this->render('datosmedicos',['fichaMedica'=>$fichaMedica,'form'=>$form]),
         ],
         [
             'label' => 'Contacto de emergencia',
-            'content' => $this->render('contactoemergencia',['datosEmergencia'=>$datosEmergencia]),
+            'content' => $this->render('contactoemergencia',['datosEmergencia'=>$datosEmergencia,'form'=>$form]),
         ],
         [
             'label' => 'Encuesta',
@@ -36,6 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'headerOptions' => ['class' => 'my-class'],
     'clientOptions' => ['collapsible' => false],
 ]);
+     ActiveForm::end();
 
 ?>
 </div>

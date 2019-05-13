@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="persona-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+
 
     <?= $form->field($usuario, 'cuilUsuario')->textInput() ?>
 
@@ -32,9 +32,9 @@ use yii\widgets\ActiveForm;
 
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::Button('Siguiente', ['class' => 'btn btn-info']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+
 
 </div>

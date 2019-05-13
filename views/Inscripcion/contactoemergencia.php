@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="personaemergencia-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+
 
     <?= $form->field($datosEmergencia, 'nombrePersonaEmergencia')->textInput(['maxlength' => true]) ?>
 
@@ -21,9 +21,9 @@ use yii\widgets\ActiveForm;
     <?= $form->field($datosEmergencia, 'idVinculoPersonaEmergencia')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Terminar inscripción', ['class' => 'btn btn-success']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+
 
 </div>
