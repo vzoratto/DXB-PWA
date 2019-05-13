@@ -24,7 +24,8 @@
         "kartik-v/yii2-widget-switchinput": "@dev",
         "yiisoft/yii2-bootstrap4": "^2.0",
         "arturoliveira/yii2-excelview": "*",
-        "beastbytes/yii2-wizard": "^1.0"
+        "beastbytes/yii2-wizard": "^1.0",
+        "kartik-v/yii2-widget-datepicker": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

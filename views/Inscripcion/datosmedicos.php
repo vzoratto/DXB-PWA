@@ -10,27 +10,57 @@ use yii\widgets\ActiveForm;
 
 <div class="fichamedica-form">
 
+<div class="datosMedicos" >
 
+    <div id="obraSocial">
+        <?= $form->field($fichaMedica, 'obraSocial')->textInput(['maxlength' => true]) ?>
+    </div>
 
-    <?= $form->field($fichaMedica, 'obraSocial')->textInput(['maxlength' => true]) ?>
+    <div id="peso">
+        <?= $form->field($fichaMedica, 'peso')->textInput() ?>
+    </div>
 
-    <?= $form->field($fichaMedica, 'peso')->textInput() ?>
+    <div id="altura">
+        <?= $form->field($fichaMedica, 'altura')->textInput() ?>
+    </div>
 
-    <?= $form->field($fichaMedica, 'altura')->textInput() ?>
+    <div id="frecuenciaCardiaca">
+        <?= $form->field($fichaMedica, 'frecuenciaCardiaca')->textInput() ?>
+    </div>
 
-    <?= $form->field($fichaMedica, 'frecuenciaCardiaca')->textInput() ?>
+    <div id="idGrupoSanguineo">
+        <!-- campo tipo select tambien llamado dropDownList, se carga con los datos de la base especificamente de la tabla Busquedas-->
+        <?= $form->field($fichaMedica, 'idGrupoSanguineo')->dropDownList(
+                \yii\helpers\ArrayHelper::map(\app\models\GrupoSanguineo::find()->all(),'idGrupoSanguineo','tipoGrupoSanguineo'),
+                ['prompt'=>'Seleccione su grupo sanguineo...']
+        )->label('Grupo Sanguineo'); ?>
+    </div>
 
-    <?= $form->field($fichaMedica, 'idGrupoSanguineo')->textInput() ?>
+    <div id="evaluacionMedica">
+        <?= $form->field($fichaMedica, 'evaluacionMedica')->radioList(array(1=>'Si',2=>'No'))
+                                                        ->label('¿Se ha realizado una evaluación médica en el presente año?'); ?>
+    </div>
 
-    <?= $form->field($fichaMedica, 'evaluacionMedica')->textInput() ?>
+    <div id="intervencionQuirurgica">
+        <?= $form->field($fichaMedica, 'intervencionQuirurgica')->radioList(array(1=>'Si',2=>'No'))
+                                                        ->label('¿Se ha realizado una intervención quirúrgica?'); ?>
+    </div>
 
-    <?= $form->field($fichaMedica, 'intervencionQuirurgica')->textInput() ?>
+    <div id="tomaMedicamentos">
+    <?= $form->field($fichaMedica, 'tomaMedicamentos')->radioList(array(1=>'Si',2=>'No'))
+                                                      ->label('¿Toma medicamentos?'); ?>
+    </div>
 
-    <?= $form->field($fichaMedica, 'tomaMedicamentos')->textInput() ?>
+    <div id="suplementos">
+    <?= $form->field($fichaMedica, 'suplementos')->radioList(array(1=>'Si',2=>'No'))
+                                                      ->label('¿Toma suplementos?'); ?>
+    </div>
 
-    <?= $form->field($fichaMedica, 'suplementos')->textInput() ?>
-
+    <div id="observaciones">
     <?= $form->field($fichaMedica, 'observaciones')->textInput(['maxlength' => true]) ?>
+    </div>
+    
+</div>
 
     <div class="form-group">
         <?= Html::Button('Siguiente', ['class' => 'btn btn-info']) ?>

@@ -18,7 +18,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($datosEmergencia, 'telefonoPersonaEmergencia')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($datosEmergencia, 'idVinculoPersonaEmergencia')->textInput() ?>
+    <!-- campo tipo select tambien llamado dropDownList, se carga con los datos de la base especificamente de la tabla Busquedas-->
+    <?= $form->field($datosEmergencia, 'idVinculoPersonaEmergencia')->dropDownList(
+            \yii\helpers\ArrayHelper::map(\app\models\VinculoPersona::find()->all(),'idVinculo','nombreVinculo'),
+            ['prompt'=>'Seleccione un vinculo...']
+    )->label('Vinculo'); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Terminar inscripción', ['class' => 'btn btn-success']) ?>
