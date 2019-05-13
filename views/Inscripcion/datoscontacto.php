@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="personadireccion-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+
     <?= $form->field($persona, 'telefonoPersona')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true]) ?>
@@ -20,9 +20,9 @@ use yii\widgets\ActiveForm;
     <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::Button('Siguiente', ['class' => 'btn btn-info']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+
 
 </div>

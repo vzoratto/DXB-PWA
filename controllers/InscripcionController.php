@@ -107,5 +107,11 @@ class InscripcionController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionStore(){
+        print_r(Yii::$app->request->post());
+
+        die();
+    }
     
 }

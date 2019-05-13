@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="fichamedica-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+
 
     <?= $form->field($fichaMedica, 'obraSocial')->textInput(['maxlength' => true]) ?>
 
@@ -33,9 +33,9 @@ use yii\widgets\ActiveForm;
     <?= $form->field($fichaMedica, 'observaciones')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::Button('Siguiente', ['class' => 'btn btn-info']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+
 
 </div>
