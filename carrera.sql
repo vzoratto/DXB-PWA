@@ -1,3 +1,7 @@
+DROP DATABASE carrera;
+CREATE DATABASE carrera;
+
+
 CREATE TABLE `provincia` (
   `idProvincia` tinyint(3) UNSIGNED NOT NULL,
   `nombreProvincia` varchar(50) NOT NULL,
@@ -89,11 +93,12 @@ CREATE table  `resultado` (
 	  PRIMARY KEY (`idResultado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+/*
 CREATE table  `encuesta` (
 	  `idEncuesta` int(4) NOT NULL AUTO_INCREMENT,
 	  PRIMARY KEY (`idEncuesta`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
+*/
 
 CREATE table  `usuario` (
 	`idUsuario` int(8) NOT NULL AUTO_INCREMENT,
@@ -124,7 +129,7 @@ CREATE TABLE `persona` (
 	  `fechaInscPersona` timestamp,
 	  `idPersonaEmergencia` int(8),
 	  `idResultado` int(4),
-	  `idEncuesta` int(4),
+	 /* `idEncuesta` int(4),*/
 	  `deshabilitado` BOOLEAN,
 	  
 	  PRIMARY KEY (`idPersona`),
@@ -133,7 +138,7 @@ CREATE TABLE `persona` (
 	  FOREIGN KEY (`idPersonaDireccion`) REFERENCES personaDireccion (`idPersonaDireccion`),
 	  FOREIGN KEY (`idFichaMedica`) REFERENCES fichaMedica (`idFichaMedica`),
 	  FOREIGN KEY (`idSexoPersona`) REFERENCES sexo (`idSexo`),
-	  FOREIGN KEY (`idEncuesta`) REFERENCES encuesta (`idEncuesta`),
+	  /*FOREIGN KEY (`idEncuesta`) REFERENCES encuesta (`idEncuesta`),*/
 	  FOREIGN KEY (`idResultado`) REFERENCES resultado (`idResultado`)
 	  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
