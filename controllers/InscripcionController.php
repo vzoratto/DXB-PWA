@@ -17,6 +17,7 @@ use app\models\Gruposanguineo;
 use app\models\Personadireccion;
 use app\models\Personaemergencia;
 use app\models\Provincia;
+use yii\helpers\ArrayHelper;
 
 class InscripcionController extends Controller
 {
@@ -47,7 +48,22 @@ class InscripcionController extends Controller
         $personaDireccion = new \app\models\Personadireccion(); //Instanciamos una variable
         $fichaMedica = new \app\models\Fichamedica(); //Instanciamos una variable
         $datosEmergencia = new \app\models\Personaemergencia();
-        return $this->render('index',['persona'=>$persona,'usuario'=>$usuario,'personaDireccion'=>$personaDireccion,'fichaMedica'=>$fichaMedica,'datosEmergencia'=>$datosEmergencia]);
+        $localidad = new \app\models\Localidad(); //Instanciamos una variable
+        $provincia = new \app\models\Provincia(); //Instanciamos una variable
+        $provinciaLista = ArrayHelper::map(\app\models\Provincia::find()->all(),'idProvincia','nombreProvincia'); //Lista de las provincias
+
+        
+        return $this->render('index',[
+            'persona'=>$persona,
+            'usuario'=>$usuario,
+            'personaDireccion'=>$personaDireccion,
+            'fichaMedica'=>$fichaMedica,
+            'datosEmergencia'=>$datosEmergencia,
+            'localidad' => $localidad,
+            'provincia' => $provincia,
+            'personaDireccion' => $personaDireccion,
+            'provinciaLista' => $provinciaLista,            
+            ]);
     }
 
 
@@ -63,7 +79,6 @@ class InscripcionController extends Controller
     
     public function actionDatoscontacto()
     {
-
         $personaDireccion = new \app\models\Personadireccion(); //Instanciamos una variable
         $persona= new \app\models\Persona(); //Instanciamos una variable
 

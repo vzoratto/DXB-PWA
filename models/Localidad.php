@@ -66,4 +66,22 @@ class Localidad extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Personadireccion::className(), ['idLocalidad' => 'idLocalidad']);
     }
+
+    /**
+     * Funcion que devuelve una lista de las localidad con el idProvincia
+     * $idProvincia int
+     * return array
+     */
+    public static function getLocalidades($idProvincia) 
+    {
+        $localidadControl = new \app\models\Localidad();
+        $localidadLista = $localidadControl::find()
+        ->where(['idProvincia'=>$idProvincia])
+        ->asArray()
+        ->all();
+        foreach ($localidadLista as $i => $localidad) {
+            $out[] = ['id' => $localidad['idLocalidad'], 'name' => $localidad['nombreLocalidad']];
+        }          
+        return $out;
+    }
 }

@@ -124,4 +124,27 @@ class LocalidadController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+     public function actionLocalidades() {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+           $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $idProvincia = $parents[0];
+
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                //$out = [
+                //    ['id'=>'1', 'name'=>$idProvincia],
+                //    ['id'=>'2', 'name'=>'<sub-cat-name2>']
+                //];
+                $locali = new \app\models\Localidad();
+                $out = $locali::getLocalidades($idProvincia); 
+            
+                return ['output'=>$out, 'selected'=>''];
+            }
+        }
+        return ['output'=>'', 'selected'=>''];
+    }
 }

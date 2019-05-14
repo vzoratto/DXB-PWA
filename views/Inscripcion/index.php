@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         [
             'label' => 'Datos de contacto',
-            'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona,'form'=>$form]),
+            'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona,'localidad' => $localidad,'provincia' => $provincia,'provinciaLista' => $provinciaLista,'form'=>$form]),
 
         ],
         [
