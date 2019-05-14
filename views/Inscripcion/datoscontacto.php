@@ -13,32 +13,44 @@ use yii\helpers\Url;
 
 <div class="personadireccion-form">
 
+<!-- vista del tab datos de contacto del formulario-->
+<div class="datosContacto" >
 
-    <?= $form->field($persona, 'telefonoPersona')->textInput(['maxlength' => true])->label('Telefono') ?>
+    <div id="telefonoPersona">
+        <?= $form->field($persona, 'telefonoPersona')->textInput(['maxlength' => true])->label('Telefono') ?>
+    </div>
 
-    <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true])->label('E-mail') ?>
+    <div id="mailPersona">
+        <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true])->label('E-mail') ?>
+    </div>
 
-    <?= $form->field($provincia, 'nombreProvincia')->widget(Select2::classname(), [
-        'data' => $provinciaLista,
-        'id'=>'idProvincia',
-        'options' => [
-            'placeholder' => 'Seleccione una provincia...',
-            'id'=>'idProvincia']
-        ])->label('Provincia'); ?>
+    <div id="idProvincia">
+        <?= $form->field($provincia, 'nombreProvincia')->widget(Select2::classname(), [
+            'data' => $provinciaLista,
+            'id'=>'idProvincia',
+            'options' => [
+                'placeholder' => 'Seleccione una provincia...',
+                'id'=>'idProvincia']
+            ])->label('Provincia'); ?>
+    </div>
 
-
-    <?= $form->field($localidad, 'nombreLocalidad')->widget(DepDrop::classname(), [
-            'type' => DepDrop::TYPE_SELECT2,
-            'pluginOptions'=>[
-                'placeholder' => 'Seleccione una localidad...',
-                'depends'=>['idProvincia'],
-                'url'=>Url::to(['localidad/localidades']),
-                'loadingText' => 'Cargando clientes...']
-    ])->label('Localidad');
-    ?>
-
+    <div id="idLocalidad">
+        <?= $form->field($localidad, 'nombreLocalidad')->widget(DepDrop::classname(), [
+                'type' => DepDrop::TYPE_SELECT2,
+                'pluginOptions'=>[
+                    'placeholder' => 'Seleccione una localidad...',
+                    'depends'=>['idProvincia'],
+                    'url'=>Url::to(['localidad/localidades']),
+                    'loadingText' => 'Cargando clientes...']
+        ])->label('Localidad');
+        ?>
+    </div>
     
-    <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Direccion') ?>
+    <div id="direccionUsuario">
+        <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Direccion') ?>
+    </div>
+
+</div>
 
     <div class="form-group">
         <?= Html::Button('Siguiente', ['class' => 'btn btn-info']) ?>

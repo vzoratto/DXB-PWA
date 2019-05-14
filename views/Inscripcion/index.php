@@ -7,12 +7,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="inscripciones-index">
-
+    <!-- comienzo del formulario, se define el metodo de envio de datos y se llama a la accion "store" o guardar-->
     <?php $form = ActiveForm::begin([
         'method'=>'post',
         "action"=>"index.php?r=inscripcion%2Fstore"
     ]); ?>
+
     <h1><?= Html::encode($this->title) ?></h1>
+
+    <!-- utilizacion de un widget de jui llamado Tabs, se define cada una de las tabs 
+    y dentro de ellas se renderiza su correspondiente vista a las cuales se le envian los 
+    modelos correspondientes --> 
     <?php echo Tabs::widget([
     'items' => [
         [
