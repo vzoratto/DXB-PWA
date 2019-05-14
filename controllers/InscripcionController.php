@@ -37,22 +37,22 @@ class InscripcionController extends Controller
     }
 
     /**
-     * Lists all Gruposanguineo models.
+     * Lista de todos los modelos de inscripcion
      * @return mixed
      */
     public function actionIndex()
     {
-
+        //se instancia una variable por cada modelo a utilizar
         $persona = new \app\models\Persona(); //Instanciamos una variable
         $usuario = new \app\models\Usuario(); //Instanciamos una variable
         $personaDireccion = new \app\models\Personadireccion(); //Instanciamos una variable
         $fichaMedica = new \app\models\Fichamedica(); //Instanciamos una variable
-        $datosEmergencia = new \app\models\Personaemergencia();
+        $datosEmergencia = new \app\models\Personaemergencia();//Instanciamos una variable
         $localidad = new \app\models\Localidad(); //Instanciamos una variable
         $provincia = new \app\models\Provincia(); //Instanciamos una variable
         $provinciaLista = ArrayHelper::map(\app\models\Provincia::find()->all(),'idProvincia','nombreProvincia'); //Lista de las provincias
 
-        
+        //permite renderizar el index con todos los modelos necesarios para las demás acciones
         return $this->render('index',[
             'persona'=>$persona,
             'usuario'=>$usuario,
@@ -66,7 +66,10 @@ class InscripcionController extends Controller
             ]);
     }
 
-
+    /**
+     * Lista del modelo de Contacto emergencia.
+     * @return mixed
+     */
     public function actionContactoemergencia()
     {
         $model = new \app\models\Personaemergencia(); //Instanciamos una variable
@@ -76,7 +79,10 @@ class InscripcionController extends Controller
         ]);
     }
     
-    
+    /**
+     * Lista del modelo de Datos de contacto.
+     * @return mixed
+     */
     public function actionDatoscontacto()
     {
         $personaDireccion = new \app\models\Personadireccion(); //Instanciamos una variable
@@ -88,7 +94,10 @@ class InscripcionController extends Controller
         ]);
     }
     
-    
+    /**
+     * Lista del modelo de Datos Medicos.
+     * @return mixed
+     */
     public function actionDatosmedicos()
     {
 
@@ -99,7 +108,10 @@ class InscripcionController extends Controller
         ]);
     }
     
-    
+    /**
+     * Lista del modelo de Datos Personales.
+     * @return mixed
+     */
     public function actionDatospersonales()
     {
 
@@ -112,7 +124,10 @@ class InscripcionController extends Controller
         ]);
     }
 
-
+    /**
+     * Lista del modelo de Encuesta.
+     * @return mixed
+     */
     public function actionEncuesta()
     {
 
@@ -123,6 +138,9 @@ class InscripcionController extends Controller
         ]);
     }
 
+    /**
+     * Guarda los datos del formulario en sus correspondientes tablas de la base de datos
+     */
     public function actionStore(){
         print_r(Yii::$app->request->post());
 

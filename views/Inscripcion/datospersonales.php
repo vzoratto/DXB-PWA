@@ -11,7 +11,7 @@ use kartik\date\DatePicker;
 
 <div class="persona-form">
 
-
+<!-- vista del tab datos personales del formulario-->
 <div class="datosPersonales" >
     <div id="cuilUsuario">
         <?= $form->field($usuario, 'cuilUsuario')->textInput() ?>
@@ -26,21 +26,23 @@ use kartik\date\DatePicker;
     </div>
 
     <div id="fechaNacPersona">
+    <!-- utilizacion de un widget de kartik llamado DatePicker, permite escoger 
+    una fecha desde un calendario permitiendo tambien seleccionar años o meses 
+    con una mayor facilidad --> 
         <label>Fecha de Nacimiento</label>
         <?= DatePicker::widget([
             'name' => 'dp_2',
             'type' => DatePicker::TYPE_COMPONENT_PREPEND,
-            'options' => ['placeholder' => 'Seleccione su fecha de nacimiento'],
-            'language' => 'es',
+            'options' => ['placeholder' => 'Seleccione su fecha de nacimiento'],//Contenido que se mostrará dentro del input
+            'language' => 'es',//definicion del lenguaje del widget
             'pluginOptions' => [
                 'autoclose'=>true,
-                'format' => 'dd-M-yyyy',
+                'format' => 'dd-M-yyyy',//definicion del formato de fecha 
             ]
         ])?>
     </div>
 
     <div id="idSexoPersona">
-    <!-- campo tipo select tambien llamado dropDownList, se carga con los datos de la base especificamente de la tabla Busquedas-->
         <?= $form->field($persona, 'idSexoPersona')->dropDownList(
                 \yii\helpers\ArrayHelper::map(\app\models\Sexo::find()->all(),'idSexo','descripcionSexo'),
                 ['prompt'=>'Seleccione su sexo...']
