@@ -15,35 +15,40 @@ use yii\helpers\Url;
 
 <!-- vista del tab datos de contacto del formulario-->
 <div class="datosContacto" >
+    <div class="row">
 
-    <div id="telefonoPersona">
-        <?= $form->field($persona, 'telefonoPersona')->textInput(['maxlength' => true])->label('Telefono') ?>
+        <div id="telefonoPersona" class="col-md-4">
+            <?= $form->field($persona, 'telefonoPersona')->textInput(['maxlength' => true])->label('Telefono') ?>
+        </div>
+
+        <div id="mailPersona" class="col-md-6">
+            <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true, 'type' => 'email'])->label('E-mail') ?>
+        </div>
+
     </div>
 
-    <div id="mailPersona">
-        <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true])->label('E-mail') ?>
-    </div>
+    <div class="row">
+        <div id="nombreProvincia" class="col-md-4">
+            <?= $form->field($provincia, 'idProvincia')->widget(Select2::classname(), [
+                'data' => $provinciaLista,
+                'id'=>'idProvincia',
+                'options' => [
+                    'placeholder' => 'Seleccione una provincia...',
+                    'id'=>'idProvincia']
+                ])->label('Provincia'); ?>
+        </div>
 
-    <div id="idProvincia">
-        <?= $form->field($provincia, 'nombreProvincia')->widget(Select2::classname(), [
-            'data' => $provinciaLista,
-            'id'=>'idProvincia',
-            'options' => [
-                'placeholder' => 'Seleccione una provincia...',
-                'id'=>'idProvincia']
-            ])->label('Provincia'); ?>
-    </div>
-
-    <div id="idLocalidad">
-        <?= $form->field($localidad, 'nombreLocalidad')->widget(DepDrop::classname(), [
-                'type' => DepDrop::TYPE_SELECT2,
-                'pluginOptions'=>[
-                    'placeholder' => 'Seleccione una localidad...',
-                    'depends'=>['idProvincia'],
-                    'url'=>Url::to(['localidad/localidades']),
-                    'loadingText' => 'Cargando clientes...']
-        ])->label('Localidad');
-        ?>
+        <div id="idLocalidad" class="col-md-4">
+            <?= $form->field($localidad, 'idLocalidad')->widget(DepDrop::classname(), [
+                    'type' => DepDrop::TYPE_SELECT2,
+                    'pluginOptions'=>[
+                        'placeholder' => 'Seleccione una localidad...',
+                        'depends'=>['idProvincia'],
+                        'url'=>Url::to(['localidad/localidades']),
+                        'loadingText' => 'Cargando clientes...']
+            ])->label('Localidad');
+            ?>
+        </div>
     </div>
     
     <div id="direccionUsuario">

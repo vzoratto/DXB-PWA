@@ -48,6 +48,8 @@ $this->params['breadcrumbs'][] = $this->title;
     'clientOptions' => ['collapsible' => false],
 ]);
      ActiveForm::end();
+     
 
 ?>
+
 </div>

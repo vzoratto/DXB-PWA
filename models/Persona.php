@@ -52,6 +52,7 @@ class Persona extends \yii\db\ActiveRecord
             [['fechaNacPersona', 'fechaInscPersona'], 'safe'],
             [['idSexoPersona', 'idUsuario', 'mailPersonaValidado', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idEstadoPago', 'deshabilitado'], 'integer'],
             [['mailPersona', 'idUsuario'], 'required'],
+            ['mailPersona','email'],
             [['nombrePersona', 'apellidoPersona', 'nacionalidadPersona', 'mailPersona'], 'string', 'max' => 64],
             [['telefonoPersona'], 'string', 'max' => 32],
             [['codigoValidacionMail', 'codigoRecuperarCuenta'], 'string', 'max' => 16],
