@@ -142,9 +142,59 @@ class InscripcionController extends Controller
      * Guarda los datos del formulario en sus correspondientes tablas de la base de datos
      */
     public function actionStore(){
-        print_r(Yii::$app->request->post());
 
+
+        //MODELO PERSONA
+        $modeloPersona=Yii::$app->request->post()['Persona'];
+        $nombrePersona=$modeloPersona['nombrePersona'];
+        $apellidoPersona=$modeloPersona['apellidoPersona'];
+        $idSexoPersona=$modeloPersona['idSexoPersona'];
+        $nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
+        $telefonoPersona=$modeloPersona['telefonoPersona'];
+        $mailPersona=$modeloPersona['mailPersona'];
+
+        //MODELO USUARIO
+        $modeloUsuario=Yii::$app->request->post()['Usuario'];
+        $cuilUsuario=$modeloUsuario['cuilUsuario'];
+
+
+        //MODELO FICHA MEDICA
+        $modeloFichaMedica=Yii::$app->request->post()['Fichamedica'];
+        $obraSocial=$modeloFichaMedica['obraSocial'];
+        $peso=$modeloFichaMedica['peso'];
+        $altura=$modeloFichaMedica['altura'];
+        $frecuenciaCardiaca=$modeloFichaMedica['frecuenciaCardiaca'];
+        $idGrupoSanguineo=$modeloFichaMedica['idGrupoSanguineo'];
+        $evaluacionMedica=$modeloFichaMedica['evaluacionMedica'];
+        $intervencionQuirurgica=$modeloFichaMedica['intervencionQuirurgica'];
+        $tomaMedicamentos=$modeloFichaMedica['tomaMedicamentos'];
+        $suplementos=$modeloFichaMedica['suplementos'];
+        $observaciones=$modeloFichaMedica['observaciones'];
+
+        //MODELO PERSONAEMERGENCIA
+        $modeloPersonaemergencia=Yii::$app->request->post()['Personaemergencia'];
+        $nombrePersonaEmergencia=$modeloPersonaemergencia['nombrePersonaEmergencia'];
+        $apellidoPersonaEmergencia=$modeloPersonaemergencia['apellidoPersonaEmergencia'];
+        $telefonoPersonaEmergencia=$modeloPersonaemergencia['telefonoPersonaEmergencia'];
+        $idVinculoPersonaEmergencia=$modeloPersonaemergencia['idVinculoPersonaEmergencia'];
+
+
+        print_r(Yii::$app->request->post());
         die();
+
+
+        $transaction = Persona::getDb()->beginTransaction();
+        try {
+            //$nombrePersona=
+
+            // ...otras operaciones BD ...
+            $transaction->commit();
+        } catch(\Exception $e) {
+            $transaction->rollBack();
+            throw $e;
+        }
+
+
     }
     
 }
