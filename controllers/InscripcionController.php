@@ -223,7 +223,7 @@ class InscripcionController extends Controller
             $estadoPagoPersona->idPersona=$persona->getPrimaryKey();
             $estadoPagoPersona->fechaPago=$fechaActual;
             $estadoPagoPersona->save();
-.
+
             $transaction->commit();
             $guardado=true;
 
