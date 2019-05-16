@@ -51,10 +51,10 @@ class Persona extends \yii\db\ActiveRecord
         return [
             [['fechaNacPersona', 'fechaInscPersona'], 'safe'],
             [['idSexoPersona', 'idUsuario', 'mailPersonaValidado', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idEstadoPago', 'deshabilitado'], 'integer'],
-            [['mailPersona', 'idUsuario'], 'required'],
+            [['mailPersona', 'idUsuario'], 'required','message' => 'El e-mail es obligatorio'],
             ['mailPersona','email'],
             [['nombrePersona', 'apellidoPersona', 'nacionalidadPersona', 'mailPersona'], 'string', 'max' => 64],
-            [['telefonoPersona'], 'string', 'max' => 32],
+            [['telefonoPersona'], 'number'],
             [['codigoValidacionMail', 'codigoRecuperarCuenta'], 'string', 'max' => 16],
             [['idUsuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['idUsuario' => 'idUsuario']],
             [['idPersonaEmergencia'], 'exist', 'skipOnError' => true, 'targetClass' => Personaemergencia::className(), 'targetAttribute' => ['idPersonaEmergencia' => 'idPersonaEmergencia']],
