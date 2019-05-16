@@ -8,7 +8,7 @@ $this->title = 'My Yii Application';
 
     <div class="jumbotron">
         <?php
-        $guardado=$_REQUEST['guardado'];
+        $guardado=(isset($_REQUEST['guardado']) ? $_REQUEST['guardado']: null );
         if(isset($guardado)) {
             if ($guardado==1) {
                 ?>
