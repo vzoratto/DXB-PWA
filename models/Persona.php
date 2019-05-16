@@ -23,15 +23,19 @@ use Yii;
  * @property int $idFichaMedica
  * @property string $fechaInscPersona
  * @property int $idPersonaEmergencia
- * @property int $idEstadoPago
+ * @property int $idResultado
+ * @property int $idEncuesta
  * @property int $deshabilitado
  *
+ * @property Estadopagopersona[] $estadopagopersonas
+ * @property Estadopago[] $estadoPagos
  * @property Usuario $usuario
  * @property Personaemergencia $personaEmergencia
  * @property Personadireccion $personaDireccion
  * @property Fichamedica $fichaMedica
  * @property Sexo $sexoPersona
- * @property Estadopago $estadoPago
+ * @property Encuesta $encuesta
+ * @property Resultado $resultado
  */
 class Persona extends \yii\db\ActiveRecord
 {
@@ -50,9 +54,8 @@ class Persona extends \yii\db\ActiveRecord
     {
         return [
             [['fechaNacPersona', 'fechaInscPersona'], 'safe'],
-            [['idSexoPersona', 'idUsuario', 'mailPersonaValidado', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idEstadoPago', 'deshabilitado'], 'integer'],
+            [['idSexoPersona', 'idUsuario', 'mailPersonaValidado', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'idEncuesta', 'deshabilitado'], 'integer'],
             [['mailPersona', 'idUsuario'], 'required'],
-            ['mailPersona','email'],
             [['nombrePersona', 'apellidoPersona', 'nacionalidadPersona', 'mailPersona'], 'string', 'max' => 64],
             [['telefonoPersona'], 'string', 'max' => 32],
             [['codigoValidacionMail', 'codigoRecuperarCuenta'], 'string', 'max' => 16],
@@ -61,7 +64,8 @@ class Persona extends \yii\db\ActiveRecord
             [['idPersonaDireccion'], 'exist', 'skipOnError' => true, 'targetClass' => Personadireccion::className(), 'targetAttribute' => ['idPersonaDireccion' => 'idPersonaDireccion']],
             [['idFichaMedica'], 'exist', 'skipOnError' => true, 'targetClass' => Fichamedica::className(), 'targetAttribute' => ['idFichaMedica' => 'idFichaMedica']],
             [['idSexoPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Sexo::className(), 'targetAttribute' => ['idSexoPersona' => 'idSexo']],
-            [['idEstadoPago'], 'exist', 'skipOnError' => true, 'targetClass' => Estadopago::className(), 'targetAttribute' => ['idEstadoPago' => 'idEstadoPago']],
+            [['idEncuesta'], 'exist', 'skipOnError' => true, 'targetClass' => Encuesta::className(), 'targetAttribute' => ['idEncuesta' => 'idEncuesta']],
+            [['idResultado'], 'exist', 'skipOnError' => true, 'targetClass' => Resultado::className(), 'targetAttribute' => ['idResultado' => 'idResultado']],
         ];
     }
 
@@ -87,9 +91,26 @@ class Persona extends \yii\db\ActiveRecord
             'idFichaMedica' => 'Id Ficha Medica',
             'fechaInscPersona' => 'Fecha Insc Persona',
             'idPersonaEmergencia' => 'Id Persona Emergencia',
-            'idEstadoPago' => 'Id Estado Pago',
+            'idResultado' => 'Id Resultado',
+            'idEncuesta' => 'Id Encuesta',
             'deshabilitado' => 'Deshabilitado',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEstadopagopersonas()
+    {
+        return $this->hasMany(Estadopagopersona::className(), ['idPersona' => 'idPersona']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEstadoPagos()
+    {
+        return $this->hasMany(Estadopago::className(), ['idEstadoPago' => 'idEstadoPago'])->viaTable('estadopagopersona', ['idPersona' => 'idPersona']);
     }
 
     /**
@@ -135,8 +156,18 @@ class Persona extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEstadoPago()
+    public function getEncuesta()
     {
-        return $this->hasOne(Estadopago::className(), ['idEstadoPago' => 'idEstadoPago']);
+        return $this->hasOne(Encuesta::className(), ['idEncuesta' => 'idEncuesta']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResultado()
+    {
+        return $this->hasOne(Resultado::className(), ['idResultado' => 'idResultado']);
+    }
+
+
 }

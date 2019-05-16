@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Estadopagopersona;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -144,17 +145,20 @@ class InscripcionController extends Controller
      * Guarda los datos del formulario en sus correspondientes tablas de la base de datos
      */
     public function actionStore(){
-        $transaction = Usuario::getDb()->beginTransaction();
+
+        $guardado=false;
+        $transaction = Persona::getDb()->beginTransaction();
         try {
             //MODELO USUARIO
             $modeloUsuario=Yii::$app->request->post()['Usuario'];
             $usuario=new Usuario();
+            $usuario->idUsuario=null;
             $usuario->cuilUsuario=$modeloUsuario['cuilUsuario'];
-            $hash = Yii::$app->getSecurity()->generatePasswordHash($modeloUsuario['cuilUsuario']);
-            $usuario->claveUsuario=$hash;
+            //$hash = Yii::$app->getSecurity()->generatePasswordHash($modeloUsuario['cuilUsuario']);
+            $usuario->claveUsuario=$modeloUsuario['cuilUsuario'];
             $usuario->idRol=1;
             $usuario->save();
-            $idUsuario=$usuario->idUsuario();
+            $idUsuario=$usuario->getPrimaryKey();
 
             //MODELO LOCALIDAD
             $modeloLocalidad=Yii::$app->request->post()['Localidad'];
@@ -164,6 +168,7 @@ class InscripcionController extends Controller
             $personaDireccion->idLocalidad=$modeloLocalidad['idLocalidad'];
             $personaDireccion->direccionUsuario=$modeloPersonaDireccion['direccionUsuario'];
             $personaDireccion->save();
+
             //MODELO FICHA MEDICA
             $modeloFichaMedica=Yii::$app->request->post()['Fichamedica'];
             $fichaMedica=new Fichamedica();
@@ -176,8 +181,9 @@ class InscripcionController extends Controller
             $fichaMedica->intervencionQuirurgica=$modeloFichaMedica['intervencionQuirurgica'];
             $fichaMedica->tomaMedicamentos=$modeloFichaMedica['tomaMedicamentos'];
             $fichaMedica->suplementos=$modeloFichaMedica['suplementos'];
-            $fichaMedica->suplementos=$modeloFichaMedica['observaciones'];
+            $fichaMedica->observaciones=$modeloFichaMedica['observaciones'];
             $fichaMedica->save();
+
 
             //MODELO PERSONAEMERGENCIA
             $modeloPersonaemergencia=Yii::$app->request->post()['Personaemergencia'];
@@ -186,6 +192,7 @@ class InscripcionController extends Controller
             $personaEmergencia->apellidoPersonaEmergencia=$modeloPersonaemergencia['apellidoPersonaEmergencia'];
             $personaEmergencia->telefonoPersonaEmergencia=$modeloPersonaemergencia['telefonoPersonaEmergencia'];
             $personaEmergencia->idVinculoPersonaEmergencia=$modeloPersonaemergencia['idVinculoPersonaEmergencia'];
+            $personaEmergencia->save();
 
             $fecha=new \DateTime();
             $fechaActual=$fecha->format('Y-m-d H:i:sP');
@@ -196,6 +203,7 @@ class InscripcionController extends Controller
             $persona->nombrePersona=$modeloPersona['nombrePersona'];
             $persona->apellidoPersona=$modeloPersona['apellidoPersona'];
             $persona->fechaNacPersona=Yii::$app->request->post()['dp_2'];
+            $persona->idSexoPersona=$modeloPersona['idSexoPersona'];
             $persona->nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
             $persona->telefonoPersona=$modeloPersona['telefonoPersona'];
             $persona->mailPersona=$modeloPersona['mailPersona'];
@@ -204,15 +212,31 @@ class InscripcionController extends Controller
             $persona->idFichaMedica=$fichaMedica->idFichaMedica;
             $persona->fechaInscPersona=$fechaActual;
             $persona->idPersonaEmergencia=$personaEmergencia->idPersonaEmergencia;
+            //$persona->estadoPago=null;
+
             $persona->save();
 
-            // ...otras operaciones BD ...
+
+            //ESTADO PAGO
+            $estadoPagoPersona=new Estadopagopersona();
+            $estadoPagoPersona->idEstadoPago=1;
+            $estadoPagoPersona->idPersona=$persona->getPrimaryKey();
+            $estadoPagoPersona->fechaPago=$fechaActual;
+            $estadoPagoPersona->save();
+.
             $transaction->commit();
-            echo 'guardado';
+            $guardado=true;
+
         } catch(\Exception $e) {
+            $guardado=false;
+
             $transaction->rollBack();
             throw $e;
         }
+
+
+            return Yii::$app->response->redirect(['site/index','guardado'=>$guardado])->send();
+
 
 
     }

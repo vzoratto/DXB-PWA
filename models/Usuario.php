@@ -32,6 +32,7 @@ class Usuario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+
             [['cuilUsuario', 'claveUsuario', 'idRol'], 'required'],
             [['cuilUsuario', 'idRol'], 'integer'],
             [['claveUsuario'], 'string', 'max' => 32],

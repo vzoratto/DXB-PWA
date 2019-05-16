@@ -35,7 +35,7 @@ class Estadopagopersona extends \yii\db\ActiveRecord
             [['fechaPago'], 'safe'],
             [['idEstadoPago', 'idPersona'], 'unique', 'targetAttribute' => ['idEstadoPago', 'idPersona']],
             [['idEstadoPago'], 'exist', 'skipOnError' => true, 'targetClass' => Estadopago::className(), 'targetAttribute' => ['idEstadoPago' => 'idEstadoPago']],
-            [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
+           [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
         ];
     }
 
@@ -62,7 +62,7 @@ class Estadopagopersona extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPersona()
+   public function getPersona()
     {
         return $this->hasOne(Persona::className(), ['idPersona' => 'idPersona']);
     }

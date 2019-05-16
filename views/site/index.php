@@ -7,6 +7,25 @@ $this->title = 'My Yii Application';
 <div class="site-index">
 
     <div class="jumbotron">
+        <?php
+        $guardado=$_REQUEST['guardado'];
+        if(isset($guardado)) {
+            if ($guardado==1) {
+                ?>
+                <div class="alert alert-success">
+                    <p>Se inscribio correctamente</p>
+                </div>
+                <?php
+            } else {
+                ?>
+                <div class="alert alert-danger">
+                    <p>hubo un error</p>
+                </div>
+                <?php
+            }
+        }
+
+        ?>
         <h1>Congratulations!</h1>
 
         <p class="lead">You have successfully created your Yii-powered application.</p>
