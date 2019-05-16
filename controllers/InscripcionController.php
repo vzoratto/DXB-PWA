@@ -52,6 +52,8 @@ class InscripcionController extends Controller
         $provincia = new \app\models\Provincia(); //Instanciamos una variable
         $provinciaLista = ArrayHelper::map(\app\models\Provincia::find()->all(),'idProvincia','nombreProvincia'); //Lista de las provincias
 
+
+
         //permite renderizar el index con todos los modelos necesarios para las demás acciones
         return $this->render('index',[
             'persona'=>$persona,
