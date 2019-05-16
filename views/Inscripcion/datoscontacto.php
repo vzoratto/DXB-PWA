@@ -22,12 +22,17 @@ use yii\helpers\Url;
         </div>
 
         <div id="mailPersona" class="col-md-6">
-            <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true, 'type' => 'email'])->label('E-mail') ?>
+            <?= $form->field($persona, 'mailPersona')->input('email')->label('E-mail') ?>
         </div>
 
     </div>
-
+    
     <div class="row">
+        <div class="col-md-12">
+            <hr>
+            <label>Direccion</label>
+            <br>
+        </div>
         <div id="nombreProvincia" class="col-md-4">
             <?= $form->field($provincia, 'idProvincia')->widget(Select2::classname(), [
                 'data' => $provinciaLista,
@@ -35,7 +40,7 @@ use yii\helpers\Url;
                 'options' => [
                     'placeholder' => 'Seleccione una provincia...',
                     'id'=>'idProvincia']
-                ])->label('Provincia'); ?>
+                ])->label('Provincia:'); ?>
         </div>
 
         <div id="idLocalidad" class="col-md-4">
@@ -46,13 +51,23 @@ use yii\helpers\Url;
                         'depends'=>['idProvincia'],
                         'url'=>Url::to(['localidad/localidades']),
                         'loadingText' => 'Cargando clientes...']
-            ])->label('Localidad');
+            ])->label('Localidad:');
             ?>
         </div>
     </div>
     
     <div id="direccionUsuario">
-        <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Direccion') ?>
+        <div class="row">
+            <div class="col-md-4">
+                <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Direccion')->label('Calle:') ?>
+            </div>
+            <div class="col-md-1">
+                <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Direccion')->label('N°:') ?>
+            </div>
+            <div class="col-md-1">
+                <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Direccion')->label('Depto:') ?>
+            </div>
+        </div>
     </div>
 
 </div>

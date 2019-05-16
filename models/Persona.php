@@ -53,11 +53,9 @@ class Persona extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fechaNacPersona', 'fechaInscPersona'], 'safe'],
-            [['idSexoPersona', 'idUsuario', 'mailPersonaValidado', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'idEncuesta', 'deshabilitado'], 'integer'],
-            [['mailPersona', 'idUsuario'], 'required'],
+
             [['nombrePersona', 'apellidoPersona', 'nacionalidadPersona', 'mailPersona'], 'string', 'max' => 64],
-            [['telefonoPersona'], 'string', 'max' => 32],
+            [['telefonoPersona'], 'number'],
             [['codigoValidacionMail', 'codigoRecuperarCuenta'], 'string', 'max' => 16],
             [['idUsuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['idUsuario' => 'idUsuario']],
             [['idPersonaEmergencia'], 'exist', 'skipOnError' => true, 'targetClass' => Personaemergencia::className(), 'targetAttribute' => ['idPersonaEmergencia' => 'idPersonaEmergencia']],
