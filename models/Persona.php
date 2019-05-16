@@ -53,7 +53,6 @@ class Persona extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-
             [['nombrePersona', 'apellidoPersona', 'nacionalidadPersona', 'mailPersona'], 'string', 'max' => 64],
             [['telefonoPersona'], 'number'],
             [['codigoValidacionMail', 'codigoRecuperarCuenta'], 'string', 'max' => 16],
