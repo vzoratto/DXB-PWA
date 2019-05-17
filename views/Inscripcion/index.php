@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         [
             'label' => 'Datos medicos',
-            'content' => $this->render('datosmedicos',['fichaMedica'=>$fichaMedica,'form'=>$form]),
+            'content' => $this->render('datosmedicos',['persona'=>$persona,'fichaMedica'=>$fichaMedica,'form'=>$form]),
         ],
         [
             'label' => 'Contacto de emergencia',

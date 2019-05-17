@@ -17,23 +17,19 @@ use yii\helpers\Url;
 <div class="datosContacto" >
     <div class="row">
 
-        <div id="telefonoPersona" class="col-md-4">
+        <div id="telefonoPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
             <?= $form->field($persona, 'telefonoPersona')->textInput(['maxlength' => true])->label('Telefono') ?>
         </div>
 
-        <div id="mailPersona" class="col-md-6">
+        <div id="mailPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
             <?= $form->field($persona, 'mailPersona')->input('email')->label('E-mail') ?>
         </div>
 
     </div>
     
     <div class="row">
-        <div class="col-md-12">
-            <hr>
-            <label>Direccion</label>
-            <br>
-        </div>
-        <div id="nombreProvincia" class="col-md-4">
+            
+        <div id="nombreProvincia" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
             <?= $form->field($provincia, 'idProvincia')->widget(Select2::classname(), [
                 'data' => $provinciaLista,
                 'id'=>'idProvincia',
@@ -43,7 +39,7 @@ use yii\helpers\Url;
                 ])->label('Provincia:'); ?>
         </div>
 
-        <div id="idLocalidad" class="col-md-4">
+        <div id="idLocalidad" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
             <?= $form->field($localidad, 'idLocalidad')->widget(DepDrop::classname(), [
                     'type' => DepDrop::TYPE_SELECT2,
                     'pluginOptions'=>[
@@ -58,13 +54,16 @@ use yii\helpers\Url;
     
     <div id="direccionUsuario">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
                 <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Direccion')->label('Calle:') ?>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
                 <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Direccion')->label('N°:') ?>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Direccion')->label('Piso:') ?>
+            </div>
+            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
                 <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Direccion')->label('Depto:') ?>
             </div>
         </div>

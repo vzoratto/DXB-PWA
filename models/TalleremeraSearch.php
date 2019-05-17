@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Usuario;
+use app\models\Talleremera;
 
 /**
- * UsuarioSearch represents the model behind the search form of `app\models\Usuario`.
+ * TalleremeraSearch represents the model behind the search form of `app\models\Talleremera`.
  */
-class UsuarioSearch extends Usuario
+class TalleremeraSearch extends Talleremera
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class UsuarioSearch extends Usuario
     public function rules()
     {
         return [
-            [['idUsuario', 'dniUsuario', 'idRol'], 'integer'],
-            [['claveUsuario', 'mailUsuario'], 'safe'],
+            [['idTalleRemera', 'deshabilitado'], 'integer'],
+            [['talleRemera'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class UsuarioSearch extends Usuario
      */
     public function search($params)
     {
-        $query = Usuario::find();
+        $query = Talleremera::find();
 
         // add conditions that should always apply here
 
@@ -58,13 +58,11 @@ class UsuarioSearch extends Usuario
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idUsuario' => $this->idUsuario,
-            'dniUsuario' => $this->dniUsuario,
-            'idRol' => $this->idRol,
+            'idTalleRemera' => $this->idTalleRemera,
+            'deshabilitado' => $this->deshabilitado,
         ]);
 
-        $query->andFilterWhere(['like', 'claveUsuario', $this->claveUsuario])
-            ->andFilterWhere(['like', 'mailUsuario', $this->mailUsuario]);
+        $query->andFilterWhere(['like', 'talleRemera', $this->talleRemera]);
 
         return $dataProvider;
     }

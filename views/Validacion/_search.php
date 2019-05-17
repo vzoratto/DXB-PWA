@@ -4,26 +4,26 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\UsuarioSearch */
+/* @var $model app\models\ValidacionSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="usuario-search">
+<div class="validacion-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
+    <?= $form->field($model, 'idValidacion') ?>
+
     <?= $form->field($model, 'idUsuario') ?>
 
-    <?= $form->field($model, 'dniUsuario') ?>
+    <?= $form->field($model, 'mailUsuarioValidado') ?>
 
-    <?= $form->field($model, 'claveUsuario') ?>
+    <?= $form->field($model, 'codigoValidacionMail') ?>
 
-    <?= $form->field($model, 'mailUsuario') ?>
-
-    <?= $form->field($model, 'idRol') ?>
+    <?= $form->field($model, 'codigoRecuperarCuenta') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

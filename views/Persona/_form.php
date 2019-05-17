@@ -12,13 +12,17 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'idTalleRemera')->textInput() ?>
+
+    <?= $form->field($model, 'dniCapitan')->textInput() ?>
+
     <?= $form->field($model, 'nombrePersona')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'apellidoPersona')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'fechaNacPersona')->textInput() ?>
 
-    <?= $form->field($model, 'idSexoPersona')->textInput() ?>
+    <?= $form->field($model, 'sexoPersona')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'nacionalidadPersona')->textInput(['maxlength' => true]) ?>
 
@@ -28,12 +32,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idUsuario')->textInput() ?>
 
-    <?= $form->field($model, 'mailPersonaValidado')->textInput() ?>
-
-    <?= $form->field($model, 'codigoValidacionMail')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'codigoRecuperarCuenta')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'idPersonaDireccion')->textInput() ?>
 
     <?= $form->field($model, 'idFichaMedica')->textInput() ?>
@@ -42,7 +40,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idPersonaEmergencia')->textInput() ?>
 
-    <?= $form->field($model, 'idEstadoPago')->textInput() ?>
+    <?= $form->field($model, 'idResultado')->textInput() ?>
+
+    <?= $form->field($model, 'donador')->textInput() ?>
 
     <?= $form->field($model, 'deshabilitado')->textInput() ?>
 
