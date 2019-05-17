@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Usuario;
+use app\models\Parametros;
 
 /**
- * UsuarioSearch represents the model behind the search form of `app\models\Usuario`.
+ * ParametrosSearch represents the model behind the search form of `app\models\Parametros`.
  */
-class UsuarioSearch extends Usuario
+class ParametrosSearch extends Parametros
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,7 @@ class UsuarioSearch extends Usuario
     public function rules()
     {
         return [
-            [['idUsuario', 'dniUsuario', 'idRol'], 'integer'],
-            [['claveUsuario', 'mailUsuario'], 'safe'],
+            [['idParametros', 'cantidadCorredores'], 'integer'],
         ];
     }
 
@@ -40,7 +39,7 @@ class UsuarioSearch extends Usuario
      */
     public function search($params)
     {
-        $query = Usuario::find();
+        $query = Parametros::find();
 
         // add conditions that should always apply here
 
@@ -58,13 +57,9 @@ class UsuarioSearch extends Usuario
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idUsuario' => $this->idUsuario,
-            'dniUsuario' => $this->dniUsuario,
-            'idRol' => $this->idRol,
+            'idParametros' => $this->idParametros,
+            'cantidadCorredores' => $this->cantidadCorredores,
         ]);
-
-        $query->andFilterWhere(['like', 'claveUsuario', $this->claveUsuario])
-            ->andFilterWhere(['like', 'mailUsuario', $this->mailUsuario]);
 
         return $dataProvider;
     }

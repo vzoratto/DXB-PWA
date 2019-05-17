@@ -17,8 +17,8 @@ class PersonaSearch extends Persona
     public function rules()
     {
         return [
-            [['idPersona', 'idSexoPersona', 'idUsuario', 'mailPersonaValidado', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idEstadoPago', 'deshabilitado'], 'integer'],
-            [['nombrePersona', 'apellidoPersona', 'fechaNacPersona', 'nacionalidadPersona', 'telefonoPersona', 'mailPersona', 'codigoValidacionMail', 'codigoRecuperarCuenta', 'fechaInscPersona'], 'safe'],
+            [['idPersona', 'idTalleRemera', 'dniCapitan', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'donador', 'deshabilitado'], 'integer'],
+            [['nombrePersona', 'apellidoPersona', 'fechaNacPersona', 'sexoPersona', 'nacionalidadPersona', 'telefonoPersona', 'mailPersona', 'fechaInscPersona'], 'safe'],
         ];
     }
 
@@ -59,25 +59,25 @@ class PersonaSearch extends Persona
         // grid filtering conditions
         $query->andFilterWhere([
             'idPersona' => $this->idPersona,
+            'idTalleRemera' => $this->idTalleRemera,
+            'dniCapitan' => $this->dniCapitan,
             'fechaNacPersona' => $this->fechaNacPersona,
-            'idSexoPersona' => $this->idSexoPersona,
             'idUsuario' => $this->idUsuario,
-            'mailPersonaValidado' => $this->mailPersonaValidado,
             'idPersonaDireccion' => $this->idPersonaDireccion,
             'idFichaMedica' => $this->idFichaMedica,
             'fechaInscPersona' => $this->fechaInscPersona,
             'idPersonaEmergencia' => $this->idPersonaEmergencia,
-            'idEstadoPago' => $this->idEstadoPago,
+            'idResultado' => $this->idResultado,
+            'donador' => $this->donador,
             'deshabilitado' => $this->deshabilitado,
         ]);
 
         $query->andFilterWhere(['like', 'nombrePersona', $this->nombrePersona])
             ->andFilterWhere(['like', 'apellidoPersona', $this->apellidoPersona])
+            ->andFilterWhere(['like', 'sexoPersona', $this->sexoPersona])
             ->andFilterWhere(['like', 'nacionalidadPersona', $this->nacionalidadPersona])
             ->andFilterWhere(['like', 'telefonoPersona', $this->telefonoPersona])
-            ->andFilterWhere(['like', 'mailPersona', $this->mailPersona])
-            ->andFilterWhere(['like', 'codigoValidacionMail', $this->codigoValidacionMail])
-            ->andFilterWhere(['like', 'codigoRecuperarCuenta', $this->codigoRecuperarCuenta]);
+            ->andFilterWhere(['like', 'mailPersona', $this->mailPersona]);
 
         return $dataProvider;
     }
