@@ -23144,7 +23144,6 @@ CREATE TABLE `persona` (
   `fechaInscPersona` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `idPersonaEmergencia` int(8) DEFAULT NULL,
   `idResultado` int(4) DEFAULT NULL,
-  `idEncuesta` int(4) DEFAULT NULL,
   `donador` tinyint(1) DEFAULT NULL,
   `deshabilitado` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -23260,6 +23259,7 @@ CREATE TABLE `usuario` (
   `idUsuario` int(8) NOT NULL,
   `dniUsuario` int(15) NOT NULL,
   `claveUsuario` varchar(100) NOT NULL,
+  `mailUsuario` varchar(100) NOT NULL,
   `idRol` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -23271,8 +23271,8 @@ CREATE TABLE `usuario` (
 
 CREATE TABLE `validacion` (
   `idValidacion` int(8) NOT NULL,
-  `idPersona` int(8) NOT NULL,
-  `mailPersonaValidado` tinyint(1) DEFAULT NULL,
+  `idUsuario` int(8) NOT NULL,
+  `mailUsuarioValidado` tinyint(1) DEFAULT NULL,
   `codigoValidacionMail` varchar(16) DEFAULT NULL,
   `codigoRecuperarCuenta` varchar(16) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -23363,7 +23363,6 @@ ALTER TABLE `persona`
   ADD KEY `idPersonaEmergencia` (`idPersonaEmergencia`),
   ADD KEY `idPersonaDireccion` (`idPersonaDireccion`),
   ADD KEY `idFichaMedica` (`idFichaMedica`),
-  ADD KEY `idEncuesta` (`idEncuesta`),
   ADD KEY `idTalleRemera` (`idTalleRemera`),
   ADD KEY `idResultado` (`idResultado`);
 
@@ -23417,7 +23416,7 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `validacion`
   ADD PRIMARY KEY (`idValidacion`),
-  ADD KEY `idPersona` (`idPersona`);
+  ADD KEY `idUsuario` (`idUsuario`);
 
 --
 -- Indices de la tabla `vinculopersona`
@@ -23562,9 +23561,8 @@ ALTER TABLE `persona`
   ADD CONSTRAINT `persona_ibfk_2` FOREIGN KEY (`idPersonaEmergencia`) REFERENCES `personaemergencia` (`idPersonaEmergencia`),
   ADD CONSTRAINT `persona_ibfk_3` FOREIGN KEY (`idPersonaDireccion`) REFERENCES `personadireccion` (`idPersonaDireccion`),
   ADD CONSTRAINT `persona_ibfk_4` FOREIGN KEY (`idFichaMedica`) REFERENCES `fichamedica` (`idFichaMedica`),
-  ADD CONSTRAINT `persona_ibfk_6` FOREIGN KEY (`idEncuesta`) REFERENCES `encuesta` (`idEncuesta`),
-  ADD CONSTRAINT `persona_ibfk_7` FOREIGN KEY (`idResultado`) REFERENCES `resultado` (`idResultado`),
-  ADD CONSTRAINT `persona_ibfk_8` FOREIGN KEY (`idTalleRemera`) REFERENCES `talleremera` (`idTalleRemera`);
+  ADD CONSTRAINT `persona_ibfk_5` FOREIGN KEY (`idResultado`) REFERENCES `resultado` (`idResultado`),
+  ADD CONSTRAINT `persona_ibfk_6` FOREIGN KEY (`idTalleRemera`) REFERENCES `talleremera` (`idTalleRemera`);
 
 --
 -- Filtros para la tabla `personadireccion`
@@ -23588,7 +23586,7 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `validacion`
 --
 ALTER TABLE `validacion`
-  ADD CONSTRAINT `validacion_ibfk_1` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPersona`);
+  ADD CONSTRAINT `validacion_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
