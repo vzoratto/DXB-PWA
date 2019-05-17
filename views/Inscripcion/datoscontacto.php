@@ -50,7 +50,7 @@ use yii\helpers\Url;
                         'placeholder' => 'Seleccione una localidad...',
                         'depends'=>['idProvincia'],
                         'url'=>Url::to(['localidad/localidades']),
-                        'loadingText' => 'Cargando clientes...']
+                        'loadingText' => 'Cargando localidades...']
             ])->label('Localidad:');
             ?>
         </div>
