@@ -13,45 +13,49 @@ use kartik\date\DatePicker;
 
 <!-- vista del tab datos personales del formulario-->
 <div class="datosPersonales" >
-    <div id="cuilUsuario">
-        <?= $form->field($usuario, 'cuilUsuario')->textInput() ?>
+    <div class="row">
+        <div id="dniUsuario" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+            <?= $form->field($usuario, 'dniUsuario')->textInput()->label('D.N.I') ?>
+        </div>
+        
+        <div id="nacionalidadPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+            <?= $form->field($persona, 'nacionalidadPersona')->textInput(['maxlength' => true])->label('Nacionalidad') ?>
+        </div>
     </div>
+    <div class="row">
+        <div id="nombrePersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+            <?= $form->field($persona, 'nombrePersona')->textInput(['maxlength' => true])->label('Nombre') ?>
+        </div>
 
-    <div id="nombrePersona">
-        <?= $form->field($persona, 'nombrePersona')->textInput(['maxlength' => true]) ?>
+        <div id="apellidoPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+            <?= $form->field($persona, 'apellidoPersona')->textInput(['maxlength' => true])->label('Apellido') ?>
+        </div>
     </div>
+    <div class="row">
+        <div id="fechaNacPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+        <!-- utilizacion de un widget de kartik llamado DatePicker, permite escoger 
+        una fecha desde un calendario permitiendo tambien seleccionar años o meses 
+        con una mayor facilidad --> 
+            <label>Fecha de Nacimiento</label>
+            <?= DatePicker::widget([
+                'name' => 'fechaNacPersona',
+                'type' => DatePicker::TYPE_COMPONENT_PREPEND,
+                'options' => ['placeholder' => 'Seleccione su fecha de nacimiento'],//Contenido que se mostrará dentro del input
+                'language' => 'es',//definicion del lenguaje del widget
+                'pluginOptions' => [
+                    'autoclose'=>true,
+                    'format' => 'yyyy-mm-dd',//definicion del formato de fecha 
+                ]
+            ])?>
+        </div>
 
-    <div id="apellidoPersona">
-        <?= $form->field($persona, 'apellidoPersona')->textInput(['maxlength' => true]) ?>
+        <div id="sexoPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+            <!-- campo tipo radioButton, con dos opciones: SI o NO --> 
+            <?= $form->field($persona, 'sexoPersona')->radioList(array('F'=>'Femenino','M'=>'Masculino'))
+                                                            ->label('Sexo'); ?>
+        </div>
     </div>
-
-    <div id="fechaNacPersona">
-    <!-- utilizacion de un widget de kartik llamado DatePicker, permite escoger 
-    una fecha desde un calendario permitiendo tambien seleccionar años o meses 
-    con una mayor facilidad --> 
-        <label>Fecha de Nacimiento</label>
-        <?= DatePicker::widget([
-            'name' => 'dp_2',
-            'type' => DatePicker::TYPE_COMPONENT_PREPEND,
-            'options' => ['placeholder' => 'Seleccione su fecha de nacimiento'],//Contenido que se mostrará dentro del input
-            'language' => 'es',//definicion del lenguaje del widget
-            'pluginOptions' => [
-                'autoclose'=>true,
-                'format' => 'dd-M-yyyy',//definicion del formato de fecha 
-            ]
-        ])?>
-    </div>
-
-    <div id="idSexoPersona">
-        <?= $form->field($persona, 'idSexoPersona')->dropDownList(
-                \yii\helpers\ArrayHelper::map(\app\models\Sexo::find()->all(),'idSexo','descripcionSexo'),
-                ['prompt'=>'Seleccione su sexo...']
-        )->label('Sexo'); ?>
-    </div>
-
-    <div id="nacionalidadPersona">
-        <?= $form->field($persona, 'nacionalidadPersona')->textInput(['maxlength' => true]) ?>
-    </div>
+    
 
 </div>
 

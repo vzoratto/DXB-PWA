@@ -17,13 +17,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idPersona') ?>
 
+    <?= $form->field($model, 'idTalleRemera') ?>
+
+    <?= $form->field($model, 'dniCapitan') ?>
+
     <?= $form->field($model, 'nombrePersona') ?>
 
     <?= $form->field($model, 'apellidoPersona') ?>
 
-    <?= $form->field($model, 'fechaNacPersona') ?>
+    <?php // echo $form->field($model, 'fechaNacPersona') ?>
 
-    <?= $form->field($model, 'idSexoPersona') ?>
+    <?php // echo $form->field($model, 'sexoPersona') ?>
 
     <?php // echo $form->field($model, 'nacionalidadPersona') ?>
 
@@ -33,12 +37,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'idUsuario') ?>
 
-    <?php // echo $form->field($model, 'mailPersonaValidado') ?>
-
-    <?php // echo $form->field($model, 'codigoValidacionMail') ?>
-
-    <?php // echo $form->field($model, 'codigoRecuperarCuenta') ?>
-
     <?php // echo $form->field($model, 'idPersonaDireccion') ?>
 
     <?php // echo $form->field($model, 'idFichaMedica') ?>
@@ -47,7 +45,9 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'idPersonaEmergencia') ?>
 
-    <?php // echo $form->field($model, 'idEstadoPago') ?>
+    <?php // echo $form->field($model, 'idResultado') ?>
+
+    <?php // echo $form->field($model, 'donador') ?>
 
     <?php // echo $form->field($model, 'deshabilitado') ?>
 

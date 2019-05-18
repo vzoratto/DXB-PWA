@@ -8,30 +8,32 @@ use Yii;
  * This is the model class for table "persona".
  *
  * @property int $idPersona
+ * @property int $idTalleRemera
+ * @property int $dniCapitan
  * @property string $nombrePersona
  * @property string $apellidoPersona
  * @property string $fechaNacPersona
- * @property int $idSexoPersona
+ * @property string $sexoPersona
  * @property string $nacionalidadPersona
  * @property string $telefonoPersona
  * @property string $mailPersona
  * @property int $idUsuario
- * @property int $mailPersonaValidado
- * @property string $codigoValidacionMail
- * @property string $codigoRecuperarCuenta
  * @property int $idPersonaDireccion
  * @property int $idFichaMedica
  * @property string $fechaInscPersona
  * @property int $idPersonaEmergencia
- * @property int $idEstadoPago
+ * @property int $idResultado
+ * @property int $donador
  * @property int $deshabilitado
  *
+ * @property Estadopagopersona[] $estadopagopersonas
+ * @property Estadopago[] $estadoPagos
  * @property Usuario $usuario
  * @property Personaemergencia $personaEmergencia
  * @property Personadireccion $personaDireccion
  * @property Fichamedica $fichaMedica
- * @property Sexo $sexoPersona
- * @property Estadopago $estadoPago
+ * @property Resultado $resultado
+ * @property Talleremera $talleRemera
  */
 class Persona extends \yii\db\ActiveRecord
 {
@@ -49,19 +51,18 @@ class Persona extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['idTalleRemera', 'dniCapitan', 'mailPersona', 'idUsuario'], 'required'],
+            [['idTalleRemera', 'dniCapitan', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'donador', 'deshabilitado'], 'integer'],
             [['fechaNacPersona', 'fechaInscPersona'], 'safe'],
-            [['idSexoPersona', 'idUsuario', 'mailPersonaValidado', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idEstadoPago', 'deshabilitado'], 'integer'],
-            [['mailPersona', 'idUsuario'], 'required','message' => 'El e-mail es obligatorio'],
-            ['mailPersona','email'],
             [['nombrePersona', 'apellidoPersona', 'nacionalidadPersona', 'mailPersona'], 'string', 'max' => 64],
-            [['telefonoPersona'], 'number'],
-            [['codigoValidacionMail', 'codigoRecuperarCuenta'], 'string', 'max' => 16],
+            [['sexoPersona'], 'string', 'max' => 1],
+            [['telefonoPersona'], 'string', 'max' => 32],
             [['idUsuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['idUsuario' => 'idUsuario']],
             [['idPersonaEmergencia'], 'exist', 'skipOnError' => true, 'targetClass' => Personaemergencia::className(), 'targetAttribute' => ['idPersonaEmergencia' => 'idPersonaEmergencia']],
             [['idPersonaDireccion'], 'exist', 'skipOnError' => true, 'targetClass' => Personadireccion::className(), 'targetAttribute' => ['idPersonaDireccion' => 'idPersonaDireccion']],
             [['idFichaMedica'], 'exist', 'skipOnError' => true, 'targetClass' => Fichamedica::className(), 'targetAttribute' => ['idFichaMedica' => 'idFichaMedica']],
-            [['idSexoPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Sexo::className(), 'targetAttribute' => ['idSexoPersona' => 'idSexo']],
-            [['idEstadoPago'], 'exist', 'skipOnError' => true, 'targetClass' => Estadopago::className(), 'targetAttribute' => ['idEstadoPago' => 'idEstadoPago']],
+            [['idResultado'], 'exist', 'skipOnError' => true, 'targetClass' => Resultado::className(), 'targetAttribute' => ['idResultado' => 'idResultado']],
+            [['idTalleRemera'], 'exist', 'skipOnError' => true, 'targetClass' => Talleremera::className(), 'targetAttribute' => ['idTalleRemera' => 'idTalleRemera']],
         ];
     }
 
@@ -72,24 +73,40 @@ class Persona extends \yii\db\ActiveRecord
     {
         return [
             'idPersona' => 'Id Persona',
+            'idTalleRemera' => 'Id Talle Remera',
+            'dniCapitan' => 'Dni Capitan',
             'nombrePersona' => 'Nombre Persona',
             'apellidoPersona' => 'Apellido Persona',
             'fechaNacPersona' => 'Fecha Nac Persona',
-            'idSexoPersona' => 'Id Sexo Persona',
+            'sexoPersona' => 'Sexo Persona',
             'nacionalidadPersona' => 'Nacionalidad Persona',
             'telefonoPersona' => 'Telefono Persona',
             'mailPersona' => 'Mail Persona',
             'idUsuario' => 'Id Usuario',
-            'mailPersonaValidado' => 'Mail Persona Validado',
-            'codigoValidacionMail' => 'Codigo Validacion Mail',
-            'codigoRecuperarCuenta' => 'Codigo Recuperar Cuenta',
             'idPersonaDireccion' => 'Id Persona Direccion',
             'idFichaMedica' => 'Id Ficha Medica',
             'fechaInscPersona' => 'Fecha Insc Persona',
             'idPersonaEmergencia' => 'Id Persona Emergencia',
-            'idEstadoPago' => 'Id Estado Pago',
+            'idResultado' => 'Id Resultado',
+            'donador' => 'Donador',
             'deshabilitado' => 'Deshabilitado',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEstadopagopersonas()
+    {
+        return $this->hasMany(Estadopagopersona::className(), ['idPersona' => 'idPersona']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEstadoPagos()
+    {
+        return $this->hasMany(Estadopago::className(), ['idEstadoPago' => 'idEstadoPago'])->viaTable('estadopagopersona', ['idPersona' => 'idPersona']);
     }
 
     /**
@@ -127,16 +144,16 @@ class Persona extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSexoPersona()
+    public function getResultado()
     {
-        return $this->hasOne(Sexo::className(), ['idSexo' => 'idSexoPersona']);
+        return $this->hasOne(Resultado::className(), ['idResultado' => 'idResultado']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEstadoPago()
+    public function getTalleRemera()
     {
-        return $this->hasOne(Estadopago::className(), ['idEstadoPago' => 'idEstadoPago']);
+        return $this->hasOne(Talleremera::className(), ['idTalleRemera' => 'idTalleRemera']);
     }
 }

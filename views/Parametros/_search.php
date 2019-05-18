@@ -4,20 +4,20 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\SexoSearch */
+/* @var $model app\models\ParametrosSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="sexo-search">
+<div class="parametros-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'idSexo') ?>
+    <?= $form->field($model, 'idParametros') ?>
 
-    <?= $form->field($model, 'descripcionSexo') ?>
+    <?= $form->field($model, 'cantidadCorredores') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

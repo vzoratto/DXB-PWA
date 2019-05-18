@@ -5,21 +5,20 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "sexo".
+ * This is the model class for table "encuesta".
  *
- * @property int $idSexo
- * @property string $descripcionSexo
+ * @property int $idEncuesta
  *
  * @property Persona[] $personas
  */
-class Sexo extends \yii\db\ActiveRecord
+class Encuesta extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'sexo';
+        return 'encuesta';
     }
 
     /**
@@ -27,9 +26,7 @@ class Sexo extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
-            [['descripcionSexo'], 'string', 'max' => 10],
-        ];
+        return [];
     }
 
     /**
@@ -38,8 +35,7 @@ class Sexo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idSexo' => 'Id Sexo',
-            'descripcionSexo' => 'Descripcion Sexo',
+            'idEncuesta' => 'Id Encuesta',
         ];
     }
 
@@ -48,6 +44,6 @@ class Sexo extends \yii\db\ActiveRecord
      */
     public function getPersonas()
     {
-        return $this->hasMany(Persona::className(), ['idSexoPersona' => 'idSexo']);
+        return $this->hasMany(Persona::className(), ['idEncuesta' => 'idEncuesta']);
     }
 }

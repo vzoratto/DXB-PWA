@@ -2,21 +2,20 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\jui\Tabs;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\SexoSearch */
+/* @var $searchModel app\models\ParametrosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sexos';
+$this->title = 'Parametros';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sexo-index">
+<div class="parametros-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Sexo', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Parametros', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -27,8 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idSexo',
-            'descripcionSexo',
+            'idParametros',
+            'cantidadCorredores',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Sexo;
+use app\models\Parametros;
 
 /**
- * SexoSearch represents the model behind the search form of `app\models\Sexo`.
+ * ParametrosSearch represents the model behind the search form of `app\models\Parametros`.
  */
-class SexoSearch extends Sexo
+class ParametrosSearch extends Parametros
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,7 @@ class SexoSearch extends Sexo
     public function rules()
     {
         return [
-            [['idSexo'], 'integer'],
-            [['descripcionSexo'], 'safe'],
+            [['idParametros', 'cantidadCorredores'], 'integer'],
         ];
     }
 
@@ -40,7 +39,7 @@ class SexoSearch extends Sexo
      */
     public function search($params)
     {
-        $query = Sexo::find();
+        $query = Parametros::find();
 
         // add conditions that should always apply here
 
@@ -58,10 +57,9 @@ class SexoSearch extends Sexo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idSexo' => $this->idSexo,
+            'idParametros' => $this->idParametros,
+            'cantidadCorredores' => $this->cantidadCorredores,
         ]);
-
-        $query->andFilterWhere(['like', 'descripcionSexo', $this->descripcionSexo]);
 
         return $dataProvider;
     }

@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Sexo;
-use app\models\SexoSearch;
+use app\models\Validacion;
+use app\models\ValidacionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SexoController implements the CRUD actions for Sexo model.
+ * ValidacionController implements the CRUD actions for Validacion model.
  */
-class SexoController extends Controller
+class ValidacionController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class SexoController extends Controller
     }
 
     /**
-     * Lists all Sexo models.
+     * Lists all Validacion models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SexoSearch();
+        $searchModel = new ValidacionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class SexoController extends Controller
     }
 
     /**
-     * Displays a single Sexo model.
+     * Displays a single Validacion model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,16 +58,16 @@ class SexoController extends Controller
     }
 
     /**
-     * Creates a new Sexo model.
+     * Creates a new Validacion model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Sexo();
+        $model = new Validacion();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idSexo]);
+            return $this->redirect(['view', 'id' => $model->idValidacion]);
         }
 
         return $this->render('create', [
@@ -76,7 +76,7 @@ class SexoController extends Controller
     }
 
     /**
-     * Updates an existing Sexo model.
+     * Updates an existing Validacion model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,7 +87,7 @@ class SexoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idSexo]);
+            return $this->redirect(['view', 'id' => $model->idValidacion]);
         }
 
         return $this->render('update', [
@@ -96,7 +96,7 @@ class SexoController extends Controller
     }
 
     /**
-     * Deletes an existing Sexo model.
+     * Deletes an existing Validacion model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class SexoController extends Controller
     }
 
     /**
-     * Finds the Sexo model based on its primary key value.
+     * Finds the Validacion model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Sexo the loaded model
+     * @return Validacion the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Sexo::findOne($id)) !== null) {
+        if (($model = Validacion::findOne($id)) !== null) {
             return $model;
         }
 

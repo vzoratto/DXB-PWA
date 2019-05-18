@@ -8,13 +8,15 @@ use Yii;
  * This is the model class for table "usuario".
  *
  * @property int $idUsuario
- * @property int $cuilUsuario
+ * @property int $dniUsuario
  * @property string $claveUsuario
+ * @property string $mailUsuario
  * @property int $idRol
  *
  * @property Gestores[] $gestores
  * @property Persona[] $personas
  * @property Rol $rol
+ * @property Validacion[] $validacions
  */
 class Usuario extends \yii\db\ActiveRecord
 {
@@ -32,9 +34,9 @@ class Usuario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cuilUsuario', 'claveUsuario', 'idRol'], 'required'],
-            [['cuilUsuario', 'idRol'], 'integer'],
-            [['claveUsuario'], 'string', 'max' => 32],
+            [['dniUsuario', 'claveUsuario', 'mailUsuario', 'idRol'], 'required'],
+            [['dniUsuario', 'idRol'], 'integer'],
+            [['claveUsuario', 'mailUsuario'], 'string', 'max' => 100],
             [['idRol'], 'exist', 'skipOnError' => true, 'targetClass' => Rol::className(), 'targetAttribute' => ['idRol' => 'idRol']],
         ];
     }
@@ -46,8 +48,9 @@ class Usuario extends \yii\db\ActiveRecord
     {
         return [
             'idUsuario' => 'Id Usuario',
-            'cuilUsuario' => 'Cuil Usuario',
+            'dniUsuario' => 'Dni Usuario',
             'claveUsuario' => 'Clave Usuario',
+            'mailUsuario' => 'Mail Usuario',
             'idRol' => 'Id Rol',
         ];
     }
@@ -74,5 +77,13 @@ class Usuario extends \yii\db\ActiveRecord
     public function getRol()
     {
         return $this->hasOne(Rol::className(), ['idRol' => 'idRol']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getValidacions()
+    {
+        return $this->hasMany(Validacion::className(), ['idUsuario' => 'idUsuario']);
     }
 }

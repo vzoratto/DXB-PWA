@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Estadopagopersona;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -144,9 +145,100 @@ class InscripcionController extends Controller
      * Guarda los datos del formulario en sus correspondientes tablas de la base de datos
      */
     public function actionStore(){
-        print_r(Yii::$app->request->post());
 
-        die();
+        $guardado=false;
+        $transaction = Persona::getDb()->beginTransaction();
+        try {
+            //MODELO USUARIO
+            $modeloUsuario=Yii::$app->request->post()['Usuario'];
+            $usuario=new Usuario();
+            $usuario->idUsuario=null;
+            $usuario->cuilUsuario=$modeloUsuario['cuilUsuario'];
+            //$hash = Yii::$app->getSecurity()->generatePasswordHash($modeloUsuario['cuilUsuario']);
+            $usuario->claveUsuario=$modeloUsuario['cuilUsuario'];
+            $usuario->idRol=1;
+            $usuario->save();
+            $idUsuario=$usuario->getPrimaryKey();
+
+            //MODELO LOCALIDAD
+            $modeloLocalidad=Yii::$app->request->post()['Localidad'];
+            //MODELO PERSONA DIRECCION
+            $modeloPersonaDireccion=Yii::$app->request->post()['Personadireccion'];
+            $personaDireccion=new Personadireccion();
+            $personaDireccion->idLocalidad=$modeloLocalidad['idLocalidad'];
+            $personaDireccion->direccionUsuario=$modeloPersonaDireccion['direccionUsuario'];
+            $personaDireccion->save();
+
+            //MODELO FICHA MEDICA
+            $modeloFichaMedica=Yii::$app->request->post()['Fichamedica'];
+            $fichaMedica=new Fichamedica();
+            $fichaMedica->obraSocial=$modeloFichaMedica['obraSocial'];
+            $fichaMedica->peso=$modeloFichaMedica['peso'];
+            $fichaMedica->altura=$modeloFichaMedica['altura'];
+            $fichaMedica->frecuenciaCardiaca=$modeloFichaMedica['frecuenciaCardiaca'];
+            $fichaMedica->idGrupoSanguineo=$modeloFichaMedica['idGrupoSanguineo'];
+            $fichaMedica->evaluacionMedica=$modeloFichaMedica['evaluacionMedica'];
+            $fichaMedica->intervencionQuirurgica=$modeloFichaMedica['intervencionQuirurgica'];
+            $fichaMedica->tomaMedicamentos=$modeloFichaMedica['tomaMedicamentos'];
+            $fichaMedica->suplementos=$modeloFichaMedica['suplementos'];
+            $fichaMedica->observaciones=$modeloFichaMedica['observaciones'];
+            $fichaMedica->save();
+
+
+            //MODELO PERSONAEMERGENCIA
+            $modeloPersonaemergencia=Yii::$app->request->post()['Personaemergencia'];
+            $personaEmergencia=new Personaemergencia();
+            $personaEmergencia->nombrePersonaEmergencia=$modeloPersonaemergencia['nombrePersonaEmergencia'];
+            $personaEmergencia->apellidoPersonaEmergencia=$modeloPersonaemergencia['apellidoPersonaEmergencia'];
+            $personaEmergencia->telefonoPersonaEmergencia=$modeloPersonaemergencia['telefonoPersonaEmergencia'];
+            $personaEmergencia->idVinculoPersonaEmergencia=$modeloPersonaemergencia['idVinculoPersonaEmergencia'];
+            $personaEmergencia->save();
+
+            $fecha=new \DateTime();
+            $fechaActual=$fecha->format('Y-m-d H:i:sP');
+
+            //MODELO PERSONA
+            $modeloPersona=Yii::$app->request->post()['Persona'];
+            $persona=new Persona();
+            $persona->nombrePersona=$modeloPersona['nombrePersona'];
+            $persona->apellidoPersona=$modeloPersona['apellidoPersona'];
+            $persona->fechaNacPersona=Yii::$app->request->post()['dp_2'];
+            $persona->idSexoPersona=$modeloPersona['idSexoPersona'];
+            $persona->nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
+            $persona->telefonoPersona=$modeloPersona['telefonoPersona'];
+            $persona->mailPersona=$modeloPersona['mailPersona'];
+            $persona->idUsuario=$idUsuario;
+            $persona->idPersonaDireccion=$personaDireccion->idPersonaDireccion;
+            $persona->idFichaMedica=$fichaMedica->idFichaMedica;
+            $persona->fechaInscPersona=$fechaActual;
+            $persona->idPersonaEmergencia=$personaEmergencia->idPersonaEmergencia;
+            //$persona->estadoPago=null;
+
+            $persona->save();
+
+
+            //ESTADO PAGO
+            $estadoPagoPersona=new Estadopagopersona();
+            $estadoPagoPersona->idEstadoPago=1;
+            $estadoPagoPersona->idPersona=$persona->getPrimaryKey();
+            $estadoPagoPersona->fechaPago=$fechaActual;
+            $estadoPagoPersona->save();
+
+            $transaction->commit();
+            $guardado=true;
+
+        } catch(\Exception $e) {
+            $guardado=false;
+
+            $transaction->rollBack();
+            throw $e;
+        }
+
+
+            return Yii::$app->response->redirect(['site/index','guardado'=>$guardado])->send();
+
+
+
     }
     
 }
