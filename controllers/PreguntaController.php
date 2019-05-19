@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+
 /**
  * PreguntaController implements the CRUD actions for Pregunta model.
  */
@@ -63,16 +64,24 @@ class PreguntaController extends Controller
      * @return mixed
      */
     public function actionCreate()
-    {
-        $model = new Pregunta();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idPregunta]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+    {   
+            
+            $id=$_REQUEST['id'];
+            
+            $model = new Pregunta();
+            
+            
+            
+            if ($model->load(Yii::$app->request->post())) {
+                
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->idPregunta,]);
+            }
+            $model->idEncuesta=$id;
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+       
     }
 
     /**

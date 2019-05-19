@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         [
             'label' => 'Encuesta',
-            'content' => '',
+            'content' => $this->render('encuesta',['form'=>$form]),
         ],
     ],
     'options' => ['tag' => 'div'],
