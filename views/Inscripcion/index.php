@@ -1,7 +1,11 @@
 <?php
+
 use yii\helpers\Html;
 use yii\jui\Tabs;
 use yii\widgets\ActiveForm;
+
+/* @var $this yii\web\View */
+
 $this->title = 'Formulario de inscripcion';
 $this->params['breadcrumbs'][] = $this->title;
 
