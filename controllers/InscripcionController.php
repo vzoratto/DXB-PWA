@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Estadopagopersona;
+use app\models\Talleremera;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -52,6 +53,8 @@ class InscripcionController extends Controller
         $localidad = new \app\models\Localidad(); //Instanciamos una variable
         $provincia = new \app\models\Provincia(); //Instanciamos una variable
         $provinciaLista = ArrayHelper::map(\app\models\Provincia::find()->all(),'idProvincia','nombreProvincia'); //Lista de las provincias
+        $talleRemera = new Talleremera(); //Instanciamos una variable
+        $listadoTalles = ArrayHelper::map(\app\models\Talleremera::find()->all(),'idTalleRemera','talleRemera'); //Lista de talles
 
 
 
@@ -64,8 +67,10 @@ class InscripcionController extends Controller
             'datosEmergencia'=>$datosEmergencia,
             'localidad' => $localidad,
             'provincia' => $provincia,
-            'personaDireccion' => $personaDireccion,
-            'provinciaLista' => $provinciaLista,            
+            //'personaDireccion' => $personaDireccion,
+            'provinciaLista' => $provinciaLista,
+            'listadoTalles'=>$listadoTalles,
+            'talleRemera'=>$talleRemera
             ]);
     }
 
@@ -145,20 +150,23 @@ class InscripcionController extends Controller
      * Guarda los datos del formulario en sus correspondientes tablas de la base de datos
      */
     public function actionStore(){
-
         $guardado=false;
         $transaction = Persona::getDb()->beginTransaction();
+        //print_r(Yii::$app->request->post());
+        //die();
         try {
             //MODELO USUARIO
             $modeloUsuario=Yii::$app->request->post()['Usuario'];
             $usuario=new Usuario();
             $usuario->idUsuario=null;
-            $usuario->cuilUsuario=$modeloUsuario['cuilUsuario'];
-            //$hash = Yii::$app->getSecurity()->generatePasswordHash($modeloUsuario['cuilUsuario']);
-            $usuario->claveUsuario=$modeloUsuario['cuilUsuario'];
+            $usuario->dniUsuario=$modeloUsuario['dniUsuario'];
+            $usuario->mailUsuario=Yii::$app->request->post()['Persona']['mailPersona'];
+            $hash = Yii::$app->getSecurity()->generatePasswordHash($modeloUsuario['dniUsuario']);
+            $usuario->claveUsuario=$hash;
             $usuario->idRol=1;
             $usuario->save();
-            $idUsuario=$usuario->getPrimaryKey();
+            $idUsuario=$usuario->idUsuario;
+
 
             //MODELO LOCALIDAD
             $modeloLocalidad=Yii::$app->request->post()['Localidad'];
@@ -197,13 +205,19 @@ class InscripcionController extends Controller
             $fecha=new \DateTime();
             $fechaActual=$fecha->format('Y-m-d H:i:sP');
 
+            //TALLE REMERA
+            $idTalleRemera=Yii::$app->request->post()['Talleremera']['idTalleRemera'];
+
+
             //MODELO PERSONA
             $modeloPersona=Yii::$app->request->post()['Persona'];
             $persona=new Persona();
+            $persona->dniCapitan=null;
+            $persona->idTalleRemera=$idTalleRemera;
             $persona->nombrePersona=$modeloPersona['nombrePersona'];
             $persona->apellidoPersona=$modeloPersona['apellidoPersona'];
-            $persona->fechaNacPersona=Yii::$app->request->post()['dp_2'];
-            $persona->idSexoPersona=$modeloPersona['idSexoPersona'];
+            $persona->fechaNacPersona=Yii::$app->request->post()['fechaNacPersona'];
+            $persona->sexoPersona=$modeloPersona['sexoPersona'];
             $persona->nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
             $persona->telefonoPersona=$modeloPersona['telefonoPersona'];
             $persona->mailPersona=$modeloPersona['mailPersona'];
@@ -212,6 +226,7 @@ class InscripcionController extends Controller
             $persona->idFichaMedica=$fichaMedica->idFichaMedica;
             $persona->fechaInscPersona=$fechaActual;
             $persona->idPersonaEmergencia=$personaEmergencia->idPersonaEmergencia;
+            $persona->donador=$modeloPersona['donador'];
             //$persona->estadoPago=null;
 
             $persona->save();
@@ -226,6 +241,8 @@ class InscripcionController extends Controller
 
             $transaction->commit();
             $guardado=true;
+            print_r($persona->errors);
+            die();
 
         } catch(\Exception $e) {
             $guardado=false;

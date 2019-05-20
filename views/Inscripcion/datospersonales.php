@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Persona */
@@ -32,7 +33,7 @@ use kartik\date\DatePicker;
         </div>
     </div>
     <div class="row">
-        <div id="fechaNacPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+        <div id="fechaNacPersona" class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
         <!-- utilizacion de un widget de kartik llamado DatePicker, permite escoger 
         una fecha desde un calendario permitiendo tambien seleccionar años o meses 
         con una mayor facilidad --> 
@@ -49,10 +50,14 @@ use kartik\date\DatePicker;
             ])?>
         </div>
 
-        <div id="sexoPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+        <div id="sexoPersona" class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
             <!-- campo tipo radioButton, con dos opciones: SI o NO --> 
             <?= $form->field($persona, 'sexoPersona')->radioList(array('F'=>'Femenino','M'=>'Masculino'))
                                                             ->label('Sexo'); ?>
+        </div>
+
+        <div id="talleRemera" class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+            <?=$form->field($talleRemera, 'idTalleRemera')->dropDownList($listadoTalles, ['prompt' => 'Seleccione Uno' ])->label('Talle Remera'); ?>
         </div>
     </div>
     

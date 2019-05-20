@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'items' => [
         [
             'label' => 'Datos Personales',
-            'content' =>$this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form]),
+            'content' =>$this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form,'talleRemera'=>$talleRemera,'listadoTalles'=>$listadoTalles]),
         ],
         [
             'label' => 'Datos de contacto',
