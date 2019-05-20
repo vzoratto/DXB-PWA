@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-05-2019 a las 15:58:57
--- Versión del servidor: 10.1.32-MariaDB
--- Versión de PHP: 7.2.5
+-- Tiempo de generaciÃ³n: 20-05-2019 a las 22:04:24
+-- VersiÃ³n del servidor: 10.1.38-MariaDB
+-- VersiÃ³n de PHP: 7.3.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,8 +29,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `encuesta` (
-  `idEncuesta` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `idEncuesta` int(5) NOT NULL,
+  `encTitulo` varchar(150) CHARACTER SET latin1 NOT NULL,
+  `encDescripcion` varchar(250) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -8006,7 +8008,7 @@ INSERT INTO `localidad` (`idLocalidad`, `idProvincia`, `nombreLocalidad`, `codig
 (7868, 16, 'PAMPA FLORIDA', 3703),
 (7869, 16, 'PAMPA GALPON', 3700),
 (7870, 16, 'PAMPA LOCA', 3700),
-(7871, 16, 'PRESIDENCIA ROQUE SAENZ PEÑA', 3700),
+(7871, 16, 'PRESIDENCIA ROQUE SAENZ PEÃƒâ€˜A', 3700),
 (7872, 16, 'CABEZA DE TIGRE', 3540),
 (7873, 16, 'KILOMETRO 596', 3541),
 (7874, 16, 'SANTA MARIA', 3541),
@@ -23177,6 +23179,19 @@ CREATE TABLE `personaemergencia` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `pregunta`
+--
+
+CREATE TABLE `pregunta` (
+  `idPregunta` int(11) NOT NULL,
+  `pregDescripcion` varchar(250) CHARACTER SET latin1 NOT NULL,
+  `idEncuesta` int(5) NOT NULL,
+  `idRespTipo` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `provincia`
 --
 
@@ -23191,12 +23206,12 @@ CREATE TABLE `provincia` (
 --
 
 INSERT INTO `provincia` (`idProvincia`, `nombreProvincia`, `codigoIso31662`) VALUES
-(1, 'Ciudad Autónoma de Buenos Aires (CABA)', 'AR-C'),
+(1, 'Ciudad AutÃƒÂ³noma de Buenos Aires (CABA)', 'AR-C'),
 (2, 'Buenos Aires', 'AR-B'),
 (3, 'Catamarca', 'AR-K'),
-(4, 'Córdoba', 'AR-X'),
+(4, 'CÃƒÂ³rdoba', 'AR-X'),
 (5, 'Corrientes', 'AR-W'),
-(6, 'Entre Ríos', 'AR-E'),
+(6, 'Entre RÃƒÂ­os', 'AR-E'),
 (7, 'Jujuy', 'AR-Y'),
 (8, 'Mendoza', 'AR-M'),
 (9, 'La Rioja', 'AR-F'),
@@ -23205,16 +23220,62 @@ INSERT INTO `provincia` (`idProvincia`, `nombreProvincia`, `codigoIso31662`) VAL
 (12, 'San Luis', 'AR-D'),
 (13, 'Santa Fe', 'AR-S'),
 (14, 'Santiago del Estero', 'AR-G'),
-(15, 'Tucumán', 'AR-T'),
+(15, 'TucumÃƒÂ¡n', 'AR-T'),
 (16, 'Chaco', 'AR-H'),
 (17, 'Chubut', 'AR-U'),
 (18, 'Formosa', 'AR-P'),
 (19, 'Misiones', 'AR-N'),
-(20, 'Neuquén', 'AR-Q'),
+(20, 'NeuquÃƒÂ©n', 'AR-Q'),
 (21, 'La Pampa', 'AR-L'),
-(22, 'Río Negro', 'AR-R'),
+(22, 'RÃƒÂ­o Negro', 'AR-R'),
 (23, 'Santa Cruz', 'AR-Z'),
 (24, 'Tierra del Fuego', 'AR-V');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `respuesta`
+--
+
+CREATE TABLE `respuesta` (
+  `idRespuesta` int(11) NOT NULL,
+  `respValor` varchar(250) CHARACTER SET latin1 NOT NULL,
+  `idPregunta` int(11) NOT NULL,
+  `idPersona` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `respuesta_opcion`
+--
+
+CREATE TABLE `respuesta_opcion` (
+  `idRespuestaOpcion` int(11) NOT NULL,
+  `opRespvalor` varchar(250) CHARACTER SET latin1 NOT NULL,
+  `idPregunta` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `respuesta_tipo`
+--
+
+CREATE TABLE `respuesta_tipo` (
+  `idRespTipo` int(4) NOT NULL,
+  `respTipoDescripcion` varchar(15) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `respuesta_tipo`
+--
+
+INSERT INTO `respuesta_tipo` (`idRespTipo`, `respTipoDescripcion`) VALUES
+(1, 'Texto'),
+(2, 'Dropdown'),
+(3, 'Checkbox'),
+(4, 'Radio');
 
 -- --------------------------------------------------------
 
@@ -23299,7 +23360,7 @@ INSERT INTO `vinculopersona` (`idVinculo`, `nombreVinculo`) VALUES
 (4, 'Otro');
 
 --
--- Índices para tablas volcadas
+-- Ã�ndices para tablas volcadas
 --
 
 --
@@ -23381,10 +23442,38 @@ ALTER TABLE `personaemergencia`
   ADD KEY `idVinculoPersonaEmergencia` (`idVinculoPersonaEmergencia`);
 
 --
+-- Indices de la tabla `pregunta`
+--
+ALTER TABLE `pregunta`
+  ADD PRIMARY KEY (`idPregunta`),
+  ADD KEY `idEncuesta` (`idEncuesta`),
+  ADD KEY `idRespTipo` (`idRespTipo`);
+
+--
 -- Indices de la tabla `provincia`
 --
 ALTER TABLE `provincia`
   ADD PRIMARY KEY (`idProvincia`);
+
+--
+-- Indices de la tabla `respuesta`
+--
+ALTER TABLE `respuesta`
+  ADD PRIMARY KEY (`idRespuesta`),
+  ADD KEY `idPregunta` (`idPregunta`);
+
+--
+-- Indices de la tabla `respuesta_opcion`
+--
+ALTER TABLE `respuesta_opcion`
+  ADD PRIMARY KEY (`idRespuestaOpcion`),
+  ADD KEY `idPregunta` (`idPregunta`);
+
+--
+-- Indices de la tabla `respuesta_tipo`
+--
+ALTER TABLE `respuesta_tipo`
+  ADD PRIMARY KEY (`idRespTipo`);
 
 --
 -- Indices de la tabla `resultado`
@@ -23432,7 +23521,7 @@ ALTER TABLE `vinculopersona`
 -- AUTO_INCREMENT de la tabla `encuesta`
 --
 ALTER TABLE `encuesta`
-  MODIFY `idEncuesta` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEncuesta` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `estadopago`
@@ -23487,6 +23576,30 @@ ALTER TABLE `personadireccion`
 --
 ALTER TABLE `personaemergencia`
   MODIFY `idPersonaEmergencia` int(8) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pregunta`
+--
+ALTER TABLE `pregunta`
+  MODIFY `idPregunta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT de la tabla `respuesta`
+--
+ALTER TABLE `respuesta`
+  MODIFY `idRespuesta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `respuesta_opcion`
+--
+ALTER TABLE `respuesta_opcion`
+  MODIFY `idRespuestaOpcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
+-- AUTO_INCREMENT de la tabla `respuesta_tipo`
+--
+ALTER TABLE `respuesta_tipo`
+  MODIFY `idRespTipo` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `resultado`

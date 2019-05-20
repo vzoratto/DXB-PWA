@@ -1,2 +1,1 @@
-select * from pregunta
-
+select * from encuesta

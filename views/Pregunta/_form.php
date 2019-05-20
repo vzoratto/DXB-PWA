@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use app\controllers\RespuestaTipoController;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Pregunta */
@@ -35,6 +36,7 @@ $listas=ArrayHelper::map($lista, 'idRespTipo', 'respTipoDescripcion');
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Terminar Encuesta', url::toRoute('encuesta/create'),['class'=>'btn btn-primary'])?>
     </div>
 
     <?php ActiveForm::end(); ?>
