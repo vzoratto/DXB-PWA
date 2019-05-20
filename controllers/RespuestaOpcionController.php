@@ -2,18 +2,106 @@
 
 namespace app\controllers;
 
+
 use Yii;
 use app\models\RespuestaOpcion;
 use app\models\RespuestaOpcionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\PreguntaSearch;
+use app\models\Respuesta;
+
+
 
 /**
  * RespuestaOpcionController implements the CRUD actions for RespuestaOpcion model.
  */
 class RespuestaOpcionController extends Controller
 {
+    
+    /**
+     * Accion para cargar a la BD las opciones de la lista desplegable
+     */
+    public function actionCreaDrop()
+    {
+        $model = new RespuestaOpcion();
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->idRespuestaOpcion="";
+            $model->opRespvalor="";
+            return $this->render('creaDrop', ['model' => $model]);
+        }
+        
+        return $this->render('creaDrop', [
+            'model' => $model,
+        ]);
+    }
+    
+    /**
+     * Accion para cargar a la BD las opciones del CheckBox
+     */
+    public function actionCreaCheck()
+    {
+        $model = new RespuestaOpcion();
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->idRespuestaOpcion="";
+            $model->opRespvalor="";
+            return $this->render('creaCheck', ['model' => $model]);
+        }
+        
+        return $this->render('creaCheck', [
+            'model' => $model,
+        ]);
+    }
+    
+    /**
+     * Accion para cargar a la BD las opciones del RadioButton
+     */
+    public function actionCreaRadio()
+    {
+        $model = new RespuestaOpcion();
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->idRespuestaOpcion="";
+            $model->opRespvalor="";
+            return $this->render('creaRadio', ['model' => $model]);
+        }
+        
+        return $this->render('creaRadio', [
+            'model' => $model,
+        ]);
+    }
+    
+    
+    
+    /**
+     * Recibe por get el id de la pregunta y define que tipo de respuesta de desea para la pregunta
+     * En base a esto redirecciona a la opcion que corresponde.
+     * @return string
+     */
+    public function actionDefineOpcion(){
+        
+        $idPregunta=$_REQUEST['id'];
+        
+        $tipo=PreguntaSearch::findOne($idPregunta);
+        $model=new RespuestaOpcion();
+        
+        
+        if($tipo->idRespTipo == 1){
+            return $this->render('confirmaEncuesta', ['model'=>$model,'idEncuesta'=>$tipo->idEncuesta, 'idPregunta'=>$tipo->idPregunta]);
+        }elseif ($tipo->idRespTipo == 2){
+            return $this->render('creaDrop', ['model'=>$model,'idPregunta'=>$tipo->idPregunta]);
+        }elseif ($tipo->idRespTipo == 3){
+            return $this->render('creaCheck', ['model'=>$model,'idPregunta'=>$tipo->idPregunta]);
+        }elseif ($tipo->idRespTipo == 4){
+            return $this->render('creaRadio', ['model'=>$model,'idPregunta'=>$tipo->idPregunta]);
+        }
+        
+        return $this->render('error', ['idPregunta'=>$idPregunta, 'tipo'=>$tipo]);
+    }
+    
     /**
      * {@inheritdoc}
      */

@@ -14,7 +14,15 @@ use yii\filters\VerbFilter;
  * PreguntaController implements the CRUD actions for Pregunta model.
  */
 class PreguntaController extends Controller
-{
+{   
+    public static function entregaPregunta($idPregunta){
+        
+        $unaPreg=new Pregunta();
+        
+        return $unaPreg->findOne($idPregunta);
+  
+    }
+    
     /**
      * {@inheritdoc}
      */
@@ -66,7 +74,7 @@ class PreguntaController extends Controller
     public function actionCreate()
     {   
             
-            $id=$_REQUEST['id'];
+            $id=$_REQUEST['id'];//recibe el idEncuesta.
             
             $model = new Pregunta();
             
@@ -75,7 +83,7 @@ class PreguntaController extends Controller
             if ($model->load(Yii::$app->request->post())) {
                 
                 $model->save();
-                return $this->redirect(['view', 'id' => $model->idPregunta,]);
+                return $this->redirect(['respuesta-opcion/define-opcion', 'id' => $model->idPregunta,]);
             }
             $model->idEncuesta=$id;
             return $this->render('create', [
