@@ -52,6 +52,7 @@ class InscripcionController extends Controller
         $localidad = new \app\models\Localidad(); //Instanciamos una variable
         $provincia = new \app\models\Provincia(); //Instanciamos una variable
         $provinciaLista = ArrayHelper::map(\app\models\Provincia::find()->all(),'idProvincia','nombreProvincia'); //Lista de las provincias
+        $datos = array('calle'=> '','numero'=>'','departamento'=>'','piso'=>'');
 
 
 
@@ -65,7 +66,8 @@ class InscripcionController extends Controller
             'localidad' => $localidad,
             'provincia' => $provincia,
             'personaDireccion' => $personaDireccion,
-            'provinciaLista' => $provinciaLista,            
+            'provinciaLista' => $provinciaLista,
+            'datos' => $datos,            
             ]);
     }
 

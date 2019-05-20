@@ -75,21 +75,28 @@ use yii\widgets\MaskedInput;
     <div id="direccionUsuario"> 
         <div class="row">
             <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Calle:') ?>
+            <label>Calle: </label>
+                <?= Html::input('text','calle',$datos['calle'], $option=['class'=>'form-control']) ?>
             </div>
             <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
-                <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('N°:') ?>
+                <label>N°: </label>
+                <?=  Html::input('text','numero', $datos['numero'], $option=['class'=>'form-control']) ?>
             </div>
             <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
-                <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Piso:') ?>
+                <label>Piso: </label>
+                <?= Html::input('text','piso', $datos['piso'], $option=['class'=>'form-control']) ?>
             </div>
             <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
-                <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Depto:') ?>
+            <label>Departamento: </label>
+                <?= Html::input('text','departamento', $datos['departamento'], $option=['class'=>'form-control']) ?>
             </div>
-
+           
+            <?=  
+                $value = $datos['calle'].' '.$datos['numero'].' '.$datos['departamento'].' '.$datos['piso'];
+                $form->field($personaDireccion, 'direccionUsuario')->hiddenInput(['value' => $value])->label(false) ?>
         </div>
     </div>
-
+    
 </div>
 
     <div class="form-group">

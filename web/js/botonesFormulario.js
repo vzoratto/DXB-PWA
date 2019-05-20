@@ -7,8 +7,7 @@ $(function() {
 
         if (i != totalSize) {
             next = i + 2;
-            $(this).append("<a href='#w2-tabs" + next + "' class='next-tab mover' rel='" + next + "'>Next Page &#187;</a>");
-
+            $(this).append("<a href='#w3-tabs" + next + "' class='next-tab mover' rel='" + next + "'>Next Page &#187;</a>");
 
         }
 
@@ -22,8 +21,9 @@ $(function() {
 
     $('.next-tab, .prev-tab').click(function() {
         $tabs.tabs('select', $(this).attr("rel"));
-        $('#w2-tab' + next).setAttribute('aria-hidden', false);
-        $('#w2-tab' + next).removeAttribute('style');
+        console.log(document.location.href = '#w3-tabs3');
+        document.location.href = '#tag'
+
 
         return false;
     });

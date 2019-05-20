@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         [
             'label' => 'Datos de contacto',
-            'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona,'localidad' => $localidad,'provincia' => $provincia,'provinciaLista' => $provinciaLista,'form'=>$form]),
+            'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona,'localidad' => $localidad,'provincia' => $provincia,'provinciaLista' => $provinciaLista,'form'=>$form, 'datos'=>$datos]),
 
         ],
         [
@@ -50,14 +50,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
      ActiveForm::end(); ?>
 
-<div class="Footer">
-    <div class="divleft">
-        <button id="btnMoveLeftTab"  type="button" value="Previous Tab" text="Previous Tab">Previous Tab
-        </button>
-    </div>
-    <div class="divright">
-        <button id="btnMoveRightTab" type="button" value="Next Tab"  text="Next Tab">Next Tab
-        </button>
-    </div>
-</div>
 </div>
