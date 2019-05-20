@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generaciÃ³n: 20-05-2019 a las 22:04:24
--- VersiÃ³n del servidor: 10.1.38-MariaDB
--- VersiÃ³n de PHP: 7.3.4
+-- Tiempo de generación: 20-05-2019 a las 22:47:55
+-- Versión del servidor: 10.1.38-MariaDB
+-- Versión de PHP: 7.3.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -33,6 +33,16 @@ CREATE TABLE `encuesta` (
   `encTitulo` varchar(150) CHARACTER SET latin1 NOT NULL,
   `encDescripcion` varchar(250) CHARACTER SET latin1 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `encuesta`
+--
+
+INSERT INTO `encuesta` (`idEncuesta`, `encTitulo`, `encDescripcion`) VALUES
+(18, 'Encuesta 1111', 'Es una encuesta que estoy generando para probar'),
+(19, 'Encuesta 3', 'saasddfasdfasdfdaqerqer qwer qreqerq'),
+(20, 'Encuesta 234', 'tengo mucho sueño'),
+(21, 'Encuesta alu b', 'fgjhgfjhgfhgfhgv');
 
 -- --------------------------------------------------------
 
@@ -8008,7 +8018,7 @@ INSERT INTO `localidad` (`idLocalidad`, `idProvincia`, `nombreLocalidad`, `codig
 (7868, 16, 'PAMPA FLORIDA', 3703),
 (7869, 16, 'PAMPA GALPON', 3700),
 (7870, 16, 'PAMPA LOCA', 3700),
-(7871, 16, 'PRESIDENCIA ROQUE SAENZ PEÃƒâ€˜A', 3700),
+(7871, 16, 'PRESIDENCIA ROQUE SAENZ PEÃ‘A', 3700),
 (7872, 16, 'CABEZA DE TIGRE', 3540),
 (7873, 16, 'KILOMETRO 596', 3541),
 (7874, 16, 'SANTA MARIA', 3541),
@@ -23189,6 +23199,22 @@ CREATE TABLE `pregunta` (
   `idRespTipo` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `pregunta`
+--
+
+INSERT INTO `pregunta` (`idPregunta`, `pregDescripcion`, `idEncuesta`, `idRespTipo`) VALUES
+(25, 'Cual es tu color favorito', 18, 4),
+(26, 'Cual es tu color favorito', 18, 4),
+(27, 'Que equipos de futbol conoces', 18, 3),
+(28, 'asdfadsfadsf', 18, 2),
+(29, 'Cual es tu color favorito', 20, 2),
+(30, 'Cual es tu color favorito', 20, 2),
+(31, 'asdfadsfadsf', 20, 3),
+(32, 'Como esta  el dia hoy', 20, 4),
+(33, 'Cual es tu color favorito', 21, 3),
+(34, 'cuantas preguntas van?', 21, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -23206,12 +23232,12 @@ CREATE TABLE `provincia` (
 --
 
 INSERT INTO `provincia` (`idProvincia`, `nombreProvincia`, `codigoIso31662`) VALUES
-(1, 'Ciudad AutÃƒÂ³noma de Buenos Aires (CABA)', 'AR-C'),
+(1, 'Ciudad AutÃ³noma de Buenos Aires (CABA)', 'AR-C'),
 (2, 'Buenos Aires', 'AR-B'),
 (3, 'Catamarca', 'AR-K'),
-(4, 'CÃƒÂ³rdoba', 'AR-X'),
+(4, 'CÃ³rdoba', 'AR-X'),
 (5, 'Corrientes', 'AR-W'),
-(6, 'Entre RÃƒÂ­os', 'AR-E'),
+(6, 'Entre RÃ­os', 'AR-E'),
 (7, 'Jujuy', 'AR-Y'),
 (8, 'Mendoza', 'AR-M'),
 (9, 'La Rioja', 'AR-F'),
@@ -23220,14 +23246,14 @@ INSERT INTO `provincia` (`idProvincia`, `nombreProvincia`, `codigoIso31662`) VAL
 (12, 'San Luis', 'AR-D'),
 (13, 'Santa Fe', 'AR-S'),
 (14, 'Santiago del Estero', 'AR-G'),
-(15, 'TucumÃƒÂ¡n', 'AR-T'),
+(15, 'TucumÃ¡n', 'AR-T'),
 (16, 'Chaco', 'AR-H'),
 (17, 'Chubut', 'AR-U'),
 (18, 'Formosa', 'AR-P'),
 (19, 'Misiones', 'AR-N'),
-(20, 'NeuquÃƒÂ©n', 'AR-Q'),
+(20, 'NeuquÃ©n', 'AR-Q'),
 (21, 'La Pampa', 'AR-L'),
-(22, 'RÃƒÂ­o Negro', 'AR-R'),
+(22, 'RÃ­o Negro', 'AR-R'),
 (23, 'Santa Cruz', 'AR-Z'),
 (24, 'Tierra del Fuego', 'AR-V');
 
@@ -23255,6 +23281,52 @@ CREATE TABLE `respuesta_opcion` (
   `opRespvalor` varchar(250) CHARACTER SET latin1 NOT NULL,
   `idPregunta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `respuesta_opcion`
+--
+
+INSERT INTO `respuesta_opcion` (`idRespuestaOpcion`, `opRespvalor`, `idPregunta`) VALUES
+(1, 'Rojo', 26),
+(2, 'Verde', 26),
+(3, 'Azul', 26),
+(4, 'Azul', 26),
+(5, 'Azul', 26),
+(6, 'Amarillo', 26),
+(7, 'Amarillo', 26),
+(8, 'Amarillo', 26),
+(9, 'Amarillo', 26),
+(10, 'Amarillo', 26),
+(11, 'Amarillo', 26),
+(12, 'Amarillo', 26),
+(13, 'Amarillo', 26),
+(14, 'Amarillo', 26),
+(15, 'Amarillo', 26),
+(16, 'Amarillo', 26),
+(17, 'Amarillo', 26),
+(18, 'Boca', 27),
+(19, 'River', 27),
+(20, 'Independiente', 27),
+(21, 'Racing', 27),
+(22, 'Racing', 27),
+(23, 'argentina', 28),
+(24, 'Brasil', 28),
+(25, 'Uruguay', 28),
+(26, 'chile', 28),
+(27, 'Rojo', 29),
+(28, 'Rojo', 30),
+(29, 'Verde', 30),
+(30, 'Amarillo', 30),
+(31, 'Boca', 31),
+(32, 'Verde', 31),
+(33, 'River', 31),
+(34, 'Boca', 32),
+(35, 'Rojo', 32),
+(36, 'Rojo', 32),
+(37, 'Rojo', 33),
+(38, 'Amarillo', 33),
+(39, 'Boca', 34),
+(40, 'Amarillo', 34);
 
 -- --------------------------------------------------------
 
@@ -23321,21 +23393,9 @@ CREATE TABLE `usuario` (
   `dniUsuario` int(15) NOT NULL,
   `claveUsuario` varchar(100) NOT NULL,
   `mailUsuario` varchar(100) NOT NULL,
+  `authkey` varchar(50) NOT NULL,
+  `activado` tinyint(1) NOT NULL,
   `idRol` int(8) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `validacion`
---
-
-CREATE TABLE `validacion` (
-  `idValidacion` int(8) NOT NULL,
-  `idUsuario` int(8) NOT NULL,
-  `mailUsuarioValidado` tinyint(1) DEFAULT NULL,
-  `codigoValidacionMail` varchar(16) DEFAULT NULL,
-  `codigoRecuperarCuenta` varchar(16) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -23360,7 +23420,7 @@ INSERT INTO `vinculopersona` (`idVinculo`, `nombreVinculo`) VALUES
 (4, 'Otro');
 
 --
--- Ã�ndices para tablas volcadas
+-- Índices para tablas volcadas
 --
 
 --
@@ -23501,13 +23561,6 @@ ALTER TABLE `usuario`
   ADD KEY `idRol` (`idRol`);
 
 --
--- Indices de la tabla `validacion`
---
-ALTER TABLE `validacion`
-  ADD PRIMARY KEY (`idValidacion`),
-  ADD KEY `idUsuario` (`idUsuario`);
-
---
 -- Indices de la tabla `vinculopersona`
 --
 ALTER TABLE `vinculopersona`
@@ -23626,12 +23679,6 @@ ALTER TABLE `usuario`
   MODIFY `idUsuario` int(8) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `validacion`
---
-ALTER TABLE `validacion`
-  MODIFY `idValidacion` int(8) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `vinculopersona`
 --
 ALTER TABLE `vinculopersona`
@@ -23694,12 +23741,6 @@ ALTER TABLE `personaemergencia`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`);
-
---
--- Filtros para la tabla `validacion`
---
-ALTER TABLE `validacion`
-  ADD CONSTRAINT `validacion_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
