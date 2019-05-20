@@ -23260,24 +23260,14 @@ CREATE TABLE `usuario` (
   `dniUsuario` int(15) NOT NULL,
   `claveUsuario` varchar(100) NOT NULL,
   `mailUsuario` varchar(100) NOT NULL,
+  `authkey` varchar(50) NOT NULL,
+  `activado` tinyint(1)  NOT NULL,
   `idRol` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `validacion`
---
 
-CREATE TABLE `validacion` (
-  `idValidacion` int(8) NOT NULL,
-  `idUsuario` int(8) NOT NULL,
-  `mailUsuarioValidado` tinyint(1) DEFAULT NULL,
-  `codigoValidacionMail` varchar(16) DEFAULT NULL,
-  `codigoRecuperarCuenta` varchar(16) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `vinculopersona`
@@ -23412,13 +23402,7 @@ ALTER TABLE `usuario`
   ADD KEY `idRol` (`idRol`);
 
 --
--- Indices de la tabla `validacion`
---
-ALTER TABLE `validacion`
-  ADD PRIMARY KEY (`idValidacion`),
-  ADD KEY `idUsuario` (`idUsuario`);
 
---
 -- Indices de la tabla `vinculopersona`
 --
 ALTER TABLE `vinculopersona`
@@ -23512,11 +23496,7 @@ ALTER TABLE `talleremera`
 ALTER TABLE `usuario`
   MODIFY `idUsuario` int(8) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT de la tabla `validacion`
---
-ALTER TABLE `validacion`
-  MODIFY `idValidacion` int(8) NOT NULL AUTO_INCREMENT;
+
 
 --
 -- AUTO_INCREMENT de la tabla `vinculopersona`
@@ -23582,12 +23562,7 @@ ALTER TABLE `personaemergencia`
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`);
 
---
--- Filtros para la tabla `validacion`
---
-ALTER TABLE `validacion`
-  ADD CONSTRAINT `validacion_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
-COMMIT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
