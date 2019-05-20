@@ -14,11 +14,15 @@ use kartik\date\DatePicker;
 <!-- vista del tab datos personales del formulario-->
 <div class="datosPersonales" >
     <div class="row">
-        <div id="dniUsuario" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+        <div id="dniUsuario" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+            <?= $form->field($persona, 'dniCapitan')->textInput()->label('D.N.I Capitan')  ?>
+        </div>
+    
+        <div id="dniUsuario" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
             <?= $form->field($usuario, 'dniUsuario')->textInput()->label('D.N.I') ?>
         </div>
         
-        <div id="nacionalidadPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+        <div id="nacionalidadPersona" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
             <?= $form->field($persona, 'nacionalidadPersona')->textInput(['maxlength' => true])->label('Nacionalidad') ?>
         </div>
     </div>
