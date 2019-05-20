@@ -43,13 +43,21 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ],
     'options' => ['tag' => 'div'],
-    'itemOptions' => ['tag' => 'div'],
+    'itemOptions' => ['tag' => 'div', 'class' => 'ui-tabs-panel'],
     'headerOptions' => ['class' => 'my-class'],
     'clientOptions' => ['collapsible' => false],
 ]);
-     ActiveForm::end();
-     
 
-?>
+     ActiveForm::end(); ?>
 
+<div class="Footer">
+    <div class="divleft">
+        <button id="btnMoveLeftTab"  type="button" value="Previous Tab" text="Previous Tab">Previous Tab
+        </button>
+    </div>
+    <div class="divright">
+        <button id="btnMoveRightTab" type="button" value="Next Tab"  text="Next Tab">Next Tab
+        </button>
+    </div>
+</div>
 </div>

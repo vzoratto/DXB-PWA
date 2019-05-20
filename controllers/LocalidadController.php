@@ -142,7 +142,7 @@ class LocalidadController extends Controller
                 $locali = new \app\models\Localidad();
                 $out = $locali::getLocalidades($idProvincia); 
             
-                return ['output'=>$out, 'selected'=>''];
+                return ['output'=>$out, 'selected'=>'4634'];
             }
         }
         return ['output'=>'', 'selected'=>''];
