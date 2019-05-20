@@ -48,9 +48,9 @@ class Usuario extends \yii\db\ActiveRecord
     {
         return [
             'idUsuario' => 'Id Usuario',
-            'dniUsuario' => 'Dni Usuario',
-            'claveUsuario' => 'Clave Usuario',
-            'mailUsuario' => 'Mail Usuario',
+            'dniUsuario' => 'Dni',
+            'claveUsuario' => 'Clave',
+            'mailUsuario' => 'Mail',
             'idRol' => 'Id Rol',
         ];
     }

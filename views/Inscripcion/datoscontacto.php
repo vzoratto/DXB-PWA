@@ -6,6 +6,7 @@ use kartik\select2\Select2;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 use borales\extensions\phoneInput\PhoneInput;
+use yii\widgets\MaskedInput;
 
 
 
@@ -32,7 +33,13 @@ use borales\extensions\phoneInput\PhoneInput;
         </div>
 
         <div id="mailPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-            <?= $form->field($persona, 'mailPersona')->input('email')->label('E-mail:') ?>
+            <label>E-mail</label>
+            <?php echo MaskedInput::widget([
+                 'name' => 'mailPersona',
+                 'clientOptions' => [
+                     'alias' =>  'email'
+                 ],
+            ]);?>
         </div>
 
     </div>

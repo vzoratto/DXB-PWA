@@ -46,9 +46,9 @@ class Personaemergencia extends \yii\db\ActiveRecord
     {
         return [
             'idPersonaEmergencia' => 'Id Persona Emergencia',
-            'nombrePersonaEmergencia' => 'Nombre Persona Emergencia',
-            'apellidoPersonaEmergencia' => 'Apellido Persona Emergencia',
-            'telefonoPersonaEmergencia' => 'Telefono Persona Emergencia',
+            'nombrePersonaEmergencia' => 'Nombre  Emergencia',
+            'apellidoPersonaEmergencia' => 'Apellido  Emergencia',
+            'telefonoPersonaEmergencia' => 'Telefono Emergencia',
             'idVinculoPersonaEmergencia' => 'Id Vinculo Persona Emergencia',
         ];
     }

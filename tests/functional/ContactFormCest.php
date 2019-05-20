@@ -17,11 +17,11 @@ class ContactFormCest
         $I->submitForm('#contact-form', []);
         $I->expectTo('see validations errors');
         $I->see('Contact', 'h1');
-        $I->see('Name cannot be blank');
-        $I->see('Email cannot be blank');
-        $I->see('Subject cannot be blank');
-        $I->see('Body cannot be blank');
-        $I->see('The verification code is incorrect');
+        $I->see('Name no puede estar en blanco');
+        $I->see('Email no puede estar en blanco');
+        $I->see('Subject no puede estar en blanco');
+        $I->see('Body no puede estar en blanco');
+        $I->see('El codigo de verificacion es incorrecto');
     }
 
     public function submitFormWithIncorrectEmail(\FunctionalTester $I)
@@ -34,11 +34,11 @@ class ContactFormCest
             'ContactForm[verifyCode]' => 'testme',
         ]);
         $I->expectTo('see that email address is wrong');
-        $I->dontSee('Name cannot be blank', '.help-inline');
-        $I->see('Email is not a valid email address.');
-        $I->dontSee('Subject cannot be blank', '.help-inline');
-        $I->dontSee('Body cannot be blank', '.help-inline');
-        $I->dontSee('The verification code is incorrect', '.help-inline');        
+        $I->dontSee('Name no puede estar en blanco', '.help-inline');
+        $I->see('Email no es una direccion de mail valida.');
+        $I->dontSee('Subject no puede estar en blanco', '.help-inline');
+        $I->dontSee('Body no puede estar en blanco', '.help-inline');
+        $I->dontSee('El codigo de verificacion es incorrecto', '.help-inline');        
     }
 
     public function submitFormSuccessfully(\FunctionalTester $I)
