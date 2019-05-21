@@ -23,12 +23,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'encTitulo',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            
+            ['attribute'=>'Accion',
+                    'format'=>'raw',
+                    'headerOptions'=>['style'=>'color:#1369BF'],
+                    'contentOptions'=>['style'=>'width:150px;'],
+                    'value'=>function($model){
+                        return Html::a('Ver Encuesta',
+                                ['verencuesta/ver-encuesta',
+                                 'idEncuesta'=>$model->idEncuesta
+                                ],            
+                        );
+                 }
+            ],
         ],
     ]); ?>
 

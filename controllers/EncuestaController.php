@@ -14,6 +14,8 @@ use yii\filters\VerbFilter;
  */
 class EncuestaController extends Controller
 {
+    
+
     /**
      * {@inheritdoc}
      */
