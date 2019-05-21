@@ -5,6 +5,10 @@ use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
+use borales\extensions\phoneInput\PhoneInput;
+use yii\widgets\MaskedInput;
+
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Personadireccion */
@@ -18,11 +22,24 @@ use yii\helpers\Url;
     <div class="row">
 
         <div id="telefonoPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-            <?= $form->field($persona, 'telefonoPersona')->textInput(['maxlength' => true])->label('Telefono') ?>
+            <label>Telefono:</label><br>
+            <?= $form->field($persona, 'telefonoPersona')->widget(PhoneInput::className(), [
+                'jsOptions' => [
+                'allowExtensions' => true,
+                'preferredCountries' => ['ar', 'br', 'cl', 'uy', 'py', 'bo'],
+                'nationalMode' => false,
+                ]
+            ])->label('') ?> 
         </div>
 
         <div id="mailPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-            <?= $form->field($persona, 'mailPersona')->input('email')->label('E-mail') ?>
+            <label>E-mail</label>
+            <?php echo MaskedInput::widget([
+                 'name' => 'mailPersona',
+                 'clientOptions' => [
+                     'alias' =>  'email'
+                 ],
+            ]);?>
         </div>
 
     </div>
@@ -34,6 +51,7 @@ use yii\helpers\Url;
                 'data' => $provinciaLista,
                 'id'=>'idProvincia',
                 'options' => [
+                    'value' => '20',
                     'placeholder' => 'Seleccione una provincia...',
                     'id'=>'idProvincia']
                 ])->label('Provincia:'); ?>
@@ -42,7 +60,9 @@ use yii\helpers\Url;
         <div id="idLocalidad" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
             <?= $form->field($localidad, 'idLocalidad')->widget(DepDrop::classname(), [
                     'type' => DepDrop::TYPE_SELECT2,
+                    'value' => '4634',
                     'pluginOptions'=>[
+                        'initialize' => true,
                         'placeholder' => 'Seleccione una localidad...',
                         'depends'=>['idProvincia'],
                         'url'=>Url::to(['localidad/localidades']),
@@ -52,23 +72,31 @@ use yii\helpers\Url;
         </div>
     </div>
     
-    <div id="direccionUsuario">
+    <div id="direccionUsuario"> 
         <div class="row">
             <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Direccion')->label('Calle:') ?>
+            <label>Calle: </label>
+                <?= Html::input('text','calle',$datos['calle'], $option=['class'=>'form-control']) ?>
             </div>
             <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
-                <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Direccion')->label('N°:') ?>
+                <label>N°: </label>
+                <?=  Html::input('text','numero', $datos['numero'], $option=['class'=>'form-control']) ?>
             </div>
             <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
-                <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Direccion')->label('Piso:') ?>
+                <label>Piso: </label>
+                <?= Html::input('text','piso', $datos['piso'], $option=['class'=>'form-control']) ?>
             </div>
             <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
-                <?= $form->field($personaDireccion, 'direccionUsuario')->textInput(['maxlength' => true])->label('Direccion')->label('Depto:') ?>
+            <label>Departamento: </label>
+                <?= Html::input('text','departamento', $datos['departamento'], $option=['class'=>'form-control']) ?>
             </div>
+           
+            <?=  
+                $value = $datos['calle'].' '.$datos['numero'].' '.$datos['departamento'].' '.$datos['piso'];
+                $form->field($personaDireccion, 'direccionUsuario')->hiddenInput(['value' => $value])->label(false) ?>
         </div>
     </div>
-
+    
 </div>
 
     <div class="form-group">

@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         [
             'label' => 'Datos de contacto',
-            'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona,'localidad' => $localidad,'provincia' => $provincia,'provinciaLista' => $provinciaLista,'form'=>$form]),
+            'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona,'localidad' => $localidad,'provincia' => $provincia,'provinciaLista' => $provinciaLista,'form'=>$form, 'datos'=>$datos]),
 
         ],
         [
@@ -43,13 +43,11 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ],
     'options' => ['tag' => 'div'],
-    'itemOptions' => ['tag' => 'div'],
+    'itemOptions' => ['tag' => 'div', 'class' => 'ui-tabs-panel'],
     'headerOptions' => ['class' => 'my-class'],
     'clientOptions' => ['collapsible' => false],
 ]);
-     ActiveForm::end();
-     
 
-?>
+     ActiveForm::end(); ?>
 
 </div>

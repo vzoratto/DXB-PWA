@@ -53,24 +53,19 @@ class InscripcionController extends Controller
         $localidad = new \app\models\Localidad(); //Instanciamos una variable
         $provincia = new \app\models\Provincia(); //Instanciamos una variable
         $provinciaLista = ArrayHelper::map(\app\models\Provincia::find()->all(),'idProvincia','nombreProvincia'); //Lista de las provincias
-        $talleRemera = new Talleremera(); //Instanciamos una variable
-        $listadoTalles = ArrayHelper::map(\app\models\Talleremera::find()->all(),'idTalleRemera','talleRemera'); //Lista de talles
 
-
-
-        //permite renderizar el index con todos los modelos necesarios para las demás acciones
         return $this->render('index',[
-            'persona'=>$persona,
-            'usuario'=>$usuario,
             'personaDireccion'=>$personaDireccion,
-            'fichaMedica'=>$fichaMedica,
             'datosEmergencia'=>$datosEmergencia,
             'localidad' => $localidad,
             'provincia' => $provincia,
             //'personaDireccion' => $personaDireccion,
             'provinciaLista' => $provinciaLista,
             'listadoTalles'=>$listadoTalles,
-            'talleRemera'=>$talleRemera
+            'talleRemera'=>$talleRemera,
+            'personaDireccion' => $personaDireccion,
+            'provinciaLista' => $provinciaLista,
+            'datos' => $datos,            
             ]);
     }
 

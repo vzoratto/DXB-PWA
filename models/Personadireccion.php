@@ -44,7 +44,7 @@ class Personadireccion extends \yii\db\ActiveRecord
         return [
             'idPersonaDireccion' => 'Id Persona Direccion',
             'idLocalidad' => 'Id Localidad',
-            'direccionUsuario' => 'Direccion Usuario',
+            'direccionUsuario' => 'Direccion ',
         ];
     }
 
