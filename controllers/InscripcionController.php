@@ -52,20 +52,22 @@ class InscripcionController extends Controller
         $datosEmergencia = new \app\models\Personaemergencia();//Instanciamos una variable
         $localidad = new \app\models\Localidad(); //Instanciamos una variable
         $provincia = new \app\models\Provincia(); //Instanciamos una variable
+        $talleRemera=new Talleremera();
         $provinciaLista = ArrayHelper::map(\app\models\Provincia::find()->all(),'idProvincia','nombreProvincia'); //Lista de las provincias
+        $listadoTalles=ArrayHelper::map(\app\models\Talleremera::find()->all(),'idTalleRemera','talleRemera');
 
         return $this->render('index',[
+            'persona'=>$persona,
+            'usuario'=>$usuario,
             'personaDireccion'=>$personaDireccion,
+            'fichaMedica'=>$fichaMedica,
             'datosEmergencia'=>$datosEmergencia,
             'localidad' => $localidad,
             'provincia' => $provincia,
-            //'personaDireccion' => $personaDireccion,
             'provinciaLista' => $provinciaLista,
             'listadoTalles'=>$listadoTalles,
             'talleRemera'=>$talleRemera,
-            'personaDireccion' => $personaDireccion,
-            'provinciaLista' => $provinciaLista,
-            'datos' => $datos,            
+            'datos' => null,
             ]);
     }
 
@@ -145,6 +147,8 @@ class InscripcionController extends Controller
      * Guarda los datos del formulario en sus correspondientes tablas de la base de datos
      */
     public function actionStore(){
+        //print_r(Yii::$app->request->post());
+        //die();
         $guardado=false;
         $transaction = Persona::getDb()->beginTransaction();
 
@@ -154,7 +158,7 @@ class InscripcionController extends Controller
             $usuario=new Usuario();
             $usuario->idUsuario=null;
             $usuario->dniUsuario=$modeloUsuario['dniUsuario'];
-            $usuario->mailUsuario=Yii::$app->request->post()['Persona']['mailPersona'];
+            $usuario->mailUsuario=Yii::$app->request->post()['mailPersona'];
             $hash = Yii::$app->getSecurity()->generatePasswordHash($modeloUsuario['dniUsuario']);
             $usuario->claveUsuario=$hash;
             $usuario->idRol=1;
@@ -165,10 +169,11 @@ class InscripcionController extends Controller
             //MODELO LOCALIDAD
             $modeloLocalidad=Yii::$app->request->post()['Localidad'];
             //MODELO PERSONA DIRECCION
-            $modeloPersonaDireccion=Yii::$app->request->post()['Personadireccion'];
+           // $modeloPersonaDireccion=Yii::$app->request->post()['Personadireccion'];
+            $direccion=Yii::$app->request->post()['calle'].' '.Yii::$app->request->post()['numero'];
             $personaDireccion=new Personadireccion();
             $personaDireccion->idLocalidad=$modeloLocalidad['idLocalidad'];
-            $personaDireccion->direccionUsuario=$modeloPersonaDireccion['direccionUsuario'];
+            $personaDireccion->direccionUsuario=$direccion;
             $personaDireccion->save();
 
             //MODELO FICHA MEDICA
@@ -206,7 +211,7 @@ class InscripcionController extends Controller
             //MODELO PERSONA
             $modeloPersona=Yii::$app->request->post()['Persona'];
             $persona=new Persona();
-            $persona->dniCapitan=$usuario->dniUsuario;
+            $persona->dniCapitan=$modeloPersona['dniCapitan'];
             $persona->idTalleRemera=$idTalleRemera;
             $persona->nombrePersona=$modeloPersona['nombrePersona'];
             $persona->apellidoPersona=$modeloPersona['apellidoPersona'];
@@ -214,7 +219,7 @@ class InscripcionController extends Controller
             $persona->sexoPersona=$modeloPersona['sexoPersona'];
             $persona->nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
             $persona->telefonoPersona=$modeloPersona['telefonoPersona'];
-            $persona->mailPersona=$modeloPersona['mailPersona'];
+            $persona->mailPersona=Yii::$app->request->post()['mailPersona'];
             $persona->idUsuario=$idUsuario;
             $persona->idPersonaDireccion=$personaDireccion->idPersonaDireccion;
             $persona->idFichaMedica=$fichaMedica->idFichaMedica;
