@@ -152,8 +152,7 @@ class InscripcionController extends Controller
     public function actionStore(){
         $guardado=false;
         $transaction = Persona::getDb()->beginTransaction();
-        //print_r(Yii::$app->request->post());
-        //die();
+
         try {
             //MODELO USUARIO
             $modeloUsuario=Yii::$app->request->post()['Usuario'];
@@ -212,7 +211,7 @@ class InscripcionController extends Controller
             //MODELO PERSONA
             $modeloPersona=Yii::$app->request->post()['Persona'];
             $persona=new Persona();
-            $persona->dniCapitan=null;
+            $persona->dniCapitan=$usuario->dniUsuario;
             $persona->idTalleRemera=$idTalleRemera;
             $persona->nombrePersona=$modeloPersona['nombrePersona'];
             $persona->apellidoPersona=$modeloPersona['apellidoPersona'];
@@ -241,8 +240,7 @@ class InscripcionController extends Controller
 
             $transaction->commit();
             $guardado=true;
-            print_r($persona->errors);
-            die();
+            
 
         } catch(\Exception $e) {
             $guardado=false;
