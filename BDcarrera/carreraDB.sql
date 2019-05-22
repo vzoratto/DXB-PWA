@@ -23267,7 +23267,7 @@ CREATE TABLE `respuesta` (
   `idRespuesta` int(11) NOT NULL,
   `respValor` varchar(250) CHARACTER SET latin1 NOT NULL,
   `idPregunta` int(11) NOT NULL,
-  `idPersona` int(11) DEFAULT NULL
+  `idPersona` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -23741,8 +23741,19 @@ ALTER TABLE `personaemergencia`
 --
 -- Filtros para la tabla `usuario`
 --
+ALTER TABLE `respuesta_opcion`
+  ADD CONSTRAINT `respuesta_opcion_ibfk_1` FOREIGN KEY (`idPregunta`) REFERENCES `pregunta` (`idPregunta`);
+
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`);
+
+ALTER TABLE `respuesta`
+  ADD CONSTRAINT `respuesta_ibfk_1` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPersona`),
+  ADD CONSTRAINT `respuesta_ibfk_2` FOREIGN KEY (`idPregunta`) REFERENCES `pregunta` (`idPregunta`);
+
+ALTER TABLE `pregunta`
+  ADD CONSTRAINT `pregunta_ibfk_1` FOREIGN KEY (`idEncuesta`) REFERENCES `encuesta` (`idEncuesta`),
+  ADD CONSTRAINT `pregunta_ibfk_2` FOREIGN KEY (`idRespTipo`) REFERENCES `respuesta_tipo` (`idRespTipo`);
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -18,6 +18,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'mailUsuario')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'authkey')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'activado')->textInput() ?>
+
     <?= $form->field($model, 'idRol')->textInput() ?>
 
     <div class="form-group">

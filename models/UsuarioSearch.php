@@ -17,8 +17,8 @@ class UsuarioSearch extends Usuario
     public function rules()
     {
         return [
-            [['idUsuario', 'dniUsuario', 'idRol'], 'integer'],
-            [['claveUsuario', 'mailUsuario'], 'safe'],
+            [['idUsuario', 'dniUsuario', 'activado', 'idRol'], 'integer'],
+            [['claveUsuario', 'mailUsuario', 'authkey'], 'safe'],
         ];
     }
 
@@ -60,11 +60,13 @@ class UsuarioSearch extends Usuario
         $query->andFilterWhere([
             'idUsuario' => $this->idUsuario,
             'dniUsuario' => $this->dniUsuario,
+            'activado' => $this->activado,
             'idRol' => $this->idRol,
         ]);
 
         $query->andFilterWhere(['like', 'claveUsuario', $this->claveUsuario])
-            ->andFilterWhere(['like', 'mailUsuario', $this->mailUsuario]);
+            ->andFilterWhere(['like', 'mailUsuario', $this->mailUsuario])
+            ->andFilterWhere(['like', 'authkey', $this->authkey]);
 
         return $dataProvider;
     }

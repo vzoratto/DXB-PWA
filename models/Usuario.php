@@ -11,12 +11,13 @@ use Yii;
  * @property int $dniUsuario
  * @property string $claveUsuario
  * @property string $mailUsuario
+ * @property string $authkey
+ * @property int $activado
  * @property int $idRol
  *
  * @property Gestores[] $gestores
  * @property Persona[] $personas
  * @property Rol $rol
- * @property Validacion[] $validacions
  */
 class Usuario extends \yii\db\ActiveRecord
 {
@@ -34,9 +35,10 @@ class Usuario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['dniUsuario', 'claveUsuario', 'mailUsuario', 'idRol'], 'required'],
-            [['dniUsuario', 'idRol'], 'integer'],
+            [['dniUsuario', 'claveUsuario', 'mailUsuario', 'authkey', 'activado', 'idRol'], 'required'],
+            [['dniUsuario', 'activado', 'idRol'], 'integer'],
             [['claveUsuario', 'mailUsuario'], 'string', 'max' => 100],
+            [['authkey'], 'string', 'max' => 50],
             [['idRol'], 'exist', 'skipOnError' => true, 'targetClass' => Rol::className(), 'targetAttribute' => ['idRol' => 'idRol']],
         ];
     }
@@ -48,9 +50,11 @@ class Usuario extends \yii\db\ActiveRecord
     {
         return [
             'idUsuario' => 'Id Usuario',
-            'dniUsuario' => 'Dni',
-            'claveUsuario' => 'Clave',
-            'mailUsuario' => 'Mail',
+            'dniUsuario' => 'Dni Usuario',
+            'claveUsuario' => 'Clave Usuario',
+            'mailUsuario' => 'Mail Usuario',
+            'authkey' => 'Authkey',
+            'activado' => 'Activado',
             'idRol' => 'Id Rol',
         ];
     }
@@ -77,13 +81,5 @@ class Usuario extends \yii\db\ActiveRecord
     public function getRol()
     {
         return $this->hasOne(Rol::className(), ['idRol' => 'idRol']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getValidacions()
-    {
-        return $this->hasMany(Validacion::className(), ['idUsuario' => 'idUsuario']);
     }
 }
