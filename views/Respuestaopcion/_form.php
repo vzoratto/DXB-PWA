@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\RespuestaOpcion */
+/* @var $model app\models\Respuestaopcion */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="respuesta-opcion-form">
+<div class="respuestaopcion-form">
 
     <?php $form = ActiveForm::begin(); ?>
 

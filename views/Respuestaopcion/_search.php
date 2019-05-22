@@ -4,18 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\RespuestaOpcionSearch */
+/* @var $model app\models\RespuestaopcionSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="respuesta-opcion-search">
+<div class="respuestaopcion-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
     ]); ?>
 
     <?= $form->field($model, 'idRespuestaOpcion') ?>

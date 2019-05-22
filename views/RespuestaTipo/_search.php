@@ -4,18 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\RespuestaTipoSearch */
+/* @var $model app\models\RespuestatipoSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="respuesta-tipo-search">
+<div class="respuestatipo-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
     ]); ?>
 
     <?= $form->field($model, 'idRespTipo') ?>

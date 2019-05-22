@@ -9,8 +9,10 @@ use Yii;
  *
  * @property int $idRespTipo
  * @property string $respTipoDescripcion
+ *
+ * @property Pregunta[] $preguntas
  */
-class RespuestaTipo extends \yii\db\ActiveRecord
+class Respuestatipo extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -40,5 +42,13 @@ class RespuestaTipo extends \yii\db\ActiveRecord
             'idRespTipo' => 'Id Resp Tipo',
             'respTipoDescripcion' => 'Resp Tipo Descripcion',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPreguntas()
+    {
+        return $this->hasMany(Pregunta::className(), ['idRespTipo' => 'idRespTipo']);
     }
 }

@@ -11,6 +11,9 @@ use Yii;
  * @property string $respValor
  * @property int $idPregunta
  * @property int $idPersona
+ *
+ * @property Persona $persona
+ * @property Pregunta $pregunta
  */
 class Respuesta extends \yii\db\ActiveRecord
 {
@@ -28,9 +31,11 @@ class Respuesta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['respValor', 'idPregunta'], 'required'],
+            [['respValor', 'idPregunta', 'idPersona'], 'required'],
             [['idPregunta', 'idPersona'], 'integer'],
             [['respValor'], 'string', 'max' => 250],
+            [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
+            [['idPregunta'], 'exist', 'skipOnError' => true, 'targetClass' => Pregunta::className(), 'targetAttribute' => ['idPregunta' => 'idPregunta']],
         ];
     }
 
@@ -45,5 +50,21 @@ class Respuesta extends \yii\db\ActiveRecord
             'idPregunta' => 'Id Pregunta',
             'idPersona' => 'Id Persona',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPersona()
+    {
+        return $this->hasOne(Persona::className(), ['idPersona' => 'idPersona']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPregunta()
+    {
+        return $this->hasOne(Pregunta::className(), ['idPregunta' => 'idPregunta']);
     }
 }

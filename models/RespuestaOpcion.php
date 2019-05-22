@@ -10,8 +10,10 @@ use Yii;
  * @property int $idRespuestaOpcion
  * @property string $opRespvalor
  * @property int $idPregunta
+ *
+ * @property Pregunta $pregunta
  */
-class RespuestaOpcion extends \yii\db\ActiveRecord
+class Respuestaopcion extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -30,6 +32,7 @@ class RespuestaOpcion extends \yii\db\ActiveRecord
             [['opRespvalor', 'idPregunta'], 'required'],
             [['idPregunta'], 'integer'],
             [['opRespvalor'], 'string', 'max' => 250],
+            [['idPregunta'], 'exist', 'skipOnError' => true, 'targetClass' => Pregunta::className(), 'targetAttribute' => ['idPregunta' => 'idPregunta']],
         ];
     }
 
@@ -43,5 +46,13 @@ class RespuestaOpcion extends \yii\db\ActiveRecord
             'opRespvalor' => 'Op Respvalor',
             'idPregunta' => 'Id Pregunta',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPregunta()
+    {
+        return $this->hasOne(Pregunta::className(), ['idPregunta' => 'idPregunta']);
     }
 }

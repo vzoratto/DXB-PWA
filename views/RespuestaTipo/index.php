@@ -2,23 +2,22 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\RespuestaTipoSearch */
+/* @var $searchModel app\models\RespuestatipoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Respuesta Tipos';
+$this->title = 'Respuestatipos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="respuesta-tipo-index">
+<div class="respuestatipo-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Respuesta Tipo', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Respuestatipo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -34,6 +33,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
 
 </div>
