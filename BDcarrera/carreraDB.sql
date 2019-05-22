@@ -23394,21 +23394,12 @@ CREATE TABLE `usuario` (
   `claveUsuario` varchar(100) NOT NULL,
   `mailUsuario` varchar(100) NOT NULL,
   `authkey` varchar(50) NOT NULL,
-<<<<<<< HEAD:BDcarrera/carreraBD.sql
-  `activado` tinyint(1)  NOT NULL,
-=======
   `activado` tinyint(1) NOT NULL,
->>>>>>> origin/encuesta:BDcarrera/carreraDB.sql
   `idRol` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
-<<<<<<< HEAD:BDcarrera/carreraBD.sql
-
-
-=======
->>>>>>> origin/encuesta:BDcarrera/carreraDB.sql
 --
 -- Estructura de tabla para la tabla `vinculopersona`
 --
@@ -23570,10 +23561,7 @@ ALTER TABLE `usuario`
   ADD KEY `idRol` (`idRol`);
 
 --
-<<<<<<< HEAD:BDcarrera/carreraBD.sql
 
-=======
->>>>>>> origin/encuesta:BDcarrera/carreraDB.sql
 -- Indices de la tabla `vinculopersona`
 --
 ALTER TABLE `vinculopersona`
@@ -23691,11 +23679,7 @@ ALTER TABLE `talleremera`
 ALTER TABLE `usuario`
   MODIFY `idUsuario` int(8) NOT NULL AUTO_INCREMENT;
 
-<<<<<<< HEAD:BDcarrera/carreraBD.sql
 
-
-=======
->>>>>>> origin/encuesta:BDcarrera/carreraDB.sql
 --
 -- AUTO_INCREMENT de la tabla `vinculopersona`
 --
@@ -23759,12 +23743,7 @@ ALTER TABLE `personaemergencia`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`);
-<<<<<<< HEAD:BDcarrera/carreraBD.sql
 
-
-=======
-COMMIT;
->>>>>>> origin/encuesta:BDcarrera/carreraDB.sql
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
