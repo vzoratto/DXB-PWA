@@ -8,8 +8,8 @@ use Yii;
  * This is the model class for table "encuesta".
  *
  * @property int $idEncuesta
- *
- * @property Persona[] $personas
+ * @property string $encTitulo
+ * @property string $encDescripcion
  */
 class Encuesta extends \yii\db\ActiveRecord
 {
@@ -26,7 +26,11 @@ class Encuesta extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [];
+        return [
+            [['encTitulo', 'encDescripcion'], 'required'],
+            [['encTitulo'], 'string', 'max' => 150],
+            [['encDescripcion'], 'string', 'max' => 250],
+        ];
     }
 
     /**
@@ -36,14 +40,8 @@ class Encuesta extends \yii\db\ActiveRecord
     {
         return [
             'idEncuesta' => 'Id Encuesta',
+            'encTitulo' => 'Enc Titulo',
+            'encDescripcion' => 'Enc Descripcion',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPersonas()
-    {
-        return $this->hasMany(Persona::className(), ['idEncuesta' => 'idEncuesta']);
     }
 }

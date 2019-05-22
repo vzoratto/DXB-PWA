@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<data-source id="mysql5-16acad01ada-6dbc052a82f370bc" provider="mysql" driver="mysql5" name="MySQL - DB Dario" save-password="true" read-only="false">
+		<connection host="localhost" port="3306" server="" database="encuesta" url="jdbc:mysql://localhost:3306/encuesta" user="root" type="dev"/>
+	</data-source>
+	<filters/>
+</data-sources>

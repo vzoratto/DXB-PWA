@@ -11,11 +11,12 @@ use yii\widgets\ActiveForm;
 <div class="encuesta-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'idEncuesta')->textInput() ?>
+	
+    <?= $form->field($model, 'encTitulo')->textInput()->label('Titulo:') ?>
+    <?= $form->field($model, 'encDescripcion')->textInput()->label('Descripcion:') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

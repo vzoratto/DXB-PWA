@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Encuesta */
+/* @var $model app\models\Respuesta */
 
-$this->title = 'Crear nueva encuesta';
-$this->params['breadcrumbs'][] = ['label' => 'Encuestas', 'url' => ['index']];
+$this->title = 'Create Respuesta';
+$this->params['breadcrumbs'][] = ['label' => 'Respuestas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="encuesta-create">
+<div class="respuesta-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

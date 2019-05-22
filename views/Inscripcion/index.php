@@ -1,7 +1,11 @@
 <?php
+
 use yii\helpers\Html;
 use yii\jui\Tabs;
 use yii\widgets\ActiveForm;
+
+/* @var $this yii\web\View */
+
 $this->title = 'Formulario de inscripcion';
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -39,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         [
             'label' => 'Encuesta',
-            'content' => '',
+            'content' => $this->render('encuesta',['form'=>$form]),
         ],
     ],
     'options' => ['tag' => 'div'],

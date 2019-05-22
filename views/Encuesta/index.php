@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\EncuestaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Encuestas';
+$this->title = 'Listado de Encuestas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="encuesta-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Encuesta', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Encuesta', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -23,12 +23,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idEncuesta',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            'encTitulo',
+            
+            ['attribute'=>'Accion',
+                    'format'=>'raw',
+                    'headerOptions'=>['style'=>'color:#1369BF'],
+                    'contentOptions'=>['style'=>'width:150px;'],
+                    'value'=>function($model){
+                        return Html::a('Ver Encuesta',
+                                ['verencuesta/ver-encuesta',
+                                 'idEncuesta'=>$model->idEncuesta
+                                ],            
+                        );
+                 }
+            ],
         ],
     ]); ?>
 
