@@ -17,7 +17,7 @@ class RespuestaSearch extends Respuesta
     public function rules()
     {
         return [
-            [['idRespuesta', 'idPregunta', 'idUsuario'], 'integer'],
+            [['idRespuesta', 'idPregunta', 'idPersona'], 'integer'],
             [['respValor'], 'safe'],
         ];
     }
@@ -60,7 +60,7 @@ class RespuestaSearch extends Respuesta
         $query->andFilterWhere([
             'idRespuesta' => $this->idRespuesta,
             'idPregunta' => $this->idPregunta,
-            'idUsuario' => $this->idUsuario,
+            'idPersona' => $this->idPersona,
         ]);
 
         $query->andFilterWhere(['like', 'respValor', $this->respValor]);

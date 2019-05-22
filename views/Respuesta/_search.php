@@ -13,9 +13,6 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
     ]); ?>
 
     <?= $form->field($model, 'idRespuesta') ?>
@@ -24,7 +21,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idPregunta') ?>
 
-    <?= $form->field($model, 'idUsuario') ?>
+    <?= $form->field($model, 'idPersona') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

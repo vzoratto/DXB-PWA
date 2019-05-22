@@ -10,7 +10,7 @@ use Yii;
  * @property int $idRespuesta
  * @property string $respValor
  * @property int $idPregunta
- * @property int $idUsuario
+ * @property int $idPersona
  */
 class Respuesta extends \yii\db\ActiveRecord
 {
@@ -29,7 +29,7 @@ class Respuesta extends \yii\db\ActiveRecord
     {
         return [
             [['respValor', 'idPregunta'], 'required'],
-            [['idPregunta', 'idUsuario'], 'integer'],
+            [['idPregunta', 'idPersona'], 'integer'],
             [['respValor'], 'string', 'max' => 250],
         ];
     }
@@ -43,7 +43,7 @@ class Respuesta extends \yii\db\ActiveRecord
             'idRespuesta' => 'Id Respuesta',
             'respValor' => 'Resp Valor',
             'idPregunta' => 'Id Pregunta',
-            'idUsuario' => 'Id Usuario',
+            'idPersona' => 'Id Persona',
         ];
     }
 }
