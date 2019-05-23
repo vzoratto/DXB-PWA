@@ -23191,21 +23191,7 @@ CREATE TABLE `pregunta` (
   `idRespTipo` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `pregunta`
---
 
-INSERT INTO `pregunta` (`idPregunta`, `pregDescripcion`, `idEncuesta`, `idRespTipo`) VALUES
-(25, 'Cual es tu color favorito', 18, 4),
-(26, 'Cual es tu color favorito', 18, 4),
-(27, 'Que equipos de futbol conoces', 18, 3),
-(28, 'asdfadsfadsf', 18, 2),
-(29, 'Cual es tu color favorito', 20, 2),
-(30, 'Cual es tu color favorito', 20, 2),
-(31, 'asdfadsfadsf', 20, 3),
-(32, 'Como esta  el dia hoy', 20, 4),
-(33, 'Cual es tu color favorito', 21, 3),
-(34, 'cuantas preguntas van?', 21, 2);
 
 -- --------------------------------------------------------
 
