@@ -34,15 +34,7 @@ CREATE TABLE `encuesta` (
   `encDescripcion` varchar(250) CHARACTER SET latin1 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `encuesta`
---
 
-INSERT INTO `encuesta` (`idEncuesta`, `encTitulo`, `encDescripcion`) VALUES
-(18, 'Encuesta 1111', 'Es una encuesta que estoy generando para probar'),
-(19, 'Encuesta 3', 'saasddfasdfasdfdaqerqer qwer qreqerq'),
-(20, 'Encuesta 234', 'tengo mucho sueño'),
-(21, 'Encuesta alu b', 'fgjhgfjhgfhgfhgv');
 
 -- --------------------------------------------------------
 
@@ -23282,51 +23274,7 @@ CREATE TABLE `respuesta_opcion` (
   `idPregunta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `respuesta_opcion`
---
 
-INSERT INTO `respuesta_opcion` (`idRespuestaOpcion`, `opRespvalor`, `idPregunta`) VALUES
-(1, 'Rojo', 26),
-(2, 'Verde', 26),
-(3, 'Azul', 26),
-(4, 'Azul', 26),
-(5, 'Azul', 26),
-(6, 'Amarillo', 26),
-(7, 'Amarillo', 26),
-(8, 'Amarillo', 26),
-(9, 'Amarillo', 26),
-(10, 'Amarillo', 26),
-(11, 'Amarillo', 26),
-(12, 'Amarillo', 26),
-(13, 'Amarillo', 26),
-(14, 'Amarillo', 26),
-(15, 'Amarillo', 26),
-(16, 'Amarillo', 26),
-(17, 'Amarillo', 26),
-(18, 'Boca', 27),
-(19, 'River', 27),
-(20, 'Independiente', 27),
-(21, 'Racing', 27),
-(22, 'Racing', 27),
-(23, 'argentina', 28),
-(24, 'Brasil', 28),
-(25, 'Uruguay', 28),
-(26, 'chile', 28),
-(27, 'Rojo', 29),
-(28, 'Rojo', 30),
-(29, 'Verde', 30),
-(30, 'Amarillo', 30),
-(31, 'Boca', 31),
-(32, 'Verde', 31),
-(33, 'River', 31),
-(34, 'Boca', 32),
-(35, 'Rojo', 32),
-(36, 'Rojo', 32),
-(37, 'Rojo', 33),
-(38, 'Amarillo', 33),
-(39, 'Boca', 34),
-(40, 'Amarillo', 34);
 
 -- --------------------------------------------------------
 

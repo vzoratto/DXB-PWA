@@ -27,7 +27,12 @@ use yii\helpers\Url;
             <h3> <?= $valor['pregDescripcion']; ?></h3>
 
             <?php if($valor['idRespTipo']==1){
-                    echo $this->render('_texto');
+                    echo $this->render('_texto',[
+                        'opcion'=>$opcion,
+                        'idPregunta'=>$idPregunta,
+                        'form'=>$form,
+                        'respuesta'=>$respuesta,
+                    ]);
 
                 }elseif($valor['idRespTipo']==2){
                     echo $this->render('_drop', [

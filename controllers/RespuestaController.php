@@ -14,6 +14,16 @@ use yii\filters\VerbFilter;
  */
 class RespuestaController extends Controller
 {
+
+    public function actionRespuesta(){
+
+        $respuesta=new Respuesta();
+        if ($respuesta->load(Yii::$app->request->post())){
+        return $this->render('respuestaform',['respuesta'=>$respuesta]);
+        }
+
+    }
+    
     /**
      * {@inheritdoc}
      */

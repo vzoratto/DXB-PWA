@@ -14,6 +14,15 @@ use yii\filters\VerbFilter;
  */
 class PreguntaController extends Controller
 {
+
+    public static function entregaPregunta($idPregunta){
+        
+        $unaPreg=new Pregunta();
+        
+        return $unaPreg->findOne($idPregunta);
+  
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -64,15 +73,19 @@ class PreguntaController extends Controller
      */
     public function actionCreate()
     {
+        $id=$_REQUEST['id'];//recibe el idEncuesta.
+
         $model = new Pregunta();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idPregunta]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+         if ($model->load(Yii::$app->request->post())) {
+                
+                $model->save();
+                return $this->redirect(['respuesta-opcion/define-opcion', 'id' => $model->idPregunta,]);
+            }
+            $model->idEncuesta=$id;
+            return $this->render('create', [
+                'model' => $model,
+            ]);
     }
 
     /**

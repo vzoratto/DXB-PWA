@@ -14,6 +14,13 @@ use yii\filters\VerbFilter;
  */
 class RespuestatipoController extends Controller
 {
+
+    public static function listarTipos() {
+        $tipos=new RespuestaTipoSearch();
+        $lista=$tipos->find()->all();
+        return $lista;
+    }
+
     /**
      * {@inheritdoc}
      */
