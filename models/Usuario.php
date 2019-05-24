@@ -35,7 +35,7 @@ class Usuario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['dniUsuario', 'claveUsuario', 'mailUsuario', 'authkey', 'activado', 'idRol'], 'required'],
+            [['dniUsuario', 'claveUsuario', 'mailUsuario', 'authkey', 'activado', 'idRol'], 'required','message'=>'Este campo es obligatorio.'],
             [['dniUsuario', 'activado', 'idRol'], 'integer'],
             [['claveUsuario', 'mailUsuario'], 'string', 'max' => 100],
             [['authkey'], 'string', 'max' => 50],

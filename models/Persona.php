@@ -51,7 +51,7 @@ class Persona extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idTalleRemera', 'dniCapitan', 'mailPersona', 'idUsuario'], 'required','message' => 'Esta informacion es obligatorio.'],
+            [['idTalleRemera', 'dniCapitan', 'mailPersona', 'idUsuario'], 'required','message' => 'Este campo es obligatorio.'],
             ['mailPersona','email','message' => 'No es un e-mail válido.'],
             [['idTalleRemera', 'dniCapitan', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'donador', 'deshabilitado'], 'integer'],
             [['fechaNacPersona', 'fechaInscPersona'], 'safe'],

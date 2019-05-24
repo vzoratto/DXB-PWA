@@ -14,7 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <!-- comienzo del formulario, se define el metodo de envio de datos y se llama a la accion "store" o guardar-->
     <?php $form = ActiveForm::begin([
         'method'=>'post',
-        "action"=>"index.php?r=inscripcion%2Fstore"
+        "action"=>"index.php?r=inscripcion%2Fstore",
+        "enableClientValidation"=>true,
     ]); ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
