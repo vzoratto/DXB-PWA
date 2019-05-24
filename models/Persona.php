@@ -55,7 +55,6 @@ class Persona extends \yii\db\ActiveRecord
             [['nombrePersona','apellidoPersona','idTalleRemera', 'dniCapitan', 'mailPersona', 'idUsuario','sexoPersona','fechaNacPersona'], 'required','message' => 'Este campo es obligatorio.'],
             //verifica que la direccion de mail sea valida
             ['mailPersona','email','message' => 'No es una direccion de email válida.'],
-           
             //valida que los campos nombrados sean de tipo entero
             [['idTalleRemera', 'dniCapitan', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'donador', 'deshabilitado'], 'integer'],
             // marca las variables como atributo seguro
