@@ -51,13 +51,26 @@ class Persona extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idTalleRemera', 'dniCapitan', 'mailPersona', 'idUsuario'], 'required','message' => 'Esta informacion es obligatorio.'],
-            ['mailPersona','email','message' => 'No es un e-mail válido.'],
+            //definicion de campos obligatorios
+            [['nombrePersona','apellidoPersona','idTalleRemera', 'dniCapitan', 'mailPersona', 'idUsuario','sexoPersona','fechaNacPersona'], 'required','message' => 'Este campo es obligatorio.'],
+            //verifica que la direccion de mail sea valida
+            ['mailPersona','email','message' => 'No es una direccion de email válida.'],
+            //valida que los campos nombrados sean de tipo entero
             [['idTalleRemera', 'dniCapitan', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'donador', 'deshabilitado'], 'integer'],
+            // marca las variables como atributo seguro
             [['fechaNacPersona', 'fechaInscPersona'], 'safe'],
-            [['nombrePersona', 'apellidoPersona', 'nacionalidadPersona', 'mailPersona'], 'string', 'max' => 64],
+            //verifica que el formato de fecha sea el deseado
+            [['fechaNacPersona', 'fechaInscPersona'],'date', 'format'=>'yyyy-mm-dd'],
+            //comprueba si el valor del campo es 0 o 1, sin mirar el tipo de dato
+            ['donador', 'boolean'],
+            // comprueba si los campos coinciden con la expresion regular dada
+            [['nombrePersona','apellidoPersona','nacionalidad'],'match','pattern'=>"/^[a-z-A-Z\D]+$/",'message'=>"Unicamente se aceptan caracteres alfanumericos"],
+            [['dniCapitan'],'match','pattern'=>"/^[0-9]*$/",'message'=>"Unicamente se aceptan caracteres numericos"],
+            // comprueba si los atributos son cadenas con una longitud que se encuentre en el rango que se definio
+            [['nombrePersona', 'apellidoPersona', 'nacionalidadPersona', 'mailPersona'], 'string', 'length' => [3,64],'message'=>'Minimo 3 y maximo 64 caracteres'],
             [['sexoPersona'], 'string', 'max' => 1],
             [['telefonoPersona'], 'string', 'max' => 32],
+            //claves foraneas, se valida que existan y que pertenezcan a la clase correspondiente a la que hace referencia
             [['idUsuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['idUsuario' => 'idUsuario']],
             [['idPersonaEmergencia'], 'exist', 'skipOnError' => true, 'targetClass' => Personaemergencia::className(), 'targetAttribute' => ['idPersonaEmergencia' => 'idPersonaEmergencia']],
             [['idPersonaDireccion'], 'exist', 'skipOnError' => true, 'targetClass' => Personadireccion::className(), 'targetAttribute' => ['idPersonaDireccion' => 'idPersonaDireccion']],

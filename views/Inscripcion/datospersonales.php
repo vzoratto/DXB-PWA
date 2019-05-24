@@ -61,7 +61,7 @@ use kartik\select2\Select2;
         </div>
 
         <div id="talleRemera" class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
-            <?=$form->field($talleRemera, 'idTalleRemera')->dropDownList($listadoTalles, ['prompt' => 'Seleccione Uno' ])->label('Talle Remera'); ?>
+            <?=$form->field($talleRemera, 'idTalleRemera')->dropDownList($listadoTalles, ['prompt' => 'Seleccione su talle' ])->label('Talle Remera'); ?>
         </div>
     </div>
     
