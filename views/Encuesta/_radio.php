@@ -28,4 +28,4 @@ use yii\helpers\ArrayHelper;
 
 <?php $r=ArrayHelper::map($resp, 'idRespuestaOpcion', 'opRespvalor') ?>
 
-<?= $form->field($respuesta, 'idRespuesta')->radioList( $r,['separator' => '<br>'] )->label(false);?>
+<?= $form->field($respuesta, 'respValor')->radioList( $r,['separator' => '<br>', 'name'=>'radio_'.$num] )->label(false);?>

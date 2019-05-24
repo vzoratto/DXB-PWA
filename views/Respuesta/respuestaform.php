@@ -1,4 +1,5 @@
 <?php
-
-print_r($respuesta);
+foreach($respuesta AS $valor){
+print_r($valor);
+}
 ?>

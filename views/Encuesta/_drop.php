@@ -28,12 +28,13 @@ use yii\helpers\ArrayHelper;
 
 <?php $r=ArrayHelper::map($resp, 'idRespuestaOpcion', 'opRespvalor') ?>
 
-<?= $form->field($respuesta, 'idRespuesta')->widget(Select2::className(), [
+<?= $form->field($respuesta, 'respValor')->widget(Select2::className(), [
         'data'=>$r,
-        'id'=>'idRespuesta',
+        'id'=>'respValor',
         'options'=> [
             'placeholder'=> 'Seleccione una opcion...',
             'id'=>'idRespuestaOpcion',
+            'name'=>'drop_'.$num,    
         ],
     ])->label(false);
 ?>

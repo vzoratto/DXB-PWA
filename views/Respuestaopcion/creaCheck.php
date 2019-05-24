@@ -25,7 +25,7 @@ $idEncuesta=$preg->idEncuesta;
 <p>Entre estas opciones se podran elegir <strong>varias</strong></p>
 <?php $form = ActiveForm::begin([
         'method'=>'post',
-        'action'=>Url::toRoute('respuesta-opcion/crea-check'),
+        'action'=>Url::toRoute('respuestaopcion/crea-check'),
 ])?>
 	<div class='form-group'>
 		<?= $form->field($model, 'opRespvalor')->textInput()->label('Opcion: ')?>
