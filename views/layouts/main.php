@@ -12,6 +12,23 @@ use app\assets\AppAsset;
 
 AppAsset::register($this);
 ?>
+<?php
+$dni = "";
+$rol = "";
+$mensaje="";
+if (!Yii::$app->user->isGuest) {
+    $usulog = \app\models\Usuario::findOne($_SESSION["__id"]);
+    if ($usulog->idRol == 1 && $usulog->activado==0) {
+        //Yii::$app->user->logout();
+        $mensaje="No tiene la cuenta activada, por favor dirijase a su correo para activarla.";
+        return $this->render('error', ['mensaje' => $mensaje]);
+        
+    }elseif ($usulog->idRol != 1) {
+        app\controllers\UsuarioController::redirect(["site/admin"]);
+        //Yii::$app->getResponse()->redirect(Url::to([site/admin]));
+    }
+}
+?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -35,27 +52,34 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+    
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
+            
+            ['label' => 'Registro', 'url' => 'index.php?r=site/registro', 'visible' => Yii::$app->user->isGuest],
+            ['label' => 'Iniciar Sesion', 'url' => 'index.php?r=site%2Flogin', 'visible' => Yii::$app->user->isGuest],
+
+            ],
+            ]);
+                NavBar::end();
+                if(!Yii::$app->user->isGuest ){
+              echo Nav::widget([
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Logout (' . Yii::$app->user->identity->dniUsuario. ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
+                ]);
+        
+    
+    NavBar::end();}
     ?>
 
     <div class="container">
@@ -79,3 +103,5 @@ AppAsset::register($this);
 </body>
 </html>
 <?php $this->endPage() ?>
+
+

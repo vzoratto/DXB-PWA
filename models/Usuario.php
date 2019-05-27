@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use yii\web\IdentityInterface;
 /**
  * This is the model class for table "usuario".
  *
@@ -19,7 +19,7 @@ use Yii;
  * @property Persona[] $personas
  * @property Rol $rol
  */
-class Usuario extends \yii\db\ActiveRecord
+class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
 {
     /**
      * {@inheritdoc}
@@ -55,7 +55,7 @@ class Usuario extends \yii\db\ActiveRecord
             'mailUsuario' => 'Mail Usuario',
             'authkey' => 'Authkey',
             'activado' => 'Activado',
-            'idRol' => 'Id Rol',
+            'idRol' => 'Rol',
         ];
     }
 
@@ -82,4 +82,52 @@ class Usuario extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Rol::className(), ['idRol' => 'idRol']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsuario($dni)
+    {
+        return $this->hasOne(Usuario::className(), ['dniUsuario' => $dni]);
+    }
+
+    public function getElusuario($d,$c)
+    {
+        return self::find()
+		     ->where(["dniUsuario" => $d])
+		    ->andWhere(["authkey" => $c])->one();
+      
+    }
+
+    public function getAuthKey() {
+        return $this->authkey;
+    }
+
+    public function getId() {
+        return $this->idUsuario;
+    }
+
+    public function validateAuthKey($authKey) {
+        return $this->authkey === $authKey;
+    }
+
+    public static function findIdentity($id) {
+        return self::findOne($id);
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null) {
+        throw new \yii\base\NotSupportedException();
+    }
+
+    public static function findByUsername($dni) {
+        return self::findOne(["dniUsuario" => $dni]);
+    }
+
+    public function validatePassword($password) {
+        return $this->claveUsuario === $password;
+    }
+
+
 }
+
+

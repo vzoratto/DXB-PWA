@@ -7,13 +7,25 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
+use yii\helpers\Html;
 use app\models\Usuario;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\RegistroForm;
+use app\models\Permiso;
 
 class SiteController extends Controller
 {
+
+    /**
+     * {@inheritdoc}
+     */public $usuario_log;
+
+     public function init() {
+        $this->usuario_log = (!empty($_SESSION["__id"])) ? $_SESSION["__id"] : "0";
+    }
+
+
     /**
      * {@inheritdoc}
      */
@@ -22,12 +34,23 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['index,view,create,update,delete'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['index,view,create,update,delete,admin,logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Permiso::requerirRol('administrador') && Permiso::requerirActivo('activo');
+                        }
+                    ],
+                    [
+                        'actions' => ['index,view,create,admin'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Permiso::requerirRol('gestor') && Permiso::requerirActivo('activo');
+                        }
                     ],
                 ],
             ],
@@ -152,20 +175,23 @@ class SiteController extends Controller
           //validación mediante ajax no puede ser llevada a cabo
           if ($model->load(Yii::$app->request->post())){
               if($model->validate()){
-				  
+                //echo "<pre>";print_r($model);echo "</pre>";
+               
                 //Preparamos la consulta para guardar el usuario
-                $tabla = new Usuario;
-				  if (empty($tabla->findByUsername($model->dni))) {
-                       $tabla->dniUsuario = $model->dni;
+                $tabla = new Usuario();
+				  if ($tabla->getUsuario($model->dni)) {
+                     
+                       $tabla->dniUsuario=$model->dni;
                        //Encriptamos el password
                        $tabla->claveUsuario = crypt($model->password, Yii::$app->params["salt"]);
-				       $tabla->emailUsuario = $model->email;//Creamos una cookie para autenticar al usuario cuando decida recordar la sesión, esta misma
-                       //clave será utilizada para activar el usuario
-                       $tabla->authkey = $this->randKey("carrerabarda", 50);
+                       $tabla->mailUsuario = $model->email;
+                       $tabla->authkey = $this->randKey("carrerabarda", 50);//clave será utilizada para activar el usuario
                        $tabla->activado=0;
-				       $tabla->idRol=1;
-                       //Si el registro es guardado correctamente
-                       if ($tabla->insert()){
+                       $tabla->idRol=1;
+                       //echo "<pre>";var_dump($tabla);echo "</pre>";
+                      
+                       if ($tabla->save()){     //Si el registro es guardado correctamente
+                       
 						   $dni = urlencode($model->dni);
                            $authkey = urlencode($tabla->authkey);
 					      //accion validar mail
@@ -173,39 +199,38 @@ class SiteController extends Controller
                           $body = "<h1>Haga click en el siguiente enlace para finalizar tu registro</h1>";
                           $body .= "<a href='http://localhost/carrera/web/index.php?r=site/activarcuenta&d=".$dni."&c=".$authkey."'>Confirmar</a>";
 						  
-						  Yii::$app->mail->compose()
-                          ->setFrom([Yii::$app->params["adminEmail"] => Yii::$app->params["title"]])
+                          Yii::$app->mailer->compose()
+                          ->setFrom('carreraxbarda@gmail.com')
+                          //->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
                           ->setTo($model->email)
                           ->setSubject($subject)
                           ->setHTMLBody($body)
                           ->send();
                            
 						   $model->dni = null;
-                           $model->clave = null;
+                           $model->password = null;
                            $model->email = null;
-                           //$model->authkey = null;
-					      // $model->activado = null;
-					       //$model->idrol = null;
+                           
                            $mensaje = "Enviamos un email de verificacion y/o activacion a su correo, abralo para activar su cuenta";
                            return $this->render('error', ['mensaje' => $mensaje]);
                        }else{
                            $mensaje = "Ha ocurrido un error al llevar a cabo tu registro,vuelve a intentarlo";
-                           return $this->render('registro', ['mensaje' => $mensaje]);
+                           return $this->render('registro', ['model' => $model,'mensaje' => $mensaje]);
                         }   
 				  }else{ 
                      $mensaje = "Ya existe el numero de documento, por favor contactese con la administracion.";
 					 return $this->render('error', ['mensaje' => $mensaje]);
                   }	   
 		      }else{
-                    $mensaje = "Ha ocurrido un error al llevar a cabo tu registro,vuelve a intentarlo";
-					return $this->render("registro", ["mensaje" => $mensaje]);
+                $mensaje = "Ya existe el numero de documento, por favor contactese con la administracion.";
+                return $this->render('error', ['mensaje' => $mensaje]);
                 }
      
              }
              return $this->render('registro', [
                 'model' => $model,
                 'mensaje'=> $mensaje,
-            ]);
+            ]); 
   }
 
   public function actionActivarcuenta() {//este
@@ -216,7 +241,7 @@ class SiteController extends Controller
         $dni = Html::encode($_GET["d"]);
         $authkey = $_GET["c"];
     
-        $usuActivar = $usuario->elusuario($dni,$authkey);
+        $usuActivar = Usuario::getElusuario($dni,$authkey);
                           //->where(["dniUsuario" => $d])
                           //->andWhere(["authKey" => $c])->one();
 
@@ -225,13 +250,14 @@ class SiteController extends Controller
             $activar->activado = 1;
             if ($activar->save()){
                     //login automatico
-                    $modelo = new LoginForm();
-                    $modelo->dniUsuario = $usuActivar->dniUsuario;
-                    $modelo->claveUsuario = $usuActivar->claveUsuario;
+                   //$modelo = new LoginForm();
+                   //$modelo->username = $usuActivar->dniUsuario;
+                   //$modelo->password = $usuActivar->claveUsuario;
                    
-                    if ($modelo->login()) {
-                        return $this->goHome();
-                    }
+                    //if ($modelo->login()) {
+                        //return $this->goHome();
+                    //}
+                  Yii::$app->getResponse()->redirect(Url::to(['site/login']));
            } else {
                // if(!Yii::$app->user->isGuest){Yii::$app->user->logout();}
                $mensaje="No existe usuario registrado con ese numero de documento, redireccionando ...";
@@ -239,12 +265,12 @@ class SiteController extends Controller
                return $this->render('error', ['mensaje' => $mensaje]);
             }
        }else{
-             $mensaje="No se pudo activar la cuenta, redireccionando ...";
-             $mensaje.= "<meta http-equiv='refresh' content='8; ".$this->goBack()."'>";
+             $mensaje="No se pudo activar la cuenta, comunicate con el administrador";
+             $mensaje.= "<meta http-equiv='refresh' content='10; ".$this->goBack()."'>";
              return $this->render('error', ['mensaje' => $mensaje]);
        }
      }else{
-      $mensaje="No se pudo activar la cuenta, redireccionando ...";
+      $mensaje="Ups!! hubo un inconveniente, vuelva a intentarlo, redireccionando ...";
       $mensaje.= "<meta http-equiv='refresh' content='8; ".$this->goBack()."'>";
       return $this->render('error', ['mensaje' => $mensaje]);
      }
@@ -257,6 +283,15 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function admin(){
+        $usuAdmin=\app\models\Usuario::findOne($_SESSION["__id"]);
+        if(Permiso::requerirRol('$usuAdmin->descripcionRol') && Permiso::requerirActivo('$usuAdmin->activado')){
+            return $this->render('administar', [
+                'model' => $usuAdmin->descripcionRol,
+            ]); 
+        }
     }
 
 }

@@ -14,6 +14,17 @@ use yii\filters\VerbFilter;
  */
 class UsuarioController extends Controller
 {
+    private $usuario_log;
+
+
+    /**
+     * {@inheritdoc}
+     */
+
+     public function init() {
+        $this->usuario_log = (!empty($_SESSION["__id"])) ? $_SESSION["__id"] : "0";
+    }
+
     /**
      * {@inheritdoc}
      */

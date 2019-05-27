@@ -22,36 +22,44 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\Usuario',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-   'useFileTransport' => false,
+        'useFileTransport' => false,
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-   'transport' => [
+        'transport' => [
             'class' => 'Swift_SmtpTransport',
             'host' => 'smtp.gmail.com',
             'username' => 'carreraxbarda@gmail.com',
             'password' => 'barda123carrera',
             'port' => '587',
             'encryption' => 'tls',
-            //01/enero/2001---prefieronodecirlo
+            'streamOptions' => [ 
+                'ssl' => [ 
+                    'allow_self_signed' => true,
+                    'verify_peer' => false,
+                  //  'verify_peer_name' => false,
+                ],
+            ]
+            //01/enero/2001---prefieronodecirlo 587 tls
           ],
         ],
-
+        /*
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
             'useFileTransport' => true,
-        ],
+        ],*/
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

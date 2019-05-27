@@ -1,5 +1,4 @@
 <?php
-
 /* @var $this yii\web\View */
 /* @var $name string */
 /* @var $message string */
@@ -7,21 +6,24 @@
 
 use yii\helpers\Html;
 
-$this->title = $name;
+if (!empty($mensaje)) {
+    $msg = $mensaje;
+} else {
+    $msg = "No se puede acceder a esta pagina";
+}
+
+$this->title = "Atencion!";
 ?>
-<div class="site-error">
+<div class="site-error" align="center">
 
+
+    <img src="registro/alerta.png" style="margin:20px;max-width: 150px;">
     <h1><?= Html::encode($this->title) ?></h1>
-
     <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
+        <?php echo nl2br(Html::encode($msg));?>
     </div>
-
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
+    <div class="alert alert-info">
+        <?php echo "carreraxbarda@gmail.com";?>
+    </div>
 
 </div>
