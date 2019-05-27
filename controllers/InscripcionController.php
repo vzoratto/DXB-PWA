@@ -155,10 +155,11 @@ class InscripcionController extends Controller
         try {
             //MODELO USUARIO
             $modeloUsuario=Yii::$app->request->post()['Usuario'];
+            $modeloPersona=Yii::$app->request->post()['Persona'];
             $usuario=new Usuario();
             //$usuario->idUsuario=null;
             $usuario->dniUsuario=$modeloUsuario['dniUsuario'];
-            $usuario->mailUsuario=Yii::$app->request->post()['mailPersona'];
+            $usuario->mailUsuario=$modeloPersona['mailPersona'];
             $hash = Yii::$app->getSecurity()->generatePasswordHash($modeloUsuario['dniUsuario']);
             $usuario->claveUsuario=$hash;
             $usuario->idRol=1;
@@ -166,8 +167,7 @@ class InscripcionController extends Controller
             $usuario->activado=1;
             $usuario->save();
             $idUsuario=$usuario->idUsuario;
-            print_r($usuario->errors);
-            
+
 
 
             //MODELO LOCALIDAD
@@ -207,7 +207,7 @@ class InscripcionController extends Controller
 
 
             $fecha=new \DateTime();
-            $fechaActual=$fecha->format('Y-m-d H:i:sP');
+            $fechaActual=$fecha->format('Y-m-d H:i:s');
 
             //TALLE REMERA
             $idTalleRemera=Yii::$app->request->post()['Talleremera']['idTalleRemera'];
@@ -224,11 +224,11 @@ class InscripcionController extends Controller
             $persona->sexoPersona=$modeloPersona['sexoPersona'];
             $persona->nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
             $persona->telefonoPersona=$modeloPersona['telefonoPersona'];
-            $persona->mailPersona=Yii::$app->request->post()['mailPersona'];
+            $persona->mailPersona=$modeloPersona['mailPersona'];
             $persona->idUsuario=$idUsuario;
             $persona->idPersonaDireccion=$personaDireccion->idPersonaDireccion;
             $persona->idFichaMedica=$fichaMedica->idFichaMedica;
-            $persona->fechaInscPersona=$fechaActual;
+            $persona->fechaInscPersona=null;
             $persona->idPersonaEmergencia=$personaEmergencia->idPersonaEmergencia;
             $persona->donador=$modeloPersona['donador'];
             //$persona->estadoPago=null;
@@ -237,7 +237,7 @@ class InscripcionController extends Controller
            // $idPersona=$persona->idPersona;
            // echo $idPersona;
             
-            print_r($persona->errors);
+          //  print_r($persona->errors);
             //die();
 
 

@@ -30,10 +30,6 @@ class Personadireccion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            //definicion de campos obligatorios
-            [['idLocalidad'], 'integer', 'requerid', 'message' => 'Este campo es obligatorio.'],
-            //valida que el idLocalidad sean de tipo entero
-            ['idLocalidad', 'integer'],
             //valida que la direccionUsuario sean de tipo string con un maximo de 64 caracteres
             [['direccionUsuario'], 'string', 'max' => 64],
             [['idLocalidad'], 'exist', 'skipOnError' => true, 'targetClass' => Localidad::className(), 'targetAttribute' => ['idLocalidad' => 'idLocalidad']],

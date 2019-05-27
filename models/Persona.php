@@ -64,9 +64,9 @@ class Persona extends \yii\db\ActiveRecord
             //comprueba si el valor del campo es 0 o 1, sin mirar el tipo de dato
             ['donador', 'boolean'],
             // comprueba si los campos coinciden con la expresion regular dada
-            [['nombrePersona','apellidoPersona','nacionalidad'],'match','pattern'=>"/^[a-z-A-Z\D]+$/",'message'=>"Unicamente se aceptan caracteres alfanumericos"],
+            [['nombrePersona','apellidoPersona','nacionalidadPersona'],'match','pattern'=>"/^[a-z-A-Z\D]+$/",'message'=>"Unicamente se aceptan caracteres alfanumericos"],
             [['dniCapitan'],'match','pattern'=>"/^[0-9]*$/",'message'=>"Unicamente se aceptan caracteres numericos"],
-            [['telefonoPersona'],'match','pattern'=>"/^(?:((?P<p1>(?:\( ?)?+)(?:\+|00)?(54)(?<p2>(?: ?\))?+)(?P<sep>(?:[-.]| (?:[-.] )?)?+)(?:(?&p1)(9)(?&p2)(?&sep))?|(?&p1)(0)(?&p2)(?&sep))?+(?&p1)(11|([23]\d{2}(\d)??|(?(-10)(?(-5)(?!)|[68]\d{2})|(?!))))(?&p2)(?&sep)(?(-5)|(?&p1)(15)(?&p2)(?&sep))?(?:([3-6])(?&sep)|([12789]))(\d(?(-5)|\d(?(-6)|\d)))(?&sep)(\d{4})|(1\d{2}|911))$/D",'message'=>"No es un formato de telefono valido"],
+           // [['telefonoPersona'],'match','pattern'=>"/^(?:((?P<p1>(?:\( ?)?+)(?:\+|00)?(54)(?<p2>(?: ?\))?+)(?P<sep>(?:[-.]| (?:[-.] )?)?+)(?:(?&p1)(9)(?&p2)(?&sep))?|(?&p1)(0)(?&p2)(?&sep))?+(?&p1)(11|([23]\d{2}(\d)??|(?(-10)(?(-5)(?!)|[68]\d{2})|(?!))))(?&p2)(?&sep)(?(-5)|(?&p1)(15)(?&p2)(?&sep))?(?:([3-6])(?&sep)|([12789]))(\d(?(-5)|\d(?(-6)|\d)))(?&sep)(\d{4})|(1\d{2}|911))$/D",'message'=>"No es un formato de telefono valido"],
             // comprueba si los atributos son cadenas con una longitud que se encuentre en el rango que se definio
             [['nombrePersona', 'apellidoPersona', 'nacionalidadPersona', 'mailPersona'], 'string', 'length' => [3,64],'message'=>'Minimo 3 y maximo 64 caracteres'],
             [['sexoPersona'], 'string', 'max' => 1],
