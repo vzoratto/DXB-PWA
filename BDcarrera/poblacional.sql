@@ -1,3 +1,14 @@
+INSERT INTO `talleremera`( `deshabilitado`, `talleRemera`) VALUES 
+(false,'XS'),
+(false,'S'),
+(false,'M'),
+(false,'L'),
+(false,'XL'),
+(false,'XXL'),
+(false,'XXXL');
+
+
+
 --
 -- Volcado de datos para la tabla `provincia`
 --
