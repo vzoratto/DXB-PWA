@@ -7,16 +7,16 @@ $(function() {
 
         if (i != totalSize) {
             next = i + 2;
-            $(this).append("<a href='#' class='next-tab mover' rel='ui-id-" + next + "'>Continue &#187;</a>");
+            $(this).append($('#botones-atras-siguiente'),"<a href='#' class='next-tab mover btn btn-info pull-right' rel='" + next + "' role='button'>Siguiente</a>");
         }
         if (i != 0) {
             prev = i;
-            $(this).append("<a href='#' class='prev-tab mover' rel='" + prev + "'>&#171; Back</a>");
+            $(this).append($('#botones-atras-siguiente'),"<a href='#' class='prev-tab mover btn btn-info pull-left' rel='" + prev + "' role='button'>Volver</a>");
 
         }
     });
     $('.next-tab, .prev-tab').click(function() {
-        $tabs.tabs('change', $(this).attr("rel"));
+        $tabs.tabs('select', $(this).attr("rel"));
 
         return false;
     });
