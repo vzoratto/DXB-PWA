@@ -41,6 +41,7 @@ class Personaemergencia extends \yii\db\ActiveRecord
             [['nombrePersonaEmergencia', 'apellidoPersonaEmergencia'], 'string', 'min' => 3,'message'=>'formato inválido'],
             [['telefonoPersonaEmergencia'], 'string', 'max' => 32],
             [['telefonoPersonaEmergencia'], 'string', 'min' => 4],
+            //el telefono debe ser solo digitos numericos
             [['telefonoPersonaEmergencia'], 'match', 'pattern' => '/^([0-9])*$/','message'=>'El formato inválido'],
             [['idVinculoPersonaEmergencia'], 'exist', 'skipOnError' => true, 'targetClass' => Vinculopersona::className(), 'targetAttribute' => ['idVinculoPersonaEmergencia' => 'idVinculo']],
         ];
