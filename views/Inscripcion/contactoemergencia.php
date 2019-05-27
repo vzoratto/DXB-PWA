@@ -37,7 +37,8 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 </div>
-
+<div class="form-group" id="botones-atras-siguiente">
+</div>
     <div class="form-group">
         <?= Html::submitButton('Terminar inscripción', ['class' => 'btn btn-success']) ?>
     </div>

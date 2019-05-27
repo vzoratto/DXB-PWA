@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ],
     'options' => ['tag' => 'div'],
-    'itemOptions' => ['tag' => 'div', 'class' => 'ui-tabs-panel'],
+    'itemOptions' => ['tag' => 'div', 'class' => 'tabs-container'],
     'headerOptions' => ['class' => 'my-class'],
     'clientOptions' => ['collapsible' => false],
 ]);
