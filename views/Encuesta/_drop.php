@@ -34,7 +34,7 @@ use yii\helpers\ArrayHelper;
         'options'=> [
             'placeholder'=> 'Seleccione una opcion...',
             'id'=>'idRespuestaOpcion',
-            'name'=>'drop_'.$num,    
+            'name'=>$valor['idPregunta'],    
         ],
     ])->label(false);
 ?>

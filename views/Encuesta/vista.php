@@ -18,13 +18,11 @@ use yii\helpers\Url;
 <div class="encuesta-form">
     <?php  $form=ActiveForm::begin([
         'method'=>'post',
-        'action'=>Url::toRoute('respuesta/respuesta'),
+        'action'=>Url::toRoute('respuesta/armarespuesta'),
         ]
     ); ?>
-        <?php $text = 1;?>
-        <?php $drop = 1;?>
-        <?php $check = 1;?>
-        <?php $radio = 1;?>
+        <?php $num = 1;?>
+        
         <?php foreach($pregunta as $valor):?>
             <div class="form-group">
             <h3> <?php $idPregunta=$valor['idPregunta']; ?></h3>
@@ -36,9 +34,9 @@ use yii\helpers\Url;
                         'idPregunta'=>$idPregunta,
                         'form'=>$form,
                         'respuesta'=>$respuesta,
-                        'num'=>$text,
+                        'valor'=>$valor,
                     ]);
-                    $text++;
+                    $num++;
 
                 }elseif($valor['idRespTipo']==2){
                     echo $this->render('_drop', [
@@ -46,9 +44,9 @@ use yii\helpers\Url;
                         'idPregunta'=>$idPregunta,
                         'form'=>$form,
                         'respuesta'=>$respuesta,
-                        'num'=>$drop,
+                        'valor'=>$valor,
                         ]);
-                        $drop++;
+                        $num++;
 
                 }elseif($valor['idRespTipo']==3){
                     echo $this->render('_check', [
@@ -56,9 +54,9 @@ use yii\helpers\Url;
                         'idPregunta'=>$idPregunta,
                         'form'=>$form,
                         'respuesta'=>$respuesta,
-                        'num'=>$check,
+                        'valor'=>$valor,
                         ]);
-                        $check++;
+                        $num++;
 
                 }elseif($valor['idRespTipo']==4){
                     
@@ -67,9 +65,9 @@ use yii\helpers\Url;
                         'idPregunta'=>$idPregunta,
                         'form'=>$form,
                         'respuesta'=>$respuesta,
-                        'num'=>$radio,
+                        'valor'=>$valor,
                         ]);
-                        $radio++;
+                        $num++;
                         
                 }
                  

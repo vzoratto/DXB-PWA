@@ -15,6 +15,12 @@ use yii\filters\VerbFilter;
 class RespuestaController extends Controller
 {
 
+    public function actionArmarespuesta(){
+
+        $respuesta=$_REQUEST;
+        return $this->render('verrespuesta',['respuesta'=>$respuesta]);
+    }
+
     public function actionRespuesta(){
 
         $respuesta=new Respuesta();
