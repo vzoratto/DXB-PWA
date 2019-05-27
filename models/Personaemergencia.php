@@ -32,9 +32,16 @@ class Personaemergencia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            //campos requeridos
+            [['nombrePersonaEmergencia','apellidoPersonaEmergencia','telefonoPersonaEmergencia','idVinculoPersonaEmergencia'],'required','message'=>'Campo obligatorio'],
             [['idVinculoPersonaEmergencia'], 'integer'],
-            [['nombrePersonaEmergencia', 'apellidoPersonaEmergencia'], 'string', 'max' => 64],
+            //solo string para el campo nombre y apellido
+            [['nombrePersonaEmergencia','apellidoPersonaEmergencia'],'match','pattern'=>'/^[a-zA-Z.,-]+(?:\s[a-zA-Z.,-]+)*$/'],
+            [['nombrePersonaEmergencia', 'apellidoPersonaEmergencia'], 'string', 'max' => 64,'message'=>'formato inválido'],
+            [['nombrePersonaEmergencia', 'apellidoPersonaEmergencia'], 'string', 'min' => 3,'message'=>'formato inválido'],
             [['telefonoPersonaEmergencia'], 'string', 'max' => 32],
+            [['telefonoPersonaEmergencia'], 'string', 'min' => 4],
+            [['telefonoPersonaEmergencia'], 'match', 'pattern' => '/^([0-9])*$/','message'=>'El formato inválido'],
             [['idVinculoPersonaEmergencia'], 'exist', 'skipOnError' => true, 'targetClass' => Vinculopersona::className(), 'targetAttribute' => ['idVinculoPersonaEmergencia' => 'idVinculo']],
         ];
     }
