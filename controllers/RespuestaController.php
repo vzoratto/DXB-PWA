@@ -18,6 +18,23 @@ class RespuestaController extends Controller
     public function actionArmarespuesta(){
 
         $respuesta=$_REQUEST;
+        foreach($respuesta as $clave=>$valor){
+            if(is_array($valor)){
+                foreach($valor as $respValor){
+                    $resp['respValor']=$respValor;
+                    $resp['idPregunta']=$clave;
+                    $resp['idPersona']=1;
+
+                    $model = new Respuesta();
+
+                    if ($model->load($resp && $model->save())) {
+                        return $this->redirect(['view', 'id' => $model->idRespuesta]);
+                    }
+
+                }
+
+            }
+        }
         return $this->render('verrespuesta',['respuesta'=>$respuesta]);
     }
 
