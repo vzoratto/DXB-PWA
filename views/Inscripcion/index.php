@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\jui\Tabs;
 use yii\widgets\ActiveForm;
+use buttflattery\formwizard\FormWizard;
+
+
 
 /* @var $this yii\web\View */
 
@@ -56,3 +59,39 @@ $this->params['breadcrumbs'][] = $this->title;
      ActiveForm::end(); ?>
 
 </div>
+<?php
+echo FormWizard::widget([
+    'theme' => FormWizard::THEME_CIRCLES,
+    'steps' => [
+        [
+            'model' => $persona,
+            'title' => 'Datos personales',
+            'description' => 'Paso 1',
+            'formInfoText' => 'Fill all fields'
+        ],
+        [
+            'model' => $personaDireccion,
+            'title' => 'Datos de contacto',
+            'description' => 'Paso 2',
+            'formInfoText' => 'Fill all fields'
+        ],
+        [
+            'model' => $fichaMedica,
+            'title' => 'Datos medicos',
+            'description' => 'Paso 3',
+            'formInfoText' => 'Fill all fields'
+        ],
+        [
+            'model' => $datosEmergencia,
+            'title' => 'Contacto de emergencia',
+            'description' => 'Paso 4',
+            'formInfoText' => 'Fill all fields'
+        ],
+        /*[
+            'model' => $encuesta,
+            'title' => 'Encuesta',
+            'description' => 'Paso 5',
+            'formInfoText' => 'Fill all fields'
+        ],*/
+    ]
+]);?>
