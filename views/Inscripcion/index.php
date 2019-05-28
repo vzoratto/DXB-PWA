@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\jui\Tabs;
 use yii\widgets\ActiveForm;
+use buttflattery\formwizard\FormWizard;
 
 /* @var $this yii\web\View */
 
@@ -56,3 +57,112 @@ $this->params['breadcrumbs'][] = $this->title;
      ActiveForm::end(); ?>
 
 </div>
+
+<?php
+echo FormWizard::widget([
+    'theme' => FormWizard::THEME_CIRCLES,
+    'steps' => [
+        [
+            'model' => [$persona, $usuario],
+            'title' => 'Datos personales',
+            'description' => 'Paso 1',
+            'formInfoText' => 'Fill all fields',
+            'fieldOrder'=> ['dniCapitan','dniUsuario','nacionalidadPersona','nombrePersona','apellidoPersona'],
+            'fieldConfig' => [
+                'dniCapitan' => [
+                    'labelOptions' => [
+                        'label' => 'D.N.I. Capitan: ',
+                    ],
+                    'containerOptions' => [
+                        'class' => 'col-md-4 col-lg-4 col-sm-4 col-xs-6'
+                    ],
+                    'options' => [
+                        'class' => 'form-control'
+                    ]
+                ],
+                'dniUsuario' => [
+                    'labelOptions' => [
+                        'label' => 'D.N.I.: ',
+                    ],
+                    'containerOptions' => [
+                        'class' => 'col-md-4 col-lg-4 col-sm-4 col-xs-6'
+                    ],
+                    'options' => [
+                        'class' => 'form-control'
+                    ]
+                ],
+                'nacionalidadPersona' => [
+                    'labelOptions' => [
+                        'label' => 'Nacionalidad: ',
+                    ],
+                    'containerOptions' => [
+                        'class' => 'col-md-4 col-lg-4 col-sm-4 col-xs-6'
+                    ],
+                    'options' => [
+                        'class' => 'form-control'
+                    ]
+                ],
+                'nombrePersona' => [
+                    'labelOptions' => [
+                        'label' => 'Nombre: ',
+                    ],
+                    'containerOptions' => [
+                        'class' => 'col-md-6 col-lg-6 col-sm-6 col-xs-12'
+                    ],
+                    'options' => [
+                        'class' => 'form-control'
+                    ]
+                ],
+                'apellidoPersona' => [
+                    'labelOptions' => [
+                        'label' => 'Apellido: ',
+                    ],
+                    'containerOptions' => [
+                        'class' => 'col-md-6 col-lg-6 col-sm-6 col-xs-12'
+                    ],
+                    'options' => [
+                        'class' => 'form-control'
+                    ]
+                ],
+                'fechaNacPersona_at' => [
+                    'labelOptions' => [
+                        'label' => 'Fecha Nacimiento: ',
+                    ],
+                    'widget' => DatePicker::class, //widget class name
+                    'options' => [ // you will pass the widget options here
+                        'options' => [
+                            'placeholder' => 'Select a Date',
+                            'id' => 'my-datepicker',
+                            'class' => 'form-control'
+                        ],
+                        'dateFormat'=>'short'
+                    ],
+                ],
+            ]
+        ],
+        [
+            'model' => $personaDireccion,
+            'title' => 'Datos de contacto',
+            'description' => 'Paso 2',
+            'formInfoText' => 'Fill all fields'
+        ],
+        [
+            'model' => $fichaMedica,
+            'title' => 'Datos medicos',
+            'description' => 'Paso 3',
+            'formInfoText' => 'Fill all fields'
+        ],
+        [
+            'model' => $datosEmergencia,
+            'title' => 'Contacto de emergencia',
+            'description' => 'Paso 4',
+            'formInfoText' => 'Fill all fields'
+        ],
+        /*[
+            'model' => $encuesta,
+            'title' => 'Encuesta',
+            'description' => 'Paso 5',
+            'formInfoText' => 'Fill all fields'
+        ],*/
+    ]
+]);?>
