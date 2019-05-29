@@ -8,6 +8,7 @@ use app\models\RespuestaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Respuestaopcion;
 
 /**
  * RespuestaController implements the CRUD actions for Respuesta model.
@@ -25,7 +26,12 @@ class RespuestaController extends Controller
             if(is_numeric($clave)){
                 if(is_array($valor)){
                     foreach($valor as $unValor){
-                        $resp['respValor']=$unValor;
+                        if(is_numeric($unValor)){
+                            $opcion=Respuestaopcion::findOne($unValor);
+                            $resp['respValor']=$opcion->opRespvalor;
+                        }else{
+                            $resp['respValor']=$unValor;
+                        }
                         $resp['idPregunta']=$clave;
                         $resp['idPersona']=1;
                         if(!$this->guardarespuesta($resp)){
@@ -35,7 +41,12 @@ class RespuestaController extends Controller
                         }
                     }
                 }else{
-                    $resp['respValor']=$valor;
+                    if(is_numeric($valor)){
+                        $opcion=Respuestaopcion::findOne($valor);
+                        $resp['respValor']=$opcion->opRespvalor;
+                    }else{
+                        $resp['respValor']=$valor;
+                    }
                     $resp['idPregunta']=$clave;
                     $resp['idPersona']=1;
                     if(!$this->guardarespuesta($resp)){
