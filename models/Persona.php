@@ -61,6 +61,8 @@ class Persona extends \yii\db\ActiveRecord
             [['fechaNacPersona', 'fechaInscPersona'], 'safe'],
             //verifica que el formato de fecha sea el deseado
             [['fechaNacPersona', 'fechaInscPersona'],'date', 'format'=>'yyyy-mm-dd'],
+            //comprueba que la fecha sea mayor a AAAA-MM-DD
+            ['fechaNacPersona', 'compare', 'compareValue' => "2018-02-01", 'operator' => '>=','message'=>'Lo sentimos, debes ser mayor de 12 años para correr.'],
             //comprueba si el valor del campo es 0 o 1, sin mirar el tipo de dato
             ['donador', 'boolean'],
             // comprueba si los campos coinciden con la expresion regular dada

@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'formOptions' => [
         'id' => 'my_form_multi_model_single_step',
         'enableClientValidation'=>true,
+        "action"=>"index.php?r=inscripcion%2Fstore",
         //'enableAjaxValidation'=>true,
         'options'=>[
             'class'=>'form-inline'
