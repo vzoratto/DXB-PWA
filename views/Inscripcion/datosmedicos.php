@@ -79,10 +79,8 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 </div>
-
-    <div class="form-group">
-        <?= Html::Button('Siguiente', ['class' => 'btn btn-info']) ?>
-    </div>
+<div class="form-group" id="botones-atras-siguiente">
+</div>
 
 
 

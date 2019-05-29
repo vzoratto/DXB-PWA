@@ -155,22 +155,26 @@ class InscripcionController extends Controller
         try {
             //MODELO USUARIO
             $modeloUsuario=Yii::$app->request->post()['Usuario'];
+            $modeloPersona=Yii::$app->request->post()['Persona'];
             $usuario=new Usuario();
-            $usuario->idUsuario=null;
+            //$usuario->idUsuario=null;
             $usuario->dniUsuario=$modeloUsuario['dniUsuario'];
-            $usuario->mailUsuario=Yii::$app->request->post()['mailPersona'];
+            $usuario->mailUsuario=$modeloPersona['mailPersona'];
             $hash = Yii::$app->getSecurity()->generatePasswordHash($modeloUsuario['dniUsuario']);
             $usuario->claveUsuario=$hash;
             $usuario->idRol=1;
+            $usuario->authkey='fiqojqiodjowq'; //Corregir esto y generarlo aleatoriamente
+            $usuario->activado=1;
             $usuario->save();
             $idUsuario=$usuario->idUsuario;
+
 
 
             //MODELO LOCALIDAD
             $modeloLocalidad=Yii::$app->request->post()['Localidad'];
             //MODELO PERSONA DIRECCION
            // $modeloPersonaDireccion=Yii::$app->request->post()['Personadireccion'];
-            $direccion=Yii::$app->request->post()['calle'].' '.Yii::$app->request->post()['numero'];
+            $direccion=Yii::$app->request->post()['calle'].' '.Yii::$app->request->post()['numero'].' '.Yii::$app->request->post()['piso'].' '.Yii::$app->request->post()['departamento'];
             $personaDireccion=new Personadireccion();
             $personaDireccion->idLocalidad=$modeloLocalidad['idLocalidad'];
             $personaDireccion->direccionUsuario=$direccion;
@@ -201,8 +205,9 @@ class InscripcionController extends Controller
             $personaEmergencia->idVinculoPersonaEmergencia=$modeloPersonaemergencia['idVinculoPersonaEmergencia'];
             $personaEmergencia->save();
 
+
             $fecha=new \DateTime();
-            $fechaActual=$fecha->format('Y-m-d H:i:sP');
+            $fechaActual=$fecha->format('Y-m-d H:i:s');
 
             //TALLE REMERA
             $idTalleRemera=Yii::$app->request->post()['Talleremera']['idTalleRemera'];
@@ -219,27 +224,35 @@ class InscripcionController extends Controller
             $persona->sexoPersona=$modeloPersona['sexoPersona'];
             $persona->nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
             $persona->telefonoPersona=$modeloPersona['telefonoPersona'];
-            $persona->mailPersona=Yii::$app->request->post()['mailPersona'];
+            $persona->mailPersona=$modeloPersona['mailPersona'];
             $persona->idUsuario=$idUsuario;
             $persona->idPersonaDireccion=$personaDireccion->idPersonaDireccion;
             $persona->idFichaMedica=$fichaMedica->idFichaMedica;
-            $persona->fechaInscPersona=$fechaActual;
+            $persona->fechaInscPersona=null;
             $persona->idPersonaEmergencia=$personaEmergencia->idPersonaEmergencia;
             $persona->donador=$modeloPersona['donador'];
             //$persona->estadoPago=null;
-
+            
             $persona->save();
+           // $idPersona=$persona->idPersona;
+           // echo $idPersona;
+            
+          //  print_r($persona->errors);
+            //die();
 
 
             //ESTADO PAGO
             $estadoPagoPersona=new Estadopagopersona();
             $estadoPagoPersona->idEstadoPago=1;
-            $estadoPagoPersona->idPersona=$persona->getPrimaryKey();
+            
+            $estadoPagoPersona->idPersona=$persona->primaryKey();
             $estadoPagoPersona->fechaPago=$fechaActual;
             $estadoPagoPersona->save();
+           // print_r($estadoPagoPersona->errors);
 
-            $transaction->commit();
-            $guardado=true;
+            if($transaction->commit()){
+                $guardado=true;
+            }
             
 
         } catch(\Exception $e) {
@@ -250,7 +263,7 @@ class InscripcionController extends Controller
         }
 
 
-            return Yii::$app->response->redirect(['site/index','guardado'=>$guardado])->send();
+            //return Yii::$app->response->redirect(['site/index','guardado'=>$guardado])->send();
 
 
 
