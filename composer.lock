@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "289f4af58f873a0c84ca88e3282afd0c",
+    "content-hash": "dd351d90aca39a8ce2a5b1fba50100e0",
     "packages": [
         {
             "name": "arturoliveira/yii2-excelview",
@@ -95,6 +95,51 @@
                 "yii2"
             ],
             "time": "2015-07-26T20:46:28+00:00"
+        },
+        {
+            "name": "bogdik/yii2-wizardwidget",
+            "version": "1.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bogdik/yii2-wizardwidget.git",
+                "reference": "da098bc2e0a299354660948c2ded787de7641cb4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bogdik/yii2-wizardwidget/zipball/da098bc2e0a299354660948c2ded787de7641cb4",
+                "reference": "da098bc2e0a299354660948c2ded787de7641cb4",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": ">=2.0.6",
+                "yiisoft/yii2-bootstrap": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "bogdik\\wizardwidget\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "A.F.Schuurman",
+                    "email": "andre.schuurman+yii2-wizardwidget@gmail.com"
+                }
+            ],
+            "description": "Multi step wizard widget using tabs to guide a user through steps to complete a task. Based on the Form wizard (using tabs) from lukepzak (see http://bootsnipp.com/snippets/featured/form-wizard-using-tabs).",
+            "keywords": [
+                "extension",
+                "tabs",
+                "ui",
+                "widget",
+                "wizard",
+                "yii2"
+            ],
+            "time": "2017-12-29T10:41:21+00:00"
         },
         {
             "name": "borales/yii2-phone-input",
@@ -857,7 +902,8 @@
                 "shasum": ""
             },
             "suggest": {
-                "yiisoft/yii2-bootstrap": "for Krajee extensions to work with Bootstrap 3.x version"
+                "yiisoft/yii2-bootstrap": "for Krajee extensions to work with Bootstrap 3.x version",
+                "yiisoft/yii2-bootstrap4": "for Krajee extensions to work with Bootstrap 4.x version"
             },
             "type": "yii2-extension",
             "extra": {
@@ -4212,7 +4258,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",

@@ -28,7 +28,8 @@
         "kartik-v/yii2-widget-depdrop": "dev-master",
         "kartik-v/yii2-widget-select2": "@dev",
         "borales/yii2-phone-input": "*",
-        "buttflattery/yii2-formwizard": "@dev"
+        "buttflattery/yii2-formwizard": "@dev",
+        "bogdik/yii2-wizardwidget": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
