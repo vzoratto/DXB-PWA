@@ -15,71 +15,49 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inscripciones-index">
     <!-- comienzo del formulario, se define el metodo de envio de datos y se llama a la accion "store" o guardar-->
-    <?php $form = ActiveForm::begin([
+    <?php /*$form = ActiveForm::begin([
         'method'=>'post',
         "action"=>"index.php?r=inscripcion%2Fstore",
         "enableClientValidation"=>true,
-    ]); ?>
+    ]);*/ ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <!-- utilizacion de un widget de jui llamado Tabs, se define cada una de las tabs 
-    y dentro de ellas se renderiza su correspondiente vista a las cuales se le envian los 
-    modelos correspondientes --> 
-    <?php echo Tabs::widget([
-    'items' => [
-        [
-            'label' => 'Datos Personales',
-            'content' =>$this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form,'talleRemera'=>$talleRemera,'listadoTalles'=>$listadoTalles]),
-        ],
-        [
-            'label' => 'Datos de contacto',
-            'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona,'localidad' => $localidad,'provincia' => $provincia,'provinciaLista' => $provinciaLista,'form'=>$form, 'datos'=>$datos]),
-
-        ],
-        [
-            'label' => 'Datos medicos',
-            'content' => $this->render('datosmedicos',['persona'=>$persona,'fichaMedica'=>$fichaMedica,'form'=>$form]),
-        ],
-        [
-            'label' => 'Contacto de emergencia',
-            'content' => $this->render('contactoemergencia',['datosEmergencia'=>$datosEmergencia,'form'=>$form]),
-        ],
-        [
-            'label' => 'Encuesta',
-            'content' => $this->render('encuesta',['form'=>$form]),
+    <?php echo FormWizard::widget([
+    'formOptions' => [
+        'id' => 'my_form_multi_model_single_step',
+        'options'=>[
+            'class'=>'form-inline'
         ],
     ],
-    'options' => ['tag' => 'div'],
-    'itemOptions' => ['tag' => 'div', 'class' => 'tabs-container'],
-    'headerOptions' => ['class' => 'my-class'],
-    'clientOptions' => ['collapsible' => false],
-]);
-
-     ActiveForm::end(); ?>
-
-</div>
-<?php
-echo FormWizard::widget([
     'theme' => FormWizard::THEME_CIRCLES,
     'steps' => [
         [
-            'model' => $persona,
+            'model'=>[$persona,$usuario],
             'title' => 'Datos personales',
             'description' => 'Paso 1',
-            'formInfoText' => 'Fill all fields'
+            'formInfoText' =>'Los campos marcados con * son obligatorios',
+            'fieldConfig' => [
+                'only' => ['dniCapitan','dniUsuario','nacionalidadPersona', 'nombrePersona','apellidoPersona','fechaNacPersona','sexoPersona','idTalleRemera'], // only these field will be added in the step, rest all will be hidden/ignored.
+            ]    
         ],
         [
-            'model' => $personaDireccion,
+            'model' =>[$personaDireccion,$persona,$provincia],
             'title' => 'Datos de contacto',
             'description' => 'Paso 2',
-            'formInfoText' => 'Fill all fields'
+            'formInfoText' => 'Fill all fields',
+            'fieldConfig' => [
+                'only' => ['telefonoPersona','mailPersona','idProvincia', 'idLocalidad','direccionUsuario'], // only these field will be added in the step, rest all will be hidden/ignored.
+            ]
         ],
         [
-            'model' => $fichaMedica,
+            'model' => [$fichaMedica,$persona],
             'title' => 'Datos medicos',
             'description' => 'Paso 3',
-            'formInfoText' => 'Fill all fields'
+            'formInfoText' => 'Fill all fields',
+            'fieldConfig' => [
+                'only' => ['obraSocial','peso', 'altura', 'frecuenciaCardiaca','evaluacionMedica','intervencionQuirurgica','tomaMedicamentos','suplementos','idGrupoSanguineo','donador'], // only these field will be added in the step, rest all will be hidden/ignored.
+            ]
         ],
         [
             'model' => $datosEmergencia,
@@ -94,4 +72,8 @@ echo FormWizard::widget([
             'formInfoText' => 'Fill all fields'
         ],*/
     ]
-]);?>
+]);
+   
+     //ActiveForm::end(); ?>
+
+</div>
