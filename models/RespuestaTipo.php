@@ -29,7 +29,7 @@ class Respuestatipo extends \yii\db\ActiveRecord
     {
         return [
             [['respTipoDescripcion'], 'required'],
-            [['respTipoDescripcion'], 'string', 'max' => 15],
+            [['respTipoDescripcion'], 'string', 'max' => 30],
         ];
     }
 
