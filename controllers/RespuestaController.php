@@ -63,6 +63,12 @@ class RespuestaController extends Controller
         
     }
 
+    /**
+     * Dado un array con los datos de una respuesta, guarda la misma en la base de datos.
+     * Devuelve verdadero si lo pudo hacer y falso si no.
+     * @param array $resp
+     * @return boolean
+     */
     private function guardarespuesta($resp){
         $carga=false;
         $model=new Respuesta();
@@ -76,6 +82,16 @@ class RespuestaController extends Controller
         }
         return $carga;
     }
+
+    /**
+     * entrega una instancie del objeto Respuesta
+     * @return object
+     */
+    public static function instanciaRespuesta(){
+        $resp=new Respuesta();
+        return $resp;
+    }
+
 
     public function actionRespuesta(){
 

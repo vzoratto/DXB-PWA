@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\jui\Tabs;
 use yii\widgets\ActiveForm;
 use buttflattery\formwizard\FormWizard;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 
@@ -48,10 +49,10 @@ $wizard_config = [
 		5 => [
 			'title' => 'Encuesta',
 			'icon' => 'glyphicon glyphicon-list-alt',
-			'content' => $this->render('encuesta',['form'=>$form]),
+			'content' => $this->render('@app/views/Encuesta/encuesta.php', ['encuesta'=>$encuesta]),
 		],
 	],
-	'start_step' => 1, // Optional, start with a specific step
+	'start_step' => 5, // Optional, start with a specific step
 ];
 ?>
 <?= \drsdre\wizardwidget\WizardWidget::widget($wizard_config); ?>

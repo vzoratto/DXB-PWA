@@ -9,12 +9,18 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+
 /**
  * PreguntaController implements the CRUD actions for Pregunta model.
  */
 class PreguntaController extends Controller
 {
 
+    /**
+     * Dado un idPregunta, devuelve el objeto Pregunta
+     * @param Int $idPregunta
+     * @return objet
+     */
     public static function entregaPregunta($idPregunta){
         
         $unaPreg=new Pregunta();
@@ -22,6 +28,19 @@ class PreguntaController extends Controller
         return $unaPreg->findOne($idPregunta);
   
     }
+    /**
+     * Dado el id de una encuesta, devuelve las preguntas de esa encuesta.
+     * @param integer $idEncuesta
+     * @return array
+     */
+    public static function entregaPreguntasXEncuesta($idEncuesta){
+        
+        $encuestas=Pregunta::find()->where(['idEncuesta'=>$idEncuesta])->all();
+        
+        return $encuestas;
+  
+    }
+
 
     /**
      * {@inheritdoc}

@@ -17,7 +17,13 @@ class VerencuestaController extends Controller{
 
     public function actionVerEncuesta()
     {
-        $idEncuesta=$_REQUEST['idEncuesta'];
+        if(isset($_REQUEST['idEncuesta'])){
+            $idEncuesta=$_REQUEST['idEncuesta'];
+        }else{
+            $encPublica=$this->getEncuestaPublica();
+            $idEncuesta=$encPublica->idEncuesta;
+
+        }
 
         $encuesta=Encuesta::findOne($idEncuesta);
         $pregunta=Pregunta::find()->where('idEncuesta= '.$idEncuesta)->all();
@@ -38,5 +44,13 @@ class VerencuestaController extends Controller{
             'opcion'=>$opcion,
             'respuesta'=>$respuesta,
             ]);
+    }
+
+    /**
+     * Devuelve una encuesta que este activada para ser publica
+     */
+    public static function getEncuestaPublica(){
+        $encPublica=Encuesta::find()->where(['encPublica'=>1]);
+        return $encPublica;
     }
 }

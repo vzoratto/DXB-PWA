@@ -55,6 +55,7 @@ class InscripcionController extends Controller
         $talleRemera=new Talleremera();
         $provinciaLista = ArrayHelper::map(\app\models\Provincia::find()->all(),'idProvincia','nombreProvincia'); //Lista de las provincias
         $listadoTalles=ArrayHelper::map(\app\models\Talleremera::find()->all(),'idTalleRemera','talleRemera');
+        $encuesta=\app\models\Encuesta::find()->where(['encPublica'=>1])->one();
 
         return $this->render('index',[
             'persona'=>$persona,
@@ -68,6 +69,7 @@ class InscripcionController extends Controller
             'listadoTalles'=>$listadoTalles,
             'talleRemera'=>$talleRemera,
             'datos' => null,
+            'encuesta'=>$encuesta,
             ]);
     }
 

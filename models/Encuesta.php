@@ -42,6 +42,7 @@ class Encuesta extends \yii\db\ActiveRecord
             'idEncuesta' => 'Id Encuesta',
             'encTitulo' => 'Enc Titulo',
             'encDescripcion' => 'Enc Descripcion',
+            'encPublica'=>'Enc Publica',
         ];
     }
 }

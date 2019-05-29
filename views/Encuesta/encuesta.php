@@ -1,27 +1,39 @@
 <?php
-
-use yii\widgets\ActiveForm;
+use app\controllers\PreguntaController;
+use app\controllers\RespuestaController;
+use app\controllers\RespuestaopcionController;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\ActiveForm;
 
-
+/* @var $this yii\web\View */
 /* @var $encuesta app\models\Encuesta */
 /* @var $pregunta app\models\Pregunta */
 /* @var $opcion app\models\RespuestaOpcion */
 
-?>
-<?php  if(isset($_REQUEST['inscrip'])){
-    $encuesta=$_REQUEST['encuesta'];
-    $pregunta=$_REQUEST['pregunta'];
-    $opcion=$_REQUEST['opcion'];
-    $respuesta=$_REQUEST['respuesta'];   
-}
 
 ?>
-<h2>Titulo de Encuesta: <?= $encuesta['encTitulo']?></h2>
-<h4>Descripcion: <?= $encuesta['encDescripcion']?></h4>
+
+<?php $pregunta=PreguntaController::entregaPreguntasXEncuesta($encuesta->idEncuesta);?>
+<?php $respuesta=RespuestaController::instanciaRespuesta(); ?>
+<?php
+$i=0;
+        $opcion=[];
+
+        foreach($pregunta as $unaPregunta){
+            $opciones=RespuestaopcionController::listaRespuestaOpcion($unaPregunta->idPregunta);
+            $opcion[$i]=$opciones;
+            $i++;
+        }
+?>
+<!-- <H1>Contenido en desarrollo &#128077;</H1> -->
+
+<?php echo Html::a('Ir a generacion de encuesta', Url::toRoute('encuesta/create'), ['class'=>'btn btn-primary btn-sm'])?>
+
+<h3>Encuesta:</h3>
+<h2> <?= $encuesta['encTitulo']?></h2>
+<h5> <?= $encuesta['encDescripcion']?></h5>
 <hr>
-
 <div class="encuesta-form">
     <?php  $form=ActiveForm::begin([
         'method'=>'post',
