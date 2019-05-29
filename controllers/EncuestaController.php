@@ -14,7 +14,23 @@ use yii\filters\VerbFilter;
  */
 class EncuestaController extends Controller
 {
-    
+    /**
+     * Accion que gestiona la generación graficos representando los resultados de las mismas.
+     * No esta operativo en este momento
+     */
+    public function actionGrafico(){
+        $model=new Encuesta();
+
+        $encuestas=$model->find()->all();
+        
+        if($model->load(Yii::$app->request->post())){
+            return $this->render('grafica', ['encuestas'=>$encuestas, 'model'=>$model]);
+        }else{
+
+            return $this->render('grafica', ['encuestas'=>$encuestas, 'model'=>$model]);
+        }
+        
+    }
 
     /**
      * {@inheritdoc}
