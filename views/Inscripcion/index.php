@@ -29,26 +29,69 @@ $wizard_config = [
 			'title' => 'Datos Personales',
 			'icon' => 'glyphicon glyphicon-user',
 			'content' => $this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form,'talleRemera'=>$talleRemera,'listadoTalles'=>$listadoTalles]),
+			'buttons' => [
+                'next' => [
+                    'title' => 'Siguiente',
+				],
+            ],
 		],
 		2 => [
 			'title' => 'Datos de contacto',
 			'icon' => 'glyphicon glyphicon-envelope',
 			'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona,'localidad' => $localidad,'provincia' => $provincia,'provinciaLista' => $provinciaLista,'form'=>$form, 'datos'=>$datos]),
+			'buttons' => [
+                'next' => [
+                    'title' => 'Siguiente',
+				],
+				'previous' => [
+					'title' => 'Atras',
+				]
+            ],
 		],
 		3 => [
 			'title' => 'Datos medicos',
 			'icon' => ' glyphicon glyphicon-plus',
 			'content' => $this->render('datosmedicos',['persona'=>$persona,'fichaMedica'=>$fichaMedica,'form'=>$form]),
+			'buttons' => [
+                'next' => [
+                    'title' => 'Siguiente',
+				],
+				'previous' => [
+					'title' => 'Atras',
+				]
+            ],
 		],
 		4 => [
 			'title' => 'Contacto de emergencia',
 			'icon' => 'glyphicon glyphicon-heart',
 			'content' => $this->render('contactoemergencia',['datosEmergencia'=>$datosEmergencia,'form'=>$form]),
+			'buttons' => [
+                'next' => [
+                    'title' => 'Siguiente',
+				],
+				'previous' => [
+					'title' => 'Atras',
+				]
+            ],
 		],
 		5 => [
 			'title' => 'Encuesta',
 			'icon' => 'glyphicon glyphicon-list-alt',
 			'content' => $this->render('encuesta',['form'=>$form]),
+			'buttons' => [
+				'previous' => [
+					'title' => 'Atras',
+				],
+                'save' => [
+                    'html' => Html::submitButton(
+                        Yii::t('app', 'Terminar inscripción'),
+                        [
+                            'class' => 'btn btn-success',
+                            'value' => 'Terminar inscripción'
+                        ]
+                    ),
+                ],
+            ],
 		],
 	],
 	'start_step' => 1, // Optional, start with a specific step

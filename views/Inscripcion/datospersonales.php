@@ -67,8 +67,6 @@ use kartik\select2\Select2;
     
 
 </div>
-<div class="form-group" id="botones-atras-siguiente">
-</div>
 
 
 
