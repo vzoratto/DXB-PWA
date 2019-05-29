@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd351d90aca39a8ce2a5b1fba50100e0",
+    "content-hash": "e0053169bb6b056d1088d8b629746068",
     "packages": [
         {
             "name": "arturoliveira/yii2-excelview",
@@ -1216,18 +1216,6 @@
                 "yii2"
             ],
             "time": "2019-01-21T22:06:44+00:00"
-        },
-        {
-            "name": "npm-asset/bootstrap",
-            "version": "4.3.1",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.3.1.tgz"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
         },
         {
             "name": "pceuropa/yii2-email",
