@@ -14,28 +14,56 @@ use yii\filters\VerbFilter;
  */
 class RespuestaController extends Controller
 {
-
+    /**
+     * Recibe las respuestas de las encuestas y guarda cada una en la base de datos
+     */
     public function actionArmarespuesta(){
 
         $respuesta=$_REQUEST;
-        foreach($respuesta as $clave=>$valor){
-            if(is_array($valor)){
-                foreach($valor as $respValor){
-                    $resp['respValor']=$respValor;
+        $msg="";
+         foreach($respuesta as $clave=>$valor){
+            if(is_numeric($clave)){
+                if(is_array($valor)){
+                    foreach($valor as $unValor){
+                        $resp['respValor']=$unValor;
+                        $resp['idPregunta']=$clave;
+                        $resp['idPersona']=1;
+                        if(!$this->guardarespuesta($resp)){
+                            $msg.="respuesta a: ".$resp['respValor']." no se guardo -- ";
+                        }else{
+                            $msg.="respuesta a: ".$resp['respValor']." guardada OK -- ";
+                        }
+                    }
+                }else{
+                    $resp['respValor']=$valor;
                     $resp['idPregunta']=$clave;
                     $resp['idPersona']=1;
-
-                    $model = new Respuesta();
-
-                    if ($model->load($resp && $model->save())) {
-                        return $this->redirect(['view', 'id' => $model->idRespuesta]);
+                    if(!$this->guardarespuesta($resp)){
+                        $msg.="respuesta a: ".$resp['respValor']." no se guardo -- ";
+                    }else{
+                        $msg.="respuesta a: ".$resp['respValor']." guardada OK -- ";
                     }
-
                 }
-
             }
+                
+            }
+            $r=$msg;
+            return $this->render('verrespuesta', ['model' => $r]);
+        
+    }
+
+    private function guardarespuesta($resp){
+        $carga=false;
+        $model=new Respuesta();
+        
+        $model->respValor=$resp['respValor'];
+        $model->idPregunta=$resp['idPregunta'];
+        $model->idPersona=$resp['idPersona'];
+
+        if($model->save(false)){
+            $carga=true;
         }
-        return $this->render('verrespuesta',['respuesta'=>$respuesta]);
+        return $carga;
     }
 
     public function actionRespuesta(){

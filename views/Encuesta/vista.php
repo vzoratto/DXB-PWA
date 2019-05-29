@@ -21,7 +21,7 @@ use yii\helpers\Url;
         'action'=>Url::toRoute('respuesta/armarespuesta'),
         ]
     ); ?>
-        <?php $num = 1;?>
+        
         
         <?php foreach($pregunta as $valor):?>
             <div class="form-group">
@@ -36,7 +36,7 @@ use yii\helpers\Url;
                         'respuesta'=>$respuesta,
                         'valor'=>$valor,
                     ]);
-                    $num++;
+                    
 
                 }elseif($valor['idRespTipo']==2){
                     echo $this->render('_drop', [
@@ -46,7 +46,7 @@ use yii\helpers\Url;
                         'respuesta'=>$respuesta,
                         'valor'=>$valor,
                         ]);
-                        $num++;
+                       
 
                 }elseif($valor['idRespTipo']==3){
                     echo $this->render('_check', [
@@ -56,7 +56,7 @@ use yii\helpers\Url;
                         'respuesta'=>$respuesta,
                         'valor'=>$valor,
                         ]);
-                        $num++;
+                       
 
                 }elseif($valor['idRespTipo']==4){
                     
@@ -67,7 +67,7 @@ use yii\helpers\Url;
                         'respuesta'=>$respuesta,
                         'valor'=>$valor,
                         ]);
-                        $num++;
+                      
                         
                 }
                  

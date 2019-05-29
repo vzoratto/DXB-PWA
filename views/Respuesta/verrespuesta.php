@@ -1,3 +1,4 @@
-<?php
-print_r($respuesta);
-?>
+
+<?php print_r($model);?>
+<hr>
+
