@@ -26,15 +26,16 @@ use kartik\select2\Select2;
             </label>
         </div>
         <div id="opcionesCapitan" style="display:none" aria-label="...">
-            <div id="dniUsuario" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
-                <div id="console-event">
-                    <?= $form->field($persona, 'dniCapitan')->textInput()->label('') ?>
-                </div>
-            </div>
+            <h3> cosas de capitan </h3>
         </div>
     </div>
 
     <div class="row">
+        <div id="dniUsuario" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+            <div id="console-event">
+                <?= $form->field($persona, 'dniCapitan')->textInput()->label('D.N.I. Capitan') ?>
+            </div>
+        </div>
     
         <div id="dniUsuario" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
             <?= $form->field($usuario, 'dniUsuario')->textInput()->label('D.N.I.') ?>
