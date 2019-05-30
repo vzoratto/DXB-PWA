@@ -31,7 +31,7 @@ $wizard_config = [
 			'content' => $this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form,'talleRemera'=>$talleRemera,'listadoTalles'=>$listadoTalles]),
 			'buttons' => [
                 'next' => [
-                    'title' => 'Siguiente',
+					'title' => 'Siguiente',
 				],
             ],
 		],

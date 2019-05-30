@@ -14,13 +14,30 @@ use kartik\select2\Select2;
 
 <!-- vista del tab datos personales del formulario-->
 <div class="datosPersonales" >
+
     <div class="row">
-        <div id="dniUsuario" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
-            <?= $form->field($persona, 'dniCapitan')->textInput()->label('D.N.I Capitan')  ?>
+        <label>Soy capitan?</label>
+        <!-- Rounded switch -->
+        <div class="onoffswitch">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" onclick="myFunction()" >
+            <label class="onoffswitch-label" for="myonoffswitch">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
         </div>
+        <div id="opcionesCapitan" style="display:none" aria-label="...">
+            <div id="dniUsuario" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                <div id="console-event">
+                    <?= $form->field($persona, 'dniCapitan')->textInput()->label('') ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
     
         <div id="dniUsuario" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
-            <?= $form->field($usuario, 'dniUsuario')->textInput()->label('D.N.I') ?>
+            <?= $form->field($usuario, 'dniUsuario')->textInput()->label('D.N.I.') ?>
         </div>
         
         <div id="nacionalidadPersona" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
