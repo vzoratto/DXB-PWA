@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
         
         <?= $form->field($model, 'dni')->textInput(['autofocus' => true]) ?>
         
-        <?= $form->field($model, 'password')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'password')->passwordInput() ?>
         
         <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
         

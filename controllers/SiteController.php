@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
+use yii\helpers\Url; 
 use app\models\Usuario;
 use app\models\LoginForm;
 use app\models\ContactForm;
@@ -37,7 +38,13 @@ class SiteController extends Controller
                 'only' => ['index,view,create,update,delete'],
                 'rules' => [
                     [
-                        'actions' => ['index,view,create,update,delete,admin,logout'],
+                        'allow' => true,
+                        'actions' => ['login', 'registro'],
+                        'roles' => ['?'],
+                    ],
+
+                    [
+                        'actions' => ['index,view,create,update,delete,logout'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
@@ -45,7 +52,7 @@ class SiteController extends Controller
                         }
                     ],
                     [
-                        'actions' => ['index,view,create,admin'],
+                        'actions' => ['index,view,create,logout'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
@@ -102,6 +109,11 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            if (Permiso::requerirRol('administrador')||Permiso::requerirRol('gestor')){
+                return $this->redirect(["site/admin"]);
+            }
+        
+           
             return $this->goBack();
         }
 
@@ -250,14 +262,15 @@ class SiteController extends Controller
             $activar->activado = 1;
             if ($activar->save()){
                     //login automatico
-                   //$modelo = new LoginForm();
-                   //$modelo->username = $usuActivar->dniUsuario;
-                   //$modelo->password = $usuActivar->claveUsuario;
+                   $model = new LoginForm();
+                   $model->username = $usuActivar->dniUsuario;
+                   $model->password = $usuActivar->claveUsuario;
                    
-                    //if ($modelo->login()) {
+                    if ($model->login()) {
                         //return $this->goHome();
-                    //}
-                  Yii::$app->getResponse()->redirect(Url::to(['site/login']));
+                        //echo "<meta http-equiv='refresh' content='8; ".Url::toRoute(['login'])."'>";
+                       echo Url::to('login');
+                    }
            } else {
                // if(!Yii::$app->user->isGuest){Yii::$app->user->logout();}
                $mensaje="No existe usuario registrado con ese numero de documento, redireccionando ...";
@@ -285,13 +298,10 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function admin(){
-        $usuAdmin=\app\models\Usuario::findOne($_SESSION["__id"]);
-        if(Permiso::requerirRol('$usuAdmin->descripcionRol') && Permiso::requerirActivo('$usuAdmin->activado')){
-            return $this->render('administar', [
-                'model' => $usuAdmin->descripcionRol,
-            ]); 
-        }
+    public function actionAdmin(){
+        
+            return $this->render('administrar');
+       
     }
 
 }

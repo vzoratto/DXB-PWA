@@ -23,7 +23,7 @@ $this->title = "Atencion!";
         <?php echo nl2br(Html::encode($msg));?>
     </div>
     <div class="alert alert-info">
-        <?php echo "carreraxbarda@gmail.com";?>
+        <?php echo "Administracion: carreraxbarda@gmail.com";?>
     </div>
 
 </div>

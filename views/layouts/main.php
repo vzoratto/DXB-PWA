@@ -12,23 +12,8 @@ use app\assets\AppAsset;
 
 AppAsset::register($this);
 ?>
-<?php
-$dni = "";
-$rol = "";
-$mensaje="";
-if (!Yii::$app->user->isGuest) {
-    $usulog = \app\models\Usuario::findOne($_SESSION["__id"]);
-    if ($usulog->idRol == 1 && $usulog->activado==0) {
-        Yii::$app->user->logout();
-        $mensaje="No tiene la cuenta activada, por favor dirijase a su correo para activarla.";
-        return $this->render('error', ['mensaje' => $mensaje]);
-        
-    }elseif ($usulog->idRol != 1) {
-        app\controllers\UsuarioController::redirect(["site/admin"]);
-        //Yii::$app->getResponse()->redirect(Url::to([site/admin]));
-    }
-}
-?>
+
+
 <?php $this->beginPage() ?>
 
 <!DOCTYPE html>
