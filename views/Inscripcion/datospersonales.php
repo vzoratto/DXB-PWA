@@ -15,9 +15,7 @@ use kartik\select2\Select2;
 <!-- vista del tab datos personales del formulario-->
 <div class="datosPersonales" >
     <div class="row">
-        <div id="dniUsuario" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
-            <?= $form->field($persona, 'dniCapitan')->textInput()->label('D.N.I Capitan')  ?>
-        </div>
+        
     
         <div id="dniUsuario" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
             <?= $form->field($usuario, 'dniUsuario')->textInput()->label('D.N.I') ?>

@@ -9,7 +9,6 @@ use Yii;
  *
  * @property int $idPersona
  * @property int $idTalleRemera
- * @property int $dniCapitan
  * @property string $nombrePersona
  * @property string $apellidoPersona
  * @property string $fechaNacPersona
@@ -24,10 +23,10 @@ use Yii;
  * @property int $idPersonaEmergencia
  * @property int $idResultado
  * @property int $donador
- * @property int $capitan
- * @property int $reglamentoAceptado
  * @property int $deshabilitado
  *
+ * @property Carrerapersona[] $carrerapersonas
+ * @property Tipocarrera[] $tipoCarreras
  * @property Estadopagopersona[] $estadopagopersonas
  * @property Estadopago[] $estadoPagos
  * @property Grupo[] $grupos
@@ -56,8 +55,8 @@ class Persona extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idTalleRemera', 'dniCapitan', 'mailPersona', 'idUsuario'], 'required'],
-            [['idTalleRemera', 'dniCapitan', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'donador', 'capitan', 'reglamentoAceptado', 'deshabilitado'], 'integer'],
+            [['idTalleRemera', 'mailPersona', 'idUsuario'], 'required'],
+            [['idTalleRemera', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'donador', 'deshabilitado'], 'integer'],
             [['fechaNacPersona', 'fechaInscPersona'], 'safe'],
             [['nombrePersona', 'apellidoPersona', 'nacionalidadPersona', 'mailPersona'], 'string', 'max' => 64],
             [['sexoPersona'], 'string', 'max' => 1],
@@ -79,7 +78,6 @@ class Persona extends \yii\db\ActiveRecord
         return [
             'idPersona' => 'Id Persona',
             'idTalleRemera' => 'Id Talle Remera',
-            'dniCapitan' => 'Dni Capitan',
             'nombrePersona' => 'Nombre Persona',
             'apellidoPersona' => 'Apellido Persona',
             'fechaNacPersona' => 'Fecha Nac Persona',
@@ -94,10 +92,24 @@ class Persona extends \yii\db\ActiveRecord
             'idPersonaEmergencia' => 'Id Persona Emergencia',
             'idResultado' => 'Id Resultado',
             'donador' => 'Donador',
-            'capitan' => 'Capitan',
-            'reglamentoAceptado' => 'Reglamento Aceptado',
             'deshabilitado' => 'Deshabilitado',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCarrerapersonas()
+    {
+        return $this->hasMany(Carrerapersona::className(), ['idPersona' => 'idPersona']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTipoCarreras()
+    {
+        return $this->hasMany(Tipocarrera::className(), ['idTipoCarrera' => 'idTipoCarrera'])->viaTable('carrerapersona', ['idPersona' => 'idPersona']);
     }
 
     /**

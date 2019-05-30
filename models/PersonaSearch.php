@@ -17,7 +17,7 @@ class PersonaSearch extends Persona
     public function rules()
     {
         return [
-            [['idPersona', 'idTalleRemera', 'dniCapitan', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'donador', 'capitan', 'reglamentoAceptado', 'deshabilitado'], 'integer'],
+            [['idPersona', 'idTalleRemera', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'donador', 'deshabilitado'], 'integer'],
             [['nombrePersona', 'apellidoPersona', 'fechaNacPersona', 'sexoPersona', 'nacionalidadPersona', 'telefonoPersona', 'mailPersona', 'fechaInscPersona'], 'safe'],
         ];
     }
@@ -60,7 +60,6 @@ class PersonaSearch extends Persona
         $query->andFilterWhere([
             'idPersona' => $this->idPersona,
             'idTalleRemera' => $this->idTalleRemera,
-            'dniCapitan' => $this->dniCapitan,
             'fechaNacPersona' => $this->fechaNacPersona,
             'idUsuario' => $this->idUsuario,
             'idPersonaDireccion' => $this->idPersonaDireccion,
@@ -69,8 +68,6 @@ class PersonaSearch extends Persona
             'idPersonaEmergencia' => $this->idPersonaEmergencia,
             'idResultado' => $this->idResultado,
             'donador' => $this->donador,
-            'capitan' => $this->capitan,
-            'reglamentoAceptado' => $this->reglamentoAceptado,
             'deshabilitado' => $this->deshabilitado,
         ]);
 
