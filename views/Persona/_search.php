@@ -49,6 +49,10 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'donador') ?>
 
+    <?php // echo $form->field($model, 'capitan') ?>
+
+    <?php // echo $form->field($model, 'reglamentoAceptado') ?>
+
     <?php // echo $form->field($model, 'deshabilitado') ?>
 
     <div class="form-group">

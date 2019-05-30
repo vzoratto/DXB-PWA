@@ -17,7 +17,7 @@ class PersonaSearch extends Persona
     public function rules()
     {
         return [
-            [['idPersona', 'idTalleRemera', 'dniCapitan', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'donador', 'deshabilitado'], 'integer'],
+            [['idPersona', 'idTalleRemera', 'dniCapitan', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'donador', 'capitan', 'reglamentoAceptado', 'deshabilitado'], 'integer'],
             [['nombrePersona', 'apellidoPersona', 'fechaNacPersona', 'sexoPersona', 'nacionalidadPersona', 'telefonoPersona', 'mailPersona', 'fechaInscPersona'], 'safe'],
         ];
     }
@@ -69,6 +69,8 @@ class PersonaSearch extends Persona
             'idPersonaEmergencia' => $this->idPersonaEmergencia,
             'idResultado' => $this->idResultado,
             'donador' => $this->donador,
+            'capitan' => $this->capitan,
+            'reglamentoAceptado' => $this->reglamentoAceptado,
             'deshabilitado' => $this->deshabilitado,
         ]);
 

@@ -44,6 +44,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'donador')->textInput() ?>
 
+    <?= $form->field($model, 'capitan')->textInput() ?>
+
+    <?= $form->field($model, 'reglamentoAceptado')->textInput() ?>
+
     <?= $form->field($model, 'deshabilitado')->textInput() ?>
 
     <div class="form-group">

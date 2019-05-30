@@ -46,6 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'idPersonaEmergencia',
             'idResultado',
             'donador',
+            'capitan',
+            'reglamentoAceptado',
             'deshabilitado',
         ],
     ]) ?>
