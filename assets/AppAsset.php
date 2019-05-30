@@ -21,6 +21,7 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+        'css/botonSwicht.css'
     ];
     public $js = [
         'js/botonesFormulario.js',

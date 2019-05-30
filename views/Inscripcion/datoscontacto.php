@@ -92,8 +92,7 @@ use yii\widgets\MaskedInput;
     </div>
     
 </div>
-<div class="form-group" id="botones-atras-siguiente">
-</div>
+<br>
 
 
 </div>
