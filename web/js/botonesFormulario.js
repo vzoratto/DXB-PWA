@@ -1,23 +1,18 @@
-$(function() {
-    var $tabs = $('.my-class').tabs();
+function myFunction() {
+    // Get the checkbox
+    var checkBox = document.getElementById("myonoffswitch");
+    // Get the output text
+    var text = document.getElementById("opcionesCapitan");
 
-    $(".tabs-container").each(function(i) {
+    var dniCapitan = document.getElementById("console-event");
 
-        var totalSize = $(".tabs-container").length - 1;
-
-        if (i != totalSize) {
-            next = i + 2;
-            $(this).append($('#botones-atras-siguiente'),"<a href='#' class='next-tab mover btn btn-info pull-right' rel='" + next + "' role='button'>Siguiente</a>");
-        }
-        if (i != 0) {
-            prev = i;
-            $(this).append($('#botones-atras-siguiente'),"<a href='#' class='prev-tab mover btn btn-info pull-left' rel='" + prev + "' role='button'>Volver</a>");
-
-        }
-    });
-    $('.next-tab, .prev-tab').click(function() {
-        $tabs.tabs('select', $(this).attr("rel"));
-
-        return false;
-    });
-});
+    // If the checkbox is checked, display the output text
+    if (checkBox.checked == true) {
+        text.style.display = "block";
+        dniCapitan.style.display = "none";
+        dniCapitan.setAttribute("required");
+    } else {
+        text.style.display = "none";
+        dniCapitan.style.display = "block";
+    }
+}

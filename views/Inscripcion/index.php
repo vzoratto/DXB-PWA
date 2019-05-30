@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\jui\Tabs;
 use yii\widgets\ActiveForm;
+use buttflattery\formwizard\FormWizard;
 
 /* @var $this yii\web\View */
 
@@ -15,44 +16,88 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $form = ActiveForm::begin([
         'method'=>'post',
         "action"=>"index.php?r=inscripcion%2Fstore",
-        "enableClientValidation"=>true,
+		"enableClientValidation"=>true,
     ]); ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <!-- utilizacion de un widget de jui llamado Tabs, se define cada una de las tabs 
-    y dentro de ellas se renderiza su correspondiente vista a las cuales se le envian los 
-    modelos correspondientes --> 
-    <?php echo Tabs::widget([
-    'items' => [
-        [
-            'label' => 'Datos Personales',
-            'content' =>$this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form,'talleRemera'=>$talleRemera,'listadoTalles'=>$listadoTalles]),
-        ],
-        [
-            'label' => 'Datos de contacto',
-            'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona,'localidad' => $localidad,'provincia' => $provincia,'provinciaLista' => $provinciaLista,'form'=>$form, 'datos'=>$datos]),
-
-        ],
-        [
-            'label' => 'Datos medicos',
-            'content' => $this->render('datosmedicos',['persona'=>$persona,'fichaMedica'=>$fichaMedica,'form'=>$form]),
-        ],
-        [
-            'label' => 'Contacto de emergencia',
-            'content' => $this->render('contactoemergencia',['datosEmergencia'=>$datosEmergencia,'form'=>$form]),
-        ],
-        [
-            'label' => 'Encuesta',
-            'content' => $this->render('encuesta',['form'=>$form]),
-        ],
-    ],
-    'options' => ['tag' => 'div'],
-    'itemOptions' => ['tag' => 'div', 'class' => 'tabs-container'],
-    'headerOptions' => ['class' => 'my-class'],
-    'clientOptions' => ['collapsible' => false],
-]);
-
-     ActiveForm::end(); ?>
+<?php
+$wizard_config = [
+	'id' => 'stepwizard',
+	'steps' => [
+		1 => [
+			'title' => 'Datos Personales',
+			'icon' => 'glyphicon glyphicon-user',
+			'content' => $this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form,'talleRemera'=>$talleRemera,'listadoTalles'=>$listadoTalles]),
+			'buttons' => [
+                'next' => [
+					'title' => 'Siguiente',
+				],
+            ],
+		],
+		2 => [
+			'title' => 'Datos de contacto',
+			'icon' => 'glyphicon glyphicon-envelope',
+			'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona,'localidad' => $localidad,'provincia' => $provincia,'provinciaLista' => $provinciaLista,'form'=>$form, 'datos'=>$datos]),
+			'buttons' => [
+                'next' => [
+                    'title' => 'Siguiente',
+				],
+				'previous' => [
+					'title' => 'Atras',
+				]
+            ],
+		],
+		3 => [
+			'title' => 'Datos medicos',
+			'icon' => ' glyphicon glyphicon-plus',
+			'content' => $this->render('datosmedicos',['persona'=>$persona,'fichaMedica'=>$fichaMedica,'form'=>$form]),
+			'buttons' => [
+                'next' => [
+                    'title' => 'Siguiente',
+				],
+				'previous' => [
+					'title' => 'Atras',
+				]
+            ],
+		],
+		4 => [
+			'title' => 'Contacto de emergencia',
+			'icon' => 'glyphicon glyphicon-heart',
+			'content' => $this->render('contactoemergencia',['datosEmergencia'=>$datosEmergencia,'form'=>$form]),
+			'buttons' => [
+                'next' => [
+                    'title' => 'Siguiente',
+				],
+				'previous' => [
+					'title' => 'Atras',
+				]
+            ],
+		],
+		5 => [
+			'title' => 'Encuesta',
+			'icon' => 'glyphicon glyphicon-list-alt',
+			'content' => $this->render('encuesta',['form'=>$form]),
+			'buttons' => [
+				'previous' => [
+					'title' => 'Atras',
+				],
+                'save' => [
+                    'html' => Html::submitButton(
+                        Yii::t('app', 'Terminar inscripción'),
+                        [
+                            'class' => 'btn btn-success',
+                            'value' => 'Terminar inscripción'
+                        ]
+                    ),
+                ],
+            ],
+		],
+	],
+	'start_step' => 1, // Optional, start with a specific step
+];
+?>
+<?= \drsdre\wizardwidget\WizardWidget::widget($wizard_config); ?>
 
 </div>
+<?php ActiveForm::end(); ?>
