@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'nombreEquipo',
             'cantidadPersonas',
             'idTipoCarrera',
+            'dniCapitan',
             'deshabilitado',
         ],
     ]) ?>

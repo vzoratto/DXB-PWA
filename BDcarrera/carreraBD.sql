@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-05-2019 a las 01:38:40
+-- Tiempo de generación: 31-05-2019 a las 01:10:00
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -21,6 +21,18 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `carrera`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `carrerapersona`
+--
+
+CREATE TABLE `carrerapersona` (
+  `idTipoCarrera` int(2) NOT NULL,
+  `idPersona` int(8) NOT NULL,
+  `reglamentoAceptado` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -45,6 +57,7 @@ CREATE TABLE `equipo` (
   `nombreEquipo` varchar(64) DEFAULT NULL,
   `cantidadPersonas` int(8) DEFAULT NULL,
   `idTipoCarrera` int(2) NOT NULL,
+  `dniCapitan` int(15) NOT NULL,
   `deshabilitado` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -23143,7 +23156,6 @@ CREATE TABLE `parametros` (
 CREATE TABLE `persona` (
   `idPersona` int(8) NOT NULL,
   `idTalleRemera` int(1) NOT NULL,
-  `dniCapitan` int(15) NOT NULL,
   `nombrePersona` varchar(64) DEFAULT NULL,
   `apellidoPersona` varchar(64) DEFAULT NULL,
   `fechaNacPersona` date DEFAULT NULL,
@@ -23158,8 +23170,6 @@ CREATE TABLE `persona` (
   `idPersonaEmergencia` int(8) DEFAULT NULL,
   `idResultado` int(4) DEFAULT NULL,
   `donador` tinyint(1) DEFAULT NULL,
-  `capitan` tinyint(1) DEFAULT NULL,
-  `reglamentoAceptado` tinyint(1) DEFAULT NULL,
   `deshabilitado` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -23376,6 +23386,13 @@ CREATE TABLE `vinculopersona` (
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `carrerapersona`
+--
+ALTER TABLE `carrerapersona`
+  ADD PRIMARY KEY (`idPersona`,`idTipoCarrera`),
+  ADD KEY `carrerapersona_ibfk_2` (`idTipoCarrera`);
 
 --
 -- Indices de la tabla `encuesta`
@@ -23674,6 +23691,13 @@ ALTER TABLE `vinculopersona`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `carrerapersona`
+--
+ALTER TABLE `carrerapersona`
+  ADD CONSTRAINT `carrerapersona_ibfk_1` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPersona`),
+  ADD CONSTRAINT `carrerapersona_ibfk_2` FOREIGN KEY (`idTipoCarrera`) REFERENCES `tipocarrera` (`idTipoCarrera`);
 
 --
 -- Filtros para la tabla `equipo`

@@ -23,7 +23,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idTipoCarrera') ?>
 
-    <?= $form->field($model, 'deshabilitado') ?>
+    <?= $form->field($model, 'dniCapitan') ?>
+
+    <?php // echo $form->field($model, 'deshabilitado') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

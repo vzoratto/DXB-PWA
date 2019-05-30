@@ -30,7 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'nombreEquipo',
             'cantidadPersonas',
             'idTipoCarrera',
-            'deshabilitado',
+            'dniCapitan',
+            //'deshabilitado',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -17,7 +17,7 @@ class EquipoSearch extends Equipo
     public function rules()
     {
         return [
-            [['idEquipo', 'cantidadPersonas', 'idTipoCarrera', 'deshabilitado'], 'integer'],
+            [['idEquipo', 'cantidadPersonas', 'idTipoCarrera', 'dniCapitan', 'deshabilitado'], 'integer'],
             [['nombreEquipo'], 'safe'],
         ];
     }
@@ -61,6 +61,7 @@ class EquipoSearch extends Equipo
             'idEquipo' => $this->idEquipo,
             'cantidadPersonas' => $this->cantidadPersonas,
             'idTipoCarrera' => $this->idTipoCarrera,
+            'dniCapitan' => $this->dniCapitan,
             'deshabilitado' => $this->deshabilitado,
         ]);
 
