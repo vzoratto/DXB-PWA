@@ -113,3 +113,9 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+.picker__select--month, .picker__select--year {
+    padding:0 !important;
+    font-size: 13px;
+
+}
+

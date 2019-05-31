@@ -21,9 +21,20 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+        'css/botonSwicht.css',
+        'js/pickadate/themes/default.css',
+        'js/pickadate/themes/classic.date.css',
+
     ];
     public $js = [
         'js/botonesFormulario.js',
+        'js/pickadate/picker.js',
+        'js/pickadate/picker.date.js',
+        'js/pickadate/legacy.js',
+        'js/pickadate/app.js',
+
+
+
     ];
     public $depends = [
         'yii\web\YiiAsset',
