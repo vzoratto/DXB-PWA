@@ -25,6 +25,9 @@ class AppAsset extends AssetBundle
         'js/pickadate/themes/default.css',
         'js/pickadate/themes/classic.date.css',
 
+
+
+    ];
     public $js = [
         'js/botonesFormulario.js',
         'js/pickadate/picker.js',
