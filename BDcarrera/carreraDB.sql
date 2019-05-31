@@ -108,15 +108,7 @@ CREATE TABLE `gruposanguineo` (
 -- Volcado de datos para la tabla `gruposanguineo`
 --
 
-INSERT INTO `gruposanguineo` (`idGrupoSanguineo`, `tipoGrupoSanguineo`) VALUES
-(1, 'A+'),
-(2, 'A-'),
-(3, 'B+'),
-(4, 'B-'),
-(5, 'AB+'),
-(6, 'AB-'),
-(7, '0+'),
-(8, '0-');
+
 
 -- --------------------------------------------------------
 
@@ -326,15 +318,7 @@ CREATE TABLE `vinculopersona` (
   `nombreVinculo` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `vinculopersona`
---
 
-INSERT INTO `vinculopersona` (`idVinculo`, `nombreVinculo`) VALUES
-(1, 'Familiar'),
-(2, 'Pareja'),
-(3, 'Amigo/a'),
-(4, 'Otro');
 
 --
 -- Índices para tablas volcadas
