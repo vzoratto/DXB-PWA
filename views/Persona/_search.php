@@ -19,11 +19,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idTalleRemera') ?>
 
+    <?= $form->field($model, 'dniCapitan') ?>
+
     <?= $form->field($model, 'nombrePersona') ?>
 
     <?= $form->field($model, 'apellidoPersona') ?>
 
-    <?= $form->field($model, 'fechaNacPersona') ?>
+    <?php // echo $form->field($model, 'fechaNacPersona') ?>
 
     <?php // echo $form->field($model, 'sexoPersona') ?>
 

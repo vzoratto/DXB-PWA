@@ -30,7 +30,7 @@ class Personadireccion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            //valida que la direccionUsuario sean de tipo string con un maximo de 64 caracteres
+            [['idLocalidad'], 'integer'],
             [['direccionUsuario'], 'string', 'max' => 64],
             [['idLocalidad'], 'exist', 'skipOnError' => true, 'targetClass' => Localidad::className(), 'targetAttribute' => ['idLocalidad' => 'idLocalidad']],
         ];
@@ -62,18 +62,5 @@ class Personadireccion extends \yii\db\ActiveRecord
     public function getLocalidad()
     {
         return $this->hasOne(Localidad::className(), ['idLocalidad' => 'idLocalidad']);
-    }
-
-    public function comprobarDireccion($attribute,$params) {
-        if(!empty($this->attributes['datos'])) {
-            if($this->attributes['datos']==1)
-            {
-         
-            }
-            else
-            {
-            $this->addError($attribute,'Completar campos.');
-            }
-        }
     }
 }

@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'idPersona',
             'idTalleRemera',
+            'dniCapitan',
             'nombrePersona',
             'apellidoPersona',
             'fechaNacPersona',

@@ -80,6 +80,9 @@ use yii\widgets\ActiveForm;
     </div>
 </div>
 
+    <div class="form-group">
+        <?= Html::Button('Siguiente', ['class' => 'btn btn-info']) ?>
+    </div>
 
 
 

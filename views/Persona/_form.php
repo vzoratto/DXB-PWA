@@ -14,6 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idTalleRemera')->textInput() ?>
 
+    <?= $form->field($model, 'dniCapitan')->textInput() ?>
+
     <?= $form->field($model, 'nombrePersona')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'apellidoPersona')->textInput(['maxlength' => true]) ?>

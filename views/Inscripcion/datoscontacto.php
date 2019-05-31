@@ -21,7 +21,7 @@ use yii\widgets\MaskedInput;
 <!-- vista del tab datos de contacto del formulario-->
 <div class="datosContacto" >
     <div class="row">
-        <!-- Ingreso de telefono. Se utiliza el widget phoneinput para ayudar el ingreso del mismo -->
+
         <div id="telefonoPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
             <label>Telefono:</label><br>
             <?= $form->field($persona, 'telefonoPersona')->widget(PhoneInput::className(), [
@@ -33,9 +33,14 @@ use yii\widgets\MaskedInput;
             ])->label('') ?> 
         </div>
 
-        <!-- Ingreso del e-mail -->
         <div id="mailPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-        <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true])->label('E-Mail') ?>
+            <label>E-mail</label>
+            <?php echo MaskedInput::widget([
+                 'name' => 'mailPersona',
+                 'clientOptions' => [
+                     'alias' =>  'email'
+                 ],
+            ]);?>
         </div>
 
     </div>
@@ -68,7 +73,6 @@ use yii\widgets\MaskedInput;
         </div>
     </div>
     
-    <!-- Ingreso de la direccion de la persona -->
     <div id="direccionUsuario"> 
         <div class="row">
             <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
@@ -77,7 +81,7 @@ use yii\widgets\MaskedInput;
             </div>
             <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
                 <label>N°: </label>
-                <?=  Html::input('text','numero', $datos['numero'], $option=['class'=>'form-control', 'pattern'=> '^[0-9]+', 'min'=>'1']) ?>
+                <?=  Html::input('text','numero', $datos['numero'], $option=['class'=>'form-control']) ?>
             </div>
             <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
                 <label>Piso: </label>
@@ -88,11 +92,18 @@ use yii\widgets\MaskedInput;
                 <?= Html::input('text','departamento', $datos['departamento'], $option=['class'=>'form-control']) ?>
             </div>
            
+            <?=  
+                $value = $datos['calle'].' '.$datos['numero'].' '.$datos['departamento'].' '.$datos['piso'];
+                $form->field($personaDireccion, 'direccionUsuario')->hiddenInput(['value' => $value])->label(false) ?>
         </div>
     </div>
     
 </div>
-<br>
+
+    <div class="form-group">
+        <?= Html::Button('Siguiente', ['class' => 'btn btn-info']) ?>
+    </div>
+
 
 
 </div>
