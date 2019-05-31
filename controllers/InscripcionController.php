@@ -216,7 +216,7 @@ class InscripcionController extends Controller
             //MODELO PERSONA
             $modeloPersona=Yii::$app->request->post()['Persona'];
             $persona=new Persona();
-            $persona->dniCapitan=$modeloPersona['dniCapitan'];
+            //$persona->dniCapitan=$modeloPersona['dniCapitan'];
             $persona->idTalleRemera=$idTalleRemera;
             $persona->nombrePersona=$modeloPersona['nombrePersona'];
             $persona->apellidoPersona=$modeloPersona['apellidoPersona'];

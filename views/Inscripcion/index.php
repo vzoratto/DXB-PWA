@@ -9,6 +9,9 @@ use buttflattery\formwizard\FormWizard;
 
 $this->title = 'Formulario de inscripcion';
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerJsFile('https://code.jquery.com/jquery-1.11.1.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 ?>
 <div class="inscripciones-index">

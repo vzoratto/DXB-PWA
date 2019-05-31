@@ -25,6 +25,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/botonesFormulario.js',
+        'js/botonValidarSiguiente.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
