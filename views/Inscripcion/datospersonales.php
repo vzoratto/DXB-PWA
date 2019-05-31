@@ -52,7 +52,7 @@ use kartik\select2\Select2;
         <!-- utilizacion de un widget de kartik llamado DatePicker, permite escoger 
         una fecha desde un calendario permitiendo tambien seleccionar años o meses 
         con una mayor facilidad --> 
-            <label>Fecha de Nacimiento</label>
+            <label>Fecha de Nacimiento (Podes correr a partir de los 12 años)</label>
             <?= $form->field($persona, 'fechaNacPersona')->textInput(['class'=>'datepicker form-control','id'=>'datepicker'])->label('') ?>
 
         </div>
