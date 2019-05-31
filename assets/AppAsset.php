@@ -22,13 +22,9 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/botonSwicht.css',
-<<<<<<< HEAD
         'js/pickadate/themes/default.css',
         'js/pickadate/themes/classic.date.css',
 
-=======
->>>>>>> parent of 8ab0370... Revert "Merge branch 'master' of https://github.com/RArielVillalobos/carrera into liliana-modif"
-    ];
     public $js = [
         'js/botonesFormulario.js',
         'js/pickadate/picker.js',
