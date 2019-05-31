@@ -19,13 +19,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idTalleRemera') ?>
 
-    <?= $form->field($model, 'dniCapitan') ?>
-
     <?= $form->field($model, 'nombrePersona') ?>
 
     <?= $form->field($model, 'apellidoPersona') ?>
 
-    <?php // echo $form->field($model, 'fechaNacPersona') ?>
+    <?= $form->field($model, 'fechaNacPersona') ?>
 
     <?php // echo $form->field($model, 'sexoPersona') ?>
 
@@ -48,10 +46,6 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'idResultado') ?>
 
     <?php // echo $form->field($model, 'donador') ?>
-
-    <?php // echo $form->field($model, 'capitan') ?>
-
-    <?php // echo $form->field($model, 'reglamentoAceptado') ?>
 
     <?php // echo $form->field($model, 'deshabilitado') ?>
 

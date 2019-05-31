@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\EquipoSearch */
+/* @var $searchModel app\models\CarrerapersonaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Equipos';
+$this->title = 'Carrerapersonas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="equipo-index">
+<div class="carrerapersona-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Equipo', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Carrerapersona', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,12 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idEquipo',
-            'nombreEquipo',
-            'cantidadPersonas',
             'idTipoCarrera',
-            'dniCapitan',
-            //'deshabilitado',
+            'idPersona',
+            'reglamentoAceptado',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

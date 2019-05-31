@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $form = ActiveForm::begin([
         'method'=>'post',
         "action"=>"index.php?r=inscripcion%2Fstore",
-        "enableClientValidation"=>true,
+		"enableClientValidation"=>true,
     ]); ?>
 
     <h1><?= Html::encode($this->title) ?></h1>

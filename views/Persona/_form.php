@@ -14,8 +14,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idTalleRemera')->textInput() ?>
 
-    <?= $form->field($model, 'dniCapitan')->textInput() ?>
-
     <?= $form->field($model, 'nombrePersona')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'apellidoPersona')->textInput(['maxlength' => true]) ?>
@@ -43,10 +41,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'idResultado')->textInput() ?>
 
     <?= $form->field($model, 'donador')->textInput() ?>
-
-    <?= $form->field($model, 'capitan')->textInput() ?>
-
-    <?= $form->field($model, 'reglamentoAceptado')->textInput() ?>
 
     <?= $form->field($model, 'deshabilitado')->textInput() ?>
 

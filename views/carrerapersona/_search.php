@@ -4,28 +4,22 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\EquipoSearch */
+/* @var $model app\models\CarrerapersonaSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="equipo-search">
+<div class="carrerapersona-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'idEquipo') ?>
-
-    <?= $form->field($model, 'nombreEquipo') ?>
-
-    <?= $form->field($model, 'cantidadPersonas') ?>
-
     <?= $form->field($model, 'idTipoCarrera') ?>
 
-    <?= $form->field($model, 'dniCapitan') ?>
+    <?= $form->field($model, 'idPersona') ?>
 
-    <?php // echo $form->field($model, 'deshabilitado') ?>
+    <?= $form->field($model, 'reglamentoAceptado') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

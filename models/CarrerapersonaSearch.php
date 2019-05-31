@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Equipo;
+use app\models\Carrerapersona;
 
 /**
- * EquipoSearch represents the model behind the search form of `app\models\Equipo`.
+ * CarrerapersonaSearch represents the model behind the search form of `app\models\Carrerapersona`.
  */
-class EquipoSearch extends Equipo
+class CarrerapersonaSearch extends Carrerapersona
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,7 @@ class EquipoSearch extends Equipo
     public function rules()
     {
         return [
-            [['idEquipo', 'cantidadPersonas', 'idTipoCarrera', 'dniCapitan', 'deshabilitado'], 'integer'],
-            [['nombreEquipo'], 'safe'],
+            [['idTipoCarrera', 'idPersona', 'reglamentoAceptado'], 'integer'],
         ];
     }
 
@@ -40,7 +39,7 @@ class EquipoSearch extends Equipo
      */
     public function search($params)
     {
-        $query = Equipo::find();
+        $query = Carrerapersona::find();
 
         // add conditions that should always apply here
 
@@ -58,14 +57,10 @@ class EquipoSearch extends Equipo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idEquipo' => $this->idEquipo,
-            'cantidadPersonas' => $this->cantidadPersonas,
             'idTipoCarrera' => $this->idTipoCarrera,
-            'dniCapitan' => $this->dniCapitan,
-            'deshabilitado' => $this->deshabilitado,
+            'idPersona' => $this->idPersona,
+            'reglamentoAceptado' => $this->reglamentoAceptado,
         ]);
-
-        $query->andFilterWhere(['like', 'nombreEquipo', $this->nombreEquipo]);
 
         return $dataProvider;
     }

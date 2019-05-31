@@ -28,10 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'idPersona',
             'idTalleRemera',
-            'dniCapitan',
             'nombrePersona',
             'apellidoPersona',
-            //'fechaNacPersona',
+            'fechaNacPersona',
             //'sexoPersona',
             //'nacionalidadPersona',
             //'telefonoPersona',
@@ -43,8 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
             //'idPersonaEmergencia',
             //'idResultado',
             //'donador',
-            //'capitan',
-            //'reglamentoAceptado',
             //'deshabilitado',
 
             ['class' => 'yii\grid\ActionColumn'],
