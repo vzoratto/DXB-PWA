@@ -28,10 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'idPersona',
             'idTalleRemera',
-            'dniCapitan',
             'nombrePersona',
             'apellidoPersona',
-            //'fechaNacPersona',
+            'fechaNacPersona',
             //'sexoPersona',
             //'nacionalidadPersona',
             //'telefonoPersona',

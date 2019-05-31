@@ -14,16 +14,16 @@ use yii\widgets\ActiveForm;
 <div class="contactoEmergencia" >
     <div class="row">
         <div id="nombrePersonaEmergencia" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-        <?= $form->field($datosEmergencia, 'nombrePersonaEmergencia')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($datosEmergencia, 'nombrePersonaEmergencia')->textInput(['maxlength' => true,'placeholder'=>'Martin']) ?>
         </div>
 
         <div id="apellidoPersonaEmergencia" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-        <?= $form->field($datosEmergencia, 'apellidoPersonaEmergencia')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($datosEmergencia, 'apellidoPersonaEmergencia')->textInput(['maxlength' => true,'placeholder'=>'Sambueza']) ?>
         </div>
     </div>
     <div class="row">
         <div id="telefonoPersonaEmergencia" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-        <?= $form->field($datosEmergencia, 'telefonoPersonaEmergencia')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($datosEmergencia, 'telefonoPersonaEmergencia')->textInput(['maxlength' => true,'placeholder'=>'299111111']) ?>
         </div>
 
         <div id="idVinculoPersonaEmergencia" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
@@ -38,9 +38,6 @@ use yii\widgets\ActiveForm;
     </div>
 </div>
 
-    <div class="form-group">
-        <?= Html::submitButton('Terminar inscripción', ['class' => 'btn btn-success']) ?>
-    </div>
 
 
 
