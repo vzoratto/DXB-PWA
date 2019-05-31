@@ -35,9 +35,13 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['dniUsuario', 'claveUsuario', 'mailUsuario', 'authkey', 'activado', 'idRol'], 'required'],
-            [['dniUsuario', 'activado', 'idRol'], 'integer'],
+            //definicion de campos obligatorios
+            [['dniUsuario', 'claveUsuario', 'mailUsuario', 'authkey', 'activado', 'idRol'], 'required','message'=>'Este campo es obligatorio.'],
+            //valida que los datos dniUsuario, activado e idRol sean de tipo entero
+            [['dniUsuario', 'activado', 'idRol'], 'integer','message'=>'Este valor es incorrecto.'],
+            //valida que claveUsuario y mailUsuario sean de tipo string con un maximo de 100 caracteres
             [['claveUsuario', 'mailUsuario'], 'string', 'max' => 100],
+            //valida que authkey sea del tipo string con maximo de 50 caracteres
             [['authkey'], 'string', 'max' => 50],
             [['idRol'], 'exist', 'skipOnError' => true, 'targetClass' => Rol::className(), 'targetAttribute' => ['idRol' => 'idRol']],
         ];

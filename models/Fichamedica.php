@@ -38,11 +38,21 @@ class Fichamedica extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['peso', 'altura'], 'number'],
-            [['frecuenciaCardiaca', 'idGrupoSanguineo', 'evaluacionMedica', 'intervencionQuirurgica', 'tomaMedicamentos', 'suplementos'], 'integer'],
-            [['obraSocial'], 'string', 'max' => 32],
-            [['observaciones'], 'string', 'max' => 256],
+            // Se declaran todos los campos obligatorios
+            [['peso','altura','frecuenciaCardiaca', 'evaluacionMedica', 'intervencionQuirurgica', 'tomaMedicamentos','suplementos','obraSocial','idGrupoSanguineo'], 'required','message' => 'Este campo es obligatorio.'],
+            // Se valida que frecuencia cardiaca acepte solo caracteres numericos
+            [['frecuenciaCardiaca'],'match','pattern'=>"/^[0-9]*$/",'message'=>"Unicamente se aceptan caracteres numericos"],
+            // Valida que los siguientes campos sean booleanos
+            [['evaluacionMedica','intervencionQuirurgica','tomaMedicamentos','suplementos'], 'boolean'],
+            // Valida que obra social esté compuesto por caracteres alfanumericos
+            [['obraSocial'],'match','pattern'=>"/^[a-zA-Z0-9\s]+$/",'message'=>"Unicamente se aceptan caracteres alfanumericos"],
+            // Valida que haya elegido algun grupo sanguineo
             [['idGrupoSanguineo'], 'exist', 'skipOnError' => true, 'targetClass' => Gruposanguineo::className(), 'targetAttribute' => ['idGrupoSanguineo' => 'idGrupoSanguineo']],
+            // Valida que peso y altura sean solo numeros. Pueden estar separados por '.' o ','
+            [['altura'], 'number', 'numberPattern' => '/^\s*[-+]?[0-9]*[.,]?[0-9]+([eE][-+]?[0-9]+)?\s*$/'],
+            [['peso'], 'number', 'numberPattern' => '/^\s*[-+]?[0-9]*[.,]?[0-9]+([eE][-+]?[0-9]+)?\s*$/'],
+            
+            
         ];
     }
 

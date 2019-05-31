@@ -9,7 +9,6 @@ use Yii;
  *
  * @property int $idPersona
  * @property int $idTalleRemera
- * @property int $dniCapitan
  * @property string $nombrePersona
  * @property string $apellidoPersona
  * @property string $fechaNacPersona
@@ -26,14 +25,19 @@ use Yii;
  * @property int $donador
  * @property int $deshabilitado
  *
+ * @property Carrerapersona[] $carrerapersonas
+ * @property Tipocarrera[] $tipoCarreras
  * @property Estadopagopersona[] $estadopagopersonas
  * @property Estadopago[] $estadoPagos
+ * @property Grupo[] $grupos
+ * @property Equipo[] $equipos
  * @property Usuario $usuario
  * @property Personaemergencia $personaEmergencia
  * @property Personadireccion $personaDireccion
  * @property Fichamedica $fichaMedica
  * @property Resultado $resultado
  * @property Talleremera $talleRemera
+ * @property Respuesta[] $respuestas
  */
 class Persona extends \yii\db\ActiveRecord
 {
@@ -51,20 +55,33 @@ class Persona extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idTalleRemera', 'dniCapitan', 'mailPersona', 'idUsuario'], 'required','message' => 'Esta informacion es obligatorio.'],
-            ['mailPersona','email','message' => 'No es un e-mail válido.'],
-            [['idTalleRemera', 'dniCapitan', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'donador', 'deshabilitado'], 'integer'],
-            [['fechaNacPersona', 'fechaInscPersona'], 'safe'],
-            [['nombrePersona', 'apellidoPersona', 'nacionalidadPersona', 'mailPersona'], 'string', 'max' => 64],
-            [['sexoPersona'], 'string', 'max' => 1],
-            [['telefonoPersona'], 'string', 'max' => 32],
-            [['idUsuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['idUsuario' => 'idUsuario']],
-            [['idPersonaEmergencia'], 'exist', 'skipOnError' => true, 'targetClass' => Personaemergencia::className(), 'targetAttribute' => ['idPersonaEmergencia' => 'idPersonaEmergencia']],
-            [['idPersonaDireccion'], 'exist', 'skipOnError' => true, 'targetClass' => Personadireccion::className(), 'targetAttribute' => ['idPersonaDireccion' => 'idPersonaDireccion']],
-            [['idFichaMedica'], 'exist', 'skipOnError' => true, 'targetClass' => Fichamedica::className(), 'targetAttribute' => ['idFichaMedica' => 'idFichaMedica']],
-            [['idResultado'], 'exist', 'skipOnError' => true, 'targetClass' => Resultado::className(), 'targetAttribute' => ['idResultado' => 'idResultado']],
-            [['idTalleRemera'], 'exist', 'skipOnError' => true, 'targetClass' => Talleremera::className(), 'targetAttribute' => ['idTalleRemera' => 'idTalleRemera']],
-        ];
+             //definicion de campos obligatorios
+             [['nombrePersona','apellidoPersona','idTalleRemera', 'donador', 'mailPersona', 'idUsuario','sexoPersona','fechaNacPersona'], 'required','message' => 'Este campo es obligatorio.'],
+             //verifica que la direccion de mail sea valida
+             ['mailPersona','email','message' => 'No es una direccion de email válida.'],
+             //valida que los campos nombrados sean de tipo entero
+             [['idTalleRemera', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'donador', 'deshabilitado'], 'integer'],
+             // marca las variables como atributo seguro
+             [['fechaNacPersona', 'fechaInscPersona'], 'safe'],
+             //verifica que el formato de fecha sea el deseado
+             [['fechaNacPersona', 'fechaInscPersona'],'date', 'format'=>'yyyy-mm-dd'],
+             //comprueba si el valor del campo es 0 o 1, sin mirar el tipo de dato
+             ['donador', 'boolean'],
+             // comprueba si los campos coinciden con la expresion regular dada
+             [['nombrePersona','apellidoPersona','nacionalidadPersona'],'match','pattern'=>"/^[a-z-A-Z\D]+$/",'message'=>"Unicamente se aceptan caracteres alfanumericos"],
+            // [['telefonoPersona'],'match','pattern'=>"/^(?:((?P<p1>(?:\( ?)?+)(?:\+|00)?(54)(?<p2>(?: ?\))?+)(?P<sep>(?:[-.]| (?:[-.] )?)?+)(?:(?&p1)(9)(?&p2)(?&sep))?|(?&p1)(0)(?&p2)(?&sep))?+(?&p1)(11|([23]\d{2}(\d)??|(?(-10)(?(-5)(?!)|[68]\d{2})|(?!))))(?&p2)(?&sep)(?(-5)|(?&p1)(15)(?&p2)(?&sep))?(?:([3-6])(?&sep)|([12789]))(\d(?(-5)|\d(?(-6)|\d)))(?&sep)(\d{4})|(1\d{2}|911))$/D",'message'=>"No es un formato de telefono valido"],
+             // comprueba si los atributos son cadenas con una longitud que se encuentre en el rango que se definio
+             [['nombrePersona', 'apellidoPersona', 'nacionalidadPersona', 'mailPersona'], 'string', 'length' => [3,64],'message'=>'Minimo 3 y maximo 64 caracteres'],
+             [['sexoPersona'], 'string', 'max' => 1],
+             [['telefonoPersona'], 'string', 'max' => 32],
+             //claves foraneas, se valida que existan y que pertenezcan a la clase correspondiente a la que hace referencia
+             [['idUsuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['idUsuario' => 'idUsuario']],
+             [['idPersonaEmergencia'], 'exist', 'skipOnError' => true, 'targetClass' => Personaemergencia::className(), 'targetAttribute' => ['idPersonaEmergencia' => 'idPersonaEmergencia']],
+             [['idPersonaDireccion'], 'exist', 'skipOnError' => true, 'targetClass' => Personadireccion::className(), 'targetAttribute' => ['idPersonaDireccion' => 'idPersonaDireccion']],
+             [['idFichaMedica'], 'exist', 'skipOnError' => true, 'targetClass' => Fichamedica::className(), 'targetAttribute' => ['idFichaMedica' => 'idFichaMedica']],
+             [['idResultado'], 'exist', 'skipOnError' => true, 'targetClass' => Resultado::className(), 'targetAttribute' => ['idResultado' => 'idResultado']],
+             [['idTalleRemera'], 'exist', 'skipOnError' => true, 'targetClass' => Talleremera::className(), 'targetAttribute' => ['idTalleRemera' => 'idTalleRemera']],
+             ];
     }
 
     /**
@@ -75,23 +92,38 @@ class Persona extends \yii\db\ActiveRecord
         return [
             'idPersona' => 'Id Persona',
             'idTalleRemera' => 'Id Talle Remera',
-            'dniCapitan' => 'Dni Capitan',
-            'nombrePersona' => 'Nombre',
-            'apellidoPersona' => 'Apellido ',
-            'fechaNacPersona' => 'Fecha Nac',
-            'sexoPersona' => 'Sexo',
-            'nacionalidadPersona' => 'Nacionalidad',
-            'telefonoPersona' => 'Telefono ',
-            'mailPersona' => 'Mail ',
+            'nombrePersona' => 'Nombre Persona',
+            'apellidoPersona' => 'Apellido Persona',
+            'fechaNacPersona' => 'Fecha Nac Persona',
+            'sexoPersona' => 'Sexo Persona',
+            'nacionalidadPersona' => 'Nacionalidad Persona',
+            'telefonoPersona' => 'Telefono Persona',
+            'mailPersona' => 'Mail Persona',
             'idUsuario' => 'Id Usuario',
             'idPersonaDireccion' => 'Id Persona Direccion',
             'idFichaMedica' => 'Id Ficha Medica',
-            'fechaInscPersona' => 'Fecha Insc ',
+            'fechaInscPersona' => 'Fecha Insc Persona',
             'idPersonaEmergencia' => 'Id Persona Emergencia',
             'idResultado' => 'Id Resultado',
             'donador' => 'Donador',
             'deshabilitado' => 'Deshabilitado',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCarrerapersonas()
+    {
+        return $this->hasMany(Carrerapersona::className(), ['idPersona' => 'idPersona']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTipoCarreras()
+    {
+        return $this->hasMany(Tipocarrera::className(), ['idTipoCarrera' => 'idTipoCarrera'])->viaTable('carrerapersona', ['idPersona' => 'idPersona']);
     }
 
     /**
@@ -108,6 +140,22 @@ class Persona extends \yii\db\ActiveRecord
     public function getEstadoPagos()
     {
         return $this->hasMany(Estadopago::className(), ['idEstadoPago' => 'idEstadoPago'])->viaTable('estadopagopersona', ['idPersona' => 'idPersona']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGrupos()
+    {
+        return $this->hasMany(Grupo::className(), ['idPersona' => 'idPersona']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEquipos()
+    {
+        return $this->hasMany(Equipo::className(), ['idEquipo' => 'idEquipo'])->viaTable('grupo', ['idPersona' => 'idPersona']);
     }
 
     /**
@@ -156,5 +204,13 @@ class Persona extends \yii\db\ActiveRecord
     public function getTalleRemera()
     {
         return $this->hasOne(Talleremera::className(), ['idTalleRemera' => 'idTalleRemera']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRespuestas()
+    {
+        return $this->hasMany(Respuesta::className(), ['idPersona' => 'idPersona']);
     }
 }
