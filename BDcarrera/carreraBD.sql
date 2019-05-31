@@ -23038,7 +23038,37 @@ INSERT INTO `talleremera` (`idTalleRemera`, `deshabilitado`, `talleRemera`) VALU
 
 -- --------------------------------------------------------
 
+INSERT INTO `gruposanguineo` (`idGrupoSanguineo`, `tipoGrupoSanguineo`) VALUES
+(1, 'A+'),
+(2, 'A-'),
+(3, 'B+'),
+(4, 'B-'),
+(5, 'AB+'),
+(6, 'AB-'),
+(7, '0+'),
+(8, '0-');
 
+
+--
+-- Volcado de datos para la tabla `respuesta_tipo`
+--
+
+INSERT INTO `respuesta_tipo` (`idRespTipo`, `respTipoDescripcion`) VALUES
+(1, 'Texto'),
+(2, 'Dropdown'),
+(3, 'Checkbox'),
+(4, 'Radio');
+
+
+--
+-- Volcado de datos para la tabla `vinculopersona`
+--
+
+INSERT INTO `vinculopersona` (`idVinculo`, `nombreVinculo`) VALUES
+(1, 'Familiar'),
+(2, 'Pareja'),
+(3, 'Amigo/a'),
+(4, 'Otro');
 --
 -- Volcado de datos para la tabla `tipocarrera`
 --
