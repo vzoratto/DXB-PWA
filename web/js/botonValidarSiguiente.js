@@ -1,20 +1,32 @@
-  var form = $( "#w0" );
-  form.validate();
-  var boton = document.getElementById('stepwizard_step1_next');
-
-  boton.setAttribute('disabled',false);
-
-  $(".persona-form").on(function(){
-    console.log('hola');
-
+  $(document).ready(function() {
+    //Siempre que salgamos de un campo de texto, se chequeará esta función
+    $(".persona-form input").keyup(function() {
+      var form = $(this).parents("#w0");
+      var check = checkCampos(form);
+      console.log(check);
+      if(check) {
+        $("#stepwizard_step1_next").prop("disabled", false);
+      }
+      else {
+        $("#stepwizard_step1_next").prop("disabled", true);
+      }
+    });
   });
-  $( "#stepwizard_step1_next" ).click(function() {
-    if(form[0].checkValidity() && form[1].checkValidity()){
-        boton.setAttribute('disabled',true);
-
-        alert( "Valid: " + form.valid() );
+    
+  //Función para comprobar los campos de texto
+  function checkCampos(obj) {
+    var camposRellenados = true;
+    obj.find("input").each(function() {
+      var $this = $(this);
+        if( $this.val().length <= 0 ) {
+          camposRellenados = false;
+          return false;
         }
-      
-  });
-  
-
+    });
+    if(camposRellenados == false) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
