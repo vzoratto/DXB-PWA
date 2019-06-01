@@ -15,7 +15,10 @@ use app\models\PreguntaSearch;
  */
 class RespuestaopcionController extends Controller
 {
-
+    public static function listaRespuestaOpcion($idPregunta){
+        $resp=Respuestaopcion::find()->where(['idPregunta'=>$idPregunta]);
+        return $resp;
+    }
     /**
      * Accion para cargar a la BD las opciones de la lista desplegable
      */

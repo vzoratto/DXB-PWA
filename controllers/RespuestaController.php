@@ -9,12 +9,18 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Respuestaopcion;
+use app\models\Encuesta;
 
 /**
  * RespuestaController implements the CRUD actions for Respuesta model.
  */
 class RespuestaController extends Controller
 {
+
+    public static function instanciaRespuesta(){
+        $resp=new Encuesta();
+        return $resp;
+    }
     /**
      * Recibe las respuestas de las encuestas y guarda cada una en la base de datos
      */

@@ -94,7 +94,7 @@ $wizard_config = [
             ],
 		],
 	],
-	'start_step' => 1, // Optional, start with a specific step
+	'start_step' => 5, // Optional, start with a specific step
 ];
 ?>
 <?= \drsdre\wizardwidget\WizardWidget::widget($wizard_config); ?>

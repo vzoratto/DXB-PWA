@@ -5,6 +5,7 @@ use app\controllers\RespuestaopcionController;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use app\controllers\EncuestaController;
 
 /* @var $this yii\web\View */
 /* @var $encuesta app\models\Encuesta */
@@ -13,8 +14,8 @@ use yii\widgets\ActiveForm;
 
 
 ?>
-
-<?php $pregunta=PreguntaController::entregaPreguntasXEncuesta($encuesta->idEncuesta);?>
+<?php $encuesta=EncuestaController::encuestaPublica();  ?>
+<?php $pregunta=PreguntaController::entregaPreguntasXEncuesta($encuesta['idEncuesta']);?>
 <?php $respuesta=RespuestaController::instanciaRespuesta(); ?>
 <?php
 $i=0;

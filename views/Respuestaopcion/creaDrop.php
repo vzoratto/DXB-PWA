@@ -26,7 +26,7 @@ $idEncuesta=$preg->idEncuesta;
 <p>Entre estas opciones se podra elegir <strong>solo una</strong></p>
 <?php $form = ActiveForm::begin([
         'method'=>'post',
-        'action'=>Url::toRoute('respuesta-opcion/crea-drop'),
+        'action'=>Url::toRoute('respuestaopcion/crea-drop'),
 ])?>
 	<div class='form-group'>
 		<?= $form->field($model, 'opRespvalor')->textInput()->label('Opcion: ')?>
