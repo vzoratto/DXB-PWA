@@ -9,11 +9,10 @@ use kartik\select2\Select2;
 /* @var $model app\models\Persona */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
 <div class="persona-form">
 
 <!-- vista del tab datos personales del formulario-->
-<div class="datosPersonales" >
+<div class="datosPersonales" id="datosPersonalesForm" >
 <div class="row">
         <label>Soy capitan?</label>
         <!-- Rounded switch -->
@@ -76,11 +75,6 @@ use kartik\select2\Select2;
         </div>
     </div>
     
-
 </div>
-<div class="form-group" id="botones-atras-siguiente">
-</div>
-
-
-
+                
 </div>
