@@ -10,4 +10,4 @@ use yii\helpers\ArrayHelper;
 ?>
 
 
-<?= $form->field($respuesta, 'respValor')->textInput()->label(false); ?>
+<?= $form->field($respuesta, 'respValor')->textInput(['name'=>$valor['idPregunta']])->label(false); ?>

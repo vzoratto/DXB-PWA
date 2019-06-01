@@ -8,12 +8,74 @@ use app\models\RespuestaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Respuestaopcion;
 
 /**
  * RespuestaController implements the CRUD actions for Respuesta model.
  */
 class RespuestaController extends Controller
 {
+    /**
+     * Recibe las respuestas de las encuestas y guarda cada una en la base de datos
+     */
+    public function actionArmarespuesta(){
+
+        $respuesta=$_REQUEST;
+        $msg="";
+         foreach($respuesta as $clave=>$valor){
+            if(is_numeric($clave)){
+                if(is_array($valor)){
+                    foreach($valor as $unValor){
+                        if(is_numeric($unValor)){
+                            $opcion=Respuestaopcion::findOne($unValor);
+                            $resp['respValor']=$opcion->opRespvalor;
+                        }else{
+                            $resp['respValor']=$unValor;
+                        }
+                        $resp['idPregunta']=$clave;
+                        $resp['idPersona']=1;
+                        if(!$this->guardarespuesta($resp)){
+                            $msg.="respuesta a: ".$resp['respValor']." no se guardo -- ";
+                        }else{
+                            $msg.="respuesta a: ".$resp['respValor']." guardada OK -- ";
+                        }
+                    }
+                }else{
+                    if(is_numeric($valor)){
+                        $opcion=Respuestaopcion::findOne($valor);
+                        $resp['respValor']=$opcion->opRespvalor;
+                    }else{
+                        $resp['respValor']=$valor;
+                    }
+                    $resp['idPregunta']=$clave;
+                    $resp['idPersona']=1;
+                    if(!$this->guardarespuesta($resp)){
+                        $msg.="respuesta a: ".$resp['respValor']." no se guardo -- ";
+                    }else{
+                        $msg.="respuesta a: ".$resp['respValor']." guardada OK -- ";
+                    }
+                }
+            }
+                
+            }
+            $r=$msg;
+            return $this->render('verrespuesta', ['model' => $r]);
+        
+    }
+
+    private function guardarespuesta($resp){
+        $carga=false;
+        $model=new Respuesta();
+        
+        $model->respValor=$resp['respValor'];
+        $model->idPregunta=$resp['idPregunta'];
+        $model->idPersona=$resp['idPersona'];
+
+        if($model->save(false)){
+            $carga=true;
+        }
+        return $carga;
+    }
 
     public function actionRespuesta(){
 
