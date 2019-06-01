@@ -18,7 +18,7 @@ class RespuestaController extends Controller
 {
 
     public static function instanciaRespuesta(){
-        $resp=new Encuesta();
+        $resp = new Respuesta();
         return $resp;
     }
     /**

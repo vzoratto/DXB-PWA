@@ -15,9 +15,14 @@ use app\models\PreguntaSearch;
  */
 class RespuestaopcionController extends Controller
 {
+    /**
+     * dado un idPregunta, devuelve un array con las opciones de respuesta de la misma.
+     * @param integer $idPregunta
+     * @return array
+     */
     public static function listaRespuestaOpcion($idPregunta){
-        $resp=Respuestaopcion::find()->where(['idPregunta'=>$idPregunta]);
-        return $resp;
+        $opciones=RespuestaOpcion::find()->where('idPregunta= '.$idPregunta)->all();
+        return $opciones;
     }
     /**
      * Accion para cargar a la BD las opciones de la lista desplegable
