@@ -16,7 +16,7 @@ use app\controllers\EncuestaController;
 ?>
 <?php $encuesta=EncuestaController::encuestaPublica();  ?>
 <?php $pregunta=PreguntaController::entregaPreguntasXEncuesta($encuesta['idEncuesta']);?>
-<?php $respuesta=RespuestaController::instanciaRespuesta(); ?>
+
 <?php
 $i=0;
         $opcion=[];
@@ -27,21 +27,15 @@ $i=0;
             $i++;
         }
 ?>
+
 <!-- <H1>Contenido en desarrollo &#128077;</H1> -->
 
 <?php echo Html::a('Ir a generacion de encuesta', Url::toRoute('encuesta/create'), ['class'=>'btn btn-primary btn-sm'])?>
 
-<h3>Encuesta:</h3>
-<h2> <?= $encuesta['encTitulo']?></h2>
+<h3> <?= $encuesta['encTitulo']?></h3>
 <h5> <?= $encuesta['encDescripcion']?></h5>
 <hr>
-<div class="encuesta-form">
-    <?php  $form=ActiveForm::begin([
-        'method'=>'post',
-        'action'=>Url::toRoute('respuesta/armarespuesta'),
-        ]
-    ); ?>
-        
+<div class="encuesta-form">    
         
         <?php foreach($pregunta as $valor):?>
             <div class="form-group ">
@@ -57,7 +51,6 @@ $i=0;
                             'valor'=>$valor,
                         ]);
                         
-
                     }elseif($valor['idRespTipo']==2){
                         echo $this->render('_drop', [
                             'opcion'=>$opcion,
@@ -67,7 +60,6 @@ $i=0;
                             'valor'=>$valor,
                             ]);
                         
-
                     }elseif($valor['idRespTipo']==3){
                         echo $this->render('_check', [
                             'opcion'=>$opcion,
@@ -77,7 +69,6 @@ $i=0;
                             'valor'=>$valor,
                             ]);
                         
-
                     }elseif($valor['idRespTipo']==4){
                         
                         echo $this->render('_radio', [
@@ -86,8 +77,7 @@ $i=0;
                             'form'=>$form,
                             'respuesta'=>$respuesta,
                             'valor'=>$valor,
-                            ]);
-                        
+                            ]);  
                             
                     }
                     
@@ -95,11 +85,8 @@ $i=0;
             </div>
         
         <?php endforeach?>
-        <?= $form->field($respuesta, 'idEncuesta')->hiddenInput(['value'=>$encuesta['idEncuesta']])->label(false) ?> 
-        <div class="form-group">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
-        </div>
 
-    <?php ActiveForm::end(); ?>
+        <?= $form->field($respuesta, 'idEncuesta')->hiddenInput(['value'=>$encuesta['idEncuesta']])->label(false) ?> 
+
 
 </div>

@@ -77,7 +77,7 @@ $wizard_config = [
 		5 => [
 			'title' => 'Encuesta',
 			'icon' => 'glyphicon glyphicon-list-alt',
-			'content' => $this->render('@app/views/Encuesta/encuesta.php',['form'=>$form]),
+			'content' => $this->render('@app/views/Encuesta/encuesta.php',['respuesta'=>$respuesta,'form'=>$form]),
 			'buttons' => [
 				'previous' => [
 					'title' => 'Atras',
@@ -94,7 +94,7 @@ $wizard_config = [
             ],
 		],
 	],
-	'start_step' => 5, // Optional, start with a specific step
+	'start_step' => 1, // Optional, start with a specific step
 ];
 ?>
 <?= \drsdre\wizardwidget\WizardWidget::widget($wizard_config); ?>
