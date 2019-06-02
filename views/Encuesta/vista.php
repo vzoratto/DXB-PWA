@@ -16,11 +16,7 @@ use yii\helpers\Url;
 <hr>
 
 <div class="encuesta-form">
-    <?php  $form=ActiveForm::begin([
-        'method'=>'post',
-        'action'=>Url::toRoute('respuesta/armarespuesta'),
-        ]
-    ); ?>
+    <?php  $form=ActiveForm::begin(); ?>
         
         
         <?php foreach($pregunta as $valor):?>
@@ -77,7 +73,8 @@ use yii\helpers\Url;
         <?php endforeach?>
         <?= $form->field($respuesta, 'idEncuesta')->hiddenInput(['value'=>$encuesta['idEncuesta']])->label(false) ?> 
         <div class="form-group">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Volver a Encuestas', ['encuesta/index'], ['class' => 'btn btn-primary']) ?>
+
         </div>
 
     <?php ActiveForm::end(); ?>
