@@ -18,8 +18,9 @@ use yii\helpers\Url;
 <div class="encuesta-form">
     <?php  $form=ActiveForm::begin(); ?>
         
-        
+      
         <?php foreach($pregunta as $valor):?>
+        <div class=" col-xs-12 col-sm-6"> 
             <div class="form-group">
             <h3> <?php $idPregunta=$valor['idPregunta']; ?></h3>
             <h3> <?= $valor['pregDescripcion']; ?></h3>
@@ -69,14 +70,16 @@ use yii\helpers\Url;
                  
             ?>
             </div>
-        <hr>
-        <?php endforeach?>
-        <?= $form->field($respuesta, 'idEncuesta')->hiddenInput(['value'=>$encuesta['idEncuesta']])->label(false) ?> 
-        <div class="form-group">
-            <?= Html::a('Volver a Encuestas', ['encuesta/index'], ['class' => 'btn btn-primary']) ?>
-
+        
         </div>
+        <?php endforeach?>
 
+        <?= $form->field($respuesta, 'idEncuesta')->hiddenInput(['value'=>$encuesta['idEncuesta']])->label(false) ?> 
+        
+        <div class="form-group col-xs-12">
+            <?= Html::a('Volver a Encuestas', ['encuesta/index'], ['class' => 'btn btn-primary']) ?>
+        </div>
+    
     <?php ActiveForm::end(); ?>
 
 </div>

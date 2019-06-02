@@ -22,7 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <hr>
+    <h3>Encuesta: <?= Html::encode($encuesta['encTitulo']) ?></h3>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -32,7 +33,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'idPregunta',
             'pregDescripcion',
             'idEncuesta',
-            'idRespTipo',
+            ['attribute'=>'',
+                    'format'=>'raw',
+                    'headerOptions'=>['style'=>'color:#1369BF'],
+                    'contentOptions'=>['style'=>'width:120px;'],
+                    'value'=>function($model){
+                        return Html::a('Respuestas',
+                                ['respuesta/index',
+                                 'idPregunta'=>$model->idPregunta
+                                ]
+                        );
+                 }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

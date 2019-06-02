@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Crear Encuesta', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Preguntas', ['pregunta/index'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Respuestas', ['respuesta/index'], ['class' => 'btn btn-primary']) ?>
+        
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -73,18 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         );
                  }
             ],
-            ['attribute'=>'',
-                    'format'=>'raw',
-                    'headerOptions'=>['style'=>'color:#1369BF'],
-                    'contentOptions'=>['style'=>'width:120px;'],
-                    'value'=>function($model){
-                        return Html::a('Respuestas',
-                                ['respuesta/index',
-                                 'idEncuesta'=>$model->idEncuesta
-                                ],            
-                        );
-                 }
-            ],
+            
             ['class' => 'yii\grid\ActionColumn', 'template'=> '{update}'],           
         ],
     ]); ?>

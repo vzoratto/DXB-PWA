@@ -11,15 +11,16 @@ use yii\widgets\ActiveForm;
 <div class="encuesta-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'encTitulo')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'encDescripcion')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'encPublica')->textInput() ?>
-
+    <div class=" form-group">
+        <?= $form->field($model, 'encTitulo')->textInput() ?>
+    </div>
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= $form->field($model, 'encDescripcion')->textInput(['maxlength' => true]) ?>
+    </div>
+        <?= $form->field($model, 'encPublica')->hiddenInput(['value'=>0])->label(false) ?>
+    
+    <div class="form-group">
+        <?= Html::submitButton('Siguiente', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
