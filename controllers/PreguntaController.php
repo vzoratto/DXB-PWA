@@ -8,6 +8,7 @@ use app\models\PreguntaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * PreguntaController implements the CRUD actions for Pregunta model.
@@ -63,7 +64,10 @@ class PreguntaController extends Controller
     {
         $searchModel = new PreguntaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        if(isset($_REQUEST['idEncuesta'])){
+            $dataProvider->query->andWhere('pregunta.idEncuesta = '.$_REQUEST['idEncuesta']);
+        }
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

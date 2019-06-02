@@ -17,7 +17,7 @@ class EncuestaSearch extends Encuesta
     public function rules()
     {
         return [
-            [['idEncuesta'], 'integer'],
+            [['idEncuesta', 'encPublica'], 'integer'],
             [['encTitulo', 'encDescripcion'], 'safe'],
         ];
     }
@@ -59,11 +59,11 @@ class EncuestaSearch extends Encuesta
         // grid filtering conditions
         $query->andFilterWhere([
             'idEncuesta' => $this->idEncuesta,
+            'encPublica' => $this->encPublica,
         ]);
 
         $query->andFilterWhere(['like', 'encTitulo', $this->encTitulo])
-            ->andFilterWhere(['like', 'encDescripcion', $this->encDescripcion])
-            ->andFilterWhere(['like', 'encPublica', $this->encPublica]);
+            ->andFilterWhere(['like', 'encDescripcion', $this->encDescripcion]);
 
         return $dataProvider;
     }

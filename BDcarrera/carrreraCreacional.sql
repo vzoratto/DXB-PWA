@@ -343,7 +343,7 @@ CREATE TABLE `vinculopersona` (
 --
 ALTER TABLE `carrerapersona`
   ADD PRIMARY KEY (`idPersona`,`idTipoCarrera`),
-  ADD KEY `carrerapersona_ibfk_2` (`idTipoCarrera`);
+  ADD KEY `idTipoCarrera` (`idTipoCarrera`);
 
 --
 -- Indices de la tabla `encuesta`
@@ -457,7 +457,7 @@ ALTER TABLE `provincia`
 ALTER TABLE `respuesta`
   ADD PRIMARY KEY (`idRespuesta`),
   ADD KEY `idPregunta` (`idPregunta`),
-  ADD KEY `respuesta_ibfk_1` (`idPersona`);
+  ADD KEY `idPersona` (`idPersona`);
 
 --
 -- Indices de la tabla `respuesta_opcion`
@@ -517,7 +517,7 @@ ALTER TABLE `vinculopersona`
 -- AUTO_INCREMENT de la tabla `encuesta`
 --
 ALTER TABLE `encuesta`
-  MODIFY `idEncuesta` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idEncuesta` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `equipo`
@@ -583,7 +583,7 @@ ALTER TABLE `personaemergencia`
 -- AUTO_INCREMENT de la tabla `pregunta`
 --
 ALTER TABLE `pregunta`
-  MODIFY `idPregunta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `idPregunta` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `respuesta`
@@ -595,7 +595,7 @@ ALTER TABLE `respuesta`
 -- AUTO_INCREMENT de la tabla `respuesta_opcion`
 --
 ALTER TABLE `respuesta_opcion`
-  MODIFY `idRespuestaOpcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `idRespuestaOpcion` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `respuesta_tipo`
