@@ -23,6 +23,7 @@ use yii\helpers\ArrayHelper;
 use app\models\Respuesta;
 use app\models\Respuestaopcion;
 
+use yii\helper\Json;
 
 class InscripcionController extends Controller
 {
@@ -55,10 +56,18 @@ class InscripcionController extends Controller
         $datosEmergencia = new \app\models\Personaemergencia();//Instanciamos una variable
         $localidad = new \app\models\Localidad(); //Instanciamos una variable
         $provincia = new \app\models\Provincia(); //Instanciamos una variable
+        $equipo = new \app\models\Equipo(); //Instanciamos una variable
         $talleRemera=new Talleremera();
         $provinciaLista = ArrayHelper::map(\app\models\Provincia::find()->all(),'idProvincia','nombreProvincia'); //Lista de las provincias
         $listadoTalles=ArrayHelper::map(\app\models\Talleremera::find()->all(),'idTalleRemera','talleRemera');
         $respuesta=new \app\models\Respuesta();
+        $equipoLista= ArrayHelper::map(\app\models\Equipo::find()->all(),'idEquipo','dniCapitan');
+        $tipoCarrera = new \app\models\Tipocarrera(); //Instanciamos una variable
+        $tipocarreraLista =ArrayHelper::map(\app\models\Tipocarrera::find()->all(),'idTipoCarrera','descripcionCarrera');
+        $cantCorredores =ArrayHelper::map(\app\models\Parametros::find()->all(),'idParametros','cantidadCorredores');
+
+
+        $elEquipo= ArrayHelper::map(\app\models\Tipocarrera::find()->where(['idTipoCarrera' => '2'])->all(),'idTipoCarrera','descripcionCarrera');
 
 
         return $this->render('index',[
@@ -72,6 +81,12 @@ class InscripcionController extends Controller
             'provinciaLista' => $provinciaLista,
             'listadoTalles'=>$listadoTalles,
             'talleRemera'=>$talleRemera,
+            'equipoLista'=>$equipoLista,
+            'equipo'=>$equipo,
+            'elEquipo'=>$elEquipo,
+            'tipoCarrera'=>$tipoCarrera,
+            'tipocarreraLista'=>$tipocarreraLista,
+            'cantCorredores'=>$cantCorredores,
             'datos' => null,
             'respuesta'=>$respuesta,
             ]);
@@ -149,6 +164,86 @@ class InscripcionController extends Controller
         ]);
     }
 
+    public function actionDatos()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+           $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $idEquipo = $parents[0];
+                //$out = [
+                //    ['id'=>'1', 'name'=>$idEquipo],
+                //    ['id'=>'2', 'name'=>'<sub-cat-name2>']
+                //];
+                $elEquipo= ArrayHelper::map(\app\models\Equipo::find()->where(['idEquipo' => $idEquipo])->all(),'idEquipo','nombreEquipo');
+
+            
+                $out = [
+                    ['id' => $idEquipo, 'name' => $elEquipo[$idEquipo]]
+                ];
+            
+            
+                return ['output'=>$out, 'selected'=>$idEquipo];
+            }
+        }
+        return ['output'=>'', 'selected'=>''];  
+    }
+
+    public function actionTipocarrera()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+           $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $idEquipo = $parents[0];
+                //$out = [
+                //    ['id'=>'1', 'name'=>$idEquipo],
+                //    ['id'=>'2', 'name'=>'<sub-cat-name2>']
+                //];
+                $equipo= ArrayHelper::map(\app\models\Equipo::find()->where(['idEquipo' => $idEquipo])->all(),'idEquipo','idTipoCarrera');
+                $idTipoCarrera = $equipo[$idEquipo];
+                $carrera= ArrayHelper::map(\app\models\Tipocarrera::find()->where(['idTipoCarrera' => $idTipoCarrera])->all(),'idTipoCarrera','descripcionCarrera');
+
+            
+                $out = [
+                    ['id' => $idTipoCarrera, 'name' => $carrera[$idTipoCarrera]]
+                ];
+            
+            
+                return ['output'=>$out, 'selected'=>$idTipoCarrera];
+            }
+        }
+        return ['output'=>'', 'selected'=>''];  
+    }
+
+    public function actionCantpersonas()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+           $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $idEquipo = $parents[0];
+                //$out = [
+                //    ['id'=>'1', 'name'=>$idEquipo],
+                //    ['id'=>'2', 'name'=>'<sub-cat-name2>']
+                //];
+                $elEquipo= ArrayHelper::map(\app\models\Equipo::find()->where(['idEquipo' => $idEquipo])->all(),'idEquipo','cantidadPersonas');
+
+            
+                $out = [
+                    ['id' => $idEquipo, 'name' => $elEquipo[$idEquipo]]
+                ];
+            
+            
+                return ['output'=>$out, 'selected'=>$idEquipo];
+            }
+        }
+        return ['output'=>'', 'selected'=>''];
+
+    }
     /**
      * Guarda los datos del formulario en sus correspondientes tablas de la base de datos
      */
