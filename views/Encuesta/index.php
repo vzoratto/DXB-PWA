@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('Publicar',
                                 ['verencuesta/publicar-encuesta',
                                  'idEncuesta'=>$model->idEncuesta
-                                ],            
+                                ]
                         );
                  }
             ],            
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('Ver Encuesta',
                                 ['verencuesta/ver-encuesta',
                                  'idEncuesta'=>$model->idEncuesta
-                                ],            
+                                ]
                         );
                  }
             ],
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('Preguntas',
                                 ['pregunta/index',
                                  'idEncuesta'=>$model->idEncuesta
-                                ],            
+                                ]
                         );
                  }
             ],
