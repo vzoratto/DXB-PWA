@@ -148,7 +148,7 @@ use yii\web\JsExpression;
         una fecha desde un calendario permitiendo tambien seleccionar años o meses 
         con una mayor facilidad --> 
             <label>Fecha de Nacimiento <small style="color:red">(Podés correr a partir de los 12 años)</small></label>
-            <?php  $form->field($persona, 'fechaNacPersona')->textInput(['class'=>'datepicker form-control','id'=>'datepicker'])->label('') ?>
+            <?=  $form->field($persona, 'fechaNacPersona')->textInput(['class'=>'datepicker form-control','id'=>'datepicker'])->label('') ?>
 
         </div>
 
