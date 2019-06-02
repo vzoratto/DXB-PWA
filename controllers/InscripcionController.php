@@ -20,6 +20,9 @@ use app\models\Personadireccion;
 use app\models\Personaemergencia;
 use app\models\Provincia;
 use yii\helpers\ArrayHelper;
+use app\models\Respuesta;
+use app\models\Respuestaopcion;
+
 
 class InscripcionController extends Controller
 {
@@ -55,6 +58,8 @@ class InscripcionController extends Controller
         $talleRemera=new Talleremera();
         $provinciaLista = ArrayHelper::map(\app\models\Provincia::find()->all(),'idProvincia','nombreProvincia'); //Lista de las provincias
         $listadoTalles=ArrayHelper::map(\app\models\Talleremera::find()->all(),'idTalleRemera','talleRemera');
+        $respuesta=new Respuesta();
+
 
         return $this->render('index',[
             'persona'=>$persona,
@@ -68,6 +73,7 @@ class InscripcionController extends Controller
             'listadoTalles'=>$listadoTalles,
             'talleRemera'=>$talleRemera,
             'datos' => null,
+            'respuesta'=>$respuesta,
             ]);
     }
 
@@ -216,11 +222,11 @@ class InscripcionController extends Controller
             //MODELO PERSONA
             $modeloPersona=Yii::$app->request->post()['Persona'];
             $persona=new Persona();
-            $persona->dniCapitan=$modeloPersona['dniCapitan'];
+            //$persona->dniCapitan=$modeloPersona['dniCapitan'];
             $persona->idTalleRemera=$idTalleRemera;
             $persona->nombrePersona=$modeloPersona['nombrePersona'];
             $persona->apellidoPersona=$modeloPersona['apellidoPersona'];
-            $persona->fechaNacPersona=Yii::$app->request->post()['fechaNacPersona'];
+            //$persona->fechaNacPersona=Yii::$app->request->post()['fechaNacPersona'];
             $persona->sexoPersona=$modeloPersona['sexoPersona'];
             $persona->nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
             $persona->telefonoPersona=$modeloPersona['telefonoPersona'];
@@ -233,8 +239,8 @@ class InscripcionController extends Controller
             $persona->donador=$modeloPersona['donador'];
             //$persona->estadoPago=null;
             
-            $persona->save();
-           // $idPersona=$persona->idPersona;
+            $persona->save(false);
+            $idPersona=$persona->idPersona;
            // echo $idPersona;
             
           //  print_r($persona->errors);
@@ -248,7 +254,47 @@ class InscripcionController extends Controller
             $estadoPagoPersona->idPersona=$persona->primaryKey();
             $estadoPagoPersona->fechaPago=$fechaActual;
             $estadoPagoPersona->save();
-           // print_r($estadoPagoPersona->errors);
+            // print_r($estadoPagoPersona->errors);
+
+            //RESPUESTA A ENCUESTA
+            $respuesta=Yii::$app->request->post();
+            foreach($respuesta as $clave=>$valor){
+                if(is_numeric($clave)){
+                    if(is_array($valor)){
+                        foreach($valor as $unValor){
+                            if(is_numeric($unValor)){
+                                $opcion=Respuestaopcion::findOne($unValor);
+                                $resp['respValor']=$opcion->opRespvalor;
+                            }else{
+                                $resp['respValor']=$unValor;
+                            }
+                            $resp['idPregunta']=$clave;
+                            $resp['idPersona']=$idPersona;
+
+                            $model=new Respuesta();
+                            $model->respValor=$resp['respValor'];
+                            $model->idPregunta=$resp['idPregunta'];
+                            $model->idPersona=$resp['idPersona'];
+                            $model->save();
+                        }
+                    }else{
+                        if(is_numeric($valor)){
+                            $opcion=Respuestaopcion::findOne($valor);
+                            $resp['respValor']=$opcion->opRespvalor;
+                        }else{
+                            $resp['respValor']=$valor;
+                        }
+                        $resp['idPregunta']=$clave;
+                        $resp['idPersona']=$idPersona;
+
+                        $model=new Respuesta();
+                        $model->respValor=$resp['respValor'];
+                        $model->idPregunta=$resp['idPregunta'];
+                        $model->idPersona=$resp['idPersona'];
+                        $model->save();
+                    }
+                }    
+            }
 
             if($transaction->commit()){
                 $guardado=true;

@@ -16,11 +16,9 @@ use yii\helpers\Url;
 <hr>
 
 <div class="encuesta-form">
-    <?php  $form=ActiveForm::begin([
-        'method'=>'post',
-        'action'=>Url::toRoute('respuesta/respuesta'),
-        ]
-    ); ?>
+    <?php  $form=ActiveForm::begin(); ?>
+        
+        
         <?php foreach($pregunta as $valor):?>
             <div class="form-group">
             <h3> <?php $idPregunta=$valor['idPregunta']; ?></h3>
@@ -32,7 +30,9 @@ use yii\helpers\Url;
                         'idPregunta'=>$idPregunta,
                         'form'=>$form,
                         'respuesta'=>$respuesta,
+                        'valor'=>$valor,
                     ]);
+                    
 
                 }elseif($valor['idRespTipo']==2){
                     echo $this->render('_drop', [
@@ -40,7 +40,9 @@ use yii\helpers\Url;
                         'idPregunta'=>$idPregunta,
                         'form'=>$form,
                         'respuesta'=>$respuesta,
+                        'valor'=>$valor,
                         ]);
+                       
 
                 }elseif($valor['idRespTipo']==3){
                     echo $this->render('_check', [
@@ -48,23 +50,31 @@ use yii\helpers\Url;
                         'idPregunta'=>$idPregunta,
                         'form'=>$form,
                         'respuesta'=>$respuesta,
+                        'valor'=>$valor,
                         ]);
+                       
 
                 }elseif($valor['idRespTipo']==4){
+                    
                     echo $this->render('_radio', [
                         'opcion'=>$opcion,
                         'idPregunta'=>$idPregunta,
                         'form'=>$form,
                         'respuesta'=>$respuesta,
+                        'valor'=>$valor,
                         ]);
-                }  
+                      
+                        
+                }
+                 
             ?>
             </div>
         <hr>
         <?php endforeach?>
         <?= $form->field($respuesta, 'idEncuesta')->hiddenInput(['value'=>$encuesta['idEncuesta']])->label(false) ?> 
         <div class="form-group">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Volver a Encuestas', ['encuesta/index'], ['class' => 'btn btn-primary']) ?>
+
         </div>
 
     <?php ActiveForm::end(); ?>

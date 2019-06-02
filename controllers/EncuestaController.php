@@ -14,7 +14,12 @@ use yii\filters\VerbFilter;
  */
 class EncuestaController extends Controller
 {
-    
+    /**
+     * Devuelve el elemento Encuesta que este activo para ser publicado
+     */
+    public static function encuestaPublica(){
+        return Encuesta::find()->where(['encPublica'=>1])->one();
+    }
 
     /**
      * {@inheritdoc}

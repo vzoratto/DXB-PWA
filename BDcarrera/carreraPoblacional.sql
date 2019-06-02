@@ -23055,9 +23055,9 @@ INSERT INTO `gruposanguineo` (`idGrupoSanguineo`, `tipoGrupoSanguineo`) VALUES
 
 INSERT INTO `respuesta_tipo` (`idRespTipo`, `respTipoDescripcion`) VALUES
 (1, 'Texto'),
-(2, 'Dropdown'),
-(3, 'Checkbox'),
-(4, 'Radio');
+(2, 'Lista'),
+(3, 'Multi opcion'),
+(4, 'Unica opcion');
 
 
 --

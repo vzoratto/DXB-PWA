@@ -62,7 +62,8 @@ class EncuestaSearch extends Encuesta
         ]);
 
         $query->andFilterWhere(['like', 'encTitulo', $this->encTitulo])
-            ->andFilterWhere(['like', 'encDescripcion', $this->encDescripcion]);
+            ->andFilterWhere(['like', 'encDescripcion', $this->encDescripcion])
+            ->andFilterWhere(['like', 'encPublica', $this->encPublica]);
 
         return $dataProvider;
     }

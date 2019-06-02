@@ -26,9 +26,20 @@ $this->params['breadcrumbs'][] = $this->title;
         
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'encTitulo',
-            
+            'encPublica',
+            ['attribute'=>'',
+                    'format'=>'raw',
+                    'headerOptions'=>['style'=>'color:#1369BF'],
+                    'contentOptions'=>['style'=>'width:150px;'],
+                    'value'=>function($model){
+                        return Html::a('Publicar',
+                                ['verencuesta/publicar-encuesta',
+                                 'idEncuesta'=>$model->idEncuesta
+                                ],            
+                        );
+                 }
+            ],            
             ['attribute'=>'Accion',
                     'format'=>'raw',
                     'headerOptions'=>['style'=>'color:#1369BF'],
@@ -40,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],            
                         );
                  }
-            ],
+            ],           
         ],
     ]); ?>
 

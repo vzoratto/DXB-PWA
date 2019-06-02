@@ -15,11 +15,28 @@ use yii\filters\VerbFilter;
 class PreguntaController extends Controller
 {
 
+    /**
+     * Dado un idPregunta, devuelve el objeto Pregunta
+     * @param Int $idPregunta
+     * @return objet
+     */
     public static function entregaPregunta($idPregunta){
         
         $unaPreg=new Pregunta();
         
         return $unaPreg->findOne($idPregunta);
+  
+    }
+    /**
+     * Dado el id de una encuesta, devuelve las preguntas de esa encuesta.
+     * @param integer $idEncuesta
+     * @return array
+     */
+    public static function entregaPreguntasXEncuesta($idEncuesta){
+        
+        $encuestas=Pregunta::find()->where(['idEncuesta'=>$idEncuesta])->all();
+        
+        return $encuestas;
   
     }
 
@@ -80,7 +97,7 @@ class PreguntaController extends Controller
          if ($model->load(Yii::$app->request->post())) {
                 
                 $model->save();
-                return $this->redirect(['respuesta-opcion/define-opcion', 'id' => $model->idPregunta,]);
+                return $this->redirect(['respuestaopcion/define-opcion', 'id' => $model->idPregunta,]);
             }
             $model->idEncuesta=$id;
             return $this->render('create', [

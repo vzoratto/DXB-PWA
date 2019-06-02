@@ -34,7 +34,8 @@ CREATE TABLE `carrerapersona` (
 CREATE TABLE `encuesta` (
   `idEncuesta` int(5) NOT NULL,
   `encTitulo` varchar(150) CHARACTER SET latin1 NOT NULL,
-  `encDescripcion` varchar(250) CHARACTER SET latin1 NOT NULL
+  `encDescripcion` varchar(250) CHARACTER SET latin1 NOT NULL,
+  `encPublica` TINYINT(1)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------

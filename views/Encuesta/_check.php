@@ -27,4 +27,4 @@ use yii\helpers\ArrayHelper;
 
 <?php $r=ArrayHelper::map($resp, 'idRespuestaOpcion', 'opRespvalor') ?>
 
-<?= $form->field($model, 'items[]')->checkboxList($r,['separator' => '<br>']); ?>
+<?= $form->field($respuesta, 'respValor')->checkboxList($r,['separator' => '<br>', 'name'=>$valor['idPregunta']])->label(false); ?>
