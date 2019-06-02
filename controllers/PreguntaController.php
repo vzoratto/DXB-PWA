@@ -64,7 +64,8 @@ class PreguntaController extends Controller
     {
         $searchModel = new PreguntaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        if(isset($_REQUEST['idEncuesta'])){
+
+        if(isset($_REQUEST['idEncuesta'])){ //si recibe un idEncuesta pasa en dataProvider las preguntas solo de esa encuesta
             $dataProvider->query->andWhere('pregunta.idEncuesta = '.$_REQUEST['idEncuesta']);
         }
         

@@ -15,6 +15,7 @@ use app\controllers\EncuestaController;
 
 ?>
 <?php $encuesta=EncuestaController::encuestaPublica();  ?>
+
 <?php $pregunta=PreguntaController::entregaPreguntasXEncuesta($encuesta['idEncuesta']);?>
 
 <?php
@@ -30,7 +31,7 @@ $i=0;
 
 <!-- <H1>Contenido en desarrollo &#128077;</H1> -->
 
-<?php echo Html::a('Ir a generacion de encuesta', Url::toRoute('encuesta/create'), ['class'=>'btn btn-primary btn-sm'])?>
+<!-- <?php //echo Html::a('Ir a generacion de encuesta', Url::toRoute('encuesta/create'), ['class'=>'btn btn-primary btn-sm'])?> -->
 
 <h3> <?= $encuesta['encTitulo']?></h3>
 <h5> <?= $encuesta['encDescripcion']?></h5>
@@ -85,8 +86,8 @@ $i=0;
             </div>
         
         <?php endforeach?>
-
-        <?= $form->field($respuesta, 'idEncuesta')->hiddenInput(['value'=>$encuesta['idEncuesta']])->label(false) ?> 
-
+        <?php if(!$encuesta==[]):?>
+            <?= $form->field($respuesta, 'idEncuesta')->hiddenInput(['value'=>$encuesta['idEncuesta']])->label(false) ?> 
+        <?php endif?>
 
 </div>
