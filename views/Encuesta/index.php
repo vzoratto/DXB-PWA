@@ -73,6 +73,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         );
                  }
             ],
+            ['attribute'=>'',
+                    'format'=>'raw',
+                    'headerOptions'=>['style'=>'color:#1369BF'],
+                    'contentOptions'=>['style'=>'width:120px;'],
+                    'value'=>function($model){
+                        return Html::a('Respuestas',
+                                ['respuesta/index',
+                                 'idEncuesta'=>$model->idEncuesta
+                                ],            
+                        );
+                 }
+            ],
             ['class' => 'yii\grid\ActionColumn', 'template'=> '{update}'],           
         ],
     ]); ?>
