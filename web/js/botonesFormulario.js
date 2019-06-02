@@ -2,17 +2,19 @@ function myFunction() {
     // Get the checkbox
     var checkBox = document.getElementById("myonoffswitch");
     // Get the output text
-    var text = document.getElementById("opcionesCapitan");
+    var text = document.getElementById("opcionesNoSoyCapitan");
 
-    var dniCapitan = document.getElementById("console-event");
+    var cap = document.getElementById("opcionesCapitan");
+
 
     // If the checkbox is checked, display the output text
     if (checkBox.checked == true) {
-        text.style.display = "block";
-        dniCapitan.style.display = "none";
-        dniCapitan.setAttribute("required");
-    } else {
         text.style.display = "none";
-        dniCapitan.style.display = "block";
+        cap.style.display = "block";
+
+    } else {
+        text.style.display = "block";
+        cap.style.display = "none";
+
     }
 }
