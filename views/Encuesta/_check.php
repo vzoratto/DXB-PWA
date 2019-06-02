@@ -1,6 +1,5 @@
 <?php
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+
 use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */

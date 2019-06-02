@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Pregunta', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Encuestas', ['encuesta/index'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Respuestas', ['respuesta/index'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
