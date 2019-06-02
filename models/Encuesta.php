@@ -10,7 +10,9 @@ use Yii;
  * @property int $idEncuesta
  * @property string $encTitulo
  * @property string $encDescripcion
- * @property tinyint $encPublica
+ * @property int $encPublica
+ *
+ * @property Pregunta[] $preguntas
  */
 class Encuesta extends \yii\db\ActiveRecord
 {
@@ -29,6 +31,7 @@ class Encuesta extends \yii\db\ActiveRecord
     {
         return [
             [['encTitulo', 'encDescripcion'], 'required'],
+            [['encPublica'], 'integer'],
             [['encTitulo'], 'string', 'max' => 150],
             [['encDescripcion'], 'string', 'max' => 250],
         ];
@@ -41,9 +44,17 @@ class Encuesta extends \yii\db\ActiveRecord
     {
         return [
             'idEncuesta' => 'Id Encuesta',
-            'encTitulo' => 'Enc Titulo',
-            'encDescripcion' => 'Enc Descripcion',
-            'encPublica' => 'Enc Publica',
+            'encTitulo' => 'Titulo',
+            'encDescripcion' => 'Descripcion',
+            'encPublica' => 'Publica',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPreguntas()
+    {
+        return $this->hasMany(Pregunta::className(), ['idEncuesta' => 'idEncuesta']);
     }
 }
