@@ -2,11 +2,13 @@
 
 namespace app\controllers;
 
+use yii;
 use yii\web\Controller;
 use app\models\Encuesta;
 use app\models\Pregunta;
 use app\models\RespuestaOpcion;
 use app\models\Respuesta;
+use app\models\EncuestaSearch;
 
 
 /**
@@ -14,6 +16,26 @@ use app\models\Respuesta;
  */
 
 class VerencuestaController extends Controller{
+
+    /**
+     * Accion que cambia el valor del campo encPublica para seleccionar cual sera visible en el tas de inscripcion
+     */
+    public function actionPublicarEncuesta(){
+        $idEncuesta=$_REQUEST['idEncuesta'];
+        $encuesta=Encuesta::findOne($idEncuesta);
+        $conexion=\Yii::$app->db;
+        //Cambia el valor de encPublica en todos los campos a 0 y luego le da el valor 1 a la encuesta que seleccionamos.
+        $conexion->createCommand()->update('encuesta', ['encPublica'=>0])->execute();
+        $conexion->createCommand()->update('encuesta', ['encPublica'=>1], ['idEncuesta'=>$idEncuesta])->execute();       
+        
+        $searchModel = new EncuestaSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('@app/views/Encuesta/index.php', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     public function actionVerEncuesta()
     {

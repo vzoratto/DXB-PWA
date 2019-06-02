@@ -275,7 +275,7 @@ class InscripcionController extends Controller
                             $model->respValor=$resp['respValor'];
                             $model->idPregunta=$resp['idPregunta'];
                             $model->idPersona=$resp['idPersona'];
-                            $model->save(false);
+                            $model->save();
                         }
                     }else{
                         if(is_numeric($valor)){
@@ -291,7 +291,7 @@ class InscripcionController extends Controller
                         $model->respValor=$resp['respValor'];
                         $model->idPregunta=$resp['idPregunta'];
                         $model->idPersona=$resp['idPersona'];
-                        $model->save(false);
+                        $model->save();
                     }
                 }    
             }
