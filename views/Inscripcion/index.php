@@ -32,9 +32,9 @@ $wizard_config = [
 			'buttons' => [
                 'next' => [
 					'title' => 'Siguiente',
-				],
-            ],
-		],
+			 ],
+		],	],
+
 		2 => [
 			'title' => 'Datos de contacto',
 			'icon' => 'glyphicon glyphicon-envelope',
@@ -63,7 +63,8 @@ $wizard_config = [
 		],
 		4 => [
 			'title' => 'Contacto de emergencia',
-			'icon' => 'glyphicon glyphicon-heart',
+			'icon' =>'glyphicon glyphicon-heart-empty',
+
 			'content' => $this->render('contactoemergencia',['datosEmergencia'=>$datosEmergencia,'form'=>$form]),
 			'buttons' => [
                 'next' => [
@@ -78,10 +79,20 @@ $wizard_config = [
 			'title' => 'Encuesta',
 			'icon' => 'glyphicon glyphicon-list-alt',
 			'content' => $this->render('@app/views/Encuesta/encuesta.php',['respuesta'=>$respuesta,'form'=>$form]),
-			'buttons' => [
-				'previous' => [
-					'title' => 'Atras',
-				],
+            'buttons' => [
+                'next' => [
+                    'title' => 'Siguiente',
+                ],
+                'previous' => [
+                    'title' => 'Atras',
+                ]
+            ],
+		],
+        6 => [
+            'title' => 'Reglamento',
+            'icon' => 'glyphicon glyphicon-file',
+            'content' => 'hacer',
+            'buttons' => [
                 'save' => [
                     'html' => Html::submitButton(
                         Yii::t('app', 'Terminar inscripción'),
@@ -91,8 +102,11 @@ $wizard_config = [
                         ]
                     ),
                 ],
+                'previous' => [
+                    'title' => 'Atras',
+                ]
             ],
-		],
+        ],
 	],
 	'start_step' => 1, // Optional, start with a specific step
 ];

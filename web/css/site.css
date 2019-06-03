@@ -119,3 +119,7 @@ a.desc:after {
 
 }
 
+/* achicando los circulos del widget */
+li[role=presentation]{
+    width:16.2% !important;
+}
