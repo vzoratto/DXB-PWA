@@ -69,7 +69,7 @@ use kartik\switchinput\SwitchInput;
             'data' => $equipoLista,
             'id'=>'idEquipo',
             'options' => [
-                'placeholder' => 'Ingrese el D.N.I. de su capitan...', 'id'=>'idEquipo'
+                'placeholder' => 'Ingrese el D.N.I. de su capitan...', 'id'=>'idEquipo',
             ],
             'pluginOptions' => [
                 'allowClear' => true,
@@ -84,6 +84,9 @@ use kartik\switchinput\SwitchInput;
                     'disabled' => true,
                     'options' => [
                         'id' => 'idNombreCapitan',
+                        'readonly' => true,
+                        'showToggleAll' => false,
+                        'multiple' => true,
                     ],
                     'pluginOptions'=>[
                         'initialize' => true,
@@ -102,6 +105,7 @@ use kartik\switchinput\SwitchInput;
                     'disabled' => true,
                     'options' => [
                         'id' => 'idTipoDeCarrera',
+                        'multiple' => true
                     ],
                     'pluginOptions'=>[
                         'initialize' => true,
@@ -119,6 +123,8 @@ use kartik\switchinput\SwitchInput;
                     'disabled' => true,
                     'options' => [
                         'id' => 'idCantidadPersonas',
+                        'multiple' => true
+
                     ],
                     'pluginOptions'=>[
                         'initialize' => true,
