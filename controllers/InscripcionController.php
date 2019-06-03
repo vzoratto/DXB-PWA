@@ -63,10 +63,16 @@ class InscripcionController extends Controller
         $provinciaLista = ArrayHelper::map(\app\models\Provincia::find()->all(),'idProvincia','nombreProvincia'); //Lista de las provincias
         $listadoTalles=ArrayHelper::map(\app\models\Talleremera::find()->all(),'idTalleRemera','talleRemera');
         $respuesta=new \app\models\Respuesta();
-        $equipoLista= ArrayHelper::map(\app\models\Equipo::find()->all(),'idEquipo','dniCapitan');
         $tipoCarrera = new \app\models\Tipocarrera(); //Instanciamos una variable
         $tipocarreraLista =ArrayHelper::map(\app\models\Tipocarrera::find()->all(),'idTipoCarrera','descripcionCarrera');
         $cantCorredores =ArrayHelper::map(\app\models\Parametros::find()->all(),'idParametros','cantidadCorredores');
+
+        $equipoLista= ArrayHelper::map(\app\models\Equipo::find()
+        ->select('COUNT(equipo.idEquipo) AS cantidadCorredores','grupo.idEquipo,equipo.cantidadPersonas,equipo.dniCapitan,')
+        ->innerJoin('grupo','equipo.idEquipo=grupo.idEquipo')
+        ->groupBy(['equipo.idEquipo'])
+        ->having('COUNT(equipo.idEquipo)<equipo.cantidadPersonas')
+        ->all(),'idEquipo','dniCapitan');
 
 
         $elEquipo= ArrayHelper::map(\app\models\Persona::find()->where(['idUsuario' => '3'])->all(),'nombrePersona','apellidoPersona','idPersona');
@@ -399,8 +405,7 @@ class InscripcionController extends Controller
 
             //MODELO EQUIPO
             
-            if (var_dump(isset(Yii::$app->request->post()['swichtCapitan']))){
-
+            if (!(isset(Yii::$app->request->post()['swichtCapitan']))){
                 $modeloEquipo=Yii::$app->request->post()['Equipo']['idEquipo'];
                 $grupo=new Grupo();
                 $grupo->idEquipo=$modeloEquipo;
