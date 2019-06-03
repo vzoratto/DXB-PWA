@@ -24,7 +24,9 @@ use yii\web\JsExpression;
         <label>Soy capitan?</label>
         <!-- Rounded switch -->
         <div class="onoffswitch col-1">
-        <?= Html::input('checkbox','swichtCapitan',$swicht['capitan'], $option=['class'=>'onoffswitch-checkbox form-control','id'=>'myonoffswitch','onclick'=>'myFunction()']) ?>
+        <?= Html::checkbox('swichtCapitan', false, ['class'=>' form-control']) ?>
+        <?php // Html::input('checkbox','swichtCapitan', $swicht, $option=['class'=>'onoffswitch-checkbox form-control','id'=>'myonoffswitch','onclick'=>'myFunction()','value'=>'0']) ?>
+        <input type="checkbox" class="onoffswitch-checkbox form-control"  id='myonoffswitch' onclick=myFunction() >
             <label class="onoffswitch-label" for="myonoffswitch">
                 <span class="onoffswitch-inner"></span>
                 <span class="onoffswitch-switch"></span>

@@ -379,6 +379,8 @@ class InscripcionController extends Controller
             //$persona->estadoPago=null;
             
             $persona->save(false);
+            $idDbPersona = Yii::$app->db->getLastInsertID();
+
             $idPersona=$persona->idPersona;
            // echo $idPersona;
             
@@ -396,11 +398,38 @@ class InscripcionController extends Controller
             // print_r($estadoPagoPersona->errors);
 
             //MODELO EQUIPO
-            $modeloEquipo=Yii::$app->request->post()['Equipo']['idEquipo'];
-            $grupo=new Grupo();
-            $grupo->idEquipo=$modeloEquipo;
-            $grupo->idPersona=$idPersona;
-            $grupo->save();
+            
+            if (var_dump(isset(Yii::$app->request->post()['swichtCapitan']))){
+
+                $modeloEquipo=Yii::$app->request->post()['Equipo']['idEquipo'];
+                $grupo=new Grupo();
+                $grupo->idEquipo=$modeloEquipo;
+                $grupo->idPersona=$idPersona;
+                $grupo->save();
+
+            }else{
+                $grupo=new Grupo();
+                $equipo=new Equipo();
+                $cantidadPersonas=Yii::$app->request->post()['Equipo']['cantidadPersonas'];
+                $idTipoCarrera=Yii::$app->request->post()['Tipocarrera']['idTipoCarrera'];
+                $dniUsuario=$modeloUsuario['dniUsuario'];
+                $equipo->cantidadPersonas=$cantidadPersonas;
+                $equipo->idTipoCarrera=$idTipoCarrera;
+                $equipo->dniCapitan=$dniUsuario;
+                $equipo->save();
+                $idDbEquipo = Yii::$app->db->getLastInsertID();
+                $grupo->idEquipo=$idDbEquipo;
+                $grupo->idPersona=$idDbPersona;
+                $grupo->save();
+
+
+
+
+            }
+
+
+
+        
 
             //RESPUESTA A ENCUESTA
             $respuesta=Yii::$app->request->post();
