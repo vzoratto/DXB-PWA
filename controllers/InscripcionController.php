@@ -24,6 +24,7 @@ use app\models\Respuesta;
 use app\models\Respuestaopcion;
 use app\models\Equipo;
 use app\models\Grupo;
+use paapp\models\Parametros;
 
 use yii\helper\Json;
 
@@ -404,8 +405,7 @@ class InscripcionController extends Controller
             // print_r($estadoPagoPersona->errors);
 
             //MODELO EQUIPO
-            
-            if (Yii::$app->request->post()['multifeatured_module']){
+            if (!Yii::$app->request->post()['swichtCapitan']){
                 $modeloEquipo=Yii::$app->request->post()['Equipo']['idEquipo'];
                 $grupo=new Grupo();
                 $grupo->idEquipo=$modeloEquipo;
@@ -418,7 +418,9 @@ class InscripcionController extends Controller
                 $cantidadPersonas=Yii::$app->request->post()['Equipo']['cantidadPersonas'];
                 $idTipoCarrera=Yii::$app->request->post()['Tipocarrera']['idTipoCarrera'];
                 $dniUsuario=$modeloUsuario['dniUsuario'];
-                $equipo->cantidadPersonas=$cantidadPersonas;
+                $parametricaCantidadPersonas = ArrayHelper::map(\app\models\Parametros::find()->where(['idParametros' => $cantidadPersonas])->all(),'idParametros','cantidadCorredores');
+
+                $equipo->cantidadPersonas=$parametricaCantidadPersonas[$cantidadPersonas];
                 $equipo->idTipoCarrera=$idTipoCarrera;
                 $equipo->dniCapitan=$dniUsuario;
                 $equipo->save();
