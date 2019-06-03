@@ -71,6 +71,10 @@ use kartik\switchinput\SwitchInput;
             'options' => [
                 'placeholder' => 'Ingrese el D.N.I. de su capitan...', 'id'=>'idEquipo'
             ],
+            'pluginOptions' => [
+                'allowClear' => true,
+                'minimumInputLength' => 5,
+            ]
             ])->label('D.N.I. Capitan'); ?>
         </div>
         
