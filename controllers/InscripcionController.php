@@ -22,6 +22,8 @@ use app\models\Provincia;
 use yii\helpers\ArrayHelper;
 use app\models\Respuesta;
 use app\models\Respuestaopcion;
+use app\models\Equipo;
+use app\models\Grupo;
 
 use yii\helper\Json;
 
@@ -67,7 +69,7 @@ class InscripcionController extends Controller
         $cantCorredores =ArrayHelper::map(\app\models\Parametros::find()->all(),'idParametros','cantidadCorredores');
 
 
-        $elEquipo= ArrayHelper::map(\app\models\Tipocarrera::find()->where(['idTipoCarrera' => '2'])->all(),'idTipoCarrera','descripcionCarrera');
+        $elEquipo= ArrayHelper::map(\app\models\Persona::find()->where(['idUsuario' => '3'])->all(),'nombrePersona','apellidoPersona','idPersona');
 
 
         return $this->render('index',[
@@ -87,6 +89,7 @@ class InscripcionController extends Controller
             'tipoCarrera'=>$tipoCarrera,
             'tipocarreraLista'=>$tipocarreraLista,
             'cantCorredores'=>$cantCorredores,
+            'swicht'=>null,
             'datos' => null,
             'respuesta'=>$respuesta,
             ]);
@@ -244,17 +247,57 @@ class InscripcionController extends Controller
         return ['output'=>'', 'selected'=>''];
 
     }
+
+    public function actionNombrecapitan()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+           $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $idEquipo = $parents[0];
+                //$out = [
+                //    ['id'=>'1', 'name'=>$idEquipo],
+                //   ['id'=>'2', 'name'=>'<sub-cat-name2>']
+                //];
+                $elEquipo= ArrayHelper::map(\app\models\Equipo::find()->where(['idEquipo' => $idEquipo])->all(),'idEquipo','dniCapitan');
+                $dniUsu=$elEquipo[$idEquipo];
+                $elUsu= ArrayHelper::map(\app\models\Usuario::find()->where(['dniUsuario' => $dniUsu])->all(),'idUsuario','dniUsuario');
+                while ($dniUsuario = current($elUsu)) {
+                    if ($dniUsuario == $dniUsu) {
+                        $idUsuario =  key($elUsu);
+                    }
+                    next($elUsu);
+                }
+                $laPersona= ArrayHelper::map(\app\models\Persona::find()->where(['idUsuario' => $idUsuario])->all(),'nombrePersona','apellidoPersona','idPersona');
+                ;
+                current($laPersona[$idUsuario]);
+                $nombreCapitan = key($laPersona[$idUsuario]);
+                $apellidoCapitan = $laPersona[$idUsuario][$nombreCapitan];
+                $nombreCompleto = $apellidoCapitan.' '.$nombreCapitan;
+            
+                $out = [
+                    ['id' => $idUsuario, 'name' => $nombreCompleto]
+                ];
+            
+                return ['output'=>$out, 'selected'=>$idUsuario];
+            }
+        }
+        return ['output'=>'', 'selected'=>''];
+
+    }
+
     /**
      * Guarda los datos del formulario en sus correspondientes tablas de la base de datos
      */
     public function actionStore(){
-        //print_r(Yii::$app->request->post());
+        print_r(Yii::$app->request->post());
         //die();
         $guardado=false;
         $transaction = Persona::getDb()->beginTransaction();
 
         try {
-            //MODELO USUARIO
+            //MODELO USUARIO 
             $modeloUsuario=Yii::$app->request->post()['Usuario'];
             $modeloPersona=Yii::$app->request->post()['Persona'];
             $usuario=new Usuario();
@@ -322,6 +365,7 @@ class InscripcionController extends Controller
             $persona->nombrePersona=$modeloPersona['nombrePersona'];
             $persona->apellidoPersona=$modeloPersona['apellidoPersona'];
             //$persona->fechaNacPersona=Yii::$app->request->post()['fechaNacPersona'];
+            $persona->fechaNacPersona=$modeloPersona['fechaNacPersona'];
             $persona->sexoPersona=$modeloPersona['sexoPersona'];
             $persona->nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
             $persona->telefonoPersona=$modeloPersona['telefonoPersona'];
@@ -350,6 +394,13 @@ class InscripcionController extends Controller
             $estadoPagoPersona->fechaPago=$fechaActual;
             $estadoPagoPersona->save();
             // print_r($estadoPagoPersona->errors);
+
+            //MODELO EQUIPO
+            $modeloEquipo=Yii::$app->request->post()['Equipo']['idEquipo'];
+            $grupo=new Grupo();
+            $grupo->idEquipo=$modeloEquipo;
+            $grupo->idPersona=$idPersona;
+            $grupo->save();
 
             //RESPUESTA A ENCUESTA
             $respuesta=Yii::$app->request->post();

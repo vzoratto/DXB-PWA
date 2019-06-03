@@ -11,10 +11,16 @@ function myFunction() {
     if (checkBox.checked == true) {
         text.style.display = "none";
         cap.style.display = "block";
+        $('#idEquipo').val(null).trigger("change");
+        $('#idTipoDeCarrera').val(null).trigger("change");
+        $('#idCantidadPersonas').val(null).trigger("change");
+        $('#idNombreEquipo').val(null).trigger("change");
+        $('#idNombreCapitan').val(null).trigger("change");
 
     } else {
         text.style.display = "block";
         cap.style.display = "none";
-
+        $('#idTipocarrera').val(null).trigger("change");
+        $('#idParametrosCantPersonas').val(null).trigger("change");
     }
 }
