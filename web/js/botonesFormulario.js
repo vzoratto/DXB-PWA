@@ -1,6 +1,7 @@
 function myFunction() {
     // Get the checkbox
-    var checkBox = document.getElementById("myonoffswitch");
+    //var checkBox = document.getElementById("swichtCapitan");
+    var radioInput = $('input:radio[name=multifeatured_module]:checked').val();
     // Get the output text
     var text = document.getElementById("opcionesNoSoyCapitan");
 
@@ -8,7 +9,7 @@ function myFunction() {
 
 
     // If the checkbox is checked, display the output text
-    if (checkBox.checked == true) {
+    if (radioInput == 1) {
         text.style.display = "none";
         cap.style.display = "block";
         $('#idEquipo').val(null).trigger("change");

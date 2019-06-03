@@ -405,7 +405,7 @@ class InscripcionController extends Controller
 
             //MODELO EQUIPO
             
-            if (!(isset(Yii::$app->request->post()['swichtCapitan']))){
+            if (Yii::$app->request->post()['multifeatured_module']){
                 $modeloEquipo=Yii::$app->request->post()['Equipo']['idEquipo'];
                 $grupo=new Grupo();
                 $grupo->idEquipo=$modeloEquipo;

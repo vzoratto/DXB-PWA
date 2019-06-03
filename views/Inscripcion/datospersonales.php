@@ -20,11 +20,20 @@ use yii\web\JsExpression;
 <div class="datosPersonales" >
 
     <div class="row">
-
-        <label>Soy capitan?</label>
-        <!-- Rounded switch -->
+        <div id="swichtCapitan" class="col-1">
+            <label>¿Soy capitan?</label><br>
+            <!-- Rounded switch -->
+            <div class="btn-group" id="swichtCapitan" data-toggle="buttons" onclick=myFunction()>
+                <label class="btn btn-default btn-on btn-sm active">
+                <input type="radio" value="1" name="multifeatured_module" checked="checked">NO</label>
+                <label class="btn btn-default btn-off btn-sm ">
+                <input type="radio" value="0" name="multifeatured_module">SI</label>
+            </div>
+        </div>
+        <!--
         <div class="onoffswitch col-1">
-        <?= Html::checkbox('swichtCapitan', false, ['class'=>' form-control']) ?>
+        
+        <?php // Html::checkbox('swichtCapitan', false, ['class'=>' form-control']) ?>
         <?php // Html::input('checkbox','swichtCapitan', $swicht, $option=['class'=>'onoffswitch-checkbox form-control','id'=>'myonoffswitch','onclick'=>'myFunction()','value'=>'0']) ?>
         <input type="checkbox" class="onoffswitch-checkbox form-control"  id='myonoffswitch' onclick=myFunction() >
             <label class="onoffswitch-label" for="myonoffswitch">
@@ -32,6 +41,7 @@ use yii\web\JsExpression;
                 <span class="onoffswitch-switch"></span>
             </label>
         </div>
+        -->
         
     </div>
 
