@@ -7,6 +7,7 @@ use kartik\select2\Select2;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 use yii\web\JsExpression;
+use kartik\switchinput\SwitchInput;
 
 
 /* @var $this yii\web\View */
@@ -20,23 +21,23 @@ use yii\web\JsExpression;
 <div class="datosPersonales" >
 
     <div class="row">
-
-        <label>Soy capitan?</label>
-        <!-- Rounded switch -->
-        <div class="onoffswitch col-1">
-            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" onclick="myFunction()" >
-            <label class="onoffswitch-label" for="myonoffswitch">
-                <span class="onoffswitch-inner"></span>
-                <span class="onoffswitch-switch"></span>
-            </label>
+        <div class="left" >
+            <label>¿Soy Capitan?</label>
         </div>
-        
+        <div class="switch pull-left" >
+            <input type="radio" class="switch-input" name="swichtCapitan" value="1" id="week" onClick=myFunction() >
+            <label for="week" class="switch-label switch-label-off">SI</label>
+            <input type="radio" class="switch-input" name="swichtCapitan" value="0" id="month" checked onClick=myFunction()>
+            <label for="month" class="switch-label switch-label-on">NO</label>
+            <span class="switch-selection"></span>
+        </div>
     </div>
 
+        
     <div class="row">
         <div id="opcionesCapitan" style="display:none" aria-label="..." class="col-1">
 
-            <div id="tipoCarrera" class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+            <div id="tipoCarrera" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
                 <?= $form->field($tipoCarrera, 'idTipoCarrera')->widget(Select2::classname(), [
                     'data' => $tipocarreraLista,
                     'id'=>'idTipoCarrera',
@@ -46,13 +47,12 @@ use yii\web\JsExpression;
                     ])->label('Carreras'); ?>
             </div>
 
-            <div id="cantidadPeronas" class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+            <div id="cantidadPeronas" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
                 <?= $form->field($equipo, 'cantidadPersonas')->widget(Select2::classname(), [
                 'data' => $cantCorredores,
                 'id'=>'idParametros',
-
                 'options' => [
-                    'placeholder' => 'Seleccione una opcion...', 'id'=>'idParametros',
+                    'placeholder' => 'Seleccione una opcion...', 'id'=>'idParametrosCantPersonas',
                 ],
                 ])->label('Cantidad de corredores'); ?>
             </div>
@@ -64,61 +64,91 @@ use yii\web\JsExpression;
     <div class="row">
     <div id="opcionesNoSoyCapitan" style="display:block" aria-label="..." class="col-1">
 
-        <div id="dniCapitan" class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
-        <?= $form->field($equipo, 'dniCapitan')->widget(Select2::classname(), [
+        <div id="dniCapitan" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
+        <?= $form->field($equipo, 'idEquipo')->widget(Select2::classname(), [
             'data' => $equipoLista,
             'id'=>'idEquipo',
             'options' => [
                 'placeholder' => 'Ingrese el D.N.I. de su capitan...', 'id'=>'idEquipo'
             ],
+            'pluginOptions' => [
+                'allowClear' => true,
+                'minimumInputLength' => 5,
+            ]
             ])->label('D.N.I. Capitan'); ?>
         </div>
         
-        <div id="tipoDeCarrera" class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+        <div id="nombreCapitan" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
+            <?= $form->field($persona, 'nombrePersona')->widget(DepDrop::classname(), [
+                    'type' => DepDrop::TYPE_SELECT2,
+                    'disabled' => true,
+                    'options' => [
+                        'id' => 'idNombreCapitan',
+                    ],
+                    'pluginOptions'=>[
+                        'initialize' => true,
+                        'placeholder' => 'Esperando D.N.I. capitan...',
+                        'depends'=>['idEquipo'],
+                        'url'=>Url::to(['inscripcion/nombrecapitan']),
+                        'loadingText' => 'Esperando D.N.I. capitan...']
+            ])->label('Nombre capitan');
+            ?>
+        </div>
+        
+
+        <div id="tipoDeCarrera" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
             <?= $form->field($tipoCarrera, 'idTipoCarrera')->widget(DepDrop::classname(), [
                     'type' => DepDrop::TYPE_SELECT2,
                     'disabled' => true,
+                    'options' => [
+                        'id' => 'idTipoDeCarrera',
+                    ],
                     'pluginOptions'=>[
                         'initialize' => true,
                         'placeholder' => 'Carrera...',
                         'depends'=>['idEquipo'],
                         'url'=>Url::to(['inscripcion/tipocarrera']),
-                        'loadingText' => 'Cargando datos...']
+                        'loadingText' => 'Esperando D.N.I. capitan...']
             ])->label('Carrera');
             ?>
         </div>
 
-        <div id="cantidadPersonas" class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+        <div id="cantidadPersonas" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
             <?= $form->field($equipo, 'cantidadPersonas')->widget(DepDrop::classname(), [
                     'type' => DepDrop::TYPE_SELECT2,
                     'disabled' => true,
+                    'options' => [
+                        'id' => 'idCantidadPersonas',
+                    ],
                     'pluginOptions'=>[
                         'initialize' => true,
                         'placeholder' => 'Equipo de ...',
                         'depends'=>['idEquipo'],
+                        'id'=>'cantPersonas',
                         'url'=>Url::to(['inscripcion/cantpersonas']),
-                        'loadingText' => 'Cargando datos...']
+                        'loadingText' => 'Esperando D.N.I. capitan...']
             ])->label('Cantidad de corredores');
             ?>
         </div>
-
+        
+        <?php /*
         <div id="nombreEquipo" class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
             <?= $form->field($equipo, 'nombreEquipo')->widget(DepDrop::classname(), [
                     'type' => DepDrop::TYPE_SELECT2,
                     'disabled' => true,
+                    'options' => [
+                        'id' => 'idNombreEquipo',
+                    ],
                     'pluginOptions'=>[
                         'initialize' => true,
                         'placeholder' => 'Nombre capitan...',
                         'depends'=>['idEquipo'],
                         'url'=>Url::to(['inscripcion/datos']),
-                        'loadingText' => 'Cargando datos...']
+                        'loadingText' => 'Esperando D.N.I. capitan...']
             ])->label('Nombre equipo');
             ?>
         </div>
-
-
-
-
+        */?>
 
     </div>
 
@@ -147,8 +177,8 @@ use yii\web\JsExpression;
         <!-- utilizacion de un widget de kartik llamado DatePicker, permite escoger 
         una fecha desde un calendario permitiendo tambien seleccionar años o meses 
         con una mayor facilidad --> 
-            <label>Fecha de Nacimiento <small style="color:red">(Podés correr a partir de los 12 años)</small></label>
-            <?=  $form->field($persona, 'fechaNacPersona')->textInput(['class'=>'datepicker form-control','id'=>'datepicker'])->label('') ?>
+            <?=  $form->field($persona, 'fechaNacPersona')->textInput(['class'=>'datepicker form-control','id'=>'datepicker'])->label('Fecha de Nacimiento') ?>
+            <small style="color:red">(Podés correr a partir de los 12 años)</small>
 
         </div>
 
@@ -168,4 +198,10 @@ use yii\web\JsExpression;
 
 </div>
 
+<?php
+$script = <<<JS
 
+JS;
+
+$this->registerJs($script);
+?>

@@ -28,7 +28,7 @@ $wizard_config = [
 		1 => [
 			'title' => 'Datos Personales',
 			'icon' => 'glyphicon glyphicon-user',
-			'content' => $this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form,'talleRemera'=>$talleRemera,'listadoTalles'=>$listadoTalles,'equipoLista'=>$equipoLista,'equipo'=>$equipo,'elEquipo'=>$elEquipo,'tipoCarrera'=>$tipoCarrera,'tipocarreraLista'=>$tipocarreraLista,'cantCorredores'=>$cantCorredores]),
+			'content' => $this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form,'talleRemera'=>$talleRemera,'listadoTalles'=>$listadoTalles,'equipoLista'=>$equipoLista,'equipo'=>$equipo,'elEquipo'=>$elEquipo,'tipoCarrera'=>$tipoCarrera,'tipocarreraLista'=>$tipocarreraLista,'cantCorredores'=>$cantCorredores,'swicht'=>$swicht]),
 			'buttons' => [
                 'next' => [
 					'title' => 'Siguiente',
