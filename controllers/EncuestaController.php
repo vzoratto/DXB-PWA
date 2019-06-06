@@ -14,6 +14,11 @@ use yii\filters\VerbFilter;
  */
 class EncuestaController extends Controller
 {
+    public function actionDescargaencuesta(){
+        $encuesta=Encuesta::find();
+        return $this->render('descargaencuesta',['encuesta'=>$encuesta]);
+    }
+
     /**
      * Devuelve el elemento Encuesta que este activo para ser publicado
      */
