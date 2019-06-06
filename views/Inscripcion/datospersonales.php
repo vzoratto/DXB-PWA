@@ -156,7 +156,7 @@ use kartik\switchinput\SwitchInput;
     <div class="row">
 
         <div id="dniUsuario" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
-            <?= $form->field($usuario, 'dniUsuario')->textInput()->label('D.N.I.') ?>
+            <?= $form->field($usuario, 'dniUsuario')->textInput(['value'=>$user->identity->dniUsuario])->label('D.N.I.')?>
         </div>
         
         <div id="nacionalidadPersona" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
