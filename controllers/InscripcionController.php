@@ -329,8 +329,14 @@ class InscripcionController extends Controller
             $personaDireccion=new Personadireccion();
             $personaDireccion->idLocalidad=$modeloLocalidad['idLocalidad'];
             $personaDireccion->direccionUsuario=$direccion;
-            $personaDireccion->save();
-
+            if ($personaDireccion->validate()) {
+                // toda la entrada es válida
+                $personaDireccion->save();
+            } else {
+                // la validación falló: $erroresPersonaDireccion es un array que contienen los mensajes de error
+                $erroresPersonaDireccion = $personaDireccion->errors;
+            }
+            
             //MODELO FICHA MEDICA
             $modeloFichaMedica=Yii::$app->request->post()['Fichamedica'];
             $fichaMedica=new Fichamedica();
@@ -344,7 +350,13 @@ class InscripcionController extends Controller
             $fichaMedica->tomaMedicamentos=$modeloFichaMedica['tomaMedicamentos'];
             $fichaMedica->suplementos=$modeloFichaMedica['suplementos'];
             $fichaMedica->observaciones=$modeloFichaMedica['observaciones'];
-            $fichaMedica->save();
+            if ($fichaMedica->validate()) {
+                // toda la entrada es válida
+                $fichaMedica->save();
+            } else {
+                // la validación falló: $erroresFichaMedica es un array que contienen los mensajes de error
+                $erroresFichaMedica = $fichaMedica->errors;
+            }
 
 
             //MODELO PERSONAEMERGENCIA
@@ -354,7 +366,13 @@ class InscripcionController extends Controller
             $personaEmergencia->apellidoPersonaEmergencia=$modeloPersonaemergencia['apellidoPersonaEmergencia'];
             $personaEmergencia->telefonoPersonaEmergencia=$modeloPersonaemergencia['telefonoPersonaEmergencia'];
             $personaEmergencia->idVinculoPersonaEmergencia=$modeloPersonaemergencia['idVinculoPersonaEmergencia'];
-            $personaEmergencia->save();
+            if ($personaEmergencia->validate()) {
+                // toda la entrada es válida
+                $personaEmergencia->save();
+            } else {
+                // la validación falló: $erroresPersonaEmergencia es un array que contienen los mensajes de error
+                $erroresPersonaEmergencia = $personaEmergencia->errors;
+            }
 
 
             $fecha=new \DateTime();
@@ -384,8 +402,14 @@ class InscripcionController extends Controller
             $persona->idPersonaEmergencia=$personaEmergencia->idPersonaEmergencia;
             $persona->donador=$modeloPersona['donador'];
             //$persona->estadoPago=null;
+            if ($persona->validate()) {
+                // toda la entrada es válida
+                $persona->save(false);
+            } else {
+                // la validación falló: $erroresPersonaEmergencia es un array que contienen los mensajes de error
+                $erroresPersona = $persona->errors;
+            }
             
-            $persona->save(false);
             $idDbPersona = Yii::$app->db->getLastInsertID();
 
             $idPersona=$persona->idPersona;
