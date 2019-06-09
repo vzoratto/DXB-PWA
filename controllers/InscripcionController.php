@@ -77,7 +77,7 @@ class InscripcionController extends Controller
 
 
         $elEquipo= ArrayHelper::map(\app\models\Persona::find()->where(['idUsuario' => '3'])->all(),'nombrePersona','apellidoPersona','idPersona');
-
+        $userLogueado=Yii::$app->user;
 
         return $this->render('index',[
             'persona'=>$persona,
@@ -99,6 +99,7 @@ class InscripcionController extends Controller
             'swicht'=>null,
             'datos' => null,
             'respuesta'=>$respuesta,
+            'user'=>$userLogueado
             ]);
     }
 
@@ -298,29 +299,11 @@ class InscripcionController extends Controller
      * Guarda los datos del formulario en sus correspondientes tablas de la base de datos
      */
     public function actionStore(){
-        print_r(Yii::$app->request->post());
-        //die();
+
         $guardado=false;
         $transaction = Persona::getDb()->beginTransaction();
 
         try {
-            //MODELO USUARIO 
-            $modeloUsuario=Yii::$app->request->post()['Usuario'];
-            $modeloPersona=Yii::$app->request->post()['Persona'];
-            $usuario=new Usuario();
-            //$usuario->idUsuario=null;
-            $usuario->dniUsuario=$modeloUsuario['dniUsuario'];
-            $usuario->mailUsuario=$modeloPersona['mailPersona'];
-            $hash = Yii::$app->getSecurity()->generatePasswordHash($modeloUsuario['dniUsuario']);
-            $usuario->claveUsuario=$hash;
-            $usuario->idRol=1;
-            $usuario->authkey='fiqojqiodjowq'; //Corregir esto y generarlo aleatoriamente
-            $usuario->activado=1;
-            $usuario->save();
-            $idUsuario=$usuario->idUsuario;
-
-
-
             //MODELO LOCALIDAD
             $modeloLocalidad=Yii::$app->request->post()['Localidad'];
             //MODELO PERSONA DIRECCION
@@ -329,8 +312,14 @@ class InscripcionController extends Controller
             $personaDireccion=new Personadireccion();
             $personaDireccion->idLocalidad=$modeloLocalidad['idLocalidad'];
             $personaDireccion->direccionUsuario=$direccion;
-            $personaDireccion->save();
-
+            if ($personaDireccion->validate()) {
+                // toda la entrada es válida
+                $personaDireccion->save();
+            } else {
+                // la validación falló: $erroresPersonaDireccion es un array que contienen los mensajes de error
+                $erroresPersonaDireccion = $personaDireccion->errors;
+            }
+            
             //MODELO FICHA MEDICA
             $modeloFichaMedica=Yii::$app->request->post()['Fichamedica'];
             $fichaMedica=new Fichamedica();
@@ -344,7 +333,13 @@ class InscripcionController extends Controller
             $fichaMedica->tomaMedicamentos=$modeloFichaMedica['tomaMedicamentos'];
             $fichaMedica->suplementos=$modeloFichaMedica['suplementos'];
             $fichaMedica->observaciones=$modeloFichaMedica['observaciones'];
-            $fichaMedica->save();
+            if ($fichaMedica->validate()) {
+                // toda la entrada es válida
+                $fichaMedica->save();
+            } else {
+                // la validación falló: $erroresFichaMedica es un array que contienen los mensajes de error
+                $erroresFichaMedica = $fichaMedica->errors;
+            }
 
 
             //MODELO PERSONAEMERGENCIA
@@ -354,7 +349,13 @@ class InscripcionController extends Controller
             $personaEmergencia->apellidoPersonaEmergencia=$modeloPersonaemergencia['apellidoPersonaEmergencia'];
             $personaEmergencia->telefonoPersonaEmergencia=$modeloPersonaemergencia['telefonoPersonaEmergencia'];
             $personaEmergencia->idVinculoPersonaEmergencia=$modeloPersonaemergencia['idVinculoPersonaEmergencia'];
-            $personaEmergencia->save();
+            if ($personaEmergencia->validate()) {
+                // toda la entrada es válida
+                $personaEmergencia->save();
+            } else {
+                // la validación falló: $erroresPersonaEmergencia es un array que contienen los mensajes de error
+                $erroresPersonaEmergencia = $personaEmergencia->errors;
+            }
 
 
             $fecha=new \DateTime();
@@ -377,15 +378,21 @@ class InscripcionController extends Controller
             $persona->nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
             $persona->telefonoPersona=$modeloPersona['telefonoPersona'];
             $persona->mailPersona=$modeloPersona['mailPersona'];
-            $persona->idUsuario=$idUsuario;
+            $persona->idUsuario=Yii::$app->user->identity->dniUsuario;
             $persona->idPersonaDireccion=$personaDireccion->idPersonaDireccion;
             $persona->idFichaMedica=$fichaMedica->idFichaMedica;
             $persona->fechaInscPersona=null;
             $persona->idPersonaEmergencia=$personaEmergencia->idPersonaEmergencia;
             $persona->donador=$modeloPersona['donador'];
             //$persona->estadoPago=null;
+            if ($persona->validate()) {
+                // toda la entrada es válida
+                $persona->save(false);
+            } else {
+                // la validación falló: $erroresPersonaEmergencia es un array que contienen los mensajes de error
+                $erroresPersona = $persona->errors;
+            }
             
-            $persona->save(false);
             $idDbPersona = Yii::$app->db->getLastInsertID();
 
             $idPersona=$persona->idPersona;
@@ -417,12 +424,11 @@ class InscripcionController extends Controller
                 $equipo=new Equipo();
                 $cantidadPersonas=Yii::$app->request->post()['Equipo']['cantidadPersonas'];
                 $idTipoCarrera=Yii::$app->request->post()['Tipocarrera']['idTipoCarrera'];
-                $dniUsuario=$modeloUsuario['dniUsuario'];
                 $parametricaCantidadPersonas = ArrayHelper::map(\app\models\Parametros::find()->where(['idParametros' => $cantidadPersonas])->all(),'idParametros','cantidadCorredores');
 
                 $equipo->cantidadPersonas=$parametricaCantidadPersonas[$cantidadPersonas];
                 $equipo->idTipoCarrera=$idTipoCarrera;
-                $equipo->dniCapitan=$dniUsuario;
+                $equipo->dniCapitan=Yii::$app->user->identity->id;
                 $equipo->save();
                 $idDbEquipo = Yii::$app->db->getLastInsertID();
                 $grupo->idEquipo=$idDbEquipo;
@@ -433,10 +439,6 @@ class InscripcionController extends Controller
 
 
             }
-
-
-
-        
 
             //RESPUESTA A ENCUESTA
             $respuesta=Yii::$app->request->post();

@@ -22,13 +22,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
 <?php
+
 $wizard_config = [
 	'id' => 'stepwizard',
 	'steps' => [
 		1 => [
 			'title' => 'Datos Personales',
 			'icon' => 'glyphicon glyphicon-user',
-			'content' => $this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form,'talleRemera'=>$talleRemera,'listadoTalles'=>$listadoTalles,'equipoLista'=>$equipoLista,'equipo'=>$equipo,'elEquipo'=>$elEquipo,'tipoCarrera'=>$tipoCarrera,'tipocarreraLista'=>$tipocarreraLista,'cantCorredores'=>$cantCorredores,'swicht'=>$swicht]),
+			'content' => $this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form,'talleRemera'=>$talleRemera,'listadoTalles'=>$listadoTalles,'equipoLista'=>$equipoLista,'equipo'=>$equipo,'elEquipo'=>$elEquipo,'tipoCarrera'=>$tipoCarrera,'tipocarreraLista'=>$tipocarreraLista,'cantCorredores'=>$cantCorredores,'swicht'=>$swicht,'user'=>$user]),
 			'buttons' => [
                 'next' => [
 					'title' => 'Siguiente',
@@ -38,7 +39,7 @@ $wizard_config = [
 		2 => [
 			'title' => 'Datos de contacto',
 			'icon' => 'glyphicon glyphicon-envelope',
-			'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona,'localidad' => $localidad,'provincia' => $provincia,'provinciaLista' => $provinciaLista,'form'=>$form, 'datos'=>$datos]),
+			'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona,'localidad' => $localidad,'provincia' => $provincia,'provinciaLista' => $provinciaLista,'form'=>$form, 'datos'=>$datos,'user'=>$user]),
 			'buttons' => [
                 'next' => [
                     'title' => 'Siguiente',
