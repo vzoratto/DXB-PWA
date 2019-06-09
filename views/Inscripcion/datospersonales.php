@@ -86,11 +86,11 @@ use kartik\switchinput\SwitchInput;
                         'id' => 'idNombreCapitan',
                     ],
                     'pluginOptions'=>[
-                        'initialize' => true,
+                        'initialize' => false,
                         'placeholder' => 'Esperando D.N.I. capitan...',
                         'depends'=>['idEquipo'],
                         'url'=>Url::to(['inscripcion/nombrecapitan']),
-                        'loadingText' => 'Esperando D.N.I. capitan...']
+                        'loadingText' => 'Cargando D.N.I. capitan...']
             ])->label('Nombre capitan');
             ?>
         </div>
