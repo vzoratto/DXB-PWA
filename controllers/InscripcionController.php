@@ -76,7 +76,6 @@ class InscripcionController extends Controller
         ->all(),'idEquipo','dniCapitan');
 
 
-        $elEquipo= ArrayHelper::map(\app\models\Persona::find()->where(['idUsuario' => '3'])->all(),'nombrePersona','apellidoPersona','idPersona');
         $userLogueado=Yii::$app->user;
 
         return $this->render('index',[
@@ -92,7 +91,6 @@ class InscripcionController extends Controller
             'talleRemera'=>$talleRemera,
             'equipoLista'=>$equipoLista,
             'equipo'=>$equipo,
-            'elEquipo'=>$elEquipo,
             'tipoCarrera'=>$tipoCarrera,
             'tipocarreraLista'=>$tipocarreraLista,
             'cantCorredores'=>$cantCorredores,
@@ -264,31 +262,57 @@ class InscripcionController extends Controller
            $parents = $_POST['depdrop_parents'];
             if ($parents != null) {
                 $idEquipo = $parents[0];
-                //$out = [
-                //    ['id'=>'1', 'name'=>$idEquipo],
-                //   ['id'=>'2', 'name'=>'<sub-cat-name2>']
-                //];
-                $elEquipo= ArrayHelper::map(\app\models\Equipo::find()->where(['idEquipo' => $idEquipo])->all(),'idEquipo','dniCapitan');
-                $dniUsu=$elEquipo[$idEquipo];
+                /*$out = [
+                    ['id'=>'1', 'name'=>$idEquipo]
+                   ['id'=>'2', 'name'=>'<sub-cat-name2>']
+                ];
+                */
+                
+            $elEquipo= ArrayHelper::map(\app\models\Equipo::find()->where(['idEquipo' => $idEquipo])->all(),'idEquipo','dniCapitan');
+            $objControlEquipo = new Equipo();
+            $objEquipo = Equipo::find()->where(['idEquipo'=>$idEquipo])->one();
+            $dniCapitan=$objEquipo['dniCapitan'];  
+
+            $objControlUsuario = new Usuario();
+            $objUsuario = Usuario::find()->where(['dniUsuario'=>$dniCapitan])->one();
+            $idUsu = $objUsuario['idUsuario'];
+
+            $objControlPersona = new Persona();
+            $objPersona = Persona::find()->where(['idUsuario'=>$idUsu])->one();
+            $nombrePersona = $objPersona['nombrePersona'];
+            $apellidoPersona = $objPersona['apellidoPersona'];
+            $nombreCompleto = $nombrePersona . " " . $apellidoPersona;
+
+            /*    $elEquipo= ArrayHelper::map(\app\models\Equipo::find()->where(['idEquipo' => $idEquipo])->all(),'idEquipo','dniCapitan');
+               $equipo=$el
+                foreach ($elEquipo as $key=>$value){
+                    $dniUsuario = $value;
+                }
+                $dniUsu=$dniUsuario;
                 $elUsu= ArrayHelper::map(\app\models\Usuario::find()->where(['dniUsuario' => $dniUsu])->all(),'idUsuario','dniUsuario');
-                while ($dniUsuario = current($elUsu)) {
+                foreach ($elUsu as $key=>$value){
+                    $idUsuario = $key;
+                }
+                
+
+                /*while ($dniUsuario = current($elUsu)) {
                     if ($dniUsuario == $dniUsu) {
                         $idUsuario =  key($elUsu);
                     }
                     next($elUsu);
                 }
                 $laPersona= ArrayHelper::map(\app\models\Persona::find()->where(['idUsuario' => $idUsuario])->all(),'nombrePersona','apellidoPersona','idPersona');
-                ;
+                
                 current($laPersona[$idUsuario]);
                 $nombreCapitan = key($laPersona[$idUsuario]);
                 $apellidoCapitan = $laPersona[$idUsuario][$nombreCapitan];
                 $nombreCompleto = $apellidoCapitan.' '.$nombreCapitan;
-            
+            */
                 $out = [
-                    ['id' => $idUsuario, 'name' => $nombreCompleto]
+                    ['id' => $idUsu, 'name' => $nombreCompleto]
                 ];
             
-                return ['output'=>$out, 'selected'=>$idUsuario];
+                return ['output'=>$out, 'selected'=>$idUsu];
             }
         }
         return ['output'=>'', 'selected'=>''];
@@ -373,12 +397,12 @@ class InscripcionController extends Controller
             $persona->nombrePersona=$modeloPersona['nombrePersona'];
             $persona->apellidoPersona=$modeloPersona['apellidoPersona'];
             //$persona->fechaNacPersona=Yii::$app->request->post()['fechaNacPersona'];
-            $persona->fechaNacPersona=$modeloPersona['fechaNacPersona'];
+            $persona->fechaNacPersona='2019-06-03';
             $persona->sexoPersona=$modeloPersona['sexoPersona'];
             $persona->nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
             $persona->telefonoPersona=$modeloPersona['telefonoPersona'];
             $persona->mailPersona=$modeloPersona['mailPersona'];
-            $persona->idUsuario=Yii::$app->user->identity->dniUsuario;
+            $persona->idUsuario=Yii::$app->user->identity->idUsuario;
             $persona->idPersonaDireccion=$personaDireccion->idPersonaDireccion;
             $persona->idFichaMedica=$fichaMedica->idFichaMedica;
             $persona->fechaInscPersona=null;
@@ -391,6 +415,8 @@ class InscripcionController extends Controller
             } else {
                 // la validación falló: $erroresPersonaEmergencia es un array que contienen los mensajes de error
                 $erroresPersona = $persona->errors;
+                print_R($persona->fechaNacPersona);
+                print_R($persona->errors);
             }
             
             $idDbPersona = Yii::$app->db->getLastInsertID();
@@ -428,7 +454,7 @@ class InscripcionController extends Controller
 
                 $equipo->cantidadPersonas=$parametricaCantidadPersonas[$cantidadPersonas];
                 $equipo->idTipoCarrera=$idTipoCarrera;
-                $equipo->dniCapitan=Yii::$app->user->identity->id;
+                $equipo->dniCapitan=Yii::$app->request->post()['Usuario']['dniUsuario'];
                 $equipo->save();
                 $idDbEquipo = Yii::$app->db->getLastInsertID();
                 $grupo->idEquipo=$idDbEquipo;
