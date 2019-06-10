@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "83f5e8e0c6182c9491c789b529452118",
+    "content-hash": "70122cf263272c9d4ba6a97e2f536c2e",
     "packages": [
         {
             "name": "arturoliveira/yii2-excelview",
@@ -700,6 +700,54 @@
             "time": "2019-04-26T07:28:50+00:00"
         },
         {
+            "name": "himiklab/yii2-recaptcha-widget",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/himiklab/yii2-recaptcha-widget.git",
+                "reference": "341ae7e19e12783f3dfd8984a49185e0a44021ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/himiklab/yii2-recaptcha-widget/zipball/341ae7e19e12783f3dfd8984a49185e0a44021ea",
+                "reference": "341ae7e19e12783f3dfd8984a49185e0a44021ea",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0.11",
+                "yiisoft/yii2-httpclient": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.34"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "himiklab\\yii2\\recaptcha\\": "src/",
+                    "himiklab\\yii2\\recaptcha\\tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "HimikLab",
+                    "homepage": "https://github.com/himiklab/"
+                }
+            ],
+            "description": "Yii2 Google reCAPTCHA v2 and v3 widget",
+            "keywords": [
+                "captcha",
+                "google",
+                "recaptcha",
+                "widget",
+                "yii2"
+            ],
+            "time": "2019-05-14T07:40:36+00:00"
+        },
+        {
             "name": "kartik-v/bootstrap-checkbox-x",
             "version": "v1.5.5",
             "source": {
@@ -966,7 +1014,8 @@
                 "shasum": ""
             },
             "suggest": {
-                "yiisoft/yii2-bootstrap": "for Krajee extensions to work with Bootstrap 3.x version"
+                "yiisoft/yii2-bootstrap": "for Krajee extensions to work with Bootstrap 3.x version",
+                "yiisoft/yii2-bootstrap4": "for Krajee extensions to work with Bootstrap 4.x version"
             },
             "type": "yii2-extension",
             "extra": {
@@ -1912,6 +1961,56 @@
                 "yii2"
             ],
             "time": "2018-07-05T15:44:47+00:00"
+        },
+        {
+            "name": "yiisoft/yii2-httpclient",
+            "version": "2.0.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-httpclient.git",
+                "reference": "cf532447447216bd8cb167689ac18f4e7dc1c1a7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/cf532447447216bd8cb167689ac18f4e7dc1c1a7",
+                "reference": "cf532447447216bd8cb167689ac18f4e7dc1c1a7",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0.13"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.27|~5.7.21|^6.2"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\httpclient\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Paul Klimov",
+                    "email": "klimov.paul@gmail.com"
+                }
+            ],
+            "description": "HTTP client extension for the Yii framework",
+            "keywords": [
+                "curl",
+                "http",
+                "httpclient",
+                "yii2"
+            ],
+            "time": "2019-05-14T13:33:37+00:00"
         },
         {
             "name": "yiisoft/yii2-jui",
@@ -4357,7 +4456,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
