@@ -1,9 +1,4 @@
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
+﻿
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -22,7 +17,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `carrerapersona` (
   `idTipoCarrera` int(2) NOT NULL,
   `idPersona` int(8) NOT NULL,
-  `reglamentoAceptado` tinyint(1) DEFAULT NULL
+  `reglamentoAceptado` tinyint(1) DEFAULT NULL,
+  `retiraKit` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -305,6 +301,7 @@ CREATE TABLE `talleremera` (
 CREATE TABLE `tipocarrera` (
   `idTipoCarrera` int(2) NOT NULL,
   `descripcionCarrera` varchar(64) DEFAULT NULL,
+  `reglamento` varchar(128) DEFAULT NULL,
   `deshabilitado` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
