@@ -10,17 +10,15 @@ use yii\helpers\Url;
 ?>
 
 <!-- vista del tab reglamento-->
-<div class="reglamento" >
-    <div class="row">
+<div class="reglamento">
       <?php
         echo \lesha724\documentviewer\ViewerJsDocumentViewer::widget([
           'url' => '../../../Reglamento/Presentaciondelamateria.pdf', //url на ваш документ или http://example.com/test.odt
-          'width'=>'100%',
-          'height'=>'100%',
+          'width'=>'75%',
+          'height'=>'550px',
         ]);
       ?>
     
-    </div>
 </div>
 
 
