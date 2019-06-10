@@ -89,11 +89,11 @@ use kartik\switchinput\SwitchInput;
                         'multiple' => true,
                     ],
                     'pluginOptions'=>[
-                        'initialize' => true,
+                        'initialize' => false,
                         'placeholder' => 'Esperando D.N.I. capitan...',
                         'depends'=>['idEquipo'],
                         'url'=>Url::to(['inscripcion/nombrecapitan']),
-                        'loadingText' => 'Esperando D.N.I. capitan...']
+                        'loadingText' => 'Cargando D.N.I. capitan...']
             ])->label('Nombre capitan');
             ?>
         </div>
@@ -108,7 +108,7 @@ use kartik\switchinput\SwitchInput;
                         'multiple' => true
                     ],
                     'pluginOptions'=>[
-                        'initialize' => true,
+                        'initialize' => false,
                         'placeholder' => 'Carrera...',
                         'depends'=>['idEquipo'],
                         'url'=>Url::to(['inscripcion/tipocarrera']),
@@ -127,7 +127,7 @@ use kartik\switchinput\SwitchInput;
 
                     ],
                     'pluginOptions'=>[
-                        'initialize' => true,
+                        'initialize' => false,
                         'placeholder' => 'Equipo de ...',
                         'depends'=>['idEquipo'],
                         'id'=>'cantPersonas',

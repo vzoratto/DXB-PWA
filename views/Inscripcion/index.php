@@ -29,7 +29,7 @@ $wizard_config = [
 		1 => [
 			'title' => 'Datos Personales',
 			'icon' => 'glyphicon glyphicon-user',
-			'content' => $this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form,'talleRemera'=>$talleRemera,'listadoTalles'=>$listadoTalles,'equipoLista'=>$equipoLista,'equipo'=>$equipo,'elEquipo'=>$elEquipo,'tipoCarrera'=>$tipoCarrera,'tipocarreraLista'=>$tipocarreraLista,'cantCorredores'=>$cantCorredores,'swicht'=>$swicht,'user'=>$user]),
+			'content' => $this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form,'talleRemera'=>$talleRemera,'listadoTalles'=>$listadoTalles,'equipoLista'=>$equipoLista,'equipo'=>$equipo,'tipoCarrera'=>$tipoCarrera,'tipocarreraLista'=>$tipocarreraLista,'cantCorredores'=>$cantCorredores,'swicht'=>$swicht,'user'=>$user]),
 			'buttons' => [
                 'next' => [
 					'title' => 'Siguiente',
@@ -92,14 +92,15 @@ $wizard_config = [
         6 => [
             'title' => 'Reglamento',
             'icon' => 'glyphicon glyphicon-file',
-            'content' => 'hacer',
+			'content' => $this->render('reglamento',['persona'=>$persona,'form'=>$form]),
             'buttons' => [
                 'save' => [
                     'html' => Html::submitButton(
                         Yii::t('app', 'Terminar inscripción'),
                         [
                             'class' => 'btn btn-success',
-                            'value' => 'Terminar inscripción'
+							'value' => 'Terminar inscripción',
+							'disabled' => true
                         ]
                     ),
                 ],
