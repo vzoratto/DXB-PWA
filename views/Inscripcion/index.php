@@ -92,14 +92,15 @@ $wizard_config = [
         6 => [
             'title' => 'Reglamento',
             'icon' => 'glyphicon glyphicon-file',
-			'content' => $this->render('reglamento',['form'=>$form]),
+			'content' => $this->render('reglamento',['persona'=>$persona,'form'=>$form]),
             'buttons' => [
                 'save' => [
                     'html' => Html::submitButton(
                         Yii::t('app', 'Terminar inscripción'),
                         [
                             'class' => 'btn btn-success',
-                            'value' => 'Terminar inscripción'
+							'value' => 'Terminar inscripción',
+							'disabled' => true
                         ]
                     ),
                 ],

@@ -9,19 +9,17 @@ use yii\helpers\Url;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+
 <!-- vista del tab reglamento-->
 <div class="reglamento">
+  <div class="align-center">
       <?php
         echo \lesha724\documentviewer\ViewerJsDocumentViewer::widget([
           'url' => '../../../Reglamento/Presentaciondelamateria.pdf', //url на ваш документ или http://example.com/test.odt
-          'width'=>'75%',
+          'width'=>'65%',
           'height'=>'550px',
         ]);
       ?>
-    
+  </div>
 </div>
 
-
-
-
-</div>

@@ -114,15 +114,6 @@ class InscripcionController extends Controller
         ]);
     }
 
-    /**
-     * Reglamento.
-     * @return mixed
-     */
-    public function actionReglamento()
-    {
-
-        return $this->render();
-    }
     
     /**
      * Lista del modelo de Datos de contacto.
