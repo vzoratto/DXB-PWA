@@ -21,7 +21,7 @@ use yii\helpers\Url;
         ]);
       ?>
   </div>
-
+<?php /*
    <div class="datosCaptcha" >
             <?= $form->field($persona, 'reCaptcha')->widget(
                 \himiklab\yii2\recaptcha\ReCaptcha2::className(),
@@ -29,9 +29,8 @@ use yii\helpers\Url;
                     'siteKey' => '6LcaGKgUAAAAAHFPZSlm2jc_GeKUoccTzRkhUkjK', // unnecessary is reCaptcha component was set up
                 ]
             ) ?>
-
-
    </div>
+   */ ?> 
 
 </div>
 

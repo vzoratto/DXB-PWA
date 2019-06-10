@@ -11,7 +11,7 @@ $.extend($.fn.pickadate.defaults, {
     close: 'Cerrar',
     firstDay: 1,
     format: 'dddd d !de mmmm !de yyyy',
-    formatSubmit: 'yyyy/mm/dd'
+    formatSubmit: 'yyyy-mm-dd'
 });
 
 

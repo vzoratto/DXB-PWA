@@ -41,7 +41,6 @@ class Personaemergencia extends \yii\db\ActiveRecord
             [['nombrePersonaEmergencia', 'apellidoPersonaEmergencia'], 'string', 'min' => 3,'message'=>'formato inválido'],
             [['telefonoPersonaEmergencia'], 'string', 'max' => 32],
             [['telefonoPersonaEmergencia'], 'string', 'min' => 4],
-            ['telefonoPersonaEmergencia','compare','compareAttribute'=>'telefonoPersona','message'=>'El telefono del contacto de emergencia no puede ser el mismo que el del corredor'],
             //el telefono debe ser solo digitos numericos
             //el telefono admite codigo internacional +54 por ej argentina
             [['telefonoPersonaEmergencia'], 'match', 'pattern' => '/^\+?([0-9])*$/','message'=>'El formato inválido'],
