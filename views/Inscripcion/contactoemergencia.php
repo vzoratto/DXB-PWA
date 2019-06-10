@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use borales\extensions\phoneInput\PhoneInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Personaemergencia */
@@ -22,8 +23,16 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
     <div class="row">
-        <div id="telefonoPersonaEmergencia" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-        <?= $form->field($datosEmergencia, 'telefonoPersonaEmergencia')->textInput(['maxlength' => true,'placeholder'=>'299111111']) ?>
+        <!-- Ingreso de telefono. Se utiliza el widget phoneinput para ayudar el ingreso del mismo -->
+        <div id="telefonoPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+            <label>Telefono:</label><br>
+            <?= $form->field($datosEmergencia, 'telefonoPersonaEmergencia')->widget(PhoneInput::className(), [
+                'jsOptions' => [
+                    'allowExtensions' => true,
+                    'preferredCountries' => ['ar', 'br', 'cl', 'uy', 'py', 'bo'],
+                    'nationalMode' => false,
+                ]
+            ])->label('') ?>
         </div>
 
         <div id="idVinculoPersonaEmergencia" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
