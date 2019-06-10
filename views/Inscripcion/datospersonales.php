@@ -104,7 +104,7 @@ use kartik\switchinput\SwitchInput;
                         'id' => 'idTipoDeCarrera',
                     ],
                     'pluginOptions'=>[
-                        'initialize' => true,
+                        'initialize' => false,
                         'placeholder' => 'Carrera...',
                         'depends'=>['idEquipo'],
                         'url'=>Url::to(['inscripcion/tipocarrera']),
@@ -121,7 +121,7 @@ use kartik\switchinput\SwitchInput;
                         'id' => 'idCantidadPersonas',
                     ],
                     'pluginOptions'=>[
-                        'initialize' => true,
+                        'initialize' => false,
                         'placeholder' => 'Equipo de ...',
                         'depends'=>['idEquipo'],
                         'id'=>'cantPersonas',

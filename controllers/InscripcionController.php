@@ -113,6 +113,16 @@ class InscripcionController extends Controller
             'model' => $model,
         ]);
     }
+
+    /**
+     * Reglamento.
+     * @return mixed
+     */
+    public function actionReglamento()
+    {
+
+        return $this->render();
+    }
     
     /**
      * Lista del modelo de Datos de contacto.
@@ -268,20 +278,20 @@ class InscripcionController extends Controller
                 ];
                 */
                 
-            $elEquipo= ArrayHelper::map(\app\models\Equipo::find()->where(['idEquipo' => $idEquipo])->all(),'idEquipo','dniCapitan');
-            $objControlEquipo = new Equipo();
-            $objEquipo = Equipo::find()->where(['idEquipo'=>$idEquipo])->one();
-            $dniCapitan=$objEquipo['dniCapitan'];  
+                $elEquipo= ArrayHelper::map(\app\models\Equipo::find()->where(['idEquipo' => $idEquipo])->all(),'idEquipo','dniCapitan');
+                $objControlEquipo = new Equipo();
+                $objEquipo = Equipo::find()->where(['idEquipo'=>$idEquipo])->one();
+                $dniCapitan=$objEquipo['dniCapitan'];  
 
-            $objControlUsuario = new Usuario();
-            $objUsuario = Usuario::find()->where(['dniUsuario'=>$dniCapitan])->one();
-            $idUsu = $objUsuario['idUsuario'];
+                $objControlUsuario = new Usuario();
+                $objUsuario = Usuario::find()->where(['dniUsuario'=>$dniCapitan])->one();
+                $idUsu = $objUsuario['idUsuario'];
 
-            $objControlPersona = new Persona();
-            $objPersona = Persona::find()->where(['idUsuario'=>$idUsu])->one();
-            $nombrePersona = $objPersona['nombrePersona'];
-            $apellidoPersona = $objPersona['apellidoPersona'];
-            $nombreCompleto = $nombrePersona . " " . $apellidoPersona;
+                $objControlPersona = new Persona();
+                $objPersona = Persona::find()->where(['idUsuario'=>$idUsu])->one();
+                $nombrePersona = $objPersona['nombrePersona'];
+                $apellidoPersona = $objPersona['apellidoPersona'];
+                $nombreCompleto = $nombrePersona . " " . $apellidoPersona;
 
             /*    $elEquipo= ArrayHelper::map(\app\models\Equipo::find()->where(['idEquipo' => $idEquipo])->all(),'idEquipo','dniCapitan');
                $equipo=$el
