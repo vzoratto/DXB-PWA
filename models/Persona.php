@@ -57,9 +57,9 @@ class Persona extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator2::className(),
+            /*[['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator2::className(),
                 'secret' => '6LcaGKgUAAAAAHxY4E8reVbdVrT9NUI7JwWTkFTD', // unnecessary if reСaptcha is already configured
-                'uncheckedMessage' => 'Confirma que no eres un robot.'],
+                'uncheckedMessage' => 'Confirma que no eres un robot.'],*/
              //definicion de campos obligatorios
              [['nombrePersona','apellidoPersona','idTalleRemera', 'donador', 'mailPersona', 'idUsuario','sexoPersona','fechaNacPersona'], 'required','message' => 'Este campo es obligatorio.'],
              //verifica que la direccion de mail sea valida

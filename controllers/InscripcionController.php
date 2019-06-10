@@ -397,8 +397,7 @@ class InscripcionController extends Controller
             $persona->idTalleRemera=$idTalleRemera;
             $persona->nombrePersona=$modeloPersona['nombrePersona'];
             $persona->apellidoPersona=$modeloPersona['apellidoPersona'];
-            //$persona->fechaNacPersona=Yii::$app->request->post()['fechaNacPersona'];
-            $persona->fechaNacPersona='2019-06-03';
+            $persona->fechaNacPersona=Yii::$app->request->post()['Persona']['fechaNacPersona'];
             $persona->sexoPersona=$modeloPersona['sexoPersona'];
             $persona->nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
             $persona->telefonoPersona=$modeloPersona['telefonoPersona'];

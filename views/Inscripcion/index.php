@@ -100,7 +100,7 @@ $wizard_config = [
                         [
                             'class' => 'btn btn-success',
 							'value' => 'Terminar inscripción',
-							'disabled' => true
+							'disabled' => false
                         ]
                     ),
                 ],
