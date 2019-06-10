@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27fafe51d44ecf209c0c71b8a17bfeb9",
-    "content-hash": "70122cf263272c9d4ba6a97e2f536c2e",
+    "content-hash": "0b29d595ff0d7eaa45a4cbc0fe3332d1",
     "packages": [
         {
             "name": "arturoliveira/yii2-excelview",
