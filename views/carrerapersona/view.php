@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'idTipoCarrera',
             'idPersona',
             'reglamentoAceptado',
+            'retiraKit',
         ],
     ]) ?>
 

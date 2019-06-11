@@ -14,6 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'descripcionCarrera')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'reglamento')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'deshabilitado')->textInput() ?>
 
     <div class="form-group">

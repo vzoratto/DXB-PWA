@@ -24,7 +24,7 @@ use borales\extensions\phoneInput\PhoneInput;
     </div>
     <div class="row">
         <!-- Ingreso de telefono. Se utiliza el widget phoneinput para ayudar el ingreso del mismo -->
-        <div id="telefonoPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+        <div id="telefonoPersonaEmergencia" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
             <label>Telefono:</label><br>
             <?= $form->field($datosEmergencia, 'telefonoPersonaEmergencia')->widget(PhoneInput::className(), [
                 'jsOptions' => [
@@ -33,6 +33,8 @@ use borales\extensions\phoneInput\PhoneInput;
                     'nationalMode' => false,
                 ]
             ])->label('') ?>
+            <div id="msjTelefonoIgual">
+            </div>
         </div>
 
         <div id="idVinculoPersonaEmergencia" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">

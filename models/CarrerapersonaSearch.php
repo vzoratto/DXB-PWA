@@ -17,7 +17,7 @@ class CarrerapersonaSearch extends Carrerapersona
     public function rules()
     {
         return [
-            [['idTipoCarrera', 'idPersona', 'reglamentoAceptado'], 'integer'],
+            [['idTipoCarrera', 'idPersona', 'reglamentoAceptado', 'retiraKit'], 'integer'],
         ];
     }
 
@@ -60,6 +60,7 @@ class CarrerapersonaSearch extends Carrerapersona
             'idTipoCarrera' => $this->idTipoCarrera,
             'idPersona' => $this->idPersona,
             'reglamentoAceptado' => $this->reglamentoAceptado,
+            'retiraKit' => $this->retiraKit,
         ]);
 
         return $dataProvider;

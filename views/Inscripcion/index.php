@@ -92,7 +92,7 @@ $wizard_config = [
         6 => [
             'title' => 'Reglamento',
             'icon' => 'glyphicon glyphicon-file',
-			'content' => $this->render('reglamento',['persona'=>$persona,'form'=>$form]),
+			'content' => $this->render('reglamento',['carrerapersona'=>$carrerapersona,'form'=>$form]),
             'buttons' => [
                 'save' => [
                     'html' => Html::submitButton(

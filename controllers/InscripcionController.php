@@ -24,7 +24,8 @@ use app\models\Respuesta;
 use app\models\Respuestaopcion;
 use app\models\Equipo;
 use app\models\Grupo;
-use paapp\models\Parametros;
+use app\models\Parametros;
+use app\models\Carrerapersona;
 
 use yii\helper\Json;
 
@@ -67,6 +68,7 @@ class InscripcionController extends Controller
         $tipoCarrera = new \app\models\Tipocarrera(); //Instanciamos una variable
         $tipocarreraLista =ArrayHelper::map(\app\models\Tipocarrera::find()->all(),'idTipoCarrera','descripcionCarrera');
         $cantCorredores =ArrayHelper::map(\app\models\Parametros::find()->all(),'idParametros','cantidadCorredores');
+        $carrerapersona = new \app\models\Carrerapersona();
 
         $equipoLista= ArrayHelper::map(\app\models\Equipo::find()
         ->select('COUNT(equipo.idEquipo) AS cantidadCorredores','grupo.idEquipo,equipo.cantidadPersonas,equipo.dniCapitan,')
@@ -97,7 +99,8 @@ class InscripcionController extends Controller
             'swicht'=>null,
             'datos' => null,
             'respuesta'=>$respuesta,
-            'user'=>$userLogueado
+            'user'=>$userLogueado,
+            'carrerapersona'=>$carrerapersona
             ]);
     }
 
@@ -284,31 +287,7 @@ class InscripcionController extends Controller
                 $apellidoPersona = $objPersona['apellidoPersona'];
                 $nombreCompleto = $nombrePersona . " " . $apellidoPersona;
 
-            /*    $elEquipo= ArrayHelper::map(\app\models\Equipo::find()->where(['idEquipo' => $idEquipo])->all(),'idEquipo','dniCapitan');
-               $equipo=$el
-                foreach ($elEquipo as $key=>$value){
-                    $dniUsuario = $value;
-                }
-                $dniUsu=$dniUsuario;
-                $elUsu= ArrayHelper::map(\app\models\Usuario::find()->where(['dniUsuario' => $dniUsu])->all(),'idUsuario','dniUsuario');
-                foreach ($elUsu as $key=>$value){
-                    $idUsuario = $key;
-                }
-                
-
-                /*while ($dniUsuario = current($elUsu)) {
-                    if ($dniUsuario == $dniUsu) {
-                        $idUsuario =  key($elUsu);
-                    }
-                    next($elUsu);
-                }
-                $laPersona= ArrayHelper::map(\app\models\Persona::find()->where(['idUsuario' => $idUsuario])->all(),'nombrePersona','apellidoPersona','idPersona');
-                
-                current($laPersona[$idUsuario]);
-                $nombreCapitan = key($laPersona[$idUsuario]);
-                $apellidoCapitan = $laPersona[$idUsuario][$nombreCapitan];
-                $nombreCompleto = $apellidoCapitan.' '.$nombreCapitan;
-            */
+            
                 $out = [
                     ['id' => $idUsu, 'name' => $nombreCompleto]
                 ];
@@ -327,7 +306,7 @@ class InscripcionController extends Controller
 
         $guardado=false;
         $transaction = Persona::getDb()->beginTransaction();
-
+        print_R(Yii::$app->request->post());
         try {
             //MODELO LOCALIDAD
             $modeloLocalidad=Yii::$app->request->post()['Localidad'];
@@ -438,7 +417,8 @@ class InscripcionController extends Controller
             // print_r($estadoPagoPersona->errors);
 
             //MODELO EQUIPO
-            if (!Yii::$app->request->post()['swichtCapitan']){
+            if (!Yii::$app->request->post()['swichtCapitan']){ 
+                //Si no es capitan
                 $modeloEquipo=Yii::$app->request->post()['Equipo']['idEquipo'];
                 $grupo=new Grupo();
                 $grupo->idEquipo=$modeloEquipo;
@@ -446,6 +426,7 @@ class InscripcionController extends Controller
                 $grupo->save();
 
             }else{
+                // Si es capitan
                 $grupo=new Grupo();
                 $equipo=new Equipo();
                 $cantidadPersonas=Yii::$app->request->post()['Equipo']['cantidadPersonas'];
@@ -457,14 +438,35 @@ class InscripcionController extends Controller
                 $equipo->dniCapitan=Yii::$app->request->post()['Usuario']['dniUsuario'];
                 $equipo->save();
                 $idDbEquipo = Yii::$app->db->getLastInsertID();
+                $equipo->nombreEquipo=$idDbEquipo;
+                $equipo->update();
                 $grupo->idEquipo=$idDbEquipo;
                 $grupo->idPersona=$idDbPersona;
                 $grupo->save();
 
-
-
-
             }
+
+            //MODELO CARRERAPERSONA
+            $carreraPersona = new Carrerapersona();
+            $modeloCarreraPersona = Yii::$app->request->post()['Carrerapersona'];
+            
+            if (!Yii::$app->request->post()['swichtCapitan']){ //Si no es capitan
+                $idEquipo=Yii::$app->request->post()['Equipo']['idEquipo'];
+                
+                $objControlEquipo = new Equipo();
+                $objEquipo = Equipo::find()->where(['idEquipo'=>$idEquipo])->one();
+                $idTipoCarrera=$objEquipo['idTipoCarrera'];  
+            }
+            
+            $carreraPersona->idPersona=$persona->idPersona;
+            $carreraPersona->idTipoCarrera = $idTipoCarrera;
+            $carreraPersona->reglamentoAceptado = $modeloCarreraPersona['reglamentoAceptado'];
+            $carreraPersona->save();
+            //idTipoCarrera idPersona reglamentoAceptado
+            //$carreraPersona->idPersona=$persona->idPersona;
+            
+            //$carreraPersona->idTipoCarrera = $idTipoCarrera;
+            
 
             //RESPUESTA A ENCUESTA
             $respuesta=Yii::$app->request->post();

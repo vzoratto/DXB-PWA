@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'idTipoCarrera',
             'idPersona',
             'reglamentoAceptado',
+            'retiraKit',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

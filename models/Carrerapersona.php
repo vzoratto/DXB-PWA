@@ -10,6 +10,7 @@ use Yii;
  * @property int $idTipoCarrera
  * @property int $idPersona
  * @property int $reglamentoAceptado
+ * @property int $retiraKit
  *
  * @property Persona $persona
  * @property Tipocarrera $tipoCarrera
@@ -30,8 +31,8 @@ class Carrerapersona extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idTipoCarrera', 'idPersona'], 'required'],
-            [['idTipoCarrera', 'idPersona', 'reglamentoAceptado'], 'integer'],
+            [['idTipoCarrera', 'idPersona','reglamentoAceptado'], 'required'],
+            [['idTipoCarrera', 'idPersona', 'reglamentoAceptado', 'retiraKit'], 'integer'],
             [['idTipoCarrera', 'idPersona'], 'unique', 'targetAttribute' => ['idTipoCarrera', 'idPersona']],
             [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
             [['idTipoCarrera'], 'exist', 'skipOnError' => true, 'targetClass' => Tipocarrera::className(), 'targetAttribute' => ['idTipoCarrera' => 'idTipoCarrera']],
@@ -47,6 +48,7 @@ class Carrerapersona extends \yii\db\ActiveRecord
             'idTipoCarrera' => 'Id Tipo Carrera',
             'idPersona' => 'Id Persona',
             'reglamentoAceptado' => 'Reglamento Aceptado',
+            'retiraKit' => 'Retira Kit',
         ];
     }
 
