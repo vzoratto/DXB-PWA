@@ -522,7 +522,7 @@ class InscripcionController extends Controller
                    Yii::$app->mailer->compose()
                    ->setFrom('carreraxbarda@gmail.com')
                    //->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
-                   ->setTo($usuario->email)
+                   ->setTo($usuario->mailUsuario)
                    ->setTo('carreraxbarda@gmail.com')
                    ->setSubject($subject)
                    ->setHTMLBody($body)
