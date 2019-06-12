@@ -306,7 +306,7 @@ class InscripcionController extends Controller
 
         $guardado=false;
         $transaction = Persona::getDb()->beginTransaction();
-        print_R(Yii::$app->request->post());
+        //print_R(Yii::$app->request->post());
         try {
             //MODELO LOCALIDAD
             $modeloLocalidad=Yii::$app->request->post()['Localidad'];
@@ -510,6 +510,31 @@ class InscripcionController extends Controller
 
             if($transaction->commit()){
                 $guardado=true;
+                if ($guardado){     //Si la inscripcion es guardada correctamente
+                       
+                $idUsuario= Yii::$app->user->identity->idUsuario;
+                $usuario=Usuario::find()->where(['idUsuario'=>$idUsuario])->one();
+                   //mail de confirmacion de inscripcion
+                   $subject = "Inscripcion y reglamento";
+                   $body = "<h1>Gracias por inscribirse a la carrera". $usuario->dniUsuario .". Clickee en el siguiente link para ver el reglamento que ha aceptado</h1>";
+                   $body .= "<a href='http://localhost/carrera/web/index.php'>Reglamento</a>";
+                   
+                   Yii::$app->mailer->compose()
+                   ->setFrom('carreraxbarda@gmail.com')
+                   //->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
+                   ->setTo($usuario->email)
+                   ->setTo('carreraxbarda@gmail.com')
+                   ->setSubject($subject)
+                   ->setHTMLBody($body)
+                   ->send();
+                  
+                    
+                    $mensaje = "Enviamos un email con su registro de inscripcion ";
+                    return $this->render('index', ['mensaje' => $mensaje]);
+                }else{
+                    $mensaje = "Ha ocurrido un error al llevar a cabo tu inscripcion,vuelve a intentarlo";
+                    return $this->render('index', ['mensaje' => $mensaje]);
+                 }   
             }
             
 
