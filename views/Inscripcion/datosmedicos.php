@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 <div class="fichamedica-form">
 
 <!-- vista del tab datos medicos del formulario-->
-<div class="datosMedicos" >
+<div class="datosMedicos" id="tercerStep" >
     <div class="row">
         <div id="obraSocial" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
             <?= $form->field($fichaMedica, 'obraSocial')->textInput(['maxlength' => true]) ?>

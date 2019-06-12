@@ -15,7 +15,7 @@ use kartik\switchinput\SwitchInput;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="persona-form">
+<div class="persona-form" id="primerStep">
 
 <!-- vista del tab datos personales del formulario-->
 <div class="datosPersonales" >
@@ -204,10 +204,3 @@ use kartik\switchinput\SwitchInput;
 
 </div>
 
-<?php
-$script = <<<JS
-
-JS;
-
-$this->registerJs($script);
-?>

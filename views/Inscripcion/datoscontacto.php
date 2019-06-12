@@ -16,7 +16,7 @@ use yii\widgets\MaskedInput;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="personadireccion-form">
+<div class="personadireccion-form" id="segundoStep">
 
 <!-- vista del tab datos de contacto del formulario-->
 <div class="datosContacto" >
@@ -71,13 +71,15 @@ use yii\widgets\MaskedInput;
     <!-- Ingreso de la direccion de la persona -->
     <div id="direccionUsuario"> 
         <div class="row">
-            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6" id="calleDireccion">
             <label>Calle: </label>
-                <?= Html::input('text','calle',$datos['calle'], $option=['class'=>'form-control']) ?>
+                <?= Html::input('text','calle',$datos['calle'], $option=['class'=>'form-control','id'=>'calle']) ?>
+                <div id="msjErrorCalle"></div>
             </div>
-            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2" id="numeroDireccion">
                 <label>N°: </label>
-                <?=  Html::input('text','numero', $datos['numero'], $option=['class'=>'form-control', 'pattern'=> '^[0-9]+', 'min'=>'1']) ?>
+                <?=  Html::input('text','numero', $datos['numero'], $option=['class'=>'form-control', 'id'=> 'numero']) ?>
+                <div id="msjErrorNumero"></div>
             </div>
             <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
                 <label>Piso: </label>

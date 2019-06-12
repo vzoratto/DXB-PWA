@@ -9,7 +9,7 @@ use borales\extensions\phoneInput\PhoneInput;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="personaemergencia-form">
+<div class="personaemergencia-form" id="cuartoStep">
 
 <!-- vista del tab contacto de emergencia del formulario-->
 <div class="contactoEmergencia" >
