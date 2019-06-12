@@ -32,7 +32,7 @@ use yii\helpers\Url;
    </div>
    */ ?>
 <div id="reglamentoAceptado">
-  <?= $form->field($carrerapersona, 'reglamentoAceptado')->checkbox(array('label'=>'He leído y acepto los términos y condiciones')); ?>
+  <?= $form->field($carrerapersona, 'reglamentoAceptado')->checkbox(['label' => 'He leido y acepto los términos y condiciones', 'uncheck' => 0]); ?>
 </div>
 </div>
 

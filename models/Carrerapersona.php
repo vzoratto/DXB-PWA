@@ -32,6 +32,7 @@ class Carrerapersona extends \yii\db\ActiveRecord
     {
         return [
             [['idTipoCarrera', 'idPersona','reglamentoAceptado'], 'required'],
+            ['reglamentoAceptado','compare','compareValue'=>1,'message'=>'Debe aceptar el reglamento para inscribirse a la carrera'],
             [['idTipoCarrera', 'idPersona', 'reglamentoAceptado', 'retiraKit'], 'integer'],
             [['idTipoCarrera', 'idPersona'], 'unique', 'targetAttribute' => ['idTipoCarrera', 'idPersona']],
             [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
