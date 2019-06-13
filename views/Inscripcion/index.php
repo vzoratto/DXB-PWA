@@ -7,111 +7,115 @@ use buttflattery\formwizard\FormWizard;
 
 /* @var $this yii\web\View */
 
-$this->title = 'Formulario de inscripcion';
-$this->params['breadcrumbs'][] = $this->title;
-
 ?>
-<div class="inscripciones-index">
+<div class="db-registro cover-background contenedor-full pt-eight" style="background-image:url('assets/img/fondo-color.jpg');">
     <!-- comienzo del formulario, se define el metodo de envio de datos y se llama a la accion "store" o guardar-->
-    <?php $form = ActiveForm::begin([
-        'method'=>'post',
-        "action"=>"index.php?r=inscripcion%2Fstore",
-		"enableClientValidation"=>true,
-    ]); ?>
+    <div class="db-card">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+      <?php $form = ActiveForm::begin([
+          'method'=>'post',
+          "action"=>"index.php?r=inscripcion%2Fstore",
+      		"enableClientValidation"=>true,
+      ]); ?>
 
-<?php
-$wizard_config = [
-	'id' => 'stepwizard',
-	'steps' => [
-		1 => [
-			'title' => 'Datos Personales',
-			'icon' => 'glyphicon glyphicon-user',
-			'content' => $this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form,'talleRemera'=>$talleRemera,'listadoTalles'=>$listadoTalles,'equipoLista'=>$equipoLista,'equipo'=>$equipo,'elEquipo'=>$elEquipo,'tipoCarrera'=>$tipoCarrera,'tipocarreraLista'=>$tipocarreraLista,'cantCorredores'=>$cantCorredores,'swicht'=>$swicht]),
-			'buttons' => [
-                'next' => [
-					'title' => 'Siguiente',
-			 ],
-		],	],
+        <?php
+        $wizard_config = [
+        	'id' => 'stepwizard',
+        	'steps' => [
+        		1 => [
+        			'title' => 'Datos Personales',
+        			'icon' => 'glyphicon glyphicon-user',
+        			'content' => $this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form,'talleRemera'=>$talleRemera,'listadoTalles'=>$listadoTalles,'equipoLista'=>$equipoLista,'equipo'=>$equipo,'elEquipo'=>$elEquipo,'tipoCarrera'=>$tipoCarrera,'tipocarreraLista'=>$tipocarreraLista,'cantCorredores'=>$cantCorredores,'swicht'=>$swicht]),
+        			'buttons' => [
+                        'next' => [
+        					'title' => 'Siguiente',
+        			 ],
+        		],	],
 
-		2 => [
-			'title' => 'Datos de contacto',
-			'icon' => 'glyphicon glyphicon-envelope',
-			'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona,'localidad' => $localidad,'provincia' => $provincia,'provinciaLista' => $provinciaLista,'form'=>$form, 'datos'=>$datos]),
-			'buttons' => [
+        		2 => [
+        			'title' => 'Datos de contacto',
+        			'icon' => 'glyphicon glyphicon-envelope',
+        			'content' => $this->render('datoscontacto',['personaDireccion'=>$personaDireccion,'persona'=>$persona,'localidad' => $localidad,'provincia' => $provincia,'provinciaLista' => $provinciaLista,'form'=>$form, 'datos'=>$datos]),
+        			'buttons' => [
                 'next' => [
                     'title' => 'Siguiente',
-				],
-				'previous' => [
-					'title' => 'Atras',
-				]
-            ],
-		],
-		3 => [
-			'title' => 'Datos medicos',
-			'icon' => ' glyphicon glyphicon-plus',
-			'content' => $this->render('datosmedicos',['persona'=>$persona,'fichaMedica'=>$fichaMedica,'form'=>$form]),
-			'buttons' => [
-                'next' => [
-                    'title' => 'Siguiente',
-				],
-				'previous' => [
-					'title' => 'Atras',
-				]
-            ],
-		],
-		4 => [
-			'title' => 'Contacto de emergencia',
-			'icon' =>'glyphicon glyphicon-heart-empty',
+        				],
+        				'previous' => [
+        					'title' => 'Atras',
+        				]
+                    ],
+        		],
+        		3 => [
+        			'title' => 'Datos medicos',
+        			'icon' => ' glyphicon glyphicon-plus',
+        			'content' => $this->render('datosmedicos',['persona'=>$persona,'fichaMedica'=>$fichaMedica,'form'=>$form]),
+        			'buttons' => [
+                        'next' => [
+                            'title' => 'Siguiente',
+        				],
+        				'previous' => [
+        					'title' => 'Atras',
+        				]
+                    ],
+        		],
+        		4 => [
+        			'title' => 'Contacto de emergencia',
+        			'icon' =>'glyphicon glyphicon-heart-empty',
 
-			'content' => $this->render('contactoemergencia',['datosEmergencia'=>$datosEmergencia,'form'=>$form]),
-			'buttons' => [
-                'next' => [
-                    'title' => 'Siguiente',
-				],
-				'previous' => [
-					'title' => 'Atras',
-				]
-            ],
-		],
-		5 => [
-			'title' => 'Encuesta',
-			'icon' => 'glyphicon glyphicon-list-alt',
-			'content' => $this->render('@app/views/Encuesta/encuesta.php',['respuesta'=>$respuesta,'form'=>$form]),
-            'buttons' => [
-                'next' => [
-                    'title' => 'Siguiente',
-                ],
-                'previous' => [
-                    'title' => 'Atras',
-                ]
-            ],
-		],
-        6 => [
-            'title' => 'Reglamento',
-            'icon' => 'glyphicon glyphicon-file',
-            'content' => 'hacer',
-            'buttons' => [
-                'save' => [
-                    'html' => Html::submitButton(
-                        Yii::t('app', 'Terminar inscripción'),
-                        [
-                            'class' => 'btn btn-success',
-                            'value' => 'Terminar inscripción'
+        			'content' => $this->render('contactoemergencia',['datosEmergencia'=>$datosEmergencia,'form'=>$form]),
+        			'buttons' => [
+                        'next' => [
+                            'title' => 'Siguiente',
+        				],
+        				'previous' => [
+        					'title' => 'Atras',
+        				]
+                    ],
+        		],
+        		5 => [
+        			'title' => 'Encuesta',
+        			'icon' => 'glyphicon glyphicon-list-alt',
+        			'content' => $this->render('@app/views/Encuesta/encuesta.php',['respuesta'=>$respuesta,'form'=>$form]),
+                    'buttons' => [
+                        'next' => [
+                            'title' => 'Siguiente',
+                        ],
+                        'previous' => [
+                            'title' => 'Atras',
                         ]
-                    ),
+                    ],
+        		],
+                6 => [
+                    'title' => 'Reglamento',
+                    'icon' => 'glyphicon glyphicon-file',
+                    'content' => 'hacer',
+                    'buttons' => [
+                        'save' => [
+                            'html' => Html::submitButton(
+                                Yii::t('app', 'Terminar inscripción'),
+                                [
+                                    'class' => 'btn btn-success',
+                                    'value' => 'Terminar inscripción'
+                                ]
+                            ),
+                        ],
+                        'previous' => [
+                            'title' => 'Atras',
+                        ]
+                    ],
                 ],
-                'previous' => [
-                    'title' => 'Atras',
-                ]
-            ],
-        ],
-	],
-	'start_step' => 1, // Optional, start with a specific step
-];
-?>
-<?= \drsdre\wizardwidget\WizardWidget::widget($wizard_config); ?>
+        	],
+        	'start_step' => 1, // Optional, start with a specific step
+        ];
+        ?>
+
+      <div class="container">
+
+        <?= \drsdre\wizardwidget\WizardWidget::widget($wizard_config); ?>
+
+      </div>
+
+    </div>
 
 </div>
 <?php ActiveForm::end(); ?>
