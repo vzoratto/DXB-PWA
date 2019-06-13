@@ -17,8 +17,8 @@ class PersonaSearch extends Persona
     public function rules()
     {
         return [
-            [['idPersona', 'idTalleRemera', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idPersonaEmergencia', 'idResultado', 'donador', 'deshabilitado'], 'integer'],
-            [['nombrePersona', 'apellidoPersona', 'fechaNacPersona', 'sexoPersona', 'nacionalidadPersona', 'telefonoPersona', 'mailPersona', 'fechaInscPersona'], 'safe'],
+            [['idPersona', 'idTalleRemera', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idResultado', 'donador', 'deshabilitado'], 'integer'],
+            [['nombrePersona', 'apellidoPersona', 'fechaNacPersona', 'sexoPersona', 'nacionalidadPersona', 'telefonoPersona', 'mailPersona', 'fechaInscPersona','idPersonaDireccion','tipoCarrera'], 'safe'],
         ];
     }
 
@@ -69,14 +69,18 @@ class PersonaSearch extends Persona
             'idResultado' => $this->idResultado,
             'donador' => $this->donador,
             'deshabilitado' => $this->deshabilitado,
+			
         ]);
 
         $query->andFilterWhere(['like', 'nombrePersona', $this->nombrePersona])
             ->andFilterWhere(['like', 'apellidoPersona', $this->apellidoPersona])
             ->andFilterWhere(['like', 'sexoPersona', $this->sexoPersona])
             ->andFilterWhere(['like', 'nacionalidadPersona', $this->nacionalidadPersona])
+            ->andFilterWhere(['like', 'personadireccion.direccionUsuario', $this->idPersonaDireccion])
+            ->andFilterWhere(['like', 'personaemergencia.telefonoPersonaEmergencia', $this->idPersonaEmergencia])
             ->andFilterWhere(['like', 'telefonoPersona', $this->telefonoPersona])
-            ->andFilterWhere(['like', 'mailPersona', $this->mailPersona]);
+			
+			->andFilterWhere(['like', 'tipoCarrera', $this->tipoCarrera]);
 
         return $dataProvider;
     }

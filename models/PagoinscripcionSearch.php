@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Usuario;
+use app\models\Pagoinscripcion;
 
 /**
- * UsuarioSearch represents the model behind the search form of `app\models\Usuario`.
+ * PagoinscripcionSearch represents the model behind the search form of `app\models\Pagoinscripcion`.
  */
-class UsuarioSearch extends Usuario
+class PagoinscripcionSearch extends Pagoinscripcion
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class UsuarioSearch extends Usuario
     public function rules()
     {
         return [
-            [['idUsuario', 'dniUsuario', 'activado', 'idRol'], 'integer'],
-            [['claveUsuario', 'dniUsuario','mailUsuario', 'authkey','idRol'], 'safe'],
+            [['idPago', 'importe', 'pagado', 'idPersona'], 'integer'],
+            [['entidadpago', 'imagencomprobante', 'fechapago','idPersona'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class UsuarioSearch extends Usuario
      */
     public function search($params)
     {
-        $query = Usuario::find();
+        $query = Pagoinscripcion::find();
 
         // add conditions that should always apply here
 
@@ -58,16 +58,15 @@ class UsuarioSearch extends Usuario
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idUsuario' => $this->idUsuario,
-            'dniUsuario' => $this->dniUsuario,
-            'activado' => $this->activado,
-            'idRol' => $this->idRol,
+            'idPago' => $this->idPago,
+            'importe' => $this->importe,
+            'fechapago' => $this->fechapago,
+            'pagado' => $this->pagado,
+            'idPersona' => $this->idPersona,
         ]);
 
-        $query->andFilterWhere(['like', 'claveUsuario', $this->claveUsuario])
-            ->andFilterWhere(['like', 'mailUsuario', $this->mailUsuario])
-            ->andFilterWhere(['like', 'authkey', $this->authkey]);
-            //->andFilterWhere(['like', 'rol.descripcionRol', $this->idRol]);// agregados filtros por roles de las relaciones
+        $query->andFilterWhere(['like', 'entidadpago', $this->entidadpago])
+            ->andFilterWhere(['like', 'imagencomprobante', $this->imagencomprobante]);
 
         return $dataProvider;
     }

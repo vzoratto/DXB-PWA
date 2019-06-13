@@ -5,27 +5,35 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Carrerapersona;
+use app\models\Talleremera;
+use app\models\Usuario;
+use app\models\Equipo;
+use app\models\Tipocarrera;
 
 /**
- * CarrerapersonaSearch represents the model behind the search form of `app\models\Carrerapersona`.
+ * Carrerapersonasearch represents the model behind the search form of `app\models\Carrerapersona`.
  */
-class CarrerapersonaSearch extends Carrerapersona
-{
+class Carrerapersonasearch extends Carrerapersona {
+
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public $dniUsuario;
+	public $talleRemera;
+	public $nombreEquipo;
+	public $dniCapitan;
+
+    public function rules() {
         return [
             [['idTipoCarrera', 'idPersona', 'reglamentoAceptado', 'retiraKit'], 'integer'],
+            [['apellidoPersona', 'nombrePersona', 'dniUsuario', 'talleRemera','nombreEquipo','dniCapitan'], 'safe'],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -37,10 +45,19 @@ class CarrerapersonaSearch extends Carrerapersona
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
-        $query = Carrerapersona::find();
-
+    public function search($params) {
+        $query = Carrerapersona::find()
+                ->joinWith(['persona'])
+                ->joinWith(['persona.usuario'])
+				->joinWith(['persona.talleRemera'])
+				->joinWith(['tipoCarrera'])
+				->joinWith(['tipoCarrera.equipo']);
+				
+				
+				
+				
+				
+				
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -62,7 +79,16 @@ class CarrerapersonaSearch extends Carrerapersona
             'reglamentoAceptado' => $this->reglamentoAceptado,
             'retiraKit' => $this->retiraKit,
         ]);
+        $query->andFilterWhere(['like', 'apellidoPersona', $this->apellidoPersona]);
+        $query->andFilterWhere(['like', 'nombrePersona', $this->nombrePersona]);
+        $query->andFilterWhere(['like', 'usuario.dniUsuario', $this->dniUsuario]);
+        $query->andFilterWhere(['like', 'talleRemera.talleRemera', $this->talleRemera]);
+		
+        $query->andFilterWhere(['like', 'equipo.nombreEquipo', $this->nombreEquipo]);
+		
+        $query->andFilterWhere(['like', 'equipo.dniCapitan', $this->dniCapitan]);
 
         return $dataProvider;
     }
+
 }

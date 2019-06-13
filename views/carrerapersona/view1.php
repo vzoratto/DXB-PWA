@@ -9,15 +9,15 @@ use yii\widgets\DetailView;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="row">
-<div class="col-lg-6">
+<div class="col-lg-5">
     <?=
     DetailView::widget([
         'model' => $model,
         'attributes' => [
-		['label' => 'Edad',
+             ['label' => 'Edad',
                 'attribute' => 'edad',
                 'value' => function($model) {
-                    return ($model->persona->fechaNacPersona);
+                    return ($model->edad.'   ('.$model->persona->fechaNacPersona.')');
                 }
             ],
 			['label' => 'Telefono',
@@ -50,7 +50,7 @@ use yii\widgets\DetailView;
     ])
     ?>
 	</div>
-	<div class="col-lg-6">
+	<div class="col-lg-5">
 	<?=
     DetailView::widget([
         'model' => $model,

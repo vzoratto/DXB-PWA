@@ -16,9 +16,7 @@ if (!empty($mensaje)) {
 $this->title = "Atencion!";
 ?>
 <div class="site-error" align="center">
-
-
-    <img src="registro/alerta.png" style="margin:20px;max-width: 150px;">
+    <img src="registro/mundo.gif" style="margin:20px;max-width: 150px;">
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="alert alert-danger">
         <?php echo nl2br(Html::encode($msg));?>

@@ -25,9 +25,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'idEquipo',
-            'idPersona',
+           // 'idEquipo',
+            //'idPersona',
+			['label' => 'Capitan',
+                'attribute' => 'nombreEquipo',
+                'value' => function($model) {
+                    return ('Capitan: '.$model->equipo->dniCapitan);
+                }
+            ],
+			['label' => 'Corredores',
+                'attribute' => 'nombreEquipo',
+                'value' => function($model) {
+                    return ('Corredor: '.$model->persona->nombrePersona);
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

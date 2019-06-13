@@ -18,7 +18,7 @@ class GestoresSearch extends Gestores
     {
         return [
             [['idGestor', 'idUsuario'], 'integer'],
-            [['nombreGestor', 'apellidoGestor', 'telefonoGestor'], 'safe'],
+            [['nombreGestor', 'apellidoGestor', 'telefonoGestor','idUsuario'], 'safe'],
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use Yii\db\Query;
 
 /**
  * This is the model class for table "persona".
@@ -41,10 +42,8 @@ use Yii;
  */
 class Persona extends \yii\db\ActiveRecord
 {
-    public $reCaptcha;
     /**
      * {@inheritdoc}
-     *
      */
     public static function tableName()
     {
@@ -57,9 +56,6 @@ class Persona extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            /*[['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator2::className(),
-                'secret' => '6LcaGKgUAAAAAHxY4E8reVbdVrT9NUI7JwWTkFTD', // unnecessary if reСaptcha is already configured
-                'uncheckedMessage' => 'Confirma que no eres un robot.'],*/
              //definicion de campos obligatorios
              [['nombrePersona','nacionalidadPersona','apellidoPersona','idTalleRemera', 'donador', 'mailPersona', 'idUsuario','sexoPersona','fechaNacPersona','telefonoPersona'], 'required','message' => 'Este campo es obligatorio.'],
              //verifica que la direccion de mail sea valida
@@ -96,7 +92,7 @@ class Persona extends \yii\db\ActiveRecord
     {
         return [
             'idPersona' => 'Id Persona',
-            'idTalleRemera' => 'Id Talle Remera',
+            'idTalleRemera' => 'Talle Remera',
             'nombrePersona' => 'Nombre Persona',
             'apellidoPersona' => 'Apellido Persona',
             'fechaNacPersona' => 'Fecha Nac Persona',
@@ -105,7 +101,7 @@ class Persona extends \yii\db\ActiveRecord
             'telefonoPersona' => 'Telefono Persona',
             'mailPersona' => 'Mail Persona',
             'idUsuario' => 'Id Usuario',
-            'idPersonaDireccion' => 'Id Persona Direccion',
+            'idPersonaDireccion' => 'Direccion',
             'idFichaMedica' => 'Id Ficha Medica',
             'fechaInscPersona' => 'Fecha Insc Persona',
             'idPersonaEmergencia' => 'Id Persona Emergencia',
@@ -118,7 +114,7 @@ class Persona extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCarrerapersonas()
+    public function getCarrerapersona()
     {
         return $this->hasMany(Carrerapersona::className(), ['idPersona' => 'idPersona']);
     }
@@ -126,7 +122,7 @@ class Persona extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTipoCarreras()
+    public function getTipoCarrera()
     {
         return $this->hasMany(Tipocarrera::className(), ['idTipoCarrera' => 'idTipoCarrera'])->viaTable('carrerapersona', ['idPersona' => 'idPersona']);
     }
@@ -134,7 +130,7 @@ class Persona extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEstadopagopersonas()
+    public function getEstadopagopersona()
     {
         return $this->hasMany(Estadopagopersona::className(), ['idPersona' => 'idPersona']);
     }
@@ -142,7 +138,7 @@ class Persona extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEstadoPagos()
+    public function getEstadoPago()
     {
         return $this->hasMany(Estadopago::className(), ['idEstadoPago' => 'idEstadoPago'])->viaTable('estadopagopersona', ['idPersona' => 'idPersona']);
     }
@@ -150,7 +146,7 @@ class Persona extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGrupos()
+    public function getGrupo()
     {
         return $this->hasMany(Grupo::className(), ['idPersona' => 'idPersona']);
     }
@@ -158,7 +154,7 @@ class Persona extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEquipos()
+    public function getEquipo()
     {
         return $this->hasMany(Equipo::className(), ['idEquipo' => 'idEquipo'])->viaTable('grupo', ['idPersona' => 'idPersona']);
     }
@@ -218,4 +214,6 @@ class Persona extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Respuesta::className(), ['idPersona' => 'idPersona']);
     }
+
+	
 }
