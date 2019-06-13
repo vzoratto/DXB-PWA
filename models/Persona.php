@@ -61,7 +61,7 @@ class Persona extends \yii\db\ActiveRecord
                 'secret' => '6LcaGKgUAAAAAHxY4E8reVbdVrT9NUI7JwWTkFTD', // unnecessary if reСaptcha is already configured
                 'uncheckedMessage' => 'Confirma que no eres un robot.'],*/
              //definicion de campos obligatorios
-             [['nombrePersona','apellidoPersona','idTalleRemera', 'donador', 'mailPersona', 'idUsuario','sexoPersona','fechaNacPersona'], 'required','message' => 'Este campo es obligatorio.'],
+             [['nombrePersona','nacionalidadPersona','apellidoPersona','idTalleRemera', 'donador', 'mailPersona', 'idUsuario','sexoPersona','fechaNacPersona','telefonoPersona'], 'required','message' => 'Este campo es obligatorio.'],
              //verifica que la direccion de mail sea valida
              ['mailPersona','email','message' => 'No es una direccion de email válida.'],
              //valida que los campos nombrados sean de tipo entero
@@ -74,7 +74,7 @@ class Persona extends \yii\db\ActiveRecord
              ['donador', 'boolean'],
              // comprueba si los campos coinciden con la expresion regular dada
              [['nombrePersona','apellidoPersona','nacionalidadPersona'],'match','pattern'=>"/^[a-z-A-Z\D]+$/",'message'=>"Unicamente se aceptan caracteres alfanumericos"],
-            // [['telefonoPersona'],'match','pattern'=>"/^(?:((?P<p1>(?:\( ?)?+)(?:\+|00)?(54)(?<p2>(?: ?\))?+)(?P<sep>(?:[-.]| (?:[-.] )?)?+)(?:(?&p1)(9)(?&p2)(?&sep))?|(?&p1)(0)(?&p2)(?&sep))?+(?&p1)(11|([23]\d{2}(\d)??|(?(-10)(?(-5)(?!)|[68]\d{2})|(?!))))(?&p2)(?&sep)(?(-5)|(?&p1)(15)(?&p2)(?&sep))?(?:([3-6])(?&sep)|([12789]))(\d(?(-5)|\d(?(-6)|\d)))(?&sep)(\d{4})|(1\d{2}|911))$/D",'message'=>"No es un formato de telefono valido"],
+             [['telefonoPersona'], 'match', 'pattern' => '/^\+?([0-9])*$/','message'=>'El formato es inválido'],
              // comprueba si los atributos son cadenas con una longitud que se encuentre en el rango que se definio
              [['nombrePersona', 'apellidoPersona', 'nacionalidadPersona', 'mailPersona'], 'string', 'length' => [3,64],'message'=>'Minimo 3 y maximo 64 caracteres'],
              [['sexoPersona'], 'string', 'max' => 1],
