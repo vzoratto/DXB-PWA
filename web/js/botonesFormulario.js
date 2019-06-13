@@ -91,7 +91,7 @@ $('#numero').keyup(function(){
 })
 
 $(document).ready(function(){
-    //Remuevo la clase "next-step" en los primero cuatro pasos para que no puedan pasar de step
+    //Remuevo la clase "next-step" en los primero cuatro pasos para que no puedan pasar de step sin antes controlar los datos
     $('#stepwizard_step1_next').removeClass('next-step');
     $('#stepwizard_step2_next').removeClass('next-step');
     $('#stepwizard_step3_next').removeClass('next-step');
@@ -106,9 +106,65 @@ $('#primerStep').change(function(){
     var sexoPersona = $('input[name="Persona[sexoPersona]"]:checked').val() // Valor del checkbox sexo persona
     var talleRemeraPersona = document.getElementById("talleremera-idtalleremera").value; // Valor del talle de la remera
     var nacionalidadPersona = document.getElementById("persona-nacionalidadpersona").value; // Valor de la nacionalidad de la persona
-
+    var checkBox =$('input[name="swichtCapitan"]:checked').val(); //Valor del checkbox capitan
+    datoCompleto=false;
+    TipoCarrera=false;
+    //Si el checkbox es uno muestra las opciones de capitan
+    if (checkBox == 1) {
+        var tipoCarreraCapitan = document.getElementById("idTipocarrera").value;
+        var cantPersonasCapitan = document.getElementById("idParametrosCantPersonas").value;
+        if(tipoCarreraCapitan>0){
+            $('.field-idTipocarrera').removeClass('has-error');
+            $('.field-idTipocarrera').addClass('has-success');
+            
+            datoTipoCarrera=true;
+        }else{
+            $('.field-idTipocarrera').removeClass('has-success');
+            $('.field-idTipocarrera').addClass('has-error');
+            
+            datoTipoCarrera=false;
+        }
+        if(cantPersonasCapitan>0){
+            $('.field-idParametrosCantPersonas').removeClass('has-error');
+            $('.field-idParametrosCantPersonas').addClass('has-success');
+            datoCantPers=true;
+        }else{
+            $('.field-idParametrosCantPersonas').removeClass('has-success');
+            $('.field-idParametrosCantPersonas').addClass('has-error');
+            datoCantPers=false;
+        }
+        if(datoTipoCarrera==true && datoCantPers==true){
+            datoCompleto==true;
+        }else{
+            datoCompleto==false;
+        }
+    }else{
+        //Si el checkbox es cero muestra otras opciones
+        var dniCapitan = document.getElementById("idEquipo").value;
+        if(dniCapitan>0){
+            $('.field-idEquipo').removeClass('has-error');
+            $('.field-idEquipo').addClass('has-success');
+            $('.field-idNombreCapitan').removeClass('has-error');
+            $('.field-idNombreCapitan').addClass('has-success');
+            $('.field-idTipoDeCarrera').removeClass('has-error');
+            $('.field-idTipoDeCarrera').addClass('has-success');
+            $('.field-idCantidadPersonas').removeClass('has-error');
+            $('.field-idCantidadPersonas').addClass('has-success');
+            datoCompleto=true;
+        }else{
+            $('.field-idEquipo').removeClass('has-success');
+            $('.field-idEquipo').addClass('has-error');
+            $('.field-idNombreCapitan').removeClass('has-success');
+            $('.field-idNombreCapitan').addClass('has-error');
+            $('.field-idTipoDeCarrera').removeClass('has-success');
+            $('.field-idTipoDeCarrera').addClass('has-error');
+            $('.field-idCantidadPersonas').removeClass('has-success');
+            $('.field-idCantidadPersonas').addClass('has-error');
+            datoCompleto=false;
+        }
+    }
     //Si los campos esta vacio remuvo la clase "next-step" para que no pueda pasar al siguiente paso, en caso contrario se lo agrego
-    if (nombrePersona !=="" && apellidoPersona !=="" && fechaPersona !=="" && talleRemeraPersona !=="" && sexoPersona !==""  && nacionalidadPersona !==""){
+    if (nombrePersona !=="" && apellidoPersona !=="" && fechaPersona !=="" && talleRemeraPersona !=="" && sexoPersona !==""  && nacionalidadPersona !=="" && datoCompleto==true){
         $('#stepwizard_step1_next').addClass('next-step');
 
     }else{
@@ -129,6 +185,7 @@ $('#stepwizard_step1_next').click(function(){
     var sexoPersona = $('input[name="Persona[sexoPersona]"]:checked').val() // Valor del checkbox sexo persona
     var talleRemeraPersona = document.getElementById("talleremera-idtalleremera").value; // Valor del talle de la remera
     var nacionalidadPersona = document.getElementById("persona-nacionalidadpersona").value; // Valor de la nacionalidad de la persona
+    var checkBox =$('input[name="swichtCapitan"]:checked').val(); //Valor del checkbox capitan
 
     //Si el campo esta vacio agrego la clase "has-error" para indicar a la persona que le falta completar el campo
     //en caso contrario le remuevo la clase
@@ -161,6 +218,27 @@ $('#stepwizard_step1_next').click(function(){
         $('.field-persona-nacionalidadpersona').addClass('has-error');  
     }else{
         $('.field-persona-nacionalidadpersona').removeClass('has-error');  
+    }
+    //Si el checkbox es uno muestra las opciones de capitan
+    if (checkBox == 1) {
+        var tipoCarreraCapitan = document.getElementById("idTipocarrera").value;
+        var cantPersonasCapitan = document.getElementById("idParametrosCantPersonas").value;
+        if(tipoCarreraCapitan>0 && cantPersonasCapitan>0){
+            $('.field-idTipocarrera').removeClass('has-error');
+            $('.field-idParametrosCantPersonas').removeClass('has-error');    
+        }else{
+            $('.field-idTipocarrera').addClass('has-error');
+            $('.field-idParametrosCantPersonas').addClass('has-error');  
+        }
+        
+    }else{
+        //Si el checkbox es cero muestra otras opciones
+        var dniCapitan = document.getElementById("idEquipo").value;
+        if(dniCapitan>0){
+            $('.field-idEquipo').removeClass('has-error');
+        }else{
+            $('.field-idEquipo').addClass('has-error');      
+        }
     }
 })
 
@@ -347,4 +425,3 @@ $('#stepwizard_step4_next').click(function(){
     }
 
 })
-
