@@ -8,18 +8,18 @@ $this->title = 'My Yii Application';
 
     <div class="jumbotron">
         <?php
-        $guardado=(isset($_REQUEST['guardado']) ? $_REQUEST['guardado']: null );
+        $guardado=(isset($_REQUEST['guardado']) ? $_REQUEST['guardado']: false );
         if(isset($guardado)) {
-            if ($guardado==1) {
+            if ($guardado==true) {
                 ?>
                 <div class="alert alert-success">
-                    <p>Se inscribio correctamente</p>
+                    <p><?php echo $_REQUEST['mensaje'];?></p>
                 </div>
                 <?php
             } else {
                 ?>
                 <div class="alert alert-danger">
-                    <p>hubo un error</p>
+                    <p><?php echo $_REQUEST['mensaje'];?></p>
                 </div>
                 <?php
             }
