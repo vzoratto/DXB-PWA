@@ -21,13 +21,10 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+        'css/responsive.css',
         'css/botonSwicht.css',
         'js/pickadate/themes/default.css',
         'js/pickadate/themes/classic.date.css',
-
-
-
-
     ];
     public $js = [
         'js/botonesFormulario.js',
@@ -35,9 +32,9 @@ class AppAsset extends AssetBundle
         'js/pickadate/picker.date.js',
         'js/pickadate/legacy.js',
         'js/pickadate/app.js',
-        'js/cambiarIdioma.js'
-
-
+        'js/cambiarIdioma.js',
+        'js/main.js',
+        'js/countdownClock.js'
 
     ];
     public $depends = [

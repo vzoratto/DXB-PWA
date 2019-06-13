@@ -30,7 +30,7 @@ use yii\widgets\MaskedInput;
                 'preferredCountries' => ['ar', 'br', 'cl', 'uy', 'py', 'bo'],
                 'nationalMode' => false,
                 ]
-            ])->label('') ?> 
+            ])->label('') ?>
         </div>
 
         <!-- Ingreso del e-mail -->
@@ -39,9 +39,9 @@ use yii\widgets\MaskedInput;
         </div>
 
     </div>
-    
+
     <div class="row">
-            
+
         <div id="nombreProvincia" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
             <?= $form->field($provincia, 'idProvincia')->widget(Select2::classname(), [
                 'data' => $provinciaLista,
@@ -67,10 +67,10 @@ use yii\widgets\MaskedInput;
             ?>
         </div>
     </div>
-    
+
     <!-- Ingreso de la direccion de la persona -->
     <div id="direccionUsuario"> 
-        <div class="row">
+        <div class="row no-label">
             <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6" id="calleDireccion">
             <label>Calle: </label>
                 <?= Html::input('text','calle',$datos['calle'], $option=['class'=>'form-control','id'=>'calle']) ?>
@@ -83,16 +83,16 @@ use yii\widgets\MaskedInput;
             </div>
             <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
                 <label>Piso: </label>
-                <?= Html::input('text','piso', $datos['piso'], $option=['class'=>'form-control']) ?>
+                <?= Html::input('text','piso', $datos['piso'], $option=['class'=>'form-control', 'placeholder' => 'Piso']) ?>
             </div>
             <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
             <label>Departamento: </label>
-                <?= Html::input('text','departamento', $datos['departamento'], $option=['class'=>'form-control']) ?>
+                <?= Html::input('text','departamento', $datos['departamento'], $option=['class'=>'form-control', 'placeholder' => 'Departamento']) ?>
             </div>
-           
+
         </div>
     </div>
-    
+
 </div>
 <br>
 
