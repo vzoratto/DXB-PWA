@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Carrerapersona;
-use app\models\CarrerapersonaSearch;
+use app\models\Carrerapersonasearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,7 +35,7 @@ class CarrerapersonaController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CarrerapersonaSearch();
+        $searchModel = new Carrerapersonasearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -89,13 +89,26 @@ class CarrerapersonaController extends Controller
         $model = $this->findModel($idTipoCarrera, $idPersona);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idTipoCarrera' => $model->idTipoCarrera, 'idPersona' => $model->idPersona]);
+            return $this->redirect(['index', 'idTipoCarrera' => $model->idTipoCarrera, 'idPersona' => $model->idPersona]);
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
     }
+    public function actionUpdatepersona($idTipoCarrera, $idPersona)
+    {
+        $model = $this->findModel($idTipoCarrera, $idPersona);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index', 'idTipoCarrera' => $model->idTipoCarrera, 'idPersona' => $model->idPersona]);
+        }
+
+        return $this->render('updatepersona', [
+            'model' => $model,
+        ]);
+    }
+	
 
     /**
      * Deletes an existing Carrerapersona model.

@@ -14,18 +14,29 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'dniUsuario')->textInput() ?>
 
-    <?= $form->field($model, 'claveUsuario')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'claveUsuario')->passwordinput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'mailUsuario')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'authkey')->textInput(['maxlength' => true]) ?>
+    <!--<?= $form->field($model, 'authkey')->textInput(['maxlength' => true]) ?>-->
 
-    <?= $form->field($model, 'activado')->textInput() ?>
-
-    <?= $form->field($model, 'idRol')->textInput() ?>
-
+    <!--<?= $form->field($model, 'activado')->textInput() ?>-->
+    <?php
+         if ($model->isNewRecord){   
+            echo $form->field($model, 'idRol')->dropDownList($model->roldescripcion, 
+             ['prompt'=>'- Selecciona uno...']);
+          }else{
+	         echo $form->field($model, 'idRol')->dropDownList($model->roldescripcion,
+             ['value' => !empty($model->idRol) ? $model->idRol :['prompt'=>'Selecciona uno...']]);
+         }
+	    ?>
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?php
+          if ($model->isNewRecord) 
+             echo Html::submitButton('Ingresar', ['class' => 'btn btn-success']);
+          else	 
+		     echo Html::submitButton('Actualizar', ['class' => 'btn btn-success']);
+	     ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -49,8 +49,19 @@ class Tipocarrera extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEquipos()
+    public function getEquipo()
     {
         return $this->hasMany(Equipo::className(), ['idTipoCarrera' => 'idTipoCarrera']);
     }
+	
+		public function getCarreraPersona()
+    {
+        return $this->hasMany(CarreraPersona::className(), ['idTipoCarrera' => 'idTipoCarrera'])->viaTable('tipocarrera',['idTipoCarrera'=>'idTipoCarrera']);
+    }
+	
+	
+	
+	
+	
+	
 }

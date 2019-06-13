@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Equipo;
-use app\models\EquipoSearch;
+use app\models\Pagoinscripcion;
+use app\models\PagoinscripcionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * EquipoController implements the CRUD actions for Equipo model.
+ * PagoinscripcionController implements the CRUD actions for Pagoinscripcion model.
  */
-class EquipoController extends Controller
+class PagoinscripcionController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class EquipoController extends Controller
     }
 
     /**
-     * Lists all Equipo models.
+     * Lists all Pagoinscripcion models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new EquipoSearch();
+        $searchModel = new PagoinscripcionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class EquipoController extends Controller
     }
 
     /**
-     * Displays a single Equipo model.
+     * Displays a single Pagoinscripcion model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,25 +58,26 @@ class EquipoController extends Controller
     }
 
     /**
-     * Creates a new Equipo model.
+     * Creates a new Pagoinscripcion model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Equipo();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idEquipo]);
+        $model = new Pagoinscripcion();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->idPago]);
         }
-
+    }
         return $this->render('create', [
             'model' => $model,
         ]);
     }
 
     /**
-     * Updates an existing Equipo model.
+     * Updates an existing Pagoinscripcion model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,7 +88,7 @@ class EquipoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->idEquipo]);
+            return $this->redirect(['view', 'id' => $model->idPago]);
         }
 
         return $this->render('update', [
@@ -96,7 +97,7 @@ class EquipoController extends Controller
     }
 
     /**
-     * Deletes an existing Equipo model.
+     * Deletes an existing Pagoinscripcion model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +111,15 @@ class EquipoController extends Controller
     }
 
     /**
-     * Finds the Equipo model based on its primary key value.
+     * Finds the Pagoinscripcion model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Equipo the loaded model
+     * @return Pagoinscripcion the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Equipo::findOne($id)) !== null) {
+        if (($model = Pagoinscripcion::findOne($id)) !== null) {
             return $model;
         }
 

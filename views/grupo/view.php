@@ -31,6 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'idEquipo',
             'idPersona',
+			['label' => 'Corredores',
+                'attribute' => 'nombreEquipo',
+                'value' => function($model) {
+                  //  return ('Cantidad: '.$model->equipo->cantidadPersonas);
+                }
+            ]
         ],
     ]) ?>
 

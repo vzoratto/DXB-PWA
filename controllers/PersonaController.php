@@ -9,6 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use app\models\Carrerapersona;
+use app\models\Carrerapersonasearch;
+
 /**
  * PersonaController implements the CRUD actions for Persona model.
  */
@@ -87,7 +90,7 @@ class PersonaController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idPersona]);
+            return $this->redirect(['carrerapersona/index', 'id' => $model->idPersona]);
         }
 
         return $this->render('update', [

@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Gestores */
+/* @var $model app\models\Pagoinscripcion */
 
-$this->title = 'Crear Administrativos';
-$this->params['breadcrumbs'][] = ['label' => 'Gestores', 'url' => ['index']];
+$this->title = 'Create Pagoinscripcion';
+$this->params['breadcrumbs'][] = ['label' => 'Pagoinscripcions', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="gestores-create">
+<div class="pagoinscripcion-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

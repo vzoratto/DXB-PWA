@@ -4,6 +4,9 @@ namespace app\models;
 
 use Yii;
 use yii\web\IdentityInterface;
+use yii\helpers\ArrayHelper;
+use app\models\Rol;
+
 /**
  * This is the model class for table "usuario".
  *
@@ -39,6 +42,7 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
             [['dniUsuario', 'claveUsuario', 'mailUsuario', 'authkey', 'activado', 'idRol'], 'required','message'=>'Este campo es obligatorio.'],
             //valida que los datos dniUsuario, activado e idRol sean de tipo entero
             [['dniUsuario', 'activado', 'idRol'], 'integer','message'=>'Este valor es incorrecto.'],
+           // ['dniUsuario','usuario_existe'],
             //valida que claveUsuario y mailUsuario sean de tipo string con un maximo de 100 caracteres
             [['claveUsuario', 'mailUsuario'], 'string', 'max' => 100],
             //valida que authkey sea del tipo string con maximo de 50 caracteres
@@ -62,7 +66,16 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
             'idRol' => 'Rol',
         ];
     }
-
+    /*public function usuario_existe($attribute, $params)
+    {
+       //Buscar el username en la tabla
+        $table = Usuario::find()->where("dniUsuario=:dniUsuario", [":dniUsuario" => $this->dniUsuario]);
+        //Si el username existe mostrar el error
+        if ($table->count() == 1)
+        {
+                $this->addError($attribute, "El usuario ingresado existe, verificar los datos.");
+         }
+    }*/
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -86,13 +99,27 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(Rol::className(), ['idRol' => 'idRol']);
     }
+    public function getRoles(){
+        return $this->idRol->Rol;
+      }
+
+      public static function roleInArray($arr_role){
+        return in_array(Yii::$app->user->identity->idRol, $arr_role);
+      }
+
+      public function getRoldescripcion(){
+          $dropciones=Rol::find()->asArray()->all();
+          return ArrayHelper::map($dropciones,'idRol','descripcionRol');
+      }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getUsuario($dni)
     {
-        return $this->hasOne(Usuario::className(), ['dniUsuario' => $dni]);
+        return self::find()
+		     ->where(["dniUsuario" => $dni])->one();
+		    
     }
 
     public function getElusuario($d,$c)

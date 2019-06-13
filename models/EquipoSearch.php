@@ -5,6 +5,12 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Equipo;
+use app\models\Grupo;
+use app\models\Persona;
+
+use app\models\Personasearch;
+
+use app\models\Gruposearch;
 
 /**
  * EquipoSearch represents the model behind the search form of `app\models\Equipo`.
@@ -14,11 +20,13 @@ class EquipoSearch extends Equipo
     /**
      * {@inheritdoc}
      */
+	 public $nombrePersona;
+	 
     public function rules()
     {
         return [
             [['idEquipo', 'cantidadPersonas', 'idTipoCarrera', 'dniCapitan', 'deshabilitado'], 'integer'],
-            [['nombreEquipo'], 'safe'],
+            [['nombreEquipo','nombrePersona'], 'safe'],
         ];
     }
 
@@ -40,7 +48,9 @@ class EquipoSearch extends Equipo
      */
     public function search($params)
     {
-        $query = Equipo::find();
+        $query = Equipo::find()
+		       ->joinWith(['grupo'])
+               ->joinWith(['grupo.persona']);
 
         // add conditions that should always apply here
 
@@ -66,6 +76,7 @@ class EquipoSearch extends Equipo
         ]);
 
         $query->andFilterWhere(['like', 'nombreEquipo', $this->nombreEquipo]);
+		$query->andFilterWhere(['like', 'persona.nombrePersona', $this->nombrePersona]);
 
         return $dataProvider;
     }

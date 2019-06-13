@@ -1,7 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
+use app\models\Usuario;
+use app\models\Rol;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\UsuarioSearch */
@@ -15,9 +18,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Usuario', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Usuario', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
+    
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -26,16 +29,29 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idUsuario',
+            //'idUsuario',
             'dniUsuario',
-            'claveUsuario',
+            //'claveUsuario',
             'mailUsuario',
-            'authkey',
+           // 'authkey',
             //'activado',
-            //'idRol',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
+          
+             [ 'label'=>'Rol',
+               'attribute' => 'idRol',
+                'value' => function($model) {
+                    return ($model->rol->descripcionRol);
+                },
+                'filter' => ArrayHelper::map(Rol::find()->asArray()->all(), 'idRol', 'descripcionRol'),
+              ],
+           [
+            'class' => 'yii\grid\ActionColumn',
+            'contentOptions' => [],
+            'header'=>'Actions',
+            'template' => '{view}',
+            
+            ]
+          ],
+        
     ]); ?>
 
 

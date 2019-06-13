@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Persona;
 
 /**
  * This is the model class for table "carrerapersona".
@@ -10,12 +11,18 @@ use Yii;
  * @property int $idTipoCarrera
  * @property int $idPersona
  * @property int $reglamentoAceptado
+ * @property int $retiroKit
  *
  * @property Persona $persona
  * @property Tipocarrera $tipoCarrera
  */
-class Carrerapersona extends \yii\db\ActiveRecord
+class Carrerapersona extends \yii\db\ActiveRecord    
 {
+	public $apellidoPersona;
+	public $nombrePersona;
+	public $dniUsuario;
+	public $talleRemera;
+	public $nombreEquipo;
     /**
      * {@inheritdoc}
      */
@@ -30,12 +37,14 @@ class Carrerapersona extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idTipoCarrera', 'idPersona'], 'required'],
-            [['idTipoCarrera', 'idPersona', 'reglamentoAceptado'], 'integer'],
+            [['idTipoCarrera', 'idPersona', 'retiroKit'], 'required'],
+            [['idTipoCarrera', 'idPersona', 'reglamentoAceptado', 'retiroKit'], 'integer'],
             [['idTipoCarrera', 'idPersona'], 'unique', 'targetAttribute' => ['idTipoCarrera', 'idPersona']],
             [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
             [['idTipoCarrera'], 'exist', 'skipOnError' => true, 'targetClass' => Tipocarrera::className(), 'targetAttribute' => ['idTipoCarrera' => 'idTipoCarrera']],
-        ];
+            [['apellidoPersona','nombrePersona','talleRemera','nombreEquipo'], 'safe'],
+			
+	   ];
     }
 
     /**
@@ -44,9 +53,11 @@ class Carrerapersona extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idTipoCarrera' => 'Id Tipo Carrera',
+            'idTipoCarrera' => 'Tipo Carrera',
             'idPersona' => 'Id Persona',
             'reglamentoAceptado' => 'Reglamento Aceptado',
+            'retiroKit' => 'Retiro Kit',
+			'apellidoPersona'=>'apellidoPersona',
         ];
     }
 
@@ -65,4 +76,13 @@ class Carrerapersona extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Tipocarrera::className(), ['idTipoCarrera' => 'idTipoCarrera']);
     }
+	public function getEquipo()
+    {
+        return $this->hasOne(Equipo::className(), ['idTipoCarrera' => 'idTipoCarrera']);
+    }
+   
+    public function getTalleRemera(){
+	   return $this->hasOne(Persona::className(),['idTalleRemera'=> 'idTalleRemera'])->viaTable (TalleRemera::className(),['idTalleRemera'=>'idTalleRemera']);
+    }
+	
 }

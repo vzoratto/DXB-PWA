@@ -10,12 +10,11 @@ use yii\base\Model;
  */
 class ContactForm extends Model
 {
-    public $name;
+    
     public $email;
     public $subject;
     public $body;
-    public $verifyCode;
-
+    
 
     /**
      * @return array the validation rules.
@@ -23,12 +22,11 @@ class ContactForm extends Model
     public function rules()
     {
         return [
-            // name, email, subject and body are required
-            [['email', 'subject', 'body'], 'required'],
+            // email, subject and body are required
+            [['email', 'subject', 'body'], 'required','message' => 'Campo requerido'],
             // email has to be a valid email address
-            ['email', 'email'],
-            // verifyCode needs to be entered correctly
-            ['verifyCode', 'captcha'],
+            ['email', 'email','message' => 'Formato incorrecto'],
+            
         ];
     }
 
@@ -38,7 +36,7 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
-            'verifyCode' => 'Verification Code',
+            
         ];
     }
 
@@ -49,11 +47,13 @@ class ContactForm extends Model
      */
     public function contact($email)
     {
+        $content = "<p>Email: " . $this->email . "</p>";
+        $content .= "<p>Subject: " . $this->subject . "</p>";
+        $content .= "<p>Body: " . $this->body . "</p>";
         if ($this->validate()) {
-            Yii::$app->mailer->compose()
+            Yii::$app->mailer->compose(["content" => $content])
                 ->setTo($email)
-                ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
-                ->setReplyTo([$this->email => $this->name])
+                ->setFrom([$this->email])
                 ->setSubject($this->subject)
                 ->setTextBody($this->body)
                 ->send();
