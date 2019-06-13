@@ -35,6 +35,7 @@ class AppAsset extends AssetBundle
         'js/pickadate/picker.date.js',
         'js/pickadate/legacy.js',
         'js/pickadate/app.js',
+        'js/cambiarIdioma.js'
 
 
 
