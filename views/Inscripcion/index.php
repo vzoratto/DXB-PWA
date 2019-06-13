@@ -112,27 +112,13 @@ $wizard_config = [
 							'value' => 'Terminar inscripción',
 							'disabled' => false
                         ]
-                    ],
-        		],
-                6 => [
-                    'title' => 'Reglamento',
-                    'icon' => 'glyphicon glyphicon-file',
-                    'content' => 'hacer',
-                    'buttons' => [
-                        'save' => [
-                            'html' => Html::submitButton(
-                                Yii::t('app', 'Terminar inscripción'),
-                                [
-                                    'class' => 'btn btn-success',
-                                    'value' => 'Terminar inscripción'
-                                ]
-                            ),
-                        ],
-                        'previous' => [
-                            'title' => 'Atras',
-                        ]
-                    ],
+                    ),
                 ],
+                'previous' => [
+                    'title' => 'Atras',
+                ]
+            ],
+        ],   
         	],
         	'start_step' => 1, // Optional, start with a specific step
         ];
