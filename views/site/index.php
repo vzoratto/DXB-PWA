@@ -10,19 +10,22 @@ $this->title = 'My Yii Application';
         <?php
         $guardado=(isset($_REQUEST['guardado']) ? $_REQUEST['guardado']: false );
         if(isset($guardado)) {
-            if ($guardado==true) {
-                ?>
-                <div class="alert alert-success">
-                    <p><?php echo $_REQUEST['mensaje'];?></p>
-                </div>
-                <?php
-            } else {
-                ?>
-                <div class="alert alert-danger">
-                    <p><?php echo $_REQUEST['mensaje'];?></p>
-                </div>
-                <?php
+            if(isset($_REQUEST['mensaje'])){
+                if ($guardado==true) {
+                    ?>
+                    <div class="alert alert-success">
+                        <p><?php echo $_REQUEST['mensaje'];?></p>
+                    </div>
+                    <?php
+                } else {
+                    ?>
+                    <div class="alert alert-danger">
+                        <p><?php echo $_REQUEST['mensaje'];?></p>
+                    </div>
+                    <?php
+                }
             }
+
         }
 
         ?>
