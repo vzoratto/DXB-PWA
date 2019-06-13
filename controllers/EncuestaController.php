@@ -8,6 +8,8 @@ use app\models\EncuestaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
+use app\models\Pregunta;
 
 /**
  * EncuestaController implements the CRUD actions for Encuesta model.
@@ -15,8 +17,11 @@ use yii\filters\VerbFilter;
 class EncuestaController extends Controller
 {
     public function actionDescargaencuesta(){
+
         $encuesta=Encuesta::find();
-        return $this->render('descargaencuesta',['encuesta'=>$encuesta]);
+
+        $dataProvider=new ActiveDataProvider(['query'=>$encuesta,]);
+        return $this->render('descargaencuesta',['dataProvider'=>$dataProvider]);
     }
 
     /**

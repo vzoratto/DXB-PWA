@@ -1,17 +1,32 @@
 <?php
+use kartik\export\ExportMenu;
+use kartik\grid\GridView;
 
-use app\models\Encuesta;
 
+echo ExportMenu::widget([
+    'dataProvider' => $dataProvider,
+    'columns' => [
+        ['class' => 'kartik\grid\SerialColumn'],
+        'idEncuesta',
+        'encTitulo',
+        'encDescripcion',
+        'encPublica',
+    ],
+    'fontAwesome' => true,
 
-        $file = \Yii::createObject([
-            'class' => 'codemix\excelexport\ExcelFile',
-            'sheets' => [
-                'Users' => [
-                    'class' => 'codemix\excelexport\ActiveExcelSheet',
-                    'query' => $encuesta,
-                ]
-            ]
-        ]);
-
-        $file->send('user.xlsx');
+    'dropdownOptions' => [
+        'label' => 'Export All',
+        'class' => 'btn btn-default'
+    ]
+]) . "<hr>\n".
+GridView::widget([
+'dataProvider' => $dataProvider,
+'columns' => [
+    ['class' => 'kartik\grid\SerialColumn'],
+    'idEncuesta',
+    'encTitulo',
+    'encDescripcion',
+    'encPublica',
+],
+])
     ?>

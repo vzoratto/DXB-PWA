@@ -8,6 +8,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use kartik\export\ExportMenu;
 
 
 
@@ -25,7 +26,23 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Crear Encuesta', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Preguntas', ['pregunta/index'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Descarga', ['descargaencuesta'], ['class' => 'btn btn-warning']) ?>    
+        <?= ExportMenu::widget([
+            'dataProvider' => $dataProvider,
+            'columns' => [
+                ['class' => 'kartik\grid\SerialColumn'],
+                'idEncuesta',
+                'encTitulo',
+                'encDescripcion',
+                'encPublica',
+            ],
+            'fontAwesome' => true,
+
+            'dropdownOptions' => [
+                'label' => 'Export All',
+                'class' => 'btn btn-default'
+            ]
+        ])
+        ?>    
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
