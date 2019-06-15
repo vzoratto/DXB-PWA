@@ -46,10 +46,10 @@ class Encuesta extends \yii\db\ActiveRecord
     {
         return [
             'idEncuesta' => 'Id Encuesta',
-            'encTitulo' => 'Enc Titulo',
-            'encDescripcion' => 'Enc Descripcion',
-            'encPublica' => 'Enc Publica',
-            'encTipo' => 'Enc Tipo',
+            'encTitulo' => 'Titulo',
+            'encDescripcion' => 'Descripcion',
+            'encPublica' => 'Publica',
+            'encTipo' => 'Tipo',
         ];
     }
 

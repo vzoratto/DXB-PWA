@@ -11,7 +11,7 @@ use yii\helpers\Url;
 /* @var $model app\models\Pregunta */
 /* @var $form yii\widgets\ActiveForm */
 
-$lista=RespuestaTipoController::listarTipos();
+$lista=RespuestaTipoController::listarTipos($encTipo);
 
 $listas=ArrayHelper::map($lista, 'idRespTipo', 'respTipoDescripcion');
 

@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 use app\models\Encuesta;
+use app\models\EncuestaSearch;
 
 /**
  * PreguntaController implements the CRUD actions for Pregunta model.
@@ -100,6 +101,9 @@ class PreguntaController extends Controller
     public function actionCreate()
     {
         $id=$_REQUEST['id'];//recibe el idEncuesta.
+        $encuesta=EncuestaSearch::find()->where(['idEncuesta'=>$id])->one();
+        $encTipo=$encuesta->encTipo;
+
 
         $model = new Pregunta();
 
@@ -111,6 +115,7 @@ class PreguntaController extends Controller
             $model->idEncuesta=$id;
             return $this->render('create', [
                 'model' => $model,
+                'encTipo'=>$encTipo,
             ]);
     }
 
