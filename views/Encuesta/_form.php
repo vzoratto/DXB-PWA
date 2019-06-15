@@ -9,8 +9,23 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="encuesta-form">
-
+    
     <?php $form = ActiveForm::begin(); ?>
+
+    <div class="row">
+        <div class="left" >
+            //Este switch nos permite darle respuestas correctas a las preguntas para poder comparar después 
+            <label>¿Que deseas generar?</label>
+        </div>
+        <div class="switch pull-left" >
+            <input type="radio" class="switch-input input-db" name="switchTrivia" value="1" id="enc" onClick=myFunction() >
+            <label for="enc" class="switch-label switch-label-off">Encuesta</label>
+            <input type="radio" class="switch-input input-db" name="switchTrivia" value="0" id="triv" checked onClick=myFunction()>
+            <label for="triv" class="switch-label switch-label-on">Trivia</label>
+            <span class="switch-selection"></span>
+        </div>
+    </div>
+    
     <div class=" form-group">
         <?= $form->field($model, 'encTitulo')->textInput() ?>
     </div>

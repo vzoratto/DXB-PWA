@@ -11,6 +11,7 @@ use Yii;
  * @property string $encTitulo
  * @property string $encDescripcion
  * @property int $encPublica
+ * @property string $encTipo
  *
  * @property Pregunta[] $preguntas
  */
@@ -30,10 +31,11 @@ class Encuesta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['encTitulo', 'encDescripcion'], 'required'],
+            [['encTitulo', 'encDescripcion', 'encTipo'], 'required'],
             [['encPublica'], 'integer'],
             [['encTitulo'], 'string', 'max' => 150],
             [['encDescripcion'], 'string', 'max' => 250],
+            [['encTipo'], 'string', 'max' => 10],
         ];
     }
 
@@ -44,9 +46,10 @@ class Encuesta extends \yii\db\ActiveRecord
     {
         return [
             'idEncuesta' => 'Id Encuesta',
-            'encTitulo' => 'Titulo',
-            'encDescripcion' => 'Descripcion',
-            'encPublica' => 'Publica',
+            'encTitulo' => 'Enc Titulo',
+            'encDescripcion' => 'Enc Descripcion',
+            'encPublica' => 'Enc Publica',
+            'encTipo' => 'Enc Tipo',
         ];
     }
 

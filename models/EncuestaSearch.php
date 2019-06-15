@@ -18,7 +18,7 @@ class EncuestaSearch extends Encuesta
     {
         return [
             [['idEncuesta', 'encPublica'], 'integer'],
-            [['encTitulo', 'encDescripcion'], 'safe'],
+            [['encTitulo', 'encDescripcion', 'encTipo'], 'safe'],
         ];
     }
 
@@ -63,7 +63,8 @@ class EncuestaSearch extends Encuesta
         ]);
 
         $query->andFilterWhere(['like', 'encTitulo', $this->encTitulo])
-            ->andFilterWhere(['like', 'encDescripcion', $this->encDescripcion]);
+            ->andFilterWhere(['like', 'encDescripcion', $this->encDescripcion])
+            ->andFilterWhere(['like', 'encTipo', $this->encTipo]);
 
         return $dataProvider;
     }

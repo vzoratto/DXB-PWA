@@ -8,22 +8,12 @@ use app\models\EncuestaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\data\ActiveDataProvider;
-use app\models\Pregunta;
 
 /**
  * EncuestaController implements the CRUD actions for Encuesta model.
  */
 class EncuestaController extends Controller
 {
-    public function actionDescargaencuesta(){
-
-        $encuesta=Encuesta::find();
-
-        $dataProvider=new ActiveDataProvider(['query'=>$encuesta,]);
-        return $this->render('descargaencuesta',['dataProvider'=>$dataProvider]);
-    }
-
     /**
      * Devuelve el elemento Encuesta que este activo para ser publicado
      */
