@@ -46,7 +46,7 @@ class SiteController extends Controller
                     ],
 
                     [
-                        'actions' => ['index,view,create,update,delete,logout'],
+                        'actions' => ['index,view,create,update,delete,logout, admin'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
@@ -191,7 +191,7 @@ class SiteController extends Controller
           if ($model->load(Yii::$app->request->post())){ //previene por si el usuario tiene desactivado javascript
               if($model->validate()){
                 $tabla = new Usuario();
-				  if ($tabla->getUsuario($model->dni)) {
+				  if (!$tabla->getUsuario($model->dni)) {
                        $tabla->dniUsuario=$model->dni;
                        $tabla->claveUsuario = crypt($model->password, Yii::$app->params["salt"]);//Encriptamos el password
                        $tabla->mailUsuario = $model->email;
@@ -227,7 +227,7 @@ class SiteController extends Controller
 					 return $this->render('error', ['mensaje' => $mensaje]);
                   }	   
 		      }else{
-                $mensaje = "Ya existe el numero de documento, por favor contactate con la administracion.";
+                $mensaje = "Los datos no se pudieron validar, por favor contactate con la administracion.";
                 return $this->render('error', ['mensaje' => $mensaje]);
                 }
              }
