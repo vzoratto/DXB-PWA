@@ -87,7 +87,7 @@ class EquipoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idEquipo]);
+            return $this->redirect(['index', 'id' => $model->idEquipo]);
         }
 
         return $this->render('update', [

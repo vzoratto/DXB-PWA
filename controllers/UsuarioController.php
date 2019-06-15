@@ -5,9 +5,12 @@ namespace app\controllers;
 use Yii;
 use app\models\Usuario;
 use app\models\UsuarioSearch;
+use app\models\CambiapassForm;
 use yii\web\Controller;
+use yii\web\IdentityInterface;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
 
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
@@ -22,7 +25,7 @@ class UsuarioController extends Controller
      */
 
      public function init() {
-        $this->usuario_log = (!empty($_SESSION["__id"])) ? $_SESSION["__id"] : "0";
+        $this->usuario_log = (!empty($_SESSION['__id'])) ? $_SESSION['__id'] : 0;
     }
 
     /**
@@ -54,7 +57,24 @@ class UsuarioController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
+	/**
+     * Cambia el password.
+     * @return mixed
+     */
+   /* public function actionCambiapass(){
+        $model = new CambiapassForm();
+        if($model->load(Yii::$app->request->post()) && $model->validate()){
+            $dni=$model->dni;
+             if(($usuario = Usuario::findOne($dni)) !== null) {
+                $usuario->claveUsuario=crypt($model->nuevo_password, Yii::$app->params["salt"]);
+                if($usuario->save()) {
+                Yii::$app->session->setFlash('success','Se ha cambiado correctamente tu password');
+                return $this->refresh();
+                }
+             }
+        }
+        return $this->render('cambiapass',['model'=>$model]);
+    }*/
     /**
      * Displays a single Usuario model.
      * @param integer $id
@@ -76,11 +96,14 @@ class UsuarioController extends Controller
     public function actionCreate()
     {
         $model = new Usuario();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())){  
+            $model->claveUsuario = crypt($model->claveUsuario, Yii::$app->params["salt"]);
+            $model->authkey = $this->randKey("carrerabarda", 50);//clave será utilizada para activar el usuario
+            $model->activado=1;
+            if($model->save()) {
             return $this->redirect(['view', 'id' => $model->idUsuario]);
+            }
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -134,5 +157,20 @@ class UsuarioController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * funcion random para claves,long 50 hexa
+     */
+    private function randKey($str='', $long=0){//este
+        $key = null;
+        $str = str_split($str);
+        $start = 0;
+        $limit = count($str)-1;
+        for($x=0; $x<$long; $x++)
+        {
+            $key .= $str[rand($start, $limit)];
+        }
+        return $key;
     }
 }

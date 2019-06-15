@@ -11,15 +11,14 @@ use yii\widgets\ActiveForm;
 <div class="carrerapersona-form">
 
     <?php $form = ActiveForm::begin(); ?>
+	 <?= $form->field($model ,'retiroKit')->dropDownList( array("1"=>"si","2"=>"no"), ['prompt' => 'Seleccione' ])->label('Retiro Kit'); ?>
+	 <?php //echo $form->field($equipo,'nombreEquipo')->textInput(['maxlength' => true])->label('Numero Corredor') ;
+	 ?>
 
-    <?= $form->field($model, 'idTipoCarrera')->textInput() ?>
-
-    <?= $form->field($model, 'idPersona')->textInput() ?>
-
-    <?= $form->field($model, 'reglamentoAceptado')->textInput() ?>
+    <?= $form->field($model, 'retiraKit')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success'],['carrerapersona/index']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

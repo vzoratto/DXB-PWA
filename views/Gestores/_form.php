@@ -18,10 +18,24 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'telefonoGestor')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'idUsuario')->textInput() ?>
+    <!--<?= $form->field($model, 'idUsuario')->textInput() ?>-->
+    <?php
+         if ($model->isNewRecord){   
+            echo $form->field($model, 'idUsuario')->dropDownList($model->dniusuarios, 
+             ['prompt'=>'- Selecciona uno...']);
+          }else{
+	         echo $form->field($model, 'idUsuario')->dropDownList($model->dniusuarios,
+             ['value' => !empty($model->idUsuario) ? $model->idUsuario :['prompt'=>'Selecciona uno...']]);
+         }
+	    ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?php
+          if ($model->isNewRecord) 
+             echo Html::submitButton('Ingresar', ['class' => 'btn btn-success']);
+          else	 
+		     echo Html::submitButton('Actualizar', ['class' => 'btn btn-success']);
+	     ?>
     </div>
 
     <?php ActiveForm::end(); ?>

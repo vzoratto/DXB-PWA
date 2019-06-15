@@ -8,6 +8,7 @@ use yii\helpers\Html;
 
 if (!empty($mensaje)) {
     $msg = $mensaje;
+    
 } else {
     $msg = "No se puede acceder a esta pagina";
 }

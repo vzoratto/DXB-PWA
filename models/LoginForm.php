@@ -13,7 +13,7 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
-    public $username;
+    public $dni;
     public $password;
     public $rememberMe = true;
 
@@ -27,9 +27,9 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-			[['username', 'password'], 'required', 'message' => 'Campo requerido'],
-            ['username', 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mi­nimo y maximo 8 caracteres'],
-            ['username', 'match', 'pattern' => "/^[0-9]+$/", 'message' => 'Solo se aceptan numeros'],
+			[['dni', 'password'], 'required', 'message' => 'Campo requerido'],
+            ['dni', 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mi­nimo y maximo 8 caracteres'],
+            ['dni', 'match', 'pattern' => "/^[0-9]+$/", 'message' => 'Solo se aceptan numeros'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -79,7 +79,7 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = Usuario::findByUsername($this->username);
+            $this->_user = Usuario::findByUsername($this->dni);
         }
 
         return $this->_user;

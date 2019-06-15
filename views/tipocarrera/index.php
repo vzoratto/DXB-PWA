@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'idTipoCarrera',
             'descripcionCarrera',
+            'reglamento',
             'deshabilitado',
 
             ['class' => 'yii\grid\ActionColumn'],

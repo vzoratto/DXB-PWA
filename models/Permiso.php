@@ -26,8 +26,10 @@ class Permiso
     }
     public function requerirActivo($activado){
 
-        $activo=Yii::$app->user->identity->activado->activado;
-        return $activo==$activado?true:false;
+        $activo=Usuario::findIdentity($_SESSION['__id']);
+        return $activo->activado==$activado?true:false;
+        //Yii::$app->user->identity->activado->activado;
+        //return $activo==$activado?true:false;
     }
 
 

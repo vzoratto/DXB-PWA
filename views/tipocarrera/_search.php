@@ -19,6 +19,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'descripcionCarrera') ?>
 
+    <?= $form->field($model, 'reglamento') ?>
+
     <?= $form->field($model, 'deshabilitado') ?>
 
     <div class="form-group">

@@ -18,7 +18,7 @@ class UsuarioSearch extends Usuario
     {
         return [
             [['idUsuario', 'dniUsuario', 'activado', 'idRol'], 'integer'],
-            [['claveUsuario', 'mailUsuario', 'authkey'], 'safe'],
+            [['claveUsuario', 'dniUsuario','mailUsuario', 'authkey','idRol'], 'safe'],
         ];
     }
 
@@ -67,6 +67,7 @@ class UsuarioSearch extends Usuario
         $query->andFilterWhere(['like', 'claveUsuario', $this->claveUsuario])
             ->andFilterWhere(['like', 'mailUsuario', $this->mailUsuario])
             ->andFilterWhere(['like', 'authkey', $this->authkey]);
+            //->andFilterWhere(['like', 'rol.descripcionRol', $this->idRol]);// agregados filtros por roles de las relaciones
 
         return $dataProvider;
     }

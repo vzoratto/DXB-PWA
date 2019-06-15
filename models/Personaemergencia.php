@@ -43,7 +43,7 @@ class Personaemergencia extends \yii\db\ActiveRecord
             [['telefonoPersonaEmergencia'], 'string', 'min' => 4],
             //el telefono debe ser solo digitos numericos
             //el telefono admite codigo internacional +54 por ej argentina
-            [['telefonoPersonaEmergencia'], 'match', 'pattern' => '/^\+?([0-9])*$/','message'=>'El formato inválido'],
+            [['telefonoPersonaEmergencia'], 'match', 'pattern' => '/^\+?([0-9])*$/','message'=>'El formato es inválido'],
             [['idVinculoPersonaEmergencia'], 'exist', 'skipOnError' => true, 'targetClass' => Vinculopersona::className(), 'targetAttribute' => ['idVinculoPersonaEmergencia' => 'idVinculo']],
         ];
     }

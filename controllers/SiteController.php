@@ -13,17 +13,19 @@ use app\models\Usuario;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\RegistroForm;
+use app\models\RecupassForm;
+use app\models\CambiapassForm;
 use app\models\Permiso;
 
 class SiteController extends Controller
 {
-
+    public $usuario_log;
     /**
      * {@inheritdoc}
-     */public $usuario_log;
+     */
 
      public function init() {
-        $this->usuario_log = (!empty($_SESSION["__id"])) ? $_SESSION["__id"] : "0";
+        $this->usuario_log = (!empty($_SESSION['__id'])) ? $_SESSION['__id'] : 0;
     }
 
 
@@ -35,20 +37,20 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index,view,create,update,delete'],
+                'only' => ['index,view,create,update,delete','recupass'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['login', 'registro'],
+                        'actions' => ['login','registro','recupass'],
                         'roles' => ['?'],
                     ],
 
                     [
-                        'actions' => ['index,view,create,update,delete,logout'],
+                        'actions' => ['index,view,create,update,delete,logout, admin'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
-                            return Permiso::requerirRol('administrador') && Permiso::requerirActivo('activo');
+                            return Permiso::requerirRol('administrador') && Permiso::requerirActivo(1);
                         }
                     ],
                     [
@@ -56,7 +58,7 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
-                            return Permiso::requerirRol('gestor') && Permiso::requerirActivo('activo');
+                            return Permiso::requerirRol('gestor') && Permiso::requerirActivo(1);
                         }
                     ],
                 ],
@@ -101,22 +103,29 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionLogin()
-    {
+    public function actionLogin(){
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
         $model = new LoginForm();
+        $mensaje="";
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            if (Permiso::requerirRol('administrador')||Permiso::requerirRol('gestor')){
-                return $this->redirect(["site/admin"]);
+            if(Permiso::requerirActivo(0)){// no activado=1
+                Yii::$app->user->logout();
+                if (Yii::$app->user->isGuest) {
+                $mensaje = "Enviamos un email de verificacion y/o activacion a tu correo, abrelo para activar tu cuenta";
+                return $this->render('correo', ['mensaje' => $mensaje]);
+                // return $this->redirect(site/enviomail)
+                }
+            }else{
+                if (Permiso::requerirRol('administrador')){
+                    return $this->redirect(["site/admin"]);
+                }elseif(Permiso::requerirRol('gestor')){
+                    return $this->redirect(["carrerapersona/index"]); 
+                }   
             }
-        
-           
             return $this->goBack();
         }
-
         $model->password = '';
         return $this->render('login', [
             'model' => $model,
@@ -152,7 +161,7 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-/**
+    /**
      * funcion random para claves,long 50 hexa
      */
     private function randKey($str='', $long=0){//este
@@ -166,142 +175,224 @@ class SiteController extends Controller
         }
         return $key;
     }
-
+    /**
+     * funcion registro de usuarios
+     */
     public function actionRegistro() {//este
-		
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-			//Creamos la instancia con el model de validación
             $model = new RegistroForm;
-   
-           //Mostrará un mensaje en la vista cuando el usuario se haya registrado
-            $mensaje = null;
-            
-          //Validación mediante ajax
-          if ($model->load(Yii::$app->request->post()) && Yii::$app->request->isAjax){
+            $mensaje = null;//Mostrará un mensaje
+          if ($model->load(Yii::$app->request->post()) && Yii::$app->request->isAjax){ //Validación mediante ajax
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
           }
-          //También previene por si el usuario tiene desactivado javascript y la
-          //validación mediante ajax no puede ser llevada a cabo
-          if ($model->load(Yii::$app->request->post())){
+          if ($model->load(Yii::$app->request->post())){ //previene por si el usuario tiene desactivado javascript
               if($model->validate()){
-                //echo "<pre>";print_r($model);echo "</pre>";
-               
-                //Preparamos la consulta para guardar el usuario
                 $tabla = new Usuario();
-				  if ($tabla->getUsuario($model->dni)) {
-                     
+				  if (!$tabla->getUsuario($model->dni)) {
                        $tabla->dniUsuario=$model->dni;
-                       //Encriptamos el password
-                       $tabla->claveUsuario = crypt($model->password, Yii::$app->params["salt"]);
+                       $tabla->claveUsuario = crypt($model->password, Yii::$app->params["salt"]);//Encriptamos el password
                        $tabla->mailUsuario = $model->email;
                        $tabla->authkey = $this->randKey("carrerabarda", 50);//clave será utilizada para activar el usuario
                        $tabla->activado=0;
                        $tabla->idRol=1;
-                       //echo "<pre>";var_dump($tabla);echo "</pre>";
-                      
-                       if ($tabla->save()){     //Si el registro es guardado correctamente
-                       
-						   $dni = urlencode($model->dni);
-                           $authkey = urlencode($tabla->authkey);
-					      //accion validar mail
-						  $subject = "Confirmar registro";
-                          $body = "<h1>Haga click en el siguiente enlace para finalizar tu registro</h1>";
-                          $body .= "<a href='http://localhost/carrera/web/index.php?r=site/activarcuenta&d=".$dni."&c=".$authkey."'>Confirmar</a>";
+                       if ($tabla->save()){     
+                        $dni = urlencode($tabla->dniUsuario);
+                     $authkey = urlencode($tabla->authkey);
+				     $subject = "Confirmar registro";//accion validar mail
+                     $body = "<h1>Haga click en el siguiente enlace para finalizar tu registro</h1>";
+                     $body .= "<a href='http://localhost/carrera/web/index.php?r=site/activarcuenta&d=".$dni."&c=".$authkey."'>Confirmar</a>";
 						  
                           Yii::$app->mailer->compose()
-                          ->setFrom('carreraxbarda@gmail.com')
-                          //->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
-                          ->setTo($model->email)
+                          //->setFrom('carreraxbarda@gmail.com')
+                          ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
+                          ->setTo($tabla->mailUsuario)
                           ->setSubject($subject)
                           ->setHTMLBody($body)
                           ->send();
-                           
-						   $model->dni = null;
-                           $model->password = null;
-                           $model->email = null;
-                           
-                           $mensaje = "Enviamos un email de verificacion y/o activacion a su correo, abralo para activar su cuenta";
-                           return $this->render('error', ['mensaje' => $mensaje]);
+                           //vaciamos valores
+						   $model->dni = null; $model->password = null; $model->email = null;
+                           $mensaje = "Enviamos un email de verificacion y/o activacion a tu correo, abrelo para activar tu cuenta";
+                           return $this->render('correo', ['mensaje' => $mensaje]);
+                       
                        }else{
+                           $model->dni = null; $model->password = null; $model->email = null;
                            $mensaje = "Ha ocurrido un error al llevar a cabo tu registro,vuelve a intentarlo";
                            return $this->render('registro', ['model' => $model,'mensaje' => $mensaje]);
                         }   
-				  }else{ 
-                     $mensaje = "Ya existe el numero de documento, por favor contactese con la administracion.";
+				  }else{  
+                     $mensaje = "Ya existe el numero de documento, por favor contactate con la administracion.";
 					 return $this->render('error', ['mensaje' => $mensaje]);
                   }	   
 		      }else{
-                $mensaje = "Ya existe el numero de documento, por favor contactese con la administracion.";
+                $mensaje = "Los datos no se pudieron validar, por favor contactate con la administracion.";
                 return $this->render('error', ['mensaje' => $mensaje]);
                 }
-     
              }
+             $model->dni = null; $model->password = null; $model->email = null;
              return $this->render('registro', [
                 'model' => $model,
                 'mensaje'=> $mensaje,
             ]); 
   }
-
-  public function actionActivarcuenta() {//este
-        
-    $usuario = new Usuario();
+    /**
+     * Displays recupera password.
+     *
+     * @return string
+     */
+       public function actionRecupass() {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+        $model = new RecupassForm();
+         $mensaje = null;//Mostrará un mensaje
+       //Validación mediante ajax
+       if ($model->load(Yii::$app->request->post()) && Yii::$app->request->isAjax){
+         Yii::$app->response->format = Response::FORMAT_JSON;
+         return ActiveForm::validate($model);
+       }
+       if ($model->load(Yii::$app->request->post())){//previene por si el usuario tiene desactivado javascript
+           if($model->validate()){
+             $tabla = new Usuario();
+               if ($tabla->getUsuario($model->dni)) {
+                    $tabla->dniUsuario=$model->dni;
+                    $tabla->claveUsuario = $this->randKey("123", 8);//Encriptamos el password
+                    $tabla->mailUsuario = $model->email;
+                    if ($tabla->save()){     
+                     $dni = urlencode($tabla->dniUsuario);
+                     $authkey = urlencode($tabla->authkey);
+                     $pass=urlencode($tabla->claveUsuario);
+                  $subject = "Recuperar password";//accion validar mail
+                  $body = "<h1>Se le envia un codigo que debera ingresar como password para loguearse,</h1>";
+                  $body .= "<h1>Recuerde que luego debera cambiar la password enviada por una suya personalizada.</h1>";
+                  $body .= "<h1>El password generado y que debera ingresar en el formulario login es  ".$pass."</h1>";
+                  $body .= "<h1>Haga click en el siguiente enlace para finalizar la recuperacion del password</h1>";
+                  $body .= "<a href='http://localhost/carrera/web/index.php?r=site/activarcuenta&d=".$dni."&c=".$authkey."'>Recuperar Password</a>";
+                       
+                       Yii::$app->mailer->compose()
+                       ->setFrom('carreraxbarda@gmail.com')
+                       //->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
+                       ->setTo($tabla->mailUsuario)
+                       ->setSubject($subject)
+                       ->setHTMLBody($body)
+                       ->send();
+                        //vaciamos valores
+                        $model->dni = null;$model->email = null;
+                        $mensaje = "Enviamos un email de recuperacion de password a tu correo, abrelo para activar tu cuenta";
+                        return $this->render('correo', ['mensaje' => $mensaje]);
+                    }else{
+                        $model->dni = null;$model->email = null;
+                        $mensaje = "Ha ocurrido un error al llevar a cabo tu registro,vuelve a intentarlo";
+                        return $this->render('recupass', ['model' => $model,'mensaje' => $mensaje]);
+                     }   
+               }else{  
+                  $mensaje = "Ya existe el numero de documento, por favor contactate con la administracion.";
+                  return $this->render('error', ['mensaje' => $mensaje]);
+               }	   
+           }else{
+             $mensaje = "Ya existe el numero de documento, por favor contactate con la administracion.";
+             return $this->render('error', ['mensaje' => $mensaje]);
+             }
+          }
+          $model->dni = null;$model->email = null;
+          return $this->render('recupass', [
+             'model' => $model,
+             'mensaje'=> $mensaje,
+         ]); 
+ }
+    /**
+     * Displays activa cuenta.
+     *
+     * @return string
+     */
+     public function actionActivarcuenta() {
      if (Yii::$app->request->get()){
-        //Obtenemos el valor de los parámetros get dni y authkey
         $dni = Html::encode($_GET["d"]);
-        $authkey = $_GET["c"];
-    
+        $authkey =Html::encode($_GET["c"]);
         $usuActivar = Usuario::getElusuario($dni,$authkey);
-                          //->where(["dniUsuario" => $d])
-                          //->andWhere(["authKey" => $c])->one();
-
        if (!empty($usuActivar)) {
-            $activar = Usuario::findIdentity($usuActivar->idUsuario);
+            $activar = Usuario::findOne($usuActivar->idUsuario);
             $activar->activado = 1;
+            // ($activar->getErrors()) ;
             if ($activar->save()){
-                    //login automatico
-                   $model = new LoginForm();
-                   $model->username = $usuActivar->dniUsuario;
-                   $model->password = $usuActivar->claveUsuario;
-                   
-                    if ($model->login()) {
-                        //return $this->goHome();
-                        //echo "<meta http-equiv='refresh' content='8; ".Url::toRoute(['login'])."'>";
-                       echo Url::to('login');
-                    }
+                        echo "Perfecto registro llevado a cabo correctamente, redireccionando ...";
+                        echo "<meta http-equiv='refresh' content='8; ".Url::toRoute("site/login")."'>";
+                            //echo Url::to('site/login');//redirige al login 
            } else {
-               // if(!Yii::$app->user->isGuest){Yii::$app->user->logout();}
-               $mensaje="No existe usuario registrado con ese numero de documento, redireccionando ...";
-               $mensaje.= "<meta http-equiv='refresh' content='8; ".$this->goBack()."'>";
+               $mensaje="No se pudo activar la cuenta, comunicate con el administrador";
                return $this->render('error', ['mensaje' => $mensaje]);
             }
        }else{
-             $mensaje="No se pudo activar la cuenta, comunicate con el administrador";
-             $mensaje.= "<meta http-equiv='refresh' content='10; ".$this->goBack()."'>";
+             $mensaje="No existe usuario registrado con ese numero de documento, vuelva a intentarlo";
              return $this->render('error', ['mensaje' => $mensaje]);
        }
      }else{
       $mensaje="Ups!! hubo un inconveniente, vuelva a intentarlo, redireccionando ...";
-      $mensaje.= "<meta http-equiv='refresh' content='8; ".$this->goBack()."'>";
       return $this->render('error', ['mensaje' => $mensaje]);
      }
 }
+    /**
+     * Displays cambia password.
+     *
+     * @return string
+     */
+    public function actionCambiapass(){
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+        $model = new CambiaPassForm();
+         $mensaje = null;//Mostrará un mensaje
+       if ($model->load(Yii::$app->request->post()) && Yii::$app->request->isAjax){ //Validación mediante ajax
+         Yii::$app->response->format = Response::FORMAT_JSON;
+         return ActiveForm::validate($model);
+       }
+       if ($model->load(Yii::$app->request->post())){//También previene por si el usuario tiene desactivado javascript
+          if($model->validate()){
+            if($tabla =Usuario::findOne($model->dni)){
+                    $tabla->dniUsuario=$model->dni;
+                    $tabla->claveUsuario = crypt($model->nuevo_password, Yii::$app->params["salt"]); //Encriptamos el password
+                    if ($tabla->save()){ 
+                        $model->dni=null;$model->password=null;$model->nuevo_password=null;$model->repite_password=null;
+                        echo "<meta http-equiv='refresh' content='8; ".Url::toRoute("site/login")."'>";        
+                    }else{
+                        $mensaje="No se pudo cambiar el password, vuelva a intentarlo";
+                        return $this->render('error', ['mensaje' => $mensaje]);
+                    }
+                }else{
+                    $mensaje="No existe usuario registrado con ese numero de documento, vuelva a intentarlo";
+                    return $this->render('error', ['mensaje' => $mensaje]);
+                }
+            }else{
+                $mensaje="Ups!! hubo un inconveniente, vuelva a intentarlo, redireccionando ...";
+                return $this->render('error', ['mensaje' => $mensaje]);
+            }
+        }
+            $model->dni=null;$model->password=null;$model->nuevo_password=null;$model->repite_password=null;
+            return $this->render('cambiapass', [
+                'model' => $model,
+                'mensaje'=> $mensaje,
+            ]); 
+   }
+
+
     /**
      * Displays about page.
      *
      * @return string
      */
-    public function actionAbout()
-    {
+    public function actionAbout(){
         return $this->render('about');
     }
 
+    /**
+     * Displays admin page.
+     *
+     * @return string
+     */
     public function actionAdmin(){
-        
             return $this->render('administrar');
-       
     }
 
 }

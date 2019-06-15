@@ -4,11 +4,18 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
-
+    // in your module configuration you can have 'gridviewKrajee' as another module
     'modules' => [
-        'gridview' => [
-            'class' => '\kartik\grid\Module',]
-    ],
+       'gridview' =>  [
+            'class' => '\kartik\grid\Module',
+            // your other grid module settings
+        ],
+       'gridviewKrajee' =>  [
+            'class' => '\kartik\grid\Module',
+            // your other grid module settings
+          ],
+        ],
+    
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -22,6 +29,13 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '_ZPbyJKsHD40rRkecVCqxMCbdkFOzlbI',
+        ],
+        'reCaptcha' => [
+            'class' => 'himiklab\yii2\recaptcha\ReCaptchaConfig',
+            'siteKeyV2' => '6LcaGKgUAAAAAHFPZSlm2jc_GeKUoccTzRkhUkjK',
+            'secretV2' => '6LcaGKgUAAAAAHxY4E8reVbdVrT9NUI7JwWTkFTD',
+            'siteKeyV3' => 'your siteKey v3',
+            'secretV3' => 'your secret key v3',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',

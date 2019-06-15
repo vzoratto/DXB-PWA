@@ -18,7 +18,7 @@ class TipocarreraSearch extends Tipocarrera
     {
         return [
             [['idTipoCarrera', 'deshabilitado'], 'integer'],
-            [['descripcionCarrera'], 'safe'],
+            [['descripcionCarrera', 'reglamento'], 'safe'],
         ];
     }
 
@@ -62,7 +62,8 @@ class TipocarreraSearch extends Tipocarrera
             'deshabilitado' => $this->deshabilitado,
         ]);
 
-        $query->andFilterWhere(['like', 'descripcionCarrera', $this->descripcionCarrera]);
+        $query->andFilterWhere(['like', 'descripcionCarrera', $this->descripcionCarrera])
+            ->andFilterWhere(['like', 'reglamento', $this->reglamento]);
 
         return $dataProvider;
     }

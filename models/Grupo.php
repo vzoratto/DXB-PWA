@@ -63,4 +63,5 @@ class Grupo extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Persona::className(), ['idPersona' => 'idPersona']);
     }
+
 }

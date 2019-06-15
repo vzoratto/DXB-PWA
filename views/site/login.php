@@ -26,17 +26,25 @@ $this->params['breadcrumbs'][] = $this->title;
         ]);
         ?>
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'dni')->textInput(['placeholder'=>'Ingrese solo numeros, 8 caracteres','autofocus' => true, 'class' => 'form-control']) ?>
 
-         <?= $form->field($model, 'password')->passwordInput() ?>
-
-
+         <?= $form->field($model, 'password',['inputOptions' => ['class' => 'form-control']])
+            ->passwordInput(['placeholder'=>'Ingrese 8 caracteres'])?>
+            
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
                <?= Html::submitButton('Iniciar Sesion', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
             </div>
         </div>
-
+            <p class="text-center">
+                <?= Html::a('Olvidaste tu password?', ['site/recupass']) ?>
+            </p>
+            <p class="text-center">
+                <?= Html::a('Cambiar password', ['site/cambiapass']) ?>
+            </p>
+            <p class="text-center">
+                <?= Html::a('Si no estas registrado, REGISTRATE!', ['site/registro']) ?>
+            </p>
 <?php ActiveForm::end(); ?>
     </div>
 </div>

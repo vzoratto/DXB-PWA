@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Persona;
 
 /**
  * This is the model class for table "equipo".
@@ -65,7 +66,7 @@ class Equipo extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGrupos()
+    public function getGrupo()
     {
         return $this->hasMany(Grupo::className(), ['idEquipo' => 'idEquipo']);
     }
@@ -73,7 +74,7 @@ class Equipo extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPersonas()
+    public function getPersona()
     {
         return $this->hasMany(Persona::className(), ['idPersona' => 'idPersona'])->viaTable('grupo', ['idEquipo' => 'idEquipo']);
     }
