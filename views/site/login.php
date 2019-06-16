@@ -10,7 +10,7 @@ $this->title = 'Iniciar Sesion';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
-    <div class="form-group col-lg-6 col-md-offset-3" align="center">
+    <div class="form-group col-lg-6 col-md-offset-3" aling="center">
         <h1><?= Html::encode($this->title) ?></h1>
         <img src="registro/iniciarsesion.png"  style="width: 150px;">
     </div>

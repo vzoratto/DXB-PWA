@@ -66,7 +66,7 @@ use kartik\switchinput\SwitchInput;
     <div class="row no-label">
     <div id="opcionesNoSoyCapitan" style="display:block" aria-label="..." class="col-1">
 
-        <div id="dniCapitan" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
+        <div id="dniCapitan" class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
         <?= $form->field($equipo, 'idEquipo')->widget(Select2::classname(), [
             'data' => $equipoLista,
             'id'=>'idEquipo',
@@ -80,7 +80,7 @@ use kartik\switchinput\SwitchInput;
             ]); ?>
         </div>
 
-        <div id="nombreCapitan" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
+        <div id="nombreCapitan" class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
             <?= $form->field($persona, 'nombrePersona')->widget(DepDrop::classname(), [
                     'type' => DepDrop::TYPE_SELECT2,
                     'disabled' => true,
@@ -89,6 +89,7 @@ use kartik\switchinput\SwitchInput;
                         'readonly' => true,
                         'showToggleAll' => false,
                         'multiple' => true,
+                        
                     ],
                     'pluginOptions'=>[
                         'initialize' => false,
@@ -101,7 +102,7 @@ use kartik\switchinput\SwitchInput;
         </div>
 
 
-        <div id="tipoDeCarrera" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
+        <div id="tipoDeCarrera" class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
             <?= $form->field($tipoCarrera, 'idTipoCarrera')->widget(DepDrop::classname(), [
                     'type' => DepDrop::TYPE_SELECT2,
                     'disabled' => true,
@@ -119,7 +120,7 @@ use kartik\switchinput\SwitchInput;
             ?>
         </div>
 
-        <div id="cantidadPersonas" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
+        <div id="cantidadPersonas" class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
             <?= $form->field($equipo, 'cantidadPersonas')->widget(DepDrop::classname(), [
                     'type' => DepDrop::TYPE_SELECT2,
                     'disabled' => true,
@@ -163,14 +164,13 @@ use kartik\switchinput\SwitchInput;
     </div>
     <div class="row no-label">
 
-        <div id="dniUsuario" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
-            <?= $form->field($usuario, 'dniUsuario')->textInput(['value'=>$user->identity->dniUsuario,'readonly'=> true])->label('D.N.I.')?>
+        <div id="dniUsuario" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+            <?= $form->field($usuario, 'dniUsuario')->textInput(['value'=>$user->identity->dniUsuario,'readonly'=> true, 'class' => 'input-db'])->label('D.N.I.')?>
         </div>
 
         <div id="nacionalidadPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
             <?= $form->field($persona, 'nacionalidadPersona')->textInput(['maxlength' => true, 'class' => 'input-db', 'placeholder'=>'Nacionalidad']) ?>
         </div>
-
         <div id="nombrePersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
             <?= $form->field($persona, 'nombrePersona')->textInput(['maxlength' => true, 'class' => 'input-db','placeholder'=>'Nombre']) ?>
         </div>

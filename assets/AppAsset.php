@@ -34,7 +34,11 @@ class AppAsset extends AssetBundle
         'js/pickadate/app.js',
         'js/cambiarIdioma.js',
         'js/main.js',
-        'js/countdownClock.js'
+        'js/countdownClock.js',
+        'js/controlPrimerStep.js',
+        'js/controlSegundoStep.js',
+        'js/controlTercerStep.js',
+        'js/controlCuartoStep.js'
 
     ];
     public $depends = [

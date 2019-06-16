@@ -73,12 +73,12 @@ use yii\widgets\MaskedInput;
         <div class="row no-label">
             <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6" id="calleDireccion">
             <label>Calle: </label>
-                <?= Html::input('text','calle',$datos['calle'], $option=['class'=>'form-control','id'=>'calle']) ?>
+                <?= Html::input('text','calle',$datos['calle'], $option=['class'=>'form-control','id'=>'calle','placeholder' => 'Calle']) ?>
                 <div id="msjErrorCalle"></div>
             </div>
             <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2" id="numeroDireccion">
                 <label>N°: </label>
-                <?=  Html::input('text','numero', $datos['numero'], $option=['class'=>'form-control', 'id'=> 'numero']) ?>
+                <?=  Html::input('text','numero', $datos['numero'], $option=['class'=>'form-control', 'id'=> 'numero','placeholder' => 'Numero']) ?>
                 <div id="msjErrorNumero"></div>
             </div>
             <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
