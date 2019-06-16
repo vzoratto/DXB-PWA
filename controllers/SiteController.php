@@ -191,7 +191,7 @@ class SiteController extends Controller
           if ($model->load(Yii::$app->request->post())){ //previene por si el usuario tiene desactivado javascript
               if($model->validate()){
                 $tabla = new Usuario();
-				  if ($tabla->getUsuario($model->dni)) {
+				  if (!$tabla->getUsuario($model->dni)) {
                        $tabla->dniUsuario=$model->dni;
                        $tabla->claveUsuario = crypt($model->password, Yii::$app->params["salt"]);//Encriptamos el password
                        $tabla->mailUsuario = $model->email;
