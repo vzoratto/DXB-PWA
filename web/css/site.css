@@ -566,11 +566,6 @@ a.desc:after {
      Inputs & form
 *************************/
 
-.campoVacio {
-    border: 1rem;
-    border-color: red !important;
-}
-
 .input-db {
     border-radius: 30px;
     width: 100%;
@@ -3058,4 +3053,27 @@ a.desc:after {
 
 .navbar-toggle {
     border: 1px solid #232323;
+}
+
+
+/*-----------------------------
+---- widget kartik selec2 -----
+----------------------------*/
+
+.select2-container--krajee.select2-container--disabled .select2-selection,
+.select2-container--krajee.select2-container--disabled .select2-search__field {
+    border-radius: 15px;
+    border: none;
+}
+
+.select2-container--krajee .select2-selection--multiple .select2-selection__choice {
+    border: none;
+}
+
+.has-success .control-label .select2-container--focus {
+    color: transparent;
+}
+
+.has-success .select2-container--krajee .select2-selection {
+    border-color: transparent;
 }

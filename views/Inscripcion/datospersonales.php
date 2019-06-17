@@ -22,14 +22,14 @@ use kartik\switchinput\SwitchInput;
 
   <div class="container width-100">
 
-    <div class="row">
+    <div class="row" style="margin-left: 20px;">
         <div class="left" >
             <label>¿Soy Capitan?</label>
         </div>
         <div class="switch pull-left" >
-            <input type="radio" class="switch-input input-db" name="swichtCapitan" value="1" id="week" onClick=myFunction() >
+            <input type="radio" class="switch-input input-db" name="swichtCapitan" value="1" id="week" onClick=controlSwichtCapitan() >
             <label for="week" class="switch-label switch-label-off">SI</label>
-            <input type="radio" class="switch-input input-db" name="swichtCapitan" value="0" id="month" checked onClick=myFunction()>
+            <input type="radio" class="switch-input input-db" name="swichtCapitan" value="0" id="month" checked onClick=controlSwichtCapitan()>
             <label for="month" class="switch-label switch-label-on">NO</label>
             <span class="switch-selection"></span>
         </div>
@@ -93,10 +93,10 @@ use kartik\switchinput\SwitchInput;
                     ],
                     'pluginOptions'=>[
                         'initialize' => false,
-                        'placeholder' => 'Esperando D.N.I. capitan...',
+                        'placeholder' => 'Nombre del capitan',
                         'depends'=>['idEquipo'],
                         'url'=>Url::to(['inscripcion/nombrecapitan']),
-                        'loadingText' => 'Cargando D.N.I. capitan...']
+                        'loadingText' => 'Buscando D.N.I...']
             ])->label('Nombre capitan');
             ?>
         </div>
@@ -112,10 +112,10 @@ use kartik\switchinput\SwitchInput;
                     ],
                     'pluginOptions'=>[
                         'initialize' => false,
-                        'placeholder' => 'Carrera...',
+                        'placeholder' => 'Tipo de carrera',
                         'depends'=>['idEquipo'],
                         'url'=>Url::to(['inscripcion/tipocarrera']),
-                        'loadingText' => 'Esperando DNI capitán']
+                        'loadingText' => 'Buscando D.N.I...']
             ]);
             ?>
         </div>
@@ -131,11 +131,11 @@ use kartik\switchinput\SwitchInput;
                     ],
                     'pluginOptions'=>[
                         'initialize' => false,
-                        'placeholder' => 'Equipo de ...',
+                        'placeholder' => 'Cantidad de corredores',
                         'depends'=>['idEquipo'],
                         'id'=>'cantPersonas',
                         'url'=>Url::to(['inscripcion/cantpersonas']),
-                        'loadingText' => 'Esperando DNI capitan...']
+                        'loadingText' => 'Buscando D.N.I...']
             ]);
             ?>
         </div>
@@ -185,7 +185,7 @@ use kartik\switchinput\SwitchInput;
         una fecha desde un calendario permitiendo tambien seleccionar años o meses
         con una mayor facilidad -->
             <?=  $form->field($persona, 'fechaNacPersona')->textInput(['class'=>'datepicker form-control input-db','id'=>'datepicker', 'placeholder'=>'Fecha de nacimiento']) ?>
-            <small style="color:red">(Podés correr a partir de los 12 años)</small>
+            <small style="color:#a94442">*Podés correr a partir de los 12 años</small>
 
         </div>
 

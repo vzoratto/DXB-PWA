@@ -77,6 +77,9 @@ class InscripcionController extends Controller
         ->having('COUNT(equipo.idEquipo)<equipo.cantidadPersonas')
         ->all(),'idEquipo','dniCapitan');
 
+        if(yii::$app->user->isGuest){
+            return $this->goHome();
+        }
 
         $userLogueado=Yii::$app->user;
 

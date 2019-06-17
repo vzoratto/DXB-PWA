@@ -33,6 +33,15 @@ $(document).ready(function() {
         controlNacionalidad();
     })
 
+    //Valido el ingreso cuando hay un cambio en las opciones de corredor
+    $('#opcionesNoSoyCapitan').change(function() {
+        controlCapitanCorredor();
+    })
+
+    //Valido el ingreso cuando hay un cambio en las opciones de capitan
+    $('#opcionesCapitan').change(function() {
+        controlCapitanCorredor();
+    })
 })
 
 //Si se clickea en siguiente controlo los valores ingresados. En caso correcto pasa al siguiente step
@@ -44,8 +53,9 @@ $('#stepwizard_step1_next').click(function() {
     var validoSexo = controlSexo(); //Valido el sexo
     var validoTalleRemera = controlTalleRemera(); //Valido el talle remera
     var validoFechaNac = controlFechaNac(); //Valido fecha nacimiento
+    var validoCapitanCorredor = controlCapitanCorredor(); //Valido el ingreso de las opciones de capitan o corredor
     //Si los campos estan correcto agrego la clase "next-step" para pasar al siguiente step
-    if (validoNombre && validoApellido && validoNacionalidad && validoSexo && validoTalleRemera && validoFechaNac) {
+    if (validoNombre && validoApellido && validoNacionalidad && validoSexo && validoTalleRemera && validoFechaNac && validoCapitanCorredor) {
         $('#stepwizard_step1_next').addClass('next-step'); //Agrego la clase
     } else {
         $('#stepwizard_step1_next').removeClass('next-step'); //En caso contrario remuevo la clase
@@ -142,6 +152,53 @@ function controlNacionalidad() {
         //En caso contrario lo seteo en false
         $('#persona-nacionalidadpersona').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
         siguiente = false;
+    }
+    return siguiente;
+}
+
+//Funcion que controla la informacion de capitan o el ingreso de dni capitan
+function controlCapitanCorredor() {
+    var valorCheckBox = $('input[name="swichtCapitan"]:checked').val(); //Valor del checkbox capitan
+    siguiente = false;
+    //Si el checkbox es uno controlo las opciones de capitan
+    if (valorCheckBox == 1) {
+        tipoCarreraSiguiente = false;
+        cantPersonasSiguiente = false;
+        siguiente = false;
+        var tipoCarrera = $('#idTipocarrera').val(); //Control ingreso tipo carrera
+        var cantPersonas = $('#idParametrosCantPersonas').val(); //Control ingreso cantidad de personas
+        if (tipoCarrera > 0) {
+            $(' .select2-container--krajee .select2-selection--single').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
+            tipoCarreraSiguiente = true;
+        } else {
+            $(' .select2-container--krajee .select2-selection--single').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+            tipoCarreraSiguiente = false;
+        }
+        if (cantPersonas > 0) {
+            $('.select2-container--krajee .select2-selection--single').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
+            cantPersonasSiguiente = true;
+        } else {
+            $('.select2-container--krajee .select2-selection--single').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+            cantPersonasSiguiente = false;
+        }
+        //Si ambos ingresos son correctos seteo la varibale siguiente en true
+        if (tipoCarreraSiguiente && cantPersonasSiguiente) {
+            siguiente = true;
+        } else {
+            siguiente = false;
+        }
+
+    } else {
+        //Si el checkbox es cero controlo las opciones que no son de capitan
+        var dniCapitan = $('#idEquipo').val(); //Control del ingreso del dni capitan -idequipo
+        siguiente = false;
+        if (dniCapitan > 0) {
+            $('.select2-container--krajee .select2-selection--single').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
+            siguiente = true;
+        } else {
+            $('.select2-container--krajee .select2-selection--single').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+            siguiente = false;
+        }
     }
     return siguiente;
 }
