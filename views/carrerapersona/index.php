@@ -99,13 +99,13 @@ $this->params['breadcrumbs'][] = $this->title;
              //   'filter' => ArrayHelper::map(Persona::find()->asArray()->all(), 'idPersona', 'donador'),
             ],
 		    ['label' => 'Retiro Kit',
-			'attribute' => 'retiroKit',
+			'attribute' => 'retiraKit',
                 'value' => function($model) {
-					if($model->retiroKit )
-                    return ( ($model->retiroKit === 1)? 'si':'no' );
+					if($model->retiraKit )
+                    return ( ($model->retiraKit === 1)? 'si':'no' );
 					
                 },
-                'filter' => ArrayHelper::map(Carrerapersona::find()-> asArray()->all(), 'retiroKit', 'retiroKit'), 
+                'filter' => ArrayHelper::map(Carrerapersona::find()-> asArray()->all(), 'retiraKit', 'retiraKit'), 
             ],
 			['class' => 'yii\grid\ActionColumn',
                  'contentOptions'=>
