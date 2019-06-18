@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1>Total de Inscriptos: <?= Html::encode($dataProvider->getCount()) ?></h1>
 
     <p>
-      <?php echo Html::a('Inscribir Invitado', ['persona/create'], ['class' => 'btn btn-primary']) ?>
+      <?php echo Html::a('Inscribir Invitado', ['invitado/index'], ['class' => 'btn btn-primary']) ?>
 	  <?php echo Html::a('Ver Equipos', ['equipo/index'], ['class' => 'btn btn-primary']) ?>
       <?php // echo  Html::a('otros datos', ['persona'], ['class' => 'btn btn-primary' ,'title'=>'lista']) ?>
 	 
