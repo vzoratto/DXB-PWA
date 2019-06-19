@@ -18,30 +18,85 @@ class CambiapassForm extends Model{
             [['dni','password','nuevo_password','repite_password'], 'required', 'message' => 'Campo requerido'],
             ['dni', 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mi­nimo y maximo 8 caracteres'],
             ['dni', 'match', 'pattern' => "/^[0-9]+$/", 'message' => 'Solo se aceptan numeros'],
-            ['dni', 'usuario_existe'],
             ['password', 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mi­nimo y maximo 8 caracteres'],
+            ['password', 'validatePassword'],
             ['nuevo_password', 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mi­nimo y maximo 8 caracteres'],
+            ['nuevo_password', 'compare', 'compareAttribute' => 'password','operator' => '!=','message' => 'Password y nuevo password deben ser distintos'],
             ['repite_password', 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mi­nimo y maximo 8 caracteres'],
-            ['nuevo_password', 'compare', 'compareValue' => 'password','operator' => '!='],
-            ['repite_password', 'compare', 'compareAttribute' => 'nuevo_password', 'message' => 'Los passwords no coinciden'],
+            ['repite_password', 'compare', 'compareAttribute' => 'nuevo_password', 'message' => 'Nuevo password y repite password no coinciden'],
             
         ];
         
     }
     
-    public function usuario_existe($attribute, $params)
-    {
-  //Buscar el username en la tabla
-       $table = Usuario::find()->where("dniUsuario=:dniUsuario", [":dniUsuario" => $this->dni]);
+    /**
+     * Validates the password.
+     * This method serves as the inline validation for password.
+     *
+     * @param string $attribute the attribute currently being validated
+     * @param array $params the additional name-value pairs given in the rule
+     */
+    public function validatePassword($attribute, $params){
   
-  //Si el username existe mostrar el error
-  if ($table->count() != 1)
-  {
-                $this->addError($attribute, "El usuario seleccionado no existe, comuni­quese con el administrador");
-  }
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+  
+            if (!$user || !$user->validatePassword($this->password)) {
+                $this->addError($attribute, 'Dni o password incorrecto.');
+            }
+            
+        }
     }
-   
   
+    /**
+     * Finds user by [[dni]]
+     *
+     * @return User|null
+     */
+    public function getUser()
+    {
+        if ($this->_user === false) {
+            $this->_user = Usuario::findByUsername($this->dni);
+        }
+      
+        return $this->_user;
+    }
+  
+          /**
+       * Valida el cambio del password.
+       *
+       * @return boolean 
+       */
+      public function validaCambio()
+      {
+          /* @var $user Usuario */
+          $user = Usuario::findOne([
+              'activado' => 1,
+              'dniUsuario' => $this->dni,
+          ]);
+          if ($user) {
+              $user->claveUsuario=crypt($this->nuevo_password, Yii::$app->params["salt"]);//Encriptamos el password
+              if ($user->save()) {
+                 return true;
+            }
+        }
+          return false;
+        
+      }
+    /**
+     * funcion random para claves,long 50 hexa
+     */
+    private function randKey($str='', $long=0){//este
+        $key = null;
+        $str = str_split($str);
+        $start = 0;
+        $limit = count($str)-1;
+        for($x=0; $x<$long; $x++)
+        {
+            $key .= $str[rand($start, $limit)];
+        }
+        return $key;
+    }
   
   
     

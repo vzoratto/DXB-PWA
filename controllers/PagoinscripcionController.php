@@ -5,9 +5,12 @@ namespace app\controllers;
 use Yii;
 use app\models\Pagoinscripcion;
 use app\models\PagoinscripcionSearch;
+use app\models\Usuario;
+use app\models\Persona;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * PagoinscripcionController implements the CRUD actions for Pagoinscripcion model.
@@ -64,18 +67,29 @@ class PagoinscripcionController extends Controller
      */
     public function actionCreate()
     {
+        
         $model = new Pagoinscripcion();
+        //$usu=Yii::$app->user->identity->dniUsuario;
+        $persona=Pagoinscripcion::getUsupersona();
+        //echo "<pre>";print_r($persona);echo $usu;echo"</pre>";
         if ($model->load(Yii::$app->request->post())) {
-            $model->file = UploadedFile::getInstance($model, 'file');
-            if($model->save()){
-                return $this->redirect(['view', 'id' => $model->idPago]);
-        }
-    }
+            $model->idPersona=$persona->idPersona;
+            $model->pagado=1;
+            $model->imagencomprobante = UploadedFile::getInstance($model, 'imagencomprobante');
+            $imagen_nombre='persona_'.$model->idPersona.'.'.$model->imagencomprobante->extension;
+            $imagen_dir='archivo/pagoinscripcion/'.$imagen_nombre;
+            $model->imagencomprobante->saveAs($imagen_dir);
+            $model->imagencomprobante=$imagen_dir;
+              if($model->save()){
+                    return $this->redirect(['view', 'id' => $model->idPago]);
+               }   
+      }
         return $this->render('create', [
             'model' => $model,
+            
         ]);
     }
-
+    
     /**
      * Updates an existing Pagoinscripcion model.
      * If update is successful, the browser will be redirected to the 'view' page.

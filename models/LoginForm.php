@@ -45,13 +45,12 @@ class LoginForm extends Model
      * @param array $params the additional name-value pairs given in the rule
      */
     public function validatePassword($attribute, $params){
-          $hash = crypt($this->password, Yii::$app->params["salt"]);
     
         if (!$this->hasErrors()) {
             $user = $this->getUser();
 
-            if (!$user || !$user->validatePassword($hash)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+            if (!$user || !$user->validatePassword($this->password)) {
+                $this->addError($attribute, 'Dni o password incorrecto.');
             }
         }
     }

@@ -26,10 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ]);
         ?>
 
-        <?= $form->field($model, 'dni')->textInput(['placeholder'=>'Ingrese solo numeros, 8 caracteres','autofocus' => true, 'class' => 'form-control']) ?>
+         <?= $form->field($model, 'dni')->textInput(['placeholder'=>'Ingresa tu dni','autofocus' => true, 'class' => 'form-control']) ?>
 
          <?= $form->field($model, 'email',['inputOptions' => ['class' => 'form-control']])
-            ->textinput(['placeholder'=>'Ingrese email'])?>
+            ->textinput(['placeholder'=>'Ingresa tu email'])?>
             
              
         <div class="form-group">

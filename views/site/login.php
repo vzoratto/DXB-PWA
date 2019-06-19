@@ -26,10 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ]);
         ?>
 
-        <?= $form->field($model, 'dni')->textInput(['placeholder'=>'Ingrese solo numeros, 8 caracteres','autofocus' => true, 'class' => 'form-control']) ?>
+        <?= $form->field($model, 'dni')->textInput(['placeholder'=>'Ingresa tu DNI','autofocus' => true, 'class' => 'form-control']) ?>
 
          <?= $form->field($model, 'password',['inputOptions' => ['class' => 'form-control']])
-            ->passwordInput(['placeholder'=>'Ingrese 8 caracteres'])?>
+            ->passwordInput(['placeholder'=>'Ingresa tu password'])?>
             
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">

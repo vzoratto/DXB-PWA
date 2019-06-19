@@ -2,17 +2,20 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\Persona;
+use app\models\Usuario;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Pagoinscripcion */
 /* @var $form yii\widgets\ActiveForm */
+
+    
+    echo "Numero DNI corredor: ". Yii::$app->user->identity->dniUsuario;
 ?>
 
 <div class="pagoinscripcion-form">
 
-    <?php $form = ActiveForm::begin(); 
-    //$model_persona=Persona::find($_SESSION['__id']);
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); 
+    
     ?>
 
     <?= $form->field($model, 'importe')->textInput() ?>
@@ -24,12 +27,12 @@ use app\models\Persona;
 		  echo $form->field($model, 'fechapago')->textInput(['value'=>date("Y-m-d"), 'readonly'=> true]); 
 	  else 
 	      echo $form->field($model, 'fechapago')->textInput();
-	?>
+	  ?>
 
-    <?= $form->field($model, 'pagado')->textInput() ?>
+    <!--<?= $form->field($model, 'pagado')->textInput() ?>-->
 
-    <?= $form->field($model, 'idPersona')->textInput() ?>
-
+    <!--<?= $form->field($model, 'idPersona')->textInput() ?>-->
+    
     <?= $form->field($model, 'imagencomprobante')->fileInput() ?>
 
     <div class="form-group">

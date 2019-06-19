@@ -30,10 +30,21 @@ $this->params['breadcrumbs'][] = $this->title;
             'importe',
             'entidadpago',
             'fechapago',
-            //'pagado',
-            'idPersona',
-            'imagencomprobante',
+            'pagado',
+            ['attribute'=>'idPersona',
+              'value'=>function($model){
+                  return $model->persona->nombrePersona;
+              }
+            ],
+            'imagencomprobante:image',
+            ['label'=>'Imagen ticket',
+             'attribute'=>'imagencomrobante',
+             'format'=>'html',
+             'value'=>function($model){
+                 return yii\bootstrap\Html::img($model->imagencomprobante,['width'=>'150']); 
+             }
 
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
