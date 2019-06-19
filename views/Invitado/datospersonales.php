@@ -165,7 +165,7 @@ use kartik\switchinput\SwitchInput;
     <div class="row no-label">
 
         <div id="dniUsuario" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-            <?= $form->field($usuario, 'dniUsuario')->textInput(['readonly'=> true,'placeholder'=>'D.N.I. invitado', 'class' => 'input-db'])->label('D.N.I.')?>
+            <?= $form->field($usuario, 'dniUsuario')->textInput(['placeholder'=>'D.N.I. invitado', 'class' => 'input-db'])->label('D.N.I.')?>
         </div>
 
         <div id="nacionalidadPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
@@ -185,7 +185,7 @@ use kartik\switchinput\SwitchInput;
         una fecha desde un calendario permitiendo tambien seleccionar años o meses
         con una mayor facilidad -->
             <?=  $form->field($persona, 'fechaNacPersona')->textInput(['class'=>'datepicker form-control input-db','id'=>'datepicker', 'placeholder'=>'Fecha de nacimiento']) ?>
-            <small style="color:#a94442">*Podés correr a partir de los 12 años</small>
+            
 
         </div>
 
