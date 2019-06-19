@@ -5,7 +5,6 @@ namespace app\controllers;
 use Yii;
 use app\models\Usuario;
 use app\models\UsuarioSearch;
-use app\models\CambiapassForm;
 use yii\web\Controller;
 use yii\web\IdentityInterface;
 use yii\web\NotFoundHttpException;
@@ -49,6 +48,7 @@ class UsuarioController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = '/main1';
         $searchModel = new UsuarioSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -57,24 +57,7 @@ class UsuarioController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-	/**
-     * Cambia el password.
-     * @return mixed
-     */
-   /* public function actionCambiapass(){
-        $model = new CambiapassForm();
-        if($model->load(Yii::$app->request->post()) && $model->validate()){
-            $dni=$model->dni;
-             if(($usuario = Usuario::findOne($dni)) !== null) {
-                $usuario->claveUsuario=crypt($model->nuevo_password, Yii::$app->params["salt"]);
-                if($usuario->save()) {
-                Yii::$app->session->setFlash('success','Se ha cambiado correctamente tu password');
-                return $this->refresh();
-                }
-             }
-        }
-        return $this->render('cambiapass',['model'=>$model]);
-    }*/
+	
     /**
      * Displays a single Usuario model.
      * @param integer $id
@@ -83,6 +66,7 @@ class UsuarioController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout = '/main1';
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -95,6 +79,7 @@ class UsuarioController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = '/main1';
         $model = new Usuario();
         if ($model->load(Yii::$app->request->post())){  
             $model->claveUsuario = crypt($model->claveUsuario, Yii::$app->params["salt"]);
@@ -118,6 +103,7 @@ class UsuarioController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->layout = '/main1';
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -138,6 +124,7 @@ class UsuarioController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->layout = '/main1';
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

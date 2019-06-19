@@ -24,6 +24,10 @@ use app\models\Rol;
  */
 class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
 {
+
+    const ESTADO_INACTIVO=0;
+    const ESTADO_ACTIVO=1;
+    const ESTADO_MODIFICADO=2;
     /**
      * {@inheritdoc}
      */

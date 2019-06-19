@@ -18,6 +18,8 @@ use yii\helpers\ArrayHelper;
  */
 class Gestores extends \yii\db\ActiveRecord
 {
+    public $rol;
+    public $email;
     /**
      * {@inheritdoc}
      */
@@ -37,6 +39,7 @@ class Gestores extends \yii\db\ActiveRecord
             ['idUsuario', 'usuario_existe'],
             [['nombreGestor', 'apellidoGestor'], 'string', 'max' => 64],
             [['telefonoGestor'], 'string', 'max' => 32],
+            [['rol','email'],'safe'],
             [['idUsuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['idUsuario' => 'idUsuario']],
         ];
     }
@@ -52,6 +55,8 @@ class Gestores extends \yii\db\ActiveRecord
             'apellidoGestor' => 'Apellido Gestor',
             'telefonoGestor' => 'Telefono Gestor',
             'idUsuario' => 'Dni Usuario',
+            'rol' => 'Rol',
+            'email'=> 'Email',
         ];
     }
     public function usuario_existe($attribute, $params)

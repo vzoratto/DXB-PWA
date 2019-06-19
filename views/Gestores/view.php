@@ -17,8 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
     <?php
-         $descRol=Usuario::findIdentity($_SESSION['__id']);
-           if($descRol->idRol==2){
+        // $descRol=Usuario::findIdentity($_SESSION['__id']);
+         //  if($descRol->idRol==2){
                echo Html::a('Actualizar', ['update', 'id' => $model->idGestor], ['class' => 'btn btn-primary']); 
                echo Html::a('Eliminar', ['delete', 'id' => $model->idGestor], [
                     'class' => 'btn btn-danger',
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                    'method' => 'post',
                 ],
               ]);     
-            }
+           // }
             ?>
     </p>
 
@@ -44,6 +44,18 @@ $this->params['breadcrumbs'][] = $this->title;
                      return ($model->usuario->dniUsuario);
                  },
                 ],
+                [
+                    'attribute' => 'rol',
+                    'value' => function($model) {
+                        return ($model->usuario->rol->descripcionRol);
+                        }
+                ],
+                [
+                    'attribute' => 'email',
+                    'value' => function($model) {
+                        return ($model->usuario->mailUsuario);
+                        }
+                    ],
         ],
     ]) ?>
 
