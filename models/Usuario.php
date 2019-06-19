@@ -112,9 +112,7 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
           return ArrayHelper::map($dropciones,'idRol','descripcionRol');
       }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+    
     public function getUsuario($dni)
     {
         return self::find()
@@ -122,8 +120,7 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
 		    
     }
 
-    public function getElusuario($d,$c)
-    {
+    public function getElusuario($d,$c){
         return self::find()
 		     ->where(["dniUsuario" => $d])
 		    ->andWhere(["authkey" => $c])->one();
@@ -155,10 +152,14 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     public function validatePassword($password) {
-        return $this->claveUsuario === $password;
+        return $this->claveUsuario ===crypt($password, Yii::$app->params["salt"]);//Encriptamos el password $password;
     }
 
+    public function validateMail($email){
+        return $this->mailUsuario === $email;
+    }
 
+    
 }
 
 

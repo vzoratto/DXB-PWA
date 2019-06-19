@@ -27,12 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
 
          <?= $form->field($model, 'dni')->textInput(['placeholder'=>'Ingrese solo numeros, 8 caracteres','autofocus' => true]) ?>
-        <?= $form->field($model, 'password')->passwordInput(['placeholder'=>'Ingresa 8 caracteres']) ?>
+        <?= $form->field($model, 'password')->passwordInput(['placeholder'=>'Ingresa tu password']) ?>
          
-         <?= $form->field($model, 'nuevo_password')->passwordInput(['id' => 'pass-form','placeholder'=>'Repite tu password']) ?>
+         <?= $form->field($model, 'nuevo_password')->passwordInput(['id' => 'pass-form','placeholder'=>'Ingresa tu nuevo password']) ?>
          <?= Html::checkbox('reveal-password', false, ['id' => 'reveal-password']) ?> 
          <?= Html::label('Mostrar password', 'reveal-password') ?>
-         <?= $form->field($model, 'repite_password')->passwordInput(['placeholder'=>'Ingresa 8 caracteres']) ?>   
+         <?= $form->field($model, 'repite_password')->passwordInput(['placeholder'=>'Repite tu nuevo password']) ?>   
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
                <?= Html::submitButton('Cambiar', ['class' => 'btn btn-primary', 'name' => 'cambiarpass-button']) ?>
