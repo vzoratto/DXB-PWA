@@ -18,7 +18,7 @@ class GestoresSearch extends Gestores
     {
         return [
             [['idGestor', 'idUsuario'], 'integer'],
-            [['nombreGestor', 'apellidoGestor', 'telefonoGestor','idUsuario'], 'safe'],
+            [['nombreGestor', 'apellidoGestor', 'telefonoGestor','idUsuario','rol'], 'safe'],
         ];
     }
 
@@ -40,7 +40,8 @@ class GestoresSearch extends Gestores
      */
     public function search($params)
     {
-        $query = Gestores::find();
+        $query = Gestores::find()
+                 ->joinWith(['usuario.rol']);
 
         // add conditions that should always apply here
 
@@ -64,7 +65,9 @@ class GestoresSearch extends Gestores
 
         $query->andFilterWhere(['like', 'nombreGestor', $this->nombreGestor])
             ->andFilterWhere(['like', 'apellidoGestor', $this->apellidoGestor])
-            ->andFilterWhere(['like', 'telefonoGestor', $this->telefonoGestor]);
+            ->andFilterWhere(['like', 'telefonoGestor', $this->telefonoGestor])
+            ->andFilterWhere(['like', 'rol.descripcionRol', $this->rol])
+            ->andFilterWhere(['like', 'usuario.mailUsuario', $this->email]);
 
         return $dataProvider;
     }

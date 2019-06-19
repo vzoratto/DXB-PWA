@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Carrerapersona;
 use app\models\Carrerapersonasearch;
+use app\models\Persona;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -37,10 +38,13 @@ class CarrerapersonaController extends Controller
     {
         $searchModel = new Carrerapersonasearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $persona = new \app\models\Persona();
+		
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+			'dataProvider'=> $dataProvider,
+            'persona' => $persona
+			
         ]);
     }
 
@@ -141,4 +145,10 @@ class CarrerapersonaController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+	
+	
+	public function actionTabsData() {
+          $html = $this->renderPartial('tabContent');
+    return Json::encode($html);
+}
 }

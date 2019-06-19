@@ -1,6 +1,9 @@
 <?php
+
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
@@ -9,6 +12,9 @@ use app\models\Talleremera;
 use app\models\Tipocarrera;
 use app\models\Carrerapersona;
 use app\models\Usuario;
+use app\models\Equipo;
+use app\models\Grupo;
+use app\models\GrupoSearch;
 use app\models\Persona;
 use app\models\Estadopagopersona;
 use app\models\Estadopago;
@@ -16,67 +22,64 @@ use dimmitri\grid\ExpandRowColumn;
 use kartik\export\ExportMenu;
 use yii\widgets\ActiveForm;
 use buttflattery\formwizard\FormWizard; 
+use kartik\tabs\TabsX;
+//use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\EquipoSearch */
+/* @var $searchModel app\models\PersonaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Equipos';
+$this->title = 'Entrega De Kits ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="equipo-index">
+<div class="talleRemera">
+<h1> <br> </h1>
 
-    <h1>Total de Equipos: <?= Html::encode($dataProvider->getCount()) ?></h1>
-
-    <p>
-      <?php //echo Html::a('Inscribir Equipo', ['equipo/create'], ['class' => 'btn btn-primary']) ?>
-	  <?php // echo Html::a('Ver Corredores', ['carreraPersona/index'], ['class' => 'btn btn-primary']) ?>
-      <?php // echo  Html::a('otros datos', ['persona'], ['class' => 'btn btn-primary' ,'title'=>'lista']) ?>
-	 
-	  
+  
 	 <?php
 		$gridColumns = [
             ['class' => 'yii\grid\SerialColumn'],
-			[   'label' => 'Nombre Equipo',
-                //'class' => ExpandRowColumn::class,
-                'attribute' => 'nombreEquipo',
+			[   'label' => 'Corredor',
+                'attribute' => 'apellidoPersona',
 				'value' => function($model) {
-                    return ($model->nombreEquipo);
+                    return ($model->apellidoPersona.' '.$model->nombrePersona );
                 },
-                //'column_id' => 'column-info',
-                //'url' => Url::to(['view']),
             ],
+            [   'label' => 'Documento',
+                'attribute' => 'dniUsuario',
+                'value' => function($model) {
+                    return ($model->usuario->dniUsuario);
+                },
+				
+            ],
+            ['label' => 'Talle Remera',
+                'attribute' => 'talleRemera',
+                'value' => function($model) {
+                    return ($model->talleRemera->talleRemera);
+                },
+				'filter' => ArrayHelper::map(Talleremera::find()->asArray()->all(), 'talleRemera', 'talleRemera')
+            ],
+			 
 			['class' => 'yii\grid\ActionColumn',
-			    'header'=>'Cambiar Nombre',
                  'contentOptions'=>
 				 ['style'=>'width: 10%;'],
                    'template'=>'{update}',
                    'buttons'=>[
 		           'update'=>function($url,$model){
-                    return Html::a('<span class="glyphicon glyphicon-edit"></span>',$url,[
-                       'class'=>'btn btn-block btn-primary btn-flat sejajar',
+                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>',$url,[
+                       'class'=>'btn btn-block btn-flat sejajar',
                        'style'=>'width : 50%',
-
                     ]);
                 }
-			],		
-          ],
-		  'dniCapitan',
-			['label'=>'Cantidad de Corredores',
-			   'attribute'=>'cantidadPersonas',
-			   'value'=> function($model){
-					   return($model->cantidadPersonas);
-				   }
-			],
-			['label' => 'Tipo de Carrera',
-                'attribute' => 'idTipoCarrera',
-                'value' => function($model) {
-                    return ($model->tipoCarrera->descripcionCarrera);
-                },
-			'filter' => ArrayHelper::map(Tipocarrera::find()->asArray()->all(), 'idTipoCarrera', 'descripcionCarrera')
-            ],	
-        ];
+		    	],		
+           ],
+	
+	
+];
+?>
+<?php
 
+$dataProvider= new ActiveDataProvider(['query'=> Persona::find()->where(null) ]);
 // Renders a export dropdown menu
 echo ExportMenu::widget([
     'dataProvider' => $dataProvider,
@@ -113,7 +116,6 @@ echo ExportMenu::widget([
 echo \kartik\grid\
      GridView::widget([
     'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
 	'columns' => $gridColumns
      ]);
 ?>

@@ -43,13 +43,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => ArrayHelper::map(Rol::find()->asArray()->all(), 'idRol', 'descripcionRol'),
               ],
-           [
-            'class' => 'yii\grid\ActionColumn',
-            'contentOptions' => [],
-            'header'=>'Actions',
-            'template' => '{view}',
-            
-            ]
+              [
+                'class' => 'yii\grid\ActionColumn'
+                ]
           ],
         
     ]); ?>

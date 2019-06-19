@@ -23,6 +23,7 @@ class Carrerapersona extends \yii\db\ActiveRecord
 	public $dniUsuario;
 	public $talleRemera;
 	public $nombreEquipo;
+	public $obraSocial;
     /**
      * {@inheritdoc}
      */
@@ -43,7 +44,8 @@ class Carrerapersona extends \yii\db\ActiveRecord
             [['idTipoCarrera', 'idPersona'], 'unique', 'targetAttribute' => ['idTipoCarrera', 'idPersona']],
             [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
             [['idTipoCarrera'], 'exist', 'skipOnError' => true, 'targetClass' => Tipocarrera::className(), 'targetAttribute' => ['idTipoCarrera' => 'idTipoCarrera']],
-            [['apellidoPersona','nombrePersona','talleRemera','nombreEquipo'], 'safe'],
+            [['apellidoPersona','nombrePersona','talleRemera','nombreEquipo','obraSocial'], 'safe'],
+			
 			
 	   ];
     }

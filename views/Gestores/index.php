@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use app\models\Usuario;
+use app\models\Rol;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\GestoresSearch */
@@ -33,21 +34,26 @@ $this->params['breadcrumbs'][] = $this->title;
             'nombreGestor',
             'apellidoGestor',
             'telefonoGestor',
-            //'idUsuario',
-            [ 
+              [ 
                 'attribute' => 'idUsuario',
                  'value' => function($model) {
                      return ($model->usuario->dniUsuario);
-                 },
-                 'filter' => ArrayHelper::map(Usuario::find()->where('idRol=2')->orWhere('idRol=3')->asArray()->all(), 'idUsuario', 'dniUsuario'),
+                 }
+                 //'filter' => ArrayHelper::map(Usuario::find()->where('idRol=2')->orWhere('idRol=3')->asArray()->all(), 'idUsuario', 'dniUsuario'),
                ],
                [
-                'class' => 'yii\grid\ActionColumn',
-                'contentOptions' => [],
-                'header'=>'Actions',
-                'template' => '{view}',
-                
-                ]
+               'attribute' => 'rol',
+               'value' => function($model) {
+                   return ($model->usuario->rol->descripcionRol);
+                   }
+               ],
+               [
+                'attribute' => 'email',
+                'value' => function($model) {
+                    return ($model->usuario->mailUsuario);
+                    }
+                ],
+               ['class' => 'yii\grid\ActionColumn']
         ],
     ]); ?>
 
