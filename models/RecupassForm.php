@@ -82,16 +82,15 @@ class RecupassForm extends Model
             'dniUsuario' => $this->dni,
         ]);
         if ($user) {
+            $pass="XmWq908";
+            $user->claveUsuario=crypt($pass, Yii::$app->params["salt"]);//Encriptamos el password
             if ($user->save()) {
-                $dni = urlencode($user->dniUsuario);
-                $authkey = urlencode($user->authkey);
-                $pass=urlencode($user->claveUsuario);
              $subject = "Recuperar password";//accion validar mail
              $body = "<h3>Se le envia un codigo que deberas ingresar como password para loguearte,</h3>";
              $body .= "<h3>Recuerda, que luego deberas cambiar el password enviado por uno personalizado.</h3>";
              $body .= "<h3>El password : ".$pass."</h3>";
              $body .= "<h3>Haga click en el siguiente enlace para finalizar la recuperacion del password</h3>";
-             $body .= "<a href='http://localhost/carrera/web/index.php?r=site/activarcuenta&d=".$dni."&c=".$authkey."'>Recuperar Password</a>";
+             $body .= "<a href='http://localhost/carrera/web/index.php?r=site/cambiapass'>Ir para cambiar password</a>";
                   
               return    Yii::$app->mailer->compose()
                   ->setFrom('carreraxbarda@gmail.com')
@@ -110,5 +109,19 @@ class RecupassForm extends Model
         return false;
     }
 
+    /**
+     * funcion random para claves,long 50 hexa
+     */
+    private function randKey($str='', $long=0){//este
+        $key = null;
+        $str = str_split($str);
+        $start = 0;
+        $limit = count($str)-1;
+        for($x=0; $x<$long; $x++)
+        {
+            $key .= $str[rand($start, $limit)];
+        }
+        return $key;
+    }
 }
     

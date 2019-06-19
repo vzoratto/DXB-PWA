@@ -21,9 +21,9 @@ class CambiapassForm extends Model{
             ['password', 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mi­nimo y maximo 8 caracteres'],
             ['password', 'validatePassword'],
             ['nuevo_password', 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mi­nimo y maximo 8 caracteres'],
-            ['nuevo_password', 'compare', 'compareValue' => 'password','operator' => '!='],
+            ['nuevo_password', 'compare', 'compareAttribute' => 'password','operator' => '!=','message' => 'Password y nuevo password deben ser distintos'],
             ['repite_password', 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mi­nimo y maximo 8 caracteres'],
-            ['repite_password', 'compare', 'compareAttribute' => 'nuevo_password', 'message' => 'Los passwords no coinciden'],
+            ['repite_password', 'compare', 'compareAttribute' => 'nuevo_password', 'message' => 'Nuevo password y repite password no coinciden'],
             
         ];
         

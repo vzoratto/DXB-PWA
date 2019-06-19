@@ -34,23 +34,11 @@ class Pagoinscripcion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['importe', 'idPersona'], 'required'],
+            [['importe', 'idPersona','imagencomprobante','entidadpago'], 'required'],
             [['importe', 'pagado', 'idPersona'], 'integer'],
             [['fechapago'], 'safe'],
             [['entidadpago'], 'string', 'max' => 64],
-            [['imagencomprobante'], 'string', 'max' => 255],
-            ['imagencomprobante', 'file',
-                'skipOnEmpty' => false,
-                'uploadRequired' => 'No has seleccionado ningún archivo', //Error
-                //'maxSize' => 1024 * 1024 * 1, //1 MB
-                //'tooBig' => 'El tamaño máximo permitido es 1MB', //Error
-               // 'minSize' => 10, //10 Bytes
-                //'tooSmall' => 'El tamaño mínimo permitido son 10 BYTES', //Error
-                'extensions' => 'jpg, jpeg, png, bmp, jpe',
-                'wrongExtension' => 'El archivo {file} no contiene una extensión permitida {extensions}', //Error
-               // 'maxFiles' => 4,
-                //'tooMany' => 'El máximo de archivos permitidos son {limit}', //Error
-            ],
+            [['imagencomprobante'], 'file','extensions' => 'jpg, jpeg, png, bmp, jpe'],
             [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
         ];
     }
@@ -80,9 +68,9 @@ class Pagoinscripcion extends \yii\db\ActiveRecord
     }
 
     public function getUsupersona(){
-       $id=Usuario::findIdentity($_SESSION['__id']);
+       //$id=Usuario::findIdentity($_SESSION['__id']);
        //return Persona::find()->where($id->idUsuario)()->One();
-       return   $this->hasOne(Persona::className(), ['idPersona' => $id->idUsuario]);
+       return  Persona::findOne(['idUsuario' => $_SESSION['__id']]);
        
     }
 }

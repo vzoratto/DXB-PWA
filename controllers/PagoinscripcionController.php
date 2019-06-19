@@ -67,29 +67,23 @@ class PagoinscripcionController extends Controller
      */
     public function actionCreate()
     {
-        $usu=Yii::$app->user->identity->dniUsuario;
-        $model = new Pagoinscripcion();
         
+        $model = new Pagoinscripcion();
+        //$usu=Yii::$app->user->identity->dniUsuario;
+        $persona=Pagoinscripcion::getUsupersona();
+        //echo "<pre>";print_r($persona);echo $usu;echo"</pre>";
         if ($model->load(Yii::$app->request->post())) {
-
-            //echo '<pre>';var_dump($model->error);echo '</pre>';
+            $model->idPersona=$persona->idPersona;
+            $model->pagado=1;
             $model->imagencomprobante = UploadedFile::getInstance($model, 'imagencomprobante');
-            if ($model->imagencomprobante && $model->validate()) {
-                
-                 $guardar='@web/archivo/pagoinscripcion/'.$model->idPersona.'.'.$model->imagencomprobante->extension;
-            
-            
-                 $model->imagencomprobante->saveAs($guardar);
-
-              //$model->imagencomprobante->saveAs('@web/archivo/pagoinscripcion/'.$model->imagencomprobante->baseName.'.'.$model->imagencomprobante->extension);
-                
-                $model->imagencomprobante=$guardar;
-                $model->idPersona=$usu->idPersona;
-                if($model->save()){
+            $imagen_nombre='persona_'.$model->idPersona.'.'.$model->imagencomprobante->extension;
+            $imagen_dir='archivo/pagoinscripcion/'.$imagen_nombre;
+            $model->imagencomprobante->saveAs($imagen_dir);
+            $model->imagencomprobante=$imagen_dir;
+              if($model->save()){
                     return $this->redirect(['view', 'id' => $model->idPago]);
-               }
-            }
-    }
+               }   
+      }
         return $this->render('create', [
             'model' => $model,
             

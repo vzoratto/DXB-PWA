@@ -37,34 +37,40 @@ AppAsset::register($this);
           'id' => 'bardasHeader'
       ],
   ]);
+  
   echo Nav::widget([
       'options' => ['class' => 'navbar-nav navbar-right'],
+      
       'items' => [
           ['label' => 'Inicio', 'url' => ['/site/index']],
           ['label' => 'Premios', 'url' => ['/site/about']],
           ['label' => 'Sponsors', 'url' => ['/site/contact']],
           ['label' => 'Contacto', 'url' => ['/site/contact']],
+          ['label' => 'Registro', 'url' => 'index.php?r=site/registro', 'visible' => Yii::$app->user->isGuest],
+          ['label' => 'Iniciar Sesion ','items' => [
+            ['label' => 'Logueate', 'url' => 'index.php?r=site%2Flogin'],
+            ['label' => 'Registrate', 'url' => 'index.php?r=site/registro'],
+            ['label' => 'Olvide password', 'url' => 'index.php?r=site/recupass'],
+            ['label' => 'Cambia password', 'url' => 'index.php?r=site/cambiapass'],
+            ],
+          ],
+          ['label' => 'Iniciar Sesion', 'url' => 'index.php?r=site%2Flogin', 'visible' => Yii::$app->user->isGuest],
+          ['label' => 'Inscripcion', 'url' => 'index.php?r=inscripcion/index', 'visible' => !Yii::$app->user->isGuest],
+          !Yii::$app->user->isGuest ?(
+          ['label' =>'Hola '. Yii::$app->user->identity->dniUsuario, 'items' => [
+            ['label' => 'Mi perfil', 'url' => 'index.php?r=usuario%2Fperfil'],
+            ['label' => 'Cerrar Sesion', 'url' => 'index.php?r=site%2Flogout', 'linkOptions' => ['data-method' => 'post']],
+          ], 
+       ]):'',
          
-
-          Yii::$app->user->isGuest ? (
-              ['label' => 'Login', 'url' => ['/site/login']]
-          ) : (
-              '<li>'
-              . Html::beginForm(['/site/logout'], 'post')
-              . Html::submitButton(
-                  'Logout (' . Yii::$app->user->identity->dniUsuario . ')',
-                  ['class' => 'btn btn-link logout']
-              )
-              . Html::endForm()
-              . '</li>'
-          )
       ],
   ]);
   NavBar::end();
   ?>
+  
         <?= Alert::widget() ?>
         <?= $content ?>
-
+  
 <?php $this->endBody() ?>
 </body>
 </html>

@@ -217,6 +217,7 @@ class SiteController extends Controller
        if (!empty($usuActivar)) {
             $activar = Usuario::findOne($usuActivar->idUsuario);
             $activar->activado = 1;
+            $activar->authkey = $this->randKey("AxWb98760z", 50);//nueva clave será utilizada para activar el usuario
             if ($activar->save()){
                         echo "Perfecto registro llevado a cabo correctamente, redireccionando ...";
                         echo "<meta http-equiv='refresh' content='8; ".Url::toRoute("site/login")."'>";

@@ -29,13 +29,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idPago',
+            //'idPago',
             'importe',
             'entidadpago',
-            'imagencomprobante',
             'fechapago',
             'pagado',
-            'idPersona',
+            ['attribute'=>'idPersona',
+              'value'=>function($model){
+                  return $model->persona->nombrePersona;
+              }
+            ],
+            'imagencomprobante:image',
         ],
     ]) ?>
 
