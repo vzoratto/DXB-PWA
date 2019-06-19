@@ -11,7 +11,7 @@ use yii\helpers\Url;
 /* @var $model app\models\Pregunta */
 /* @var $form yii\widgets\ActiveForm */
 
-$lista=RespuestaTipoController::listarTipos();
+$lista=RespuestaTipoController::listarTipos($encTipo);
 
 $listas=ArrayHelper::map($lista, 'idRespTipo', 'respTipoDescripcion');
 
@@ -36,7 +36,7 @@ $listas=ArrayHelper::map($lista, 'idRespTipo', 'respTipoDescripcion');
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Terminar Encuesta', url::toRoute('encuesta/create'),['class'=>'btn btn-primary'])?>
+        <?= Html::a('Terminar Encuesta', url::toRoute('encuesta/index'),['class'=>'btn btn-primary'])?>
     </div>
 
     <?php ActiveForm::end(); ?>

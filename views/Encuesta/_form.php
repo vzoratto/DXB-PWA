@@ -9,17 +9,33 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="encuesta-form">
-
+    
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'encTitulo')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'encDescripcion')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'encPublica')->textInput() ?>
-
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <div class="row">
+        <div class="left" >
+            <!-- Este switch nos permite darle respuestas correctas a las preguntas para poder comparar después  -->
+            <label>¿Que deseas generar?</label>
+        </div>
+        <div class="switch pull-left" >
+            <input type="radio" class="switch-input input-db" name="encTipo" value="encuesta" id="encTipoEncuesta" onClick=myFunction() >
+            <label for="encTipoEncuesta" class="switch-label switch-label-off">Encuesta</label>
+            <input type="radio" class="switch-input input-db" name="encTipo" value="trivia" id="encTipoTrivia" checked onClick=myFunction()>
+            <label for="encTipoTrivia" class="switch-label switch-label-on">Trivia</label>
+            <span class="switch-selection"></span>
+        </div>
+    </div>
+    </div>
+    <div class=" form-group">
+        <?= $form->field($model, 'encTitulo')->textInput() ?>
+    </div>
+    <div class="form-group">
+        <?= $form->field($model, 'encDescripcion')->textInput(['maxlength' => true]) ?>
+    </div>
+        <?= $form->field($model, 'encPublica')->hiddenInput(['value'=>0])->label(false) ?>
+    
+    <div class="form-group">
+        <?= Html::submitButton('Siguiente', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

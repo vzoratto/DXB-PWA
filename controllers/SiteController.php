@@ -46,7 +46,7 @@ class SiteController extends Controller
                     ],
 
                     [
-                        'actions' => ['index,view,create,update,delete,logout'],
+                        'actions' => ['index,view,create,update,delete,logout, admin'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){

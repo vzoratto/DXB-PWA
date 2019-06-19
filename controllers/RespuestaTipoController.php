@@ -8,6 +8,7 @@ use app\models\RespuestatipoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\conditions\NotCondition;
 
 /**
  * RespuestatipoController implements the CRUD actions for Respuestatipo model.
@@ -15,9 +16,22 @@ use yii\filters\VerbFilter;
 class RespuestatipoController extends Controller
 {
 
-    public static function listarTipos() {
+    public static function listarTipos($encTipo=null) {
         $tipos=new RespuestaTipoSearch();
-        $lista=$tipos->find()->all();
+
+        if($encTipo=="trivia")
+        {
+            $lista=$tipos->find()->where(['respTipoDescripcion' => 'Lista'])
+                ->orWhere(['respTipoDescripcion' => 'Multi opcion'])
+                ->orWhere(['respTipoDescripcion' => 'Unica opcion'])
+                ->all();
+
+        }
+        else
+        {
+            $lista=$tipos->find()->all();
+        }
+
         return $lista;
     }
 

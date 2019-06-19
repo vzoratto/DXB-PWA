@@ -5,11 +5,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Encuesta */
 
-$this->title = 'Crear nueva encuesta';
+
+$this->title = 'Crear nueva Encuesta/Trivia';
 $this->params['breadcrumbs'][] = ['label' => 'Encuestas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="encuesta-create">
+<div class="encuesta-create container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

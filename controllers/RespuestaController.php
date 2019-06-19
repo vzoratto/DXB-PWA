@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Respuestaopcion;
+use app\models\Resultado;
+use app\models\Pregunta;
 
 /**
  * RespuestaController implements the CRUD actions for Respuesta model.
@@ -114,14 +116,17 @@ class RespuestaController extends Controller
     {
         $searchModel = new RespuestaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $pregunta=null;
 
-        if(isset($_REQUEST['idEncuesta'])){
-            
-
+        if(isset($_REQUEST['idPregunta'])){
+            $dataProvider->query->andWhere('respuesta.idPregunta='.$_REQUEST['idPregunta']);
+            $pregunta=Pregunta::find()->where(['idPregunta'=>$_REQUEST['idPregunta']])->one();
         }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'pregunta'=>$pregunta,
         ]);
     }
 

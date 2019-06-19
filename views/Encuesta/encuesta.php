@@ -14,6 +14,7 @@ use app\controllers\EncuestaController;
 
 
 ?>
+
 <?php $encuesta=EncuestaController::encuestaPublica();  ?>
 
 <?php $pregunta=PreguntaController::entregaPreguntasXEncuesta($encuesta['idEncuesta']);?>
@@ -39,6 +40,8 @@ $i=0;
 <div class="encuesta-form">    
         
         <?php foreach($pregunta as $valor):?>
+        <div class=" col-xs-12 col-sm-6">
+
             <div class="form-group ">
                 <h3> <?php $idPregunta=$valor['idPregunta']; ?></h3>
                 <h3> <?= $valor['pregDescripcion']; ?></h3>
@@ -84,7 +87,7 @@ $i=0;
                     
                 ?>
             </div>
-        
+        </div>
         <?php endforeach?>
         <?php if(!$encuesta==[]):?>
             <?= $form->field($respuesta, 'idEncuesta')->hiddenInput(['value'=>$encuesta['idEncuesta']])->label(false) ?> 

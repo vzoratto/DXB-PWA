@@ -8,6 +8,9 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use kartik\export\ExportMenu;
+
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EncuestaSearch */
@@ -23,10 +26,27 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Crear Encuesta', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Preguntas', ['pregunta/index'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Respuestas', ['respuesta/index'], ['class' => 'btn btn-primary']) ?>
+        <?= ExportMenu::widget([
+            'dataProvider' => $dataProvider,
+            'columns' => [
+                ['class' => 'kartik\grid\SerialColumn'],
+                'idEncuesta',
+                'encTitulo',
+                'encDescripcion',
+                'encPublica',
+            ],
+            'fontAwesome' => true,
+
+            'dropdownOptions' => [
+                'label' => 'Export All',
+                'class' => 'btn btn-default'
+            ]
+        ])
+        ?>    
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -73,18 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         );
                  }
             ],
-            ['attribute'=>'',
-                    'format'=>'raw',
-                    'headerOptions'=>['style'=>'color:#1369BF'],
-                    'contentOptions'=>['style'=>'width:120px;'],
-                    'value'=>function($model){
-                        return Html::a('Respuestas',
-                                ['respuesta/index',
-                                 'idEncuesta'=>$model->idEncuesta
-                                ],            
-                        );
-                 }
-            ],
+            
             ['class' => 'yii\grid\ActionColumn', 'template'=> '{update}'],           
         ],
     ]); ?>

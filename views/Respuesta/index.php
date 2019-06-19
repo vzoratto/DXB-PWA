@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+
     <p>
         <?= Html::a('Create Respuesta', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Encuestas', ['encuesta/index'], ['class' => 'btn btn-primary']) ?>
@@ -21,7 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <hr>
+    <h3>Pregunta: <?= Html::encode($pregunta['pregDescripcion']) ?></h3>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
