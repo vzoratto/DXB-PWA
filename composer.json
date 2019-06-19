@@ -35,7 +35,8 @@
         "himiklab/yii2-recaptcha-widget": "*",
 		"dimmitri/yii2-expand-row-column": "^1.0",
         "kartik-v/yii2-export": "*",
-        "buttflattery/yii2-formwizard": "@dev"
+        "buttflattery/yii2-formwizard": "@dev",
+        "kartik-v/yii2-tabs-x": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
