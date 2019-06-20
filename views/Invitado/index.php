@@ -95,7 +95,7 @@ $wizard_config = [
 		],
          
         	],
-        	'start_step' => 3, // Optional, start with a specific step
+        	'start_step' => 1, // Optional, start with a specific step
         ];
         ?>
 

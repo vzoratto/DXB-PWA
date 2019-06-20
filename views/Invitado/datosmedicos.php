@@ -85,7 +85,7 @@ use yii\widgets\ActiveForm;
         </div>
         <div class="row">
             <div id="observaciones" class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-            <div>Obvservaciones</div>
+            <div>Observaciones</div>
             <?= $form->field($fichaMedica, 'observaciones')->textInput(['maxlength' => 256])->label('') ?>
             </div>
         </div>

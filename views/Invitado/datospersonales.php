@@ -21,7 +21,7 @@ use kartik\switchinput\SwitchInput;
 <div class="datosPersonales" >
 
 <div class="container width-100">
-
+<!-- Checkbox donde selecciona si es capitan del equipo o no-->
 <div class="row" style="margin-left: 20px;">
     <div class="left" >
         <label>¿Soy Capitan?</label>
@@ -35,6 +35,7 @@ use kartik\switchinput\SwitchInput;
     </div>
 </div>
 
+<!-- Estas son las opciones que ve si selecciona que es capitan -->
 
 <div class="row no-label">
     <div id="opcionesCapitan" style="display:none" aria-label="..." class="col-1">
@@ -65,6 +66,7 @@ use kartik\switchinput\SwitchInput;
     </div>
 </div>
 
+<!-- Opciones que visualiza si selecciona que no es capitan -->
 <div class="row no-label">
 <div id="opcionesNoSoyCapitan" style="display:block" aria-label="..." class="col-1">
     
@@ -146,24 +148,6 @@ use kartik\switchinput\SwitchInput;
         ?>
     </div>
 
-    <?php /*
-    <div id="nombreEquipo" class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
-        <?= $form->field($equipo, 'nombreEquipo')->widget(DepDrop::classname(), [
-                'type' => DepDrop::TYPE_SELECT2,
-                'disabled' => true,
-                'options' => [
-                    'id' => 'idNombreEquipo',
-                ],
-                'pluginOptions'=>[
-                    'initialize' => true,
-                    'placeholder' => 'Nombre capitan...',
-                    'depends'=>['idEquipo'],
-                    'url'=>Url::to(['inscripcion/datos']),
-                    'loadingText' => 'Esperando D.N.I. capitan...']
-        ])->label('Nombre equipo');
-        ?>
-    </div>
-    */?>
 
 </div>
 

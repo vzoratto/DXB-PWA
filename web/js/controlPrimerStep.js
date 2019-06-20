@@ -42,6 +42,10 @@ $(document).ready(function() {
     $('#opcionesCapitan').change(function() {
         controlCapitanCorredor();
     })
+    //Valido el ingreso cuando hay un cambio en las opciones de dni
+    $('#usuario-dniusuario').change(function(){
+        controlNumDoc();
+    })
 })
 
 //Si se clickea en siguiente controlo los valores ingresados. En caso correcto pasa al siguiente step
@@ -54,8 +58,9 @@ $('#stepwizard_step1_next').click(function() {
     var validoTalleRemera = controlTalleRemera(); //Valido el talle remera
     var validoFechaNac = controlFechaNac(); //Valido fecha nacimiento
     var validoCapitanCorredor = controlCapitanCorredor(); //Valido el ingreso de las opciones de capitan o corredor
+    var validoNumDoc = controlNumDoc(); //Valido el ingreso del numero de docuemento
     //Si los campos estan correcto agrego la clase "next-step" para pasar al siguiente step
-    if (validoNombre && validoApellido && validoNacionalidad && validoSexo && validoTalleRemera && validoFechaNac && validoCapitanCorredor) {
+    if (validoNombre && validoApellido && validoNacionalidad && validoSexo && validoTalleRemera && validoFechaNac && validoCapitanCorredor && validoNumDoc) {
         $('#stepwizard_step1_next').addClass('next-step'); //Agrego la clase
     } else {
         $('#stepwizard_step1_next').removeClass('next-step'); //En caso contrario remuevo la clase
@@ -66,8 +71,9 @@ $('#stepwizard_step1_next').click(function() {
 function controlNombre() {
     var nombrePersona = $('#persona-nombrepersona').val(); //Tomo el valor del input
     var patron = /^[a-z-A-Z\D]+$/; //Patron que debe respetarse
+    var cantCaracteresNombre = nombrePersona.length;//Cantidad de caracteres ingresado
     siguiente = false;
-    if (patron.test(nombrePersona) && nombrePersona !== '') {
+    if (patron.test(nombrePersona) && nombrePersona !== '' && cantCaracteresNombre > 1) {
         //Si es corecto el patron y distinto de vacio seteo la variable siguiente siguiente en true
         $('#persona-nombrepersona').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
         siguiente = true;
@@ -82,8 +88,9 @@ function controlNombre() {
 function controlApellido() {
     var apellidoPersona = $('#persona-apellidopersona').val(); //Valor del input apellido persona
     var patron = /^[a-z-A-Z\D]+$/; //Patron que debe respetarse
+    var cantCaracteresApellido = apellidoPersona.length;
     siguiente = false;
-    if (patron.test(apellidoPersona) && apellidoPersona !== '') {
+    if (patron.test(apellidoPersona) && apellidoPersona !== '' && cantCaracteresApellido > 1) {
         //Si es corecto el patron y distinto de vacio seteo la variable siguiente en true
         $('#persona-apellidopersona').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
         siguiente = true;
@@ -115,11 +122,11 @@ function controlSexo() {
     siguiente = false;
     if (sexoPersona !== undefined) {
         //Si se selecciono un sexo seteo la variable en true
-        $('.field-persona-sexopersona .control-label').css('color', '#606060'); //Quito el borde rojo para indicar que ya no hay error
+        $('#sexoPersona').css('color', '#606060'); //Quito el color rojo para indicar que ya no hay error
         siguiente = true;
     } else {
         //En caso contrario en false
-        $('.field-persona-sexopersona .control-label').css('color', '#a94442'); //Agrego un borde rojo para indicar que hay un error
+        $('#sexoPersona').css('color', '#a94442'); //Agrego un color rojo para indicar que hay un error
         siguiente = false;
     }
     return siguiente;
@@ -202,3 +209,21 @@ function controlCapitanCorredor() {
     }
     return siguiente;
 }
+
+//Funcion que controla el ingreso del dni
+function controlNumDoc() {
+    var dniUsuario = $('#usuario-dniusuario').val(); //Valor del input dni
+    var patron = /^[0-9]+$/; //Patron que debe respetarse
+    siguiente = false;
+    if (patron.test(dniUsuario) && dniUsuario !== '') {
+        //Si es corecto el patron y distinto de vacio seteo la variable siguiente en true
+        $('#usuario-dniusuario').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
+        siguiente = true;
+    } else {
+        //Si el patron es incorrecto o vacio seteo la variable siguiente en false
+        $('#usuario-dniusuario').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+        siguiente = false;
+    }
+    return siguiente;
+}
+

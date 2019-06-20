@@ -72,7 +72,7 @@ class Persona extends \yii\db\ActiveRecord
              [['nombrePersona','apellidoPersona','nacionalidadPersona'],'match','pattern'=>"/^[a-z-A-Z\D]+$/",'message'=>"Unicamente se aceptan caracteres alfanumericos"],
              [['telefonoPersona'], 'match', 'pattern' => '/^\+?([0-9])*$/','message'=>'El formato es inválido'],
              // comprueba si los atributos son cadenas con una longitud que se encuentre en el rango que se definio
-             [['nombrePersona', 'apellidoPersona', 'nacionalidadPersona', 'mailPersona'], 'string', 'length' => [3,64],'message'=>'Minimo 3 y maximo 64 caracteres'],
+             [['nombrePersona', 'apellidoPersona', 'nacionalidadPersona', 'mailPersona'], 'string', 'length' => [2,64],'message'=>'Minimo 3 y maximo 64 caracteres'],
              [['sexoPersona'], 'string', 'max' => 1],
              [['telefonoPersona'], 'string', 'max' => 32],
              //claves foraneas, se valida que existan y que pertenezcan a la clase correspondiente a la que hace referencia

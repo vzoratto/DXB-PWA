@@ -14,17 +14,22 @@ $(document).ready(function() {
 
     //Valido el ingreso cuando hay un cambio en telefono calle
     $('#persona-telefonopersona').change(function() {
-        controlTelefono();
+        controlTelefonoPersona();
+    })
+    //Valido el ingreso cuando hay un cambio en el email
+    $('#persona-mailpersona').change(function(){
+        controlEmail();
     })
 })
 
 //Se ejecuta cada vez que hago click en el boton "siguiente" del segundo step
 $('#stepwizard_step2_next').click(function() {
-    var validoTelefono = controlTelefono(); //Valido el telefono
+    var validoTelefono = controlTelefonoPersona(); //Valido el telefono
     var validoNombreCalle = controlNombreCalle(); //Valido el nombre
     var validoNumeroCalle = controlNumeroCalle(); //Valido el numero
+    var validoEmail = controlEmail(); //Valido el email
     //Si los campos estan correcto agrego la clase "next-step" para pasar al siguiente step
-    if (validoTelefono && validoNumeroCalle && validoNombreCalle) {
+    if (validoTelefono && validoNumeroCalle && validoNombreCalle && validoEmail) {
         $('#stepwizard_step2_next').addClass('next-step'); //Agrego la clase
     } else {
         $('#stepwizard_step2_next').removeClass('next-step'); //Remuevo la clase
@@ -32,7 +37,7 @@ $('#stepwizard_step2_next').click(function() {
 })
 
 //Control ingreso telefono de contacto
-function controlTelefono() {
+function controlTelefonoPersona() {
     var telContacto = $('#persona-telefonopersona').val(); //Valor del telefono de contacto
     siguiente = false;
     if (telContacto == "") {
@@ -106,3 +111,23 @@ function controlNombreCalle() {
     }
     return siguiente;
 }
+
+
+//Control ingreso email
+function controlEmail() {
+    var mailContacto = $('#persona-mailpersona').val(); //Valor del email
+    patron = /^[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/; //Patron a respetar
+    siguiente = false;
+    if (mailContacto !== "" && patron.test(mailContacto)) {
+        //En caso contrario borro el borde
+        $('#persona-mailpersona').css('border', 'none');
+        siguiente = true; //Seteo la variable
+    } else {
+        //Si esta vacio agrego un borde de color rojo para indicar que hay un error
+        $('#persona-mailpersona').css('border', '1px solid #a94442');
+        siguiente = false; //Seteo la variable
+    }
+    return siguiente;
+}
+
+

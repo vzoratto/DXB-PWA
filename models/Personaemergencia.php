@@ -38,7 +38,7 @@ class Personaemergencia extends \yii\db\ActiveRecord
             //solo string para el campo nombre y apellido
             [['nombrePersonaEmergencia','apellidoPersonaEmergencia'],'match','pattern'=>'/^[a-zA-Z.,-]+(?:\s[a-zA-Z.,-]+)*$/'],
             [['nombrePersonaEmergencia', 'apellidoPersonaEmergencia'], 'string', 'max' => 64,'message'=>'formato inválido'],
-            [['nombrePersonaEmergencia', 'apellidoPersonaEmergencia'], 'string', 'min' => 3,'message'=>'formato inválido'],
+            [['nombrePersonaEmergencia', 'apellidoPersonaEmergencia'], 'string', 'min' => 2,'message'=>'formato inválido'],
             [['telefonoPersonaEmergencia'], 'string', 'max' => 32],
             [['telefonoPersonaEmergencia'], 'string', 'min' => 4],
             //el telefono debe ser solo digitos numericos

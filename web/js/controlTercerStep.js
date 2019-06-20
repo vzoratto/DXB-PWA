@@ -156,11 +156,11 @@ function controlDonador() {
     var siguiente = false;
     if (donadorfichaMed !== undefined) {
         //Si se selecciono un sexo seteo la variable en true
-        $('.field-persona-donador .control-label').css('color', '#606060'); //Quito el borde rojo para indicar que ya no hay error
+        $('#donador').css('color', '#606060'); //Quito color rojo para indicar que ya no hay error
         siguiente = true;
     } else {
         //En caso contrario en false
-        $('.field-persona-donador .control-label').css('color', '#a94442'); //Agrego un borde rojo para indicar que hay un error
+        $('#donador').css('color', '#a94442'); //Agrego color rojo para indicar que hay un error
         siguiente = false;
     }
     return siguiente;
@@ -170,10 +170,10 @@ function controlEvalFichaMedica() {
     var evalmedifichaMed = $('input[name="Fichamedica[evaluacionMedica]"]:checked').val() //Valor checkbox evaluacion medica
     var siguiente = false;
     if (evalmedifichaMed !== undefined) {
-        $('.field-fichamedica-evaluacionmedica .control-label').css('color', '#606060'); //Quito el borde rojo para indicar que ya no hay error
+        $('#evaluacionMedica').css('color', '#606060'); //Quito el borde rojo para indicar que ya no hay error
         siguiente = true;
     } else {
-        $('.field-fichamedica-evaluacionmedica .control-label').css('color', '#a94442'); //Agrego un borde rojo para indicar que hay un error
+        $('#evaluacionMedica').css('color', '#a94442'); //Agrego un borde rojo para indicar que hay un error
         siguiente = false;
     }
     return siguiente;
@@ -183,10 +183,10 @@ function controlInterQuirurgica() {
     var intquirfichaMed = $('input[name="Fichamedica[intervencionQuirurgica]"]:checked').val() //Valor intervencion quirurjica
     var siguiente = false;
     if (intquirfichaMed !== undefined) {
-        $('.field-fichamedica-intervencionquirurgica .control-label').css('color', '#606060'); //Quito el borde rojo para indicar que ya no hay error
+        $('#intervencionQuirurgica').css('color', '#606060'); //Quito el color rojo para indicar que ya no hay error
         siguiente = true;
     } else {
-        $('.field-fichamedica-intervencionquirurgica .control-label').css('color', '#a94442'); //Agrego un borde rojo para indicar que hay un error
+        $('#intervencionQuirurgica').css('color', '#a94442'); //Agrego el color rojo para indicar que hay un error
         siguiente = false;
     }
     return siguiente;
@@ -196,10 +196,10 @@ function controlTomaSuplementos() {
     var suplementosfichaMed = $('input[name="Fichamedica[suplementos]"]:checked').val() //Valor checkbox suplementos
     var siguiente = false;
     if (suplementosfichaMed !== undefined) {
-        $('.field-fichamedica-suplementos .control-label').css('color', '#606060'); //Quito el borde rojo para indicar que ya no hay error
+        $('#suplementos').css('color', '#606060'); //Quito el color rojo para indicar que ya no hay error
         siguiente = true;
     } else {
-        $('.field-fichamedica-suplementos .control-label').css('color', '#a94442'); //Agrego un borde rojo para indicar que hay un error
+        $('#suplementos').css('color', '#a94442'); //Agrego color rojo para indicar que hay un error
         siguiente = false;
     }
     return siguiente;
@@ -209,10 +209,10 @@ function controlTomaMedicamento() {
     var medicamentosfichaMed = $('input[name="Fichamedica[tomaMedicamentos]"]:checked').val() //Valor checkbox medicamentos
     var siguiente = false;
     if (medicamentosfichaMed !== undefined) {
-        $('.field-fichamedica-tomamedicamentos .control-label').css('color', '#606060'); //Quito el borde rojo para indicar que ya no hay error
+        $('#tomaMedicamentos').css('color', '#606060'); //Quito color rojo para indicar que ya no hay error
         siguiente = true;
     } else {
-        $('.field-fichamedica-tomamedicamentos .control-label').css('color', '#a94442'); //Agrego un borde rojo para indicar que hay un error
+        $('#tomaMedicamentos').css('color', '#a94442'); //Agrego color rojo para indicar que hay un error
         siguiente = false
     }
     return siguiente;

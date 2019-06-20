@@ -37,7 +37,7 @@ use yii\widgets\MaskedInput;
         <!-- Ingreso del e-mail -->
         <div id="mailPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
         <div>E-mail</div>
-        <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true,'placeholder'=>'mi@email.com'])->label('') ?>
+        <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true,'placeholder'=>'ejemplo@email.com'])->label('') ?>
         </div>
 
     </div>

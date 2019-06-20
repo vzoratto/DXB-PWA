@@ -182,7 +182,7 @@ use kartik\switchinput\SwitchInput;
         
         <div id="dniUsuario" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
         <div>DNI</div>
-            <?= $form->field($usuario, 'dniUsuario')->textInput(['value'=>$dniUsuario,'readonly'=> $soloLectura, 'class' => 'input-db'])->label('')?>
+            <?= $form->field($usuario, 'dniUsuario')->textInput(['value'=>$dniUsuario,'readonly'=> $soloLectura, 'class' => 'input-db','placeholder'=>'DNI'])->label('')?>
         </div>
         
         <div id="nacionalidadPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
