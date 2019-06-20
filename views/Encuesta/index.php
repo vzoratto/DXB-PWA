@@ -19,7 +19,7 @@ use kartik\export\ExportMenu;
 $this->title = 'Listado de Encuestas y Trivias';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?php if (Yii::$app->user->isGuest()): ?>
+
 <div class="container">
     <div class="encuesta-index">
 
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'headerOptions'=>['style'=>'color:#1369BF'],
                         'contentOptions'=>['style'=>'width:100px;'],
                         'value'=>function($model){
-                            return Html::a('Publicar', //Publica la encuesta o trivia que se vera publicada
+                            return Html::a('Publicar', //Publica la encuesta o trivia que se desea mostrar
                                     [
                                         'verencuesta/publicar-encuesta',
                                         'idEncuesta'=>$model->idEncuesta
@@ -106,4 +106,4 @@ $this->params['breadcrumbs'][] = $this->title;
         ]); ?>
     </div>
 </div>
-<?php EndIf; ?>
+

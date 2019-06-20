@@ -9,7 +9,9 @@ use app\models\Pregunta;
 use app\models\RespuestaOpcion;
 use app\models\Respuesta;
 use app\models\EncuestaSearch;
-
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\helpers\Url;
 
 /**
  * Controlador utilizado para armar y mostrar las encuestas
@@ -32,10 +34,12 @@ class VerencuestaController extends Controller{
         
         $searchModel = new EncuestaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('@app/views/Encuesta/index.php', [
+        
+        // Realiza los cambios en encPublica y vuelve al controlador encuesta, accion index
+        return $this->redirect(['encuesta/index', [ 
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+        ],
         ]);
     }
 
@@ -62,5 +66,42 @@ class VerencuestaController extends Controller{
             'opcion'=>$opcion,
             'respuesta'=>$respuesta,
             ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['publicarEncuesta','verEncuesta'],
+                'rules' => [
+                    [
+                        'actions' => ['publicarEncuesta','verEncuesta'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Permiso::requerirRol('administrador') && Permiso::requerirActivo(1);
+                        }
+                    ],
+                    [
+                        'actions' => ['publicarEncuesta','verEncuesta'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Permiso::requerirRol('gestor') && Permiso::requerirActivo(1);
+                        }
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
     }
 }

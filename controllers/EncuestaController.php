@@ -9,6 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\models\Permiso;
+
+
 
 /**
  * EncuestaController implements the CRUD actions for Encuesta model.
@@ -30,10 +33,10 @@ class EncuestaController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index,view,create,update,delete'],
+                'only' => ['index','view','create','update','delete'],
                 'rules' => [
                     [
-                        'actions' => ['index,view,create,update,delete'],
+                        'actions' => ['index','view','create','update','delete'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
@@ -41,7 +44,7 @@ class EncuestaController extends Controller
                         }
                     ],
                     [
-                        'actions' => ['index,view,create,update,delete'],
+                        'actions' => ['index','view','create','update','delete'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
@@ -67,7 +70,9 @@ class EncuestaController extends Controller
     {
         $searchModel = new EncuestaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->pagination=[
+            'pageSize'=>10,
+        ];
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
