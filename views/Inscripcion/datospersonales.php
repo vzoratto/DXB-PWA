@@ -38,8 +38,9 @@ use kartik\switchinput\SwitchInput;
 
     <div class="row no-label">
         <div id="opcionesCapitan" style="display:none" aria-label="..." class="col-1">
-
+            
             <div id="tipoCarrera" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
+            <div>Carrera</div>
                 <?= $form->field($tipoCarrera, 'idTipoCarrera')->widget(Select2::classname(), [
                     'data' => $tipocarreraLista,
                     'id'=>'idTipoCarrera',
@@ -48,8 +49,9 @@ use kartik\switchinput\SwitchInput;
                     ],
                     ])->label('Carreras'); ?>
             </div>
-
+            
             <div id="cantidadPeronas" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
+            <div>Cantidad de corredores</div>
                 <?= $form->field($equipo, 'cantidadPersonas')->widget(Select2::classname(), [
                 'data' => $cantCorredores,
                 'id'=>'idParametros',
@@ -65,8 +67,9 @@ use kartik\switchinput\SwitchInput;
 
     <div class="row no-label">
     <div id="opcionesNoSoyCapitan" style="display:block" aria-label="..." class="col-1">
-
+        
         <div id="dniCapitan" class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
+        <div>DNI capitán</div>
         <?= $form->field($equipo, 'idEquipo')->widget(Select2::classname(), [
             'data' => $equipoLista,
             'id'=>'idEquipo',
@@ -79,8 +82,9 @@ use kartik\switchinput\SwitchInput;
             ]
             ]); ?>
         </div>
-
+        
         <div id="nombreCapitan" class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
+        <div>Nombre capitán</div>
             <?= $form->field($persona, 'nombrePersona')->widget(DepDrop::classname(), [
                     'type' => DepDrop::TYPE_SELECT2,
                     'disabled' => true,
@@ -101,8 +105,9 @@ use kartik\switchinput\SwitchInput;
             ?>
         </div>
 
-
+        
         <div id="tipoDeCarrera" class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
+        <div>Tipo de carrera</div>
             <?= $form->field($tipoCarrera, 'idTipoCarrera')->widget(DepDrop::classname(), [
                     'type' => DepDrop::TYPE_SELECT2,
                     'disabled' => true,
@@ -119,8 +124,9 @@ use kartik\switchinput\SwitchInput;
             ]);
             ?>
         </div>
-
+        
         <div id="cantidadPersonas" class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
+        <div>Cantidad de corredores</div>
             <?= $form->field($equipo, 'cantidadPersonas')->widget(DepDrop::classname(), [
                     'type' => DepDrop::TYPE_SELECT2,
                     'disabled' => true,
@@ -163,39 +169,46 @@ use kartik\switchinput\SwitchInput;
 
     </div>
     <div class="row no-label">
-
+        
         <div id="dniUsuario" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-            <?= $form->field($usuario, 'dniUsuario')->textInput(['value'=>$user->identity->dniUsuario,'readonly'=> true, 'class' => 'input-db'])->label('D.N.I.')?>
+        <div>DNI</div>
+            <?= $form->field($usuario, 'dniUsuario')->textInput(['value'=>$user->identity->dniUsuario,'readonly'=> true, 'class' => 'input-db'])->label('')?>
         </div>
-
+        
         <div id="nacionalidadPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+        <div>Nacionalidad</div>
             <?= $form->field($persona, 'nacionalidadPersona')->textInput(['maxlength' => true, 'class' => 'input-db', 'placeholder'=>'Nacionalidad']) ?>
         </div>
+        
         <div id="nombrePersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+        <div>Nombre</div>
             <?= $form->field($persona, 'nombrePersona')->textInput(['maxlength' => true, 'class' => 'input-db','placeholder'=>'Nombre']) ?>
         </div>
-
+        
         <div id="apellidoPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+        <div>Apellido</div>
             <?= $form->field($persona, 'apellidoPersona')->textInput(['maxlength' => true, 'class' => 'input-db','placeholder'=>'Apellido'])?>
         </div>
     </div>
     <div class="row">
+        
         <div id="fechaNacPersona" class="col-md-4 col-lg-4 col-sm-4 col-xs-12 no-label">
+        <div>Fecha de nacimiento</div>
         <!-- utilizacion de un widget de kartik llamado DatePicker, permite escoger
         una fecha desde un calendario permitiendo tambien seleccionar años o meses
         con una mayor facilidad -->
             <?=  $form->field($persona, 'fechaNacPersona')->textInput(['class'=>'datepicker form-control input-db','id'=>'datepicker', 'placeholder'=>'Fecha de nacimiento']) ?>
-            <small style="color:#a94442">*Podés correr a partir de los 12 años</small>
 
         </div>
-
+        
         <div id="sexoPersona" class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+        <div>Sexo</div>
             <!-- campo tipo radioButton, con dos opciones: SI o NO -->
-            <?= $form->field($persona, 'sexoPersona')->radioList(array('F'=>'Femenino','M'=>'Masculino'))
-                                                            ->label('Sexo'); ?>
+            <?= $form->field($persona, 'sexoPersona')->radioList(array('F'=>'Femenino','M'=>'Masculino'))->label('')?>
         </div>
-
+        
         <div id="talleRemera" class="col-md-4 col-lg-4 col-sm-4 col-xs-12 no-label">
+        <div>Talle de remera</div>
         <?=$form->field($talleRemera, 'idTalleRemera')->dropDownList($listadoTalles, ['prompt' => 'Talle de remera' ]); ?>
         </div>
     </div>
