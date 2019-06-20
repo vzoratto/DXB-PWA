@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\PreguntaSearch;
+use yii\filters\AccessControl;
+use app\models\Permiso;
 
 /**
  * RespuestaopcionController implements the CRUD actions for Respuestaopcion model.
@@ -113,6 +115,30 @@ class RespuestaopcionController extends Controller
     public function behaviors()
     {
         return [
+
+            'access'=>[
+                'class' => AccessControl::className(),
+                'only' => [],
+                'rules' => [
+                    [
+                        'actions' => [],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Permiso::requerirRol('administrador') && Permiso::requerirActivo(1);
+                        }
+                    ],
+                    [
+                        'actions' => [],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Permiso::requerirRol('gestor') && Permiso::requerirActivo(1);
+                        }
+                    ],
+                ],
+            ],
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

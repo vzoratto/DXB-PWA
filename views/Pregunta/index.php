@@ -23,8 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="pregunta-index">
 
         <h1><?= Html::encode($this->title) ?></h1>
-
-        <p>
+        <hr>
+        <div>
+            
             <?php if ($encuesta!=null): ?>
             <?= Html::a('Create Pregunta', ['create','id'=>$encuesta['idEncuesta']], ['class' => 'btn btn-default']) ?>
             <?php endif ?>
@@ -52,19 +53,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'label'=>'Tipo de Respuesta',
                         'value'=>'respTipo.respTipoDescripcion',
                     ],
-                    ['attribute'=>'',
-                            'format'=>'raw',
-                            'headerOptions'=>['style'=>'color:#1369BF'],
-                            'contentOptions'=>['style'=>'width:120px;'],
-                            'value'=>function($model){
-                                return Html::a('Respuestas',
-                                        ['respuesta/index',
-                                        'idPregunta'=>$model->idPregunta
-                                        ]
-                                );
-                        }
-                    ],
-
                 ],
                 'dropdownOptions' => [
                     'label' => 'Exportar datos',
@@ -72,12 +60,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ]) ?>
             
-        </p>
+        </div>
 
         <?php Pjax::begin(); ?>
            
             <hr>
+            <?php if(isset($encuesta['encTitulo'])): ?>
             <h3>Encuesta: <?= Html::encode($encuesta['encTitulo']) ?></h3>
+            <?php endif ?>
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
