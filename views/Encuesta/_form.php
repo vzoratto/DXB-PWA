@@ -1,5 +1,7 @@
 <?php
 
+// Renderiza la generación de la encuesta
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -18,10 +20,10 @@ use yii\widgets\ActiveForm;
             <label>¿Que deseas generar?</label>
         </div>
         <div class="switch pull-left" >
-            <input type="radio" class="switch-input input-db" name="encTipo" value="encuesta" id="encTipoEncuesta" onClick=myFunction() >
-            <label for="encTipoEncuesta" class="switch-label switch-label-off">Encuesta</label>
-            <input type="radio" class="switch-input input-db" name="encTipo" value="trivia" id="encTipoTrivia" checked onClick=myFunction()>
-            <label for="encTipoTrivia" class="switch-label switch-label-on">Trivia</label>
+            <input type="radio" class="switch-input input-db" name="encTipo" value="trivia" id="encTipoTrivia" onClick=myFunction() >
+            <label for="encTipoTrivia" class="switch-label switch-label-off">Trivia</label>
+            <input type="radio" class="switch-input input-db" name="encTipo" value="encuesta" id="encTipoEncuesta" checked onClick=myFunction()>
+            <label for="encTipoEncuesta" class="switch-label switch-label-on">Encuesta</label>
             <span class="switch-selection"></span>
         </div>
     </div>

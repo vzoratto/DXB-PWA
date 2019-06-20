@@ -1,5 +1,7 @@
 <?php
 
+// Renderiza las vistas de las opciones de listas desplegables
+
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 
@@ -17,6 +19,7 @@ use yii\helpers\ArrayHelper;
     
     <?php foreach($valor2 as $unaOpc):?>
 
+        <!-- Cada opcion de las opciones de respuesta se agrega a un array de opciones para la lista desplegable  -->
         <?php if($unaOpc['idPregunta']==$idPregunta):?>
             <?php array_push($resp, $unaOpc); ?>
         <?php endif;?>

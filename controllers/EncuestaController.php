@@ -8,6 +8,7 @@ use app\models\EncuestaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * EncuestaController implements the CRUD actions for Encuesta model.
@@ -18,7 +19,7 @@ class EncuestaController extends Controller
      * Devuelve el elemento Encuesta que este activo para ser publicado
      */
     public static function encuestaPublica(){
-        return Encuesta::find()->where(['encPublica'=>1])->one();
+        return Encuesta::find()->where(['encPublica'=>1, 'encTipo'=>'encuesta'])->one();
     }
 
     /**
@@ -27,6 +28,28 @@ class EncuestaController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index,view,create,update,delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index,view,create,update,delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Permiso::requerirRol('administrador') && Permiso::requerirActivo(1);
+                        }
+                    ],
+                    [
+                        'actions' => ['index,view,create,update,delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Permiso::requerirRol('gestor') && Permiso::requerirActivo(1);
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

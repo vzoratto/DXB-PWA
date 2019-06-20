@@ -1,5 +1,7 @@
 <?php
 
+// muestra una vista de como quedara publicada la encuesta, solamente la muestra, no se puede con este script cargar datos a la base de datos
+
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;

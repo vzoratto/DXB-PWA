@@ -48,7 +48,7 @@ class Pregunta extends \yii\db\ActiveRecord
     {
         return [
             'idPregunta' => 'Id Pregunta',
-            'pregDescripcion' => 'Preg Descripcion',
+            'pregDescripcion' => 'Pregunta',
             'idEncuesta' => 'Id Encuesta',
             'idRespTipo' => 'Id Resp Tipo',
         ];

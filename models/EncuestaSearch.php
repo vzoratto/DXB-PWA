@@ -42,6 +42,7 @@ class EncuestaSearch extends Encuesta
     {
         $query = Encuesta::find();
 
+       
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -60,6 +61,7 @@ class EncuestaSearch extends Encuesta
         $query->andFilterWhere([
             'idEncuesta' => $this->idEncuesta,
             'encPublica' => $this->encPublica,
+            'encTipo'=>$this->encTipo,
         ]);
 
         $query->andFilterWhere(['like', 'encTitulo', $this->encTitulo])

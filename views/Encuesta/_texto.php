@@ -1,4 +1,7 @@
 <?php
+
+// Renderiza la opcion texto de la encuesta
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;

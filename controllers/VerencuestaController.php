@@ -21,11 +21,13 @@ class VerencuestaController extends Controller{
      * Accion que cambia el valor del campo encPublica para seleccionar cual sera visible en el tas de inscripcion
      */
     public function actionPublicarEncuesta(){
+        
         $idEncuesta=$_REQUEST['idEncuesta'];
         $encuesta=Encuesta::findOne($idEncuesta);
+        $tipo=$encuesta->encTipo;
         $conexion=\Yii::$app->db;
         //Cambia el valor de encPublica en todos los campos a 0 y luego le da el valor 1 a la encuesta que seleccionamos.
-        $conexion->createCommand()->update('encuesta', ['encPublica'=>0])->execute();
+        $conexion->createCommand()->update('encuesta', ['encPublica'=>0], ['encTipo'=>$tipo])->execute();
         $conexion->createCommand()->update('encuesta', ['encPublica'=>1], ['idEncuesta'=>$idEncuesta])->execute();       
         
         $searchModel = new EncuestaSearch();

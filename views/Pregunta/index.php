@@ -1,8 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
+use kartik\export\ExportMenu;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PreguntaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -10,46 +12,89 @@ use yii\widgets\Pjax;
 $this->title = 'Preguntas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="pregunta-index">
+<div class="container">
+    <div class="pregunta-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+        <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Pregunta', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Encuestas', ['encuesta/index'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Respuestas', ['respuesta/index'], ['class' => 'btn btn-primary']) ?>
-    </p>
+        <p>
+            <?= Html::a('Create Pregunta', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Encuestas', ['encuesta/index'], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Respuestas', ['respuesta/index'], ['class' => 'btn btn-primary']) ?>
+            <?= ExportMenu::widget([
+                'dataProvider'=>$dataProvider,
+                'columns'=>[
+                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'attribute'=>'idEncuesta',
+                        'label'=>'Encuesta',
+                        'value'=>'encuesta.encTitulo',
+                    ],
+                    'pregDescripcion',
+                    [
+                        'attribute'=>'idRespTipo',
+                        'label'=>'Tipo de Respuesta',
+                        'value'=>'respTipo.respTipoDescripcion',
+                    ],
+                    ['attribute'=>'',
+                            'format'=>'raw',
+                            'headerOptions'=>['style'=>'color:#1369BF'],
+                            'contentOptions'=>['style'=>'width:120px;'],
+                            'value'=>function($model){
+                                return Html::a('Respuestas',
+                                        ['respuesta/index',
+                                        'idPregunta'=>$model->idPregunta
+                                        ]
+                                );
+                        }
+                    ],
 
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <hr>
-    <h3>Encuesta: <?= Html::encode($encuesta['encTitulo']) ?></h3>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                ],
+                'dropdownOptions' => [
+                    'label' => 'Exportar datos',
+                    'class' => 'btn btn-default'
+                ]
+            ]) ?>
+            
+        </p>
 
-            'idPregunta',
-            'pregDescripcion',
-            'idEncuesta',
-            ['attribute'=>'',
-                    'format'=>'raw',
-                    'headerOptions'=>['style'=>'color:#1369BF'],
-                    'contentOptions'=>['style'=>'width:120px;'],
-                    'value'=>function($model){
-                        return Html::a('Respuestas',
-                                ['respuesta/index',
-                                 'idPregunta'=>$model->idPregunta
-                                ]
-                        );
-                 }
-            ],
+        <?php Pjax::begin(); ?>
+           
+            <hr>
+            <h3>Encuesta: <?= Html::encode($encuesta['encTitulo']) ?></h3>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'attribute'=>'idEncuesta',
+                        'label'=>'Encuesta',
+                        'value'=>'encuesta.encTitulo',
+                    ],
+                    'pregDescripcion',
+                    [
+                        'attribute'=>'idRespTipo',
+                        'label'=>'Tipo de Respuesta',
+                        'value'=>'respTipo.respTipoDescripcion',
+                    ],
+                    ['attribute'=>'',
+                            'format'=>'raw',
+                            'headerOptions'=>['style'=>'color:#1369BF'],
+                            'contentOptions'=>['style'=>'width:120px;'],
+                            'value'=>function($model){
+                                return Html::a('Respuestas',
+                                        ['respuesta/index',
+                                        'idPregunta'=>$model->idPregunta
+                                        ]
+                                );
+                        }
+                    ],
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-    <?php Pjax::end(); ?>
-
+                    ['class' => 'yii\grid\ActionColumn'],
+                ],
+            ]); 
+            ?>
+        <?php Pjax::end(); ?>
+    </div>
 </div>

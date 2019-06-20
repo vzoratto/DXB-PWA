@@ -1,10 +1,9 @@
 <?php
+
+// Vista de la encuesta publicada en el proceso de inscripcion
+
 use app\controllers\PreguntaController;
-use app\controllers\RespuestaController;
 use app\controllers\RespuestaopcionController;
-use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\widgets\ActiveForm;
 use app\controllers\EncuestaController;
 
 /* @var $this yii\web\View */
@@ -14,15 +13,17 @@ use app\controllers\EncuestaController;
 
 
 ?>
+<!-- Busca la encuesta que esta activa para ser publicada -->
+<?php $encuesta=EncuestaController::encuestaPublica(); ?>
 
-<?php $encuesta=EncuestaController::encuestaPublica();  ?>
-
-<?php $pregunta=PreguntaController::entregaPreguntasXEncuesta($encuesta['idEncuesta']);?>
+<!-- Se buscan las preguntas que corresponden a la encuesta publica -->
+<?php $pregunta=PreguntaController::entregaPreguntasXEncuesta($encuesta['idEncuesta']); ?>
 
 <?php
 $i=0;
         $opcion=[];
 
+        // Recorre el listado de preguntas de la encuesta activa y arma un array con las opciones de respuesa de cada una
         foreach($pregunta as $unaPregunta){
             $opciones=RespuestaopcionController::listaRespuestaOpcion($unaPregunta->idPregunta);
             $opcion[$i]=$opciones;
@@ -30,15 +31,14 @@ $i=0;
         }
 ?>
 
-<!-- <H1>Contenido en desarrollo &#128077;</H1> -->
-
-<!-- <?php //echo Html::a('Ir a generacion de encuesta', Url::toRoute('encuesta/create'), ['class'=>'btn btn-primary btn-sm'])?> -->
-
 <h3> <?= $encuesta['encTitulo']?></h3>
 <h5> <?= $encuesta['encDescripcion']?></h5>
 <hr>
 <div class="encuesta-form">    
         
+        <!-- por cada pregunta de la lista identifica el tipo de respuesta y renderiza la vista correspondiente
+        pasando en cada caso las opciones de respuesta, id de la pregunta, instancia del modelo Formulario,
+        instancia del modelo Respuesta y la pregunta -->
         <?php foreach($pregunta as $valor):?>
         <div class=" col-xs-12 col-sm-6">
 
@@ -90,6 +90,8 @@ $i=0;
         </div>
         <?php endforeach?>
         <?php if(!$encuesta==[]):?>
+            <!-- Si existe una encuesta publica, se incorpora el id de la misma a los datos del formulario
+            caso contrario no se tiene en cuesta esta línea -->
             <?= $form->field($respuesta, 'idEncuesta')->hiddenInput(['value'=>$encuesta['idEncuesta']])->label(false) ?> 
         <?php endif?>
 
