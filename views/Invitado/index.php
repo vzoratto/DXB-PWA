@@ -14,7 +14,7 @@ use buttflattery\formwizard\FormWizard;
 
       <?php $form = ActiveForm::begin([
           'method'=>'post',
-          "action"=>"index.php?r=inscripcion%2Fstore",
+          "action"=>"index.php?r=invitado%2Fstore",
       		"enableClientValidation"=>true,
       ]); ?>
 
@@ -95,7 +95,7 @@ $wizard_config = [
 		],
          
         	],
-        	'start_step' => 1, // Optional, start with a specific step
+        	'start_step' => 3, // Optional, start with a specific step
         ];
         ?>
 

@@ -15,6 +15,16 @@ use kartik\switchinput\SwitchInput;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<?php
+    $idRol = $user->identity->idRol;
+    if ($idRol == 3 ){ // Si es gestora
+        $soloLectura = false; //Significa que va a poder cambiar los valores del DNI del usuario y su Mail
+        $dniUsuario = '';
+    } else {
+        $soloLectura = true;
+        $dniUsuario = $user->identity->dniUsuario;
+    }
+?>
 <div class="persona-form" id="primerStep">
 
 <!-- vista del tab datos personales del formulario-->
@@ -172,7 +182,7 @@ use kartik\switchinput\SwitchInput;
         
         <div id="dniUsuario" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
         <div>DNI</div>
-            <?= $form->field($usuario, 'dniUsuario')->textInput(['value'=>$user->identity->dniUsuario,'readonly'=> true, 'class' => 'input-db'])->label('')?>
+            <?= $form->field($usuario, 'dniUsuario')->textInput(['value'=>$dniUsuario,'readonly'=> $soloLectura, 'class' => 'input-db'])->label('')?>
         </div>
         
         <div id="nacionalidadPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">

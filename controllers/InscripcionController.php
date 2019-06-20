@@ -26,6 +26,8 @@ use app\models\Equipo;
 use app\models\Grupo;
 use app\models\Parametros;
 use app\models\Carrerapersona;
+use yii\base\Security;
+
 
 use yii\helper\Json;
 
@@ -309,8 +311,52 @@ class InscripcionController extends Controller
 
         $guardado=false;
         $transaction = Persona::getDb()->beginTransaction();
+        $userLogueado=Yii::$app->user;
+
         //print_R(Yii::$app->request->post());
         try {
+            //Si la gestora ingreasa un corredor
+            $idRol = $userLogueado->identity->idRol;
+            if ($idRol == 3 ){ // Si es gestora
+                //MODELO USUARIO
+
+                $modeloUsuario=Yii::$app->request->post()['Usuario'];
+                $dniUsuario = $modeloUsuario['dniUsuario'];
+
+                $modeloPersona=Yii::$app->request->post()['Persona'];
+                $mailUsuario = $modeloPersona['mailPersona'];
+                $usuario = new Usuario();
+                $usuario->dniUsuario = $dniUsuario;
+                $usuario->mailUsuario = $mailUsuario;
+                $usuario->activado = 1;
+                $usuario->idRol = 4; //invitado
+
+                $security = new Security();
+                $authkey = $security->generateRandomString(50);
+                $usuario->authkey = $authkey; //clave será utilizada para activar el usuario
+                
+                $usuario->claveUsuario = crypt($dniUsuario,Yii::$app->params["salt"]);
+
+                $objUsuario = Usuario::find()->where(['dniUsuario'=>$dniUsuario])->One();
+                if ($objUsuario == null) { // Es decir, no existe el usuario con ese DNI en la BD
+                    $existeUsuario = false;
+                } else {
+                    $existeUsuario = true;
+                }
+                
+
+                if ($usuario->validate() && !($existeUsuario)) {
+                    // toda la entrada es válida
+                    $usuario->save();
+                    $idUsuario = Yii::$app->db->getLastInsertID();
+                } else {
+                    // la validación falló: $erroresPersonaDireccion es un array que contienen los mensajes de error
+                    $usuario = $usuario->errors;
+                    
+                }
+            }else{
+                $idUsuario=Yii::$app->user->identity->idUsuario;
+            }
             //MODELO LOCALIDAD
             $modeloLocalidad=Yii::$app->request->post()['Localidad'];
             //MODELO PERSONA DIRECCION
@@ -384,7 +430,7 @@ class InscripcionController extends Controller
             $persona->nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
             $persona->telefonoPersona=$modeloPersona['telefonoPersona'];
             $persona->mailPersona=$modeloPersona['mailPersona'];
-            $persona->idUsuario=Yii::$app->user->identity->idUsuario;
+            $persona->idUsuario=$idUsuario;
             $persona->idPersonaDireccion=$personaDireccion->idPersonaDireccion;
             $persona->idFichaMedica=$fichaMedica->idFichaMedica;
             $persona->fechaInscPersona=null;

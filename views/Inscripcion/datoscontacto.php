@@ -16,6 +16,17 @@ use yii\widgets\MaskedInput;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<?php
+    $idRol = $user->identity->idRol;
+    if ($idRol == 3 ){ // Si es gestora
+        $soloLectura = false; //Significa que va a poder cambiar los valores del DNI del usuario y su Mail
+        $mailUsuario = '';
+    } else {
+        $soloLectura = true;
+        $mailUsuario = $user->identity->mailUsuario;
+    }
+?>
+
 <div class="personadireccion-form" id="segundoStep">
 
 <!-- vista del tab datos de contacto del formulario-->
@@ -37,7 +48,7 @@ use yii\widgets\MaskedInput;
         <!-- Ingreso del e-mail -->
         <div id="mailPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
         <div>E-mail</div>
-        <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true,'value'=>$user->identity->mailUsuario,'readonly'=> true])->label('') ?>
+        <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true,'value'=>$mailUsuario,'readonly'=> $soloLectura])->label('') ?>
         </div>
 
     </div>

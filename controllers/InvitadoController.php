@@ -26,8 +26,9 @@ use app\models\Equipo;
 use app\models\Grupo;
 use app\models\Parametros;
 use app\models\Carrerapersona;
-
+use app\models\RegistroForm;
 use yii\helper\Json;
+use yii\base\Security;
 
 class InvitadoController extends Controller
 {
@@ -306,11 +307,50 @@ class InvitadoController extends Controller
      * Guarda los datos del formulario en sus correspondientes tablas de la base de datos
      */
     public function actionStore(){
-
         $guardado=false;
         $transaction = Persona::getDb()->beginTransaction();
-        //print_R(Yii::$app->request->post());
+        
         try {
+
+            //MODELO USUARIO
+
+            $modeloUsuario=Yii::$app->request->post()['Usuario'];
+            $dniUsuario = $modeloUsuario['dniUsuario'];
+
+            $modeloPersona=Yii::$app->request->post()['Persona'];
+            $mailUsuario = $modeloPersona['mailPersona'];
+            $usuario = new Usuario();
+            $usuario->dniUsuario = $dniUsuario;
+            $usuario->mailUsuario = $mailUsuario;
+            $usuario->activado = 1;
+            $usuario->idRol = 4; //invitado
+
+            $security = new Security();
+            $authkey = $security->generateRandomString(50);
+            $usuario->authkey = $authkey; //clave será utilizada para activar el usuario
+               
+            $usuario->claveUsuario = crypt($dniUsuario,Yii::$app->params["salt"]);
+
+            $objUsuario = Usuario::find()->where(['dniUsuario'=>$dniUsuario])->One();
+            if ($objUsuario == null) { // Es decir, no existe el usuario con ese DNI en la BD
+                $existeUsuario = false;
+            } else {
+                $existeUsuario = true;
+            }
+            
+
+            if ($usuario->validate() && !($existeUsuario)) {
+                // toda la entrada es válida
+                $usuario->save();
+                $idUsuario = Yii::$app->db->getLastInsertID();
+            } else {
+                // la validación falló: $erroresPersonaDireccion es un array que contienen los mensajes de error
+                $usuario = $usuario->errors;
+                
+            }
+            
+      
+                  
             //MODELO LOCALIDAD
             $modeloLocalidad=Yii::$app->request->post()['Localidad'];
             //MODELO PERSONA DIRECCION
@@ -384,7 +424,7 @@ class InvitadoController extends Controller
             $persona->nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
             $persona->telefonoPersona=$modeloPersona['telefonoPersona'];
             $persona->mailPersona=$modeloPersona['mailPersona'];
-            $persona->idUsuario=Yii::$app->user->identity->idUsuario;
+            $persona->idUsuario=$idUsuario;
             $persona->idPersonaDireccion=$personaDireccion->idPersonaDireccion;
             $persona->idFichaMedica=$fichaMedica->idFichaMedica;
             $persona->fechaInscPersona=null;
@@ -451,7 +491,6 @@ class InvitadoController extends Controller
 
             //MODELO CARRERAPERSONA
             $carreraPersona = new Carrerapersona();
-            $modeloCarreraPersona = Yii::$app->request->post()['Carrerapersona'];
             
             if (!Yii::$app->request->post()['swichtCapitan']){ //Si no es capitan
                 $idEquipo=Yii::$app->request->post()['Equipo']['idEquipo'];
@@ -463,7 +502,7 @@ class InvitadoController extends Controller
             
             $carreraPersona->idPersona=$persona->idPersona;
             $carreraPersona->idTipoCarrera = $idTipoCarrera;
-            $carreraPersona->reglamentoAceptado = $modeloCarreraPersona['reglamentoAceptado'];
+            $carreraPersona->reglamentoAceptado = 1; //Acepta el reglamento obligatoriamente
             $carreraPersona->save();
             //idTipoCarrera idPersona reglamentoAceptado
             //$carreraPersona->idPersona=$persona->idPersona;
@@ -471,55 +510,16 @@ class InvitadoController extends Controller
             //$carreraPersona->idTipoCarrera = $idTipoCarrera;
             
 
-            //RESPUESTA A ENCUESTA
-            $respuesta=Yii::$app->request->post();
-            foreach($respuesta as $clave=>$valor){
-                if(is_numeric($clave)){
-                    if(is_array($valor)){
-                        foreach($valor as $unValor){
-                            if(is_numeric($unValor)){
-                                $opcion=Respuestaopcion::findOne($unValor);
-                                $resp['respValor']=$opcion->opRespvalor;
-                            }else{
-                                $resp['respValor']=$unValor;
-                            }
-                            $resp['idPregunta']=$clave;
-                            $resp['idPersona']=$idPersona;
-
-                            $model=new Respuesta();
-                            $model->respValor=$resp['respValor'];
-                            $model->idPregunta=$resp['idPregunta'];
-                            $model->idPersona=$resp['idPersona'];
-                            $model->save();
-                        }
-                    }else{
-                        if(is_numeric($valor)){
-                            $opcion=Respuestaopcion::findOne($valor);
-                            $resp['respValor']=$opcion->opRespvalor;
-                        }else{
-                            $resp['respValor']=$valor;
-                        }
-                        $resp['idPregunta']=$clave;
-                        $resp['idPersona']=$idPersona;
-
-                        $model=new Respuesta();
-                        $model->respValor=$resp['respValor'];
-                        $model->idPregunta=$resp['idPregunta'];
-                        $model->idPersona=$resp['idPersona'];
-                        $model->save();
-                    }
-                }    
-            }
-
+           
             $transaction->commit();
              $guardado=true;
             if ($guardado){     //Si la inscripcion es guardada correctamente
 
-                $idUsuario= Yii::$app->user->identity->idUsuario;
+               
                 $usuario=Usuario::find()->where(['idUsuario'=>$idUsuario])->one();
                 //mail de confirmacion de inscripcion
                 $subject = "Inscripcion y reglamento";
-                $body = "<h1>Gracias por inscribirse a la carrera". $usuario->dniUsuario .". Clickee en el siguiente link para ver el reglamento que ha aceptado</h1>";
+                $body = "<h1>Has sido invitado a la carrera ". $usuario->dniUsuario .". Clickee en el siguiente link para ver el reglamento que ha aceptado</h1>";
                 $body .= "<a href='http://localhost/carrera/web/index.php'>Reglamento</a>";
 
                 Yii::$app->mailer->compose()
