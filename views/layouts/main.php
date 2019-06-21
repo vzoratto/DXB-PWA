@@ -37,40 +37,34 @@ AppAsset::register($this);
           'id' => 'bardasHeader'
       ],
   ]);
-  
+
   echo Nav::widget([
       'options' => ['class' => 'navbar-nav navbar-right'],
-      
+
       'items' => [
-          ['label' => 'Inicio', 'url' => ['/site/index']],
-          ['label' => 'Premios', 'url' => ['/site/about']],
-          ['label' => 'Sponsors', 'url' => ['/site/contact']],
-          ['label' => 'Contacto', 'url' => ['/site/contact']],
-          ['label' => 'Registro', 'url' => 'index.php?r=site/registro', 'visible' => Yii::$app->user->isGuest],
-          ['label' => 'Iniciar Sesion ','items' => [
-            ['label' => 'Logueate', 'url' => 'index.php?r=site%2Flogin'],
-            ['label' => 'Registrate', 'url' => 'index.php?r=site/registro'],
-            ['label' => 'Olvide password', 'url' => 'index.php?r=site/recupass'],
-            ['label' => 'Cambia password', 'url' => 'index.php?r=site/cambiapass'],
-            ],
-          ],
+          ['label' => 'Inicio', 'url' => ['/site/index', '#' => 'inicio']],
+          ['label' => 'Premios', 'url' => ['/site/index', '#' => 'premios']],
+          ['label' => 'Colaboradores', 'url' => ['/site/index', '#' => 'colaboradores']],
+          ['label' => 'Reglamento', 'url' => ['/site/index', '#' => 'reglamento']],
+          ['label' => 'Contacto', 'url' => ['/site/index', '#' => 'contacto']],
           ['label' => 'Iniciar Sesion', 'url' => 'index.php?r=site%2Flogin', 'visible' => Yii::$app->user->isGuest],
           ['label' => 'Inscripcion', 'url' => 'index.php?r=inscripcion/index', 'visible' => !Yii::$app->user->isGuest],
           !Yii::$app->user->isGuest ?(
           ['label' =>'Hola '. Yii::$app->user->identity->dniUsuario, 'items' => [
-            ['label' => 'Mi perfil', 'url' => 'index.php?r=usuario%2Fperfil'],
-            ['label' => 'Cerrar Sesion', 'url' => 'index.php?r=site%2Flogout', 'linkOptions' => ['data-method' => 'post']],
-          ], 
+            ['label' => 'Mi perfíl', 'url' => 'index.php?r=usuario%2Fperfil'],
+            ['label' => 'Cambiar contraseña', 'url' => 'index.php?r=site/cambiapass'],
+            ['label' => 'Cerrar sesión', 'url' => 'index.php?r=site%2Flogout', 'linkOptions' => ['data-method' => 'post']],
+          ],
        ]):'',
-         
+
       ],
   ]);
   NavBar::end();
   ?>
-  
+
         <?= Alert::widget() ?>
         <?= $content ?>
-  
+
 <?php $this->endBody() ?>
 </body>
 </html>
