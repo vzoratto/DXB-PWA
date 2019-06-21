@@ -535,13 +535,22 @@ class InscripcionController extends Controller
             if ($guardado){     // Si la inscripcion es guardada correctamente, se envia un mail de confirmacion 
 
                 // Obtenemos el Objeto usuario para obtener sus dato
-                $usuario=Usuario::find()->where(['idUsuario'=>$idUsuario])->one();
+                $objUsuario=Usuario::find()->where(['idUsuario'=>$idUsuario])->one();
+                $objPersona=Persona::find()->where(['idUsuario'=>$idUsuario])->one();
+                $nombrePersona = $objPersona->nombrePersona;
+                $apellidoPersona = $objPersona->apellidoPersona;
+                $mailUsuario = $objUsuario->mailUsuario;
 
                 //mail de confirmacion de inscripcion
                 $subject = "Inscripcion y reglamento"; // Asunto del mail
                 // Cuerpo del mail
-                $body = "<h1>Gracias por inscribirse a la carrera ". $usuario->dniUsuario .". Clickee en el siguiente link para ver el reglamento que ha aceptado</h1>";
-                $body .= "<a href='http://localhost/carrera/web/index.php'>Reglamento</a>";
+                $body = "<h1>Carrera por Bardas</h1><br><h2>Gracias por inscribirse a la carrera ". $nombrePersona . " " . $apellidoPersona .". </h2> <br/>".
+                "<h2> Podes ver los terminos y condiciones que has aceptado en el siguiente enlace: </h2>". 
+                "<h2><a href='http://localhost/carrera/web/index.php'>Reglamento</a></h2><br>".
+                "<h1>Carrera por Bardas</h1><br>".
+                "<a href='www.facebook.com'><img src='facebook.png' alt='fb'></a><br>".
+                "Este mensaje de correo electrónico se envió a ".$mailUsuario;
+        
 
                 Yii::$app->mailer->compose()
                     ->setFrom('carreraxbarda@gmail.com')
@@ -571,5 +580,33 @@ class InscripcionController extends Controller
 
 
     }
+
+    public function actionExistedni()
+    {
+        $parents =Yii::$app->request->get();
+        $existeUsuario=1;
+        if(isset($parents['dniUsuario'])){
+            $dniUsuario = $parents['dniUsuario'];
+
+             $objUsuario = Usuario::find()->where(['dniUsuario'=>$dniUsuario])->one();
+            if ($objUsuario<>null){
+                $idUsuario = $objUsuario->idUsuario;
+                $objPersona = Persona::find()->where(['idUsuario'=>$idUsuario])->one();
+                if ($objPersona<>null){
+                    $existeUsuario = 1;
+                } else {
+                    $existeUsuario = 0;
+                }
+                
+            } else {
+                $existeUsuario = 0;
+            }
+           
+          
+        }
+        return $existeUsuario;
+    }
     
 }
+
+

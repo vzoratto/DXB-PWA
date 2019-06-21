@@ -1,6 +1,7 @@
 $(document).ready(function() {
     //Remuevo la clase "next-step" en el primer paso para que no puedan pasar de step sin antes controlar los datos
     $('#stepwizard_step1_next').removeClass('next-step');
+    $('#usuario-dniusuario').attr('siguiente', 'false');
 
     //Si se registra un cambio en cualquier input valido lo ingresado
     //Valido el ingreso cuando hay un cambio en Nombre
@@ -46,6 +47,15 @@ $(document).ready(function() {
     $('#usuario-dniusuario').change(function(){
         controlNumDoc();
     })
+
+    $('#usuario-dniusuario').change(function(){
+        controlarExistenciaDni();
+    })
+    //Valido el ingreso del dni usuario
+    $('#usuario-dniusuario').keyup(function(){
+        controlarExistenciaDni();
+    })
+
 })
 
 //Si se clickea en siguiente controlo los valores ingresados. En caso correcto pasa al siguiente step
@@ -59,8 +69,9 @@ $('#stepwizard_step1_next').click(function() {
     var validoFechaNac = controlFechaNac(); //Valido fecha nacimiento
     var validoCapitanCorredor = controlCapitanCorredor(); //Valido el ingreso de las opciones de capitan o corredor
     var validoNumDoc = controlNumDoc(); //Valido el ingreso del numero de docuemento
+    var validacionExistenciaDni = $('#usuario-dniusuario').attr('siguiente');
     //Si los campos estan correcto agrego la clase "next-step" para pasar al siguiente step
-    if (validoNombre && validoApellido && validoNacionalidad && validoSexo && validoTalleRemera && validoFechaNac && validoCapitanCorredor && validoNumDoc) {
+    if (validoNombre && validoApellido && validoNacionalidad && validoSexo && validoTalleRemera && validoFechaNac && validoCapitanCorredor && validoNumDoc && validacionExistenciaDni=='true') {
         $('#stepwizard_step1_next').addClass('next-step'); //Agrego la clase
     } else {
         $('#stepwizard_step1_next').removeClass('next-step'); //En caso contrario remuevo la clase
@@ -198,6 +209,7 @@ function controlCapitanCorredor() {
     } else {
         //Si el checkbox es cero controlo las opciones que no son de capitan
         var dniCapitan = $('#idEquipo').val(); //Control del ingreso del dni capitan -idequipo
+        
         siguiente = false;
         if (dniCapitan > 0) {
             $('.select2-container--krajee .select2-selection--single').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
@@ -214,8 +226,9 @@ function controlCapitanCorredor() {
 function controlNumDoc() {
     var dniUsuario = $('#usuario-dniusuario').val(); //Valor del input dni
     var patron = /^[0-9]+$/; //Patron que debe respetarse
+    var tambienEstaBien = $('#usuario-dniusuario').attr('siguiente');
     siguiente = false;
-    if (patron.test(dniUsuario) && dniUsuario !== '') {
+    if (patron.test(dniUsuario) && dniUsuario !== '' && tambienEstaBien=="true") {
         //Si es corecto el patron y distinto de vacio seteo la variable siguiente en true
         $('#usuario-dniusuario').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
         siguiente = true;
@@ -227,3 +240,35 @@ function controlNumDoc() {
     return siguiente;
 }
 
+//Esta funcion controla si existe el dni ingresado en la inscripcion
+function controlarExistenciaDni(){
+    var dniIngresado = $('#usuario-dniusuario').val();
+    var ajax = new XMLHttpRequest();
+        //uso del método GET
+        ajax.open("GET", "http://localhost/desarrolloweb/carrera/web/index.php?r=inscripcion/existedni&dniUsuario=" + dniIngresado);
+
+        // --Ahora estamos esperando a recibir la respuesta, para eso tenemos la siguiente función que llamamos cada vez que ocurre que el estado cambia.
+        ajax.onreadystatechange = function() {
+                //función anónima a ejecutar cada vez que el estado de la petición cambia. Cuando el estado es 4 se completo
+
+                if (ajax.readyState == 4) {
+                    //mostrar resultado en esta capa
+                    dato = ajax.responseText; //transformamos la cadena de texto en un JSON
+                    if(dato == 1){
+                        //Si el patron es incorrecto o vacio seteo la variable siguiente en false
+                        $('#usuario-dniusuario').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+                        $('#usuario-dniusuario').attr('siguiente', 'false');
+                    
+                    } else {
+                        //Si es corecto el patron y distinto de vacio seteo la variable siguiente en true
+                        $('#usuario-dniusuario').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
+                        $('#usuario-dniusuario').attr('siguiente', 'true');
+                        }
+
+                }
+            }
+            // como hacemos uso del método GET colocamos null
+            // Con Post en lugar de null debería mandarle la cadena de los parámetros y sus valores serian "Provincia"= +provincia
+        ajax.send(null);
+
+}
