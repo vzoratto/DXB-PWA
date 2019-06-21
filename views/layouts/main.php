@@ -41,7 +41,7 @@ AppAsset::register($this);
 
   echo Nav::widget([
       'options' => ['class' => 'navbar-nav navbar-right'],
-
+      'encodeLabels' => false,
       'items' => [
           ['label' => 'Inicio', 'url' => ['/site/index', '#' => 'inicio']],
           ['label' => 'Premios', 'url' => ['/site/index', '#' => 'premios']],
@@ -51,7 +51,7 @@ AppAsset::register($this);
           ['label' => 'Iniciar Sesion', 'url' => 'index.php?r=site%2Flogin', 'visible' => Yii::$app->user->isGuest],
           ['label' => 'Inscripcion', 'url' => 'index.php?r=inscripcion/index', 'visible' => !Yii::$app->user->isGuest],
           !Yii::$app->user->isGuest ?(
-          ['label' =>'Hola '. Yii::$app->user->identity->dniUsuario, 'items' => [
+          ['label' =>"<i class='fa fa-user-circle-o ml-30 ml-sm-0' aria-hidden='true'></i>",'items' => [
             ['label' => 'Mi perfíl', 'url' => 'index.php?r=usuario%2Fperfil'],
             ['label' => 'Cambiar contraseña', 'url' => 'index.php?r=site/cambiapass'],
             ['label' => 'Cerrar sesión', 'url' => 'index.php?r=site%2Flogout', 'linkOptions' => ['data-method' => 'post']],

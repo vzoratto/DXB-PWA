@@ -267,8 +267,8 @@ class SiteController extends Controller
      * @return string
      */
     public function actionCambiapass(){
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
         }
         $model = new CambiaPassForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {

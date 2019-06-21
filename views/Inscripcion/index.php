@@ -118,17 +118,16 @@ $wizard_config = [
                     'title' => 'Atras',
                 ]
             ],
-        ],   
+        ],
         	],
         	'start_step' => 1, // Optional, start with a specific step
         ];
         ?>
+        <div class="container sm-p-0">
 
-      <div class="container">
+          <?= \drsdre\wizardwidget\WizardWidget::widget($wizard_config); ?>
 
-        <?= \drsdre\wizardwidget\WizardWidget::widget($wizard_config); ?>
-
-      </div>
+        </div>
 
     </div>
 
