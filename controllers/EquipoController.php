@@ -35,6 +35,7 @@ class EquipoController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout='/main3';
         $searchModel = new EquipoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

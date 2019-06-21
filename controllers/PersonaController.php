@@ -38,6 +38,7 @@ class PersonaController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = '/main2';
         $searchModel = new PersonaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -55,6 +56,7 @@ class PersonaController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout = '/main3';
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -67,6 +69,7 @@ class PersonaController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = '/main2';
         $model = new Persona();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -87,6 +90,7 @@ class PersonaController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->layout='/main3';
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -107,6 +111,7 @@ class PersonaController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->layout = '/main2';
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

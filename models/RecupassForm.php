@@ -82,7 +82,7 @@ class RecupassForm extends Model
             'dniUsuario' => $this->dni,
         ]);
         if ($user) {
-            $pass="XmWq908";
+            $pass="XmWq9081";
             $user->claveUsuario=crypt($pass, Yii::$app->params["salt"]);//Encriptamos el password
             if ($user->save()) {
              $subject = "Recuperar password";//accion validar mail

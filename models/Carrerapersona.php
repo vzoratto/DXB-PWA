@@ -5,6 +5,8 @@ namespace app\models;
 use Yii;
 use app\models\Persona;
 
+use app\models\Tipocarrera;
+
 /**
  * This is the model class for table "carrerapersona".
  *
@@ -23,7 +25,7 @@ class Carrerapersona extends \yii\db\ActiveRecord
 	public $dniUsuario;
 	public $talleRemera;
 	public $nombreEquipo;
-	public $obraSocial;
+	public $categoria;
     /**
      * {@inheritdoc}
      */
@@ -44,8 +46,7 @@ class Carrerapersona extends \yii\db\ActiveRecord
             [['idTipoCarrera', 'idPersona'], 'unique', 'targetAttribute' => ['idTipoCarrera', 'idPersona']],
             [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
             [['idTipoCarrera'], 'exist', 'skipOnError' => true, 'targetClass' => Tipocarrera::className(), 'targetAttribute' => ['idTipoCarrera' => 'idTipoCarrera']],
-            [['apellidoPersona','nombrePersona','talleRemera','nombreEquipo','obraSocial'], 'safe'],
-			
+            [['apellidoPersona','nombrePersona','talleRemera','nombreEquipo','categoria'], 'safe'],
 			
 	   ];
     }

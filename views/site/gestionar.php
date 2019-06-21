@@ -30,11 +30,11 @@ if (!Yii::$app->user->isGuest) {
 $this->title = "Menu administrativo";
 
  ?>
-<div class="site-administar">
+<div class="site-gestionar">
 
         <div class="jumbotron">
-            <h1>Hola <?= $nombre->nombreGestor ?></h1>
-            <h4><?= "Rol :  " .$rol->descripcionRol ?></h4>
+            <h1>Bienvenido <?= $nombre->nombreGestor ?></h1>
+            <h4><?= "Rol:  " .$rol->descripcionRol ?></h4>
                <p class="lead">Que disfrutes un buen dia laboral.</p>
 
                <p></p>
@@ -53,3 +53,4 @@ $this->title = "Menu administrativo";
     </div>
   
 </div>
+

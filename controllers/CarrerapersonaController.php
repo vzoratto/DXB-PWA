@@ -36,6 +36,7 @@ class CarrerapersonaController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout='/main3';
         $searchModel = new Carrerapersonasearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $persona = new \app\models\Persona();
@@ -57,6 +58,7 @@ class CarrerapersonaController extends Controller
      */
     public function actionView($idTipoCarrera, $idPersona)
     {
+        $this->layout='/main3';
         return $this->render('view', [
             'model' => $this->findModel($idTipoCarrera, $idPersona),
         ]);
@@ -90,19 +92,23 @@ class CarrerapersonaController extends Controller
      */
     public function actionUpdate($idTipoCarrera, $idPersona)
     {
-        $model = $this->findModel($idTipoCarrera, $idPersona);
+        $this->layout = '/main3';
+        $personaC = new Persona();
+        $model = $personaC-> findOne(['idPersona'=>$idPersona]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'idTipoCarrera' => $model->idTipoCarrera, 'idPersona' => $model->idPersona]);
+            return $this->redirect(['index', 'idPersona' => $model->idPersona]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
+        return $this->render('updatepersona', [
+            'model' => $model,'idTipoCarrera'=> $idTipoCarrera
         ]);
     }
     public function actionUpdatepersona($idTipoCarrera, $idPersona)
     {
-        $model = $this->findModel($idTipoCarrera, $idPersona);
+        $this->layout = '/main3';
+        $personaC= new Persona();
+        $model = $this->findModel($idTipoCarrera,$idPersona);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'idTipoCarrera' => $model->idTipoCarrera, 'idPersona' => $model->idPersona]);
@@ -124,6 +130,7 @@ class CarrerapersonaController extends Controller
      */
     public function actionDelete($idTipoCarrera, $idPersona)
     {
+        $this->layout = '/main3';
         $this->findModel($idTipoCarrera, $idPersona)->delete();
 
         return $this->redirect(['index']);

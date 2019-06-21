@@ -16,22 +16,8 @@ use yii\widgets\MaskedInput;
     <?= $form->field($model, 'dniUsuario')->textInput() ?>
 
     <?= $form->field($model, 'claveUsuario')->passwordinput(['maxlength' => true]) ?>
-
-        <?php
-            if ($model->isNewRecord){ 
-         ?> 
-                <label>Mail Usuario</label>
-         <?php  
-               echo MaskedInput::widget([
-                 'name' => 'mailUsuario',
-                 'clientOptions' => [
-                     'alias' =>  'email'
-                 ],
-              ]);
-            }else{
-                echo $form->field($model, 'mailUsuario')->textInput(['maxlength' => true]);
-            }
-         ?>
+    
+    <?= $form->field($model, 'mailUsuario')->textInput(['maxlength' => true])?>
 
     <!--<?= $form->field($model, 'authkey')->textInput(['maxlength' => true]) ?>-->
 

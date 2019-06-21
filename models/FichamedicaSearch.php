@@ -5,7 +5,8 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Fichamedica;
-
+use app\models\Persona;
+use app\models\Gruposanguineo;
 /**
  * FichamedicaSearch represents the model behind the search form of `app\models\Fichamedica`.
  */
@@ -14,11 +15,14 @@ class FichamedicaSearch extends Fichamedica
     /**
      * {@inheritdoc}
      */
+	public $grupoSanguineo;
+	public $donador;
+	
     public function rules()
     {
         return [
             [['idFichaMedica', 'frecuenciaCardiaca', 'idGrupoSanguineo', 'evaluacionMedica', 'intervencionQuirurgica', 'tomaMedicamentos', 'suplementos'], 'integer'],
-            [['obraSocial', 'observaciones'], 'safe'],
+            [['obraSocial', 'observaciones','apellidoPersona','grupoSanguineo','donador'], 'safe'],
             [['peso', 'altura'], 'number'],
         ];
     }
@@ -41,7 +45,9 @@ class FichamedicaSearch extends Fichamedica
      */
     public function search($params)
     {
-        $query = Fichamedica::find();
+        $query = Fichamedica::find()
+		        ->joinWith(['persona'])
+				->joinWith(['grupoSanguineo']);
 
         // add conditions that should always apply here
 
@@ -71,8 +77,14 @@ class FichamedicaSearch extends Fichamedica
         ]);
 
         $query->andFilterWhere(['like', 'obraSocial', $this->obraSocial])
-            ->andFilterWhere(['like', 'observaciones', $this->observaciones]);
-
+              ->andFilterWhere(['like', 'observaciones', $this->observaciones]);
+			  
+        $query->andFilterWhere(['like', 'apellidoPersona', $this->apellidoPersona]);
+        $query->andFilterWhere(['like', 'tipoGrupoSanguineo', $this->grupoSanguineo]);
+		
+        $query->andFilterWhere(['like', 'donador', $this->donador]);
+		
+		
         return $dataProvider;
     }
 }

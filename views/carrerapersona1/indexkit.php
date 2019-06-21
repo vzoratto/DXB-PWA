@@ -1,7 +1,9 @@
 <?php
-use yii\widgets\ActiveForm;
+
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
@@ -11,12 +13,14 @@ use app\models\Tipocarrera;
 use app\models\Carrerapersona;
 use app\models\Usuario;
 use app\models\Equipo;
+use app\models\Grupo;
+use app\models\GrupoSearch;
 use app\models\Persona;
 use app\models\Estadopagopersona;
 use app\models\Estadopago;
 use dimmitri\grid\ExpandRowColumn;
 use kartik\export\ExportMenu;
-
+use yii\widgets\ActiveForm;
 use buttflattery\formwizard\FormWizard; 
 use kartik\tabs\TabsX;
 //use yii\widgets\ActiveForm;
@@ -25,63 +29,41 @@ use kartik\tabs\TabsX;
 /* @var $searchModel app\models\PersonaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Menu Gestor ';
+$this->title = 'Entrega De Kits ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="persona-index">
+<div class="talleRemera">
 <h1> <br> </h1>
 
-
-	  
+  
 	 <?php
 		$gridColumns = [
             ['class' => 'yii\grid\SerialColumn'],
 			[   'label' => 'Corredor',
-                'class' => ExpandRowColumn::class,
                 'attribute' => 'apellidoPersona',
 				'value' => function($model) {
-                    return ($model->persona->apellidoPersona.' '.$model->persona->nombrePersona );
+                    return ($model->apellidoPersona.' '.$model->nombrePersona );
                 },
-                'column_id' => 'column-info',
-                'url' => Url::to(['view']),
             ],
             [   'label' => 'Documento',
                 'attribute' => 'dniUsuario',
                 'value' => function($model) {
-                    return ($model->persona->usuario->dniUsuario);
+                    return ($model->usuario->dniUsuario);
                 },
 				
             ],
-
-            ['label' => 'Categoria',
-                'attribute' => 'idTipoCarrera',
+            ['label' => 'Talle Remera',
+                'attribute' => 'talleRemera',
                 'value' => function($model) {
-                    return ($model->tipoCarrera->descripcionCarrera);
+                    return ($model->talleRemera->talleRemera);
                 },
-			'filter' => ArrayHelper::map(Tipocarrera::find()->asArray()->all(), 'idTipoCarrera', 'descripcionCarrera')
+				'filter' => ArrayHelper::map(Talleremera::find()->asArray()->all(), 'talleRemera', 'talleRemera')
             ],
-			['label' => 'Equipo',
-			'attribute' => 'nombreEquipo',
-                'value' => function($model) {
-					//if($model->nombreEquipo ){
-                    return ($model->equipo->nombreEquipo);
-					
-                },
-             //   'filter' => ArrayHelper::map(Persona::find()->asArray()->all(), 'idPersona', 'donador'),
-            ],
-			['label' => 'Capitan',
-			'attribute' => 'dniCapitan',
-                'value' => function($model) {
-					//if($model->nombreEquipo ){
-                    return ($model->equipo->dniCapitan);
-					
-                },
-             //   'filter' => ArrayHelper::map(Persona::find()->asArray()->all(), 'idPersona', 'donador'),
-            ],
-          ['class' => 'yii\grid\ActionColumn',
+			 
+			['class' => 'yii\grid\ActionColumn',
                  'contentOptions'=>
 				 ['style'=>'width: 10%;'],
-                   'template'=>'{update}{delete}',
+                   'template'=>'{update}',
                    'buttons'=>[
 		           'update'=>function($url,$model){
                     return Html::a('<span class="glyphicon glyphicon-pencil"></span>',$url,[
@@ -91,13 +73,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
 		    	],		
            ],
-			
-	
 	
 	
 ];
 ?>
 <?php
+
+$dataProvider= new ActiveDataProvider(['query'=> Persona::find()->where(null) ]);
 // Renders a export dropdown menu
 echo ExportMenu::widget([
     'dataProvider' => $dataProvider,
@@ -134,7 +116,6 @@ echo ExportMenu::widget([
 echo \kartik\grid\
      GridView::widget([
     'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
 	'columns' => $gridColumns
      ]);
 ?>

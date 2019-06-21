@@ -48,18 +48,18 @@ AppAsset::register($this);
           ['label' => 'Contacto', 'url' => ['/site/contact']],
           ['label' => 'Registro', 'url' => 'index.php?r=site/registro', 'visible' => Yii::$app->user->isGuest],
           ['label' => 'Iniciar Sesion ','items' => [
-            ['label' => 'Logueate', 'url' => 'index.php?r=site%2Flogin'],
+            ['label' => 'Logueate', 'url' => 'index.php?r=site/login'],
             ['label' => 'Registrate', 'url' => 'index.php?r=site/registro'],
             ['label' => 'Olvide password', 'url' => 'index.php?r=site/recupass'],
-            ['label' => 'Cambia password', 'url' => 'index.php?r=site/cambiapass'],
             ],
           ],
-          ['label' => 'Iniciar Sesion', 'url' => 'index.php?r=site%2Flogin', 'visible' => Yii::$app->user->isGuest],
+          ['label' => 'Iniciar Sesion', 'url' => 'index.php?r=site/login', 'visible' => Yii::$app->user->isGuest],
           ['label' => 'Inscripcion', 'url' => 'index.php?r=inscripcion/index', 'visible' => !Yii::$app->user->isGuest],
           !Yii::$app->user->isGuest ?(
           ['label' =>'Hola '. Yii::$app->user->identity->dniUsuario, 'items' => [
-            ['label' => 'Mi perfil', 'url' => 'index.php?r=usuario%2Fperfil'],
-            ['label' => 'Cerrar Sesion', 'url' => 'index.php?r=site%2Flogout', 'linkOptions' => ['data-method' => 'post']],
+            ['label' => 'Mi perfil', 'url' => 'index.php?r=usuario/perfil'],
+            ['label' => 'Cambia contraseña', 'url' => 'index.php?r=site/cambiapass'],
+            ['label' => 'Cerrar Sesion', 'url' => 'index.php?r=site/logout', 'linkOptions' => ['data-method' => 'post']],
           ], 
        ]):'',
          

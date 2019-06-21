@@ -48,7 +48,7 @@ class UsuarioController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = '/main1';
+        $this->layout = '/main2';
         $searchModel = new UsuarioSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -66,7 +66,7 @@ class UsuarioController extends Controller
      */
     public function actionView($id)
     {
-        $this->layout = '/main1';
+        $this->layout = '/main2';
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -79,7 +79,7 @@ class UsuarioController extends Controller
      */
     public function actionCreate()
     {
-        $this->layout = '/main1';
+        $this->layout = '/main2';
         $model = new Usuario();
         if ($model->load(Yii::$app->request->post())){  
             $model->claveUsuario = crypt($model->claveUsuario, Yii::$app->params["salt"]);
@@ -103,7 +103,7 @@ class UsuarioController extends Controller
      */
     public function actionUpdate($id)
     {
-        $this->layout = '/main1';
+        $this->layout = '/main2';
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -124,7 +124,7 @@ class UsuarioController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->layout = '/main1';
+        $this->layout = '/main2';
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

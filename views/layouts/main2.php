@@ -44,6 +44,17 @@ AppAsset::register($this);
             ['label' => 'Usuario', 'url' => ['/usuario/index']],
             ['label' => 'Gestor', 'url' => ['/gestores/index']],
             ['label' => 'Carrera', 'url' => ['/carrerapersona/index']],
+            ['label' => 'Listados ABM','items' => [
+                ['label' => 'Usuario', 'url' => ['/usuario/index']],
+                ['label' => 'Corredor', 'url' => ['/persona/index']],
+                ['label' => 'corredor Invitado', 'url' => ['/invitado/index']],
+                ['label' => 'Inscripcion', 'url' => ['/inscripcion/index']],
+                ['label' => 'Gestion carrera', 'url' => ['/carrerapersona/index']],
+                ],
+              ],
+              
+        
+        
             Yii::$app->user->isGuest ? (
                 ''
             ) : (

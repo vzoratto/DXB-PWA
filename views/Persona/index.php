@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use app\models\Usuario;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PersonaSearch */
@@ -26,8 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idPersona',
-            'idTalleRemera',
+            //'idPersona',
+            //'idTalleRemera',
             'nombrePersona',
             'apellidoPersona',
             'fechaNacPersona',
@@ -35,10 +37,17 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nacionalidadPersona',
             //'telefonoPersona',
             //'mailPersona',
-            //'idUsuario',
-            //'idPersonaDireccion',
+            [ 'label'=>'DNI',
+                'attribute' => 'idUsuario',
+                 'value' => function($model) {
+                     return ($model->usuario->dniUsuario);
+                 },
+                //'filter' => ArrayHelper::map(Usuario::find()->asArray()->all(), 'idUsuario', 'dniUsuario')
+                
+               ],
+                 //'idPersonaDireccion',
             //'idFichaMedica',
-            //'fechaInscPersona',
+            'fechaInscPersona',
             //'idPersonaEmergencia',
             //'idResultado',
             //'donador',

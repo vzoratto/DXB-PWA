@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Persona;
 
 /**
  * This is the model class for table "fichamedica".
@@ -24,6 +25,7 @@ use Yii;
  */
 class Fichamedica extends \yii\db\ActiveRecord
 {
+	public $apellidoPersona;
     /**
      * {@inheritdoc}
      */
@@ -52,7 +54,7 @@ class Fichamedica extends \yii\db\ActiveRecord
             [['altura'], 'number', 'numberPattern' => '/^\s*[-+]?[0-9]*[.,]?[0-9]+([eE][-+]?[0-9]+)?\s*$/'],
             [['peso'], 'number', 'numberPattern' => '/^\s*[-+]?[0-9]*[.,]?[0-9]+([eE][-+]?[0-9]+)?\s*$/'],
             
-            
+           [['apellidoPersona','grupoSanguineo','donador'],'safe'] ,
         ];
     }
 
@@ -73,6 +75,10 @@ class Fichamedica extends \yii\db\ActiveRecord
             'tomaMedicamentos' => 'Toma Medicamentos',
             'suplementos' => 'Suplementos',
             'observaciones' => 'Observaciones',
+			
+			'apellidoPersona'=>'apellidoPersona',
+			'grupoSanguineo'=>'grupoSanguineo',
+			'donador'=>'donador',
         ];
     }
 
@@ -87,8 +93,11 @@ class Fichamedica extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPersonas()
+    public function getPersona()
     {
-        return $this->hasMany(Persona::className(), ['idFichaMedica' => 'idFichaMedica']);
+        return $this->hasOne(Persona::className(), ['idFichaMedica' => 'idFichaMedica']);
     }
+	
+	
 }
+

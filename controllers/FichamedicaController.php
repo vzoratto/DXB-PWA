@@ -35,6 +35,7 @@ class FichamedicaController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout='/main3';
         $searchModel = new FichamedicaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

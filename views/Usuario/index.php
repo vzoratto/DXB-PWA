@@ -27,7 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn',
+            'header' => '#',
+            'headerOptions' => ['style' => 'color:#337ab7'],
+        ],
 
             //'idUsuario',
             'dniUsuario',
@@ -43,9 +46,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => ArrayHelper::map(Rol::find()->asArray()->all(), 'idRol', 'descripcionRol'),
               ],
-              [
-                'class' => 'yii\grid\ActionColumn'
-                ]
+              
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => 'Actions',
+                'headerOptions' => ['style' => 'color:#337ab7'],
+                
+                ],
+            
           ],
         
     ]); ?>

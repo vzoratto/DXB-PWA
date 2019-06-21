@@ -52,6 +52,7 @@ class InvitadoController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout='/main3';
         //se instancia una variable por cada modelo a utilizar
         $persona = new \app\models\Persona(); //Instanciamos una variable
         $usuario = new \app\models\Usuario(); //Instanciamos una variable
