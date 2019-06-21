@@ -43,7 +43,7 @@ class Respuestaopcion extends \yii\db\ActiveRecord
     {
         return [
             'idRespuestaOpcion' => 'Id Respuesta Opcion',
-            'opRespvalor' => 'Op Respvalor',
+            'opRespvalor' => 'Opcion de Respuesta',
             'idPregunta' => 'Id Pregunta',
         ];
     }

@@ -46,7 +46,7 @@ class Respuesta extends \yii\db\ActiveRecord
     {
         return [
             'idRespuesta' => 'Id Respuesta',
-            'respValor' => 'Resp Valor',
+            'respValor' => 'Valor de Respuesta',
             'idPregunta' => 'Id Pregunta',
             'idPersona' => 'Id Persona',
         ];

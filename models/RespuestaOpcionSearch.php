@@ -18,7 +18,7 @@ class RespuestaopcionSearch extends Respuestaopcion
     {
         return [
             [['idRespuestaOpcion', 'idPregunta'], 'integer'],
-            [['opRespvalor'], 'safe'],
+            [['opRespvalor', 'idPregunta'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class RespuestaopcionSearch extends Respuestaopcion
     public function search($params)
     {
         $query = Respuestaopcion::find();
-
+        $query->joinWith(['pregunta']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -59,10 +59,11 @@ class RespuestaopcionSearch extends Respuestaopcion
         // grid filtering conditions
         $query->andFilterWhere([
             'idRespuestaOpcion' => $this->idRespuestaOpcion,
-            'idPregunta' => $this->idPregunta,
+            // 'idPregunta' => $this->idPregunta,
         ]);
 
-        $query->andFilterWhere(['like', 'opRespvalor', $this->opRespvalor]);
+        $query->andFilterWhere(['like', 'opRespvalor', $this->opRespvalor])
+            ->andFilterWhere(['like', 'pregunta.pregDescripcion', $this->idPregunta]);
 
         return $dataProvider;
     }

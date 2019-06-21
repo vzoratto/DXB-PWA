@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 use app\models\Encuesta;
 use app\models\EncuestaSearch;
+use yii\filters\AccessControl;
+use app\models\Permiso;
 
 /**
  * PreguntaController implements the CRUD actions for Pregunta model.
@@ -49,6 +51,29 @@ class PreguntaController extends Controller
     public function behaviors()
     {
         return [
+            'access'=>[
+                'class' => AccessControl::className(),
+                'only' => ['index','view','create','update','delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index','view','create','update','delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Permiso::requerirRol('administrador') && Permiso::requerirActivo(1);
+                        }
+                    ],
+                    [
+                        'actions' => ['index','view','create','update','delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Permiso::requerirRol('gestor') && Permiso::requerirActivo(1);
+                        }
+                    ],
+                ],
+            ],
+            
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -66,10 +91,16 @@ class PreguntaController extends Controller
     {
         $searchModel = new PreguntaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = [
+            'pageSize' => 10,
+        ];
         $encuesta=null;
 
         if(isset($_REQUEST['idEncuesta'])){ //si recibe un idEncuesta pasa en dataProvider las preguntas solo de esa encuesta
             $dataProvider->query->andWhere('pregunta.idEncuesta = '.$_REQUEST['idEncuesta']);
+            $dataProvider->pagination = [
+                'pageSize' => 10,
+            ];
             $encuesta=Encuesta::find()->where(['idEncuesta'=>$_REQUEST['idEncuesta']])->one();
         }
         
@@ -100,6 +131,7 @@ class PreguntaController extends Controller
      */
     public function actionCreate()
     {
+        
         $id=$_REQUEST['id'];//recibe el idEncuesta.
         $encuesta=EncuestaSearch::find()->where(['idEncuesta'=>$id])->one();
         $encTipo=$encuesta->encTipo;
@@ -129,9 +161,10 @@ class PreguntaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->encuesta; //agrega al modelo la encuesta a la que pertenece la pregunta a editar
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idPregunta]);
+            return $this->redirect(['pregunta/index', 'id' => $model->idPregunta]);
         }
 
         return $this->render('update', [

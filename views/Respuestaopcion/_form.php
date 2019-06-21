@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'opRespvalor')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'opRespvalor')->textInput(['maxlength' => true, 'autofocus'=>true]) ?>
 
     <?= $form->field($model, 'idPregunta')->textInput() ?>
 
