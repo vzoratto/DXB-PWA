@@ -13,7 +13,6 @@ use kartik\export\ExportMenu;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Fichas Medicas';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="fichamedica-index">
 

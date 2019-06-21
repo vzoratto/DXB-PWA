@@ -43,13 +43,22 @@ AppAsset::register($this);
             ['label' => 'Gestor', 'url' => ['/site/gestionar']],
             ['label' => 'Equipos', 'url' => ['/equipo/index']],
             ['label' => 'Participantes','items' => [
-                ['label' => 'Entrega de Kits', 'url' => ['/carrerapersona/index']],
+                ['label' => 'Ver Todos', 'url' => ['/carrerapersona/index']],
                 ['label' => 'Fichas Medicas', 'url' => ['/fichamedica/index']],
                 ['label' => 'Inscribir Invitado', 'url' => ['/invitado/index']],
-                ['label' => 'Inscripcion', 'url' => ['/inscripcion/index']],
-                ],
-            ],
+                ['label' => 'Inscripcion Corredor', 'url' => ['/inscripcion/index']],
+                ['label' => 'Entrega de Kit', 'url' => ['carrerapersona/kit']],
+			],	
+			],
+			['label' => 'Encuesta','items' => [
+                ['label' => 'Crear Encuesta', 'url' => ['/encuesta/index']],
+                ['label' => 'Restultados Encuesta', 'url' => ['/respuesta/index']],
+				
+			],
+			],
+			
             ['label' => 'Carrera', 'url' => ['/carrerapersona/index']],
+			
             Yii::$app->user->isGuest ? (
                 ''
             ) : (

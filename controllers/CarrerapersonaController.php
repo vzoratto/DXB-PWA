@@ -104,6 +104,20 @@ class CarrerapersonaController extends Controller
             'model' => $model,'idTipoCarrera'=> $idTipoCarrera
         ]);
     }
+	public function actionUpdatekit($idTipoCarrera, $idPersona)
+    { 
+	    $this->layout = '/main3';
+        $model = $this->findModel($idTipoCarrera, $idPersona);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index', 'idTipoCarrera' => $model->idTipoCarrera, 'idPersona' => $model->idPersona]);
+        }
+
+        return $this->render('kit', [
+            'model' => $model,
+        ]);
+    }
+	
     public function actionUpdatepersona($idTipoCarrera, $idPersona)
     {
         $this->layout = '/main3';
@@ -118,6 +132,7 @@ class CarrerapersonaController extends Controller
             'model' => $model,
         ]);
     }
+	
 	
 
     /**
@@ -153,9 +168,9 @@ class CarrerapersonaController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 	
-	
-	public function actionTabsData() {
-          $html = $this->renderPartial('tabContent');
-    return Json::encode($html);
-}
+   public function actionKit(){
+	   $this->layout = '/main3';
+	   return $this->render('indexkit');
+   }
+
 }

@@ -26,7 +26,6 @@ use kartik\tabs\TabsX;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Menu Gestor ';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="persona-index">
 <h1> <br> </h1>
