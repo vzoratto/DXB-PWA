@@ -1,4 +1,10 @@
 <?php
+/* ------------------------------------------------------------------------------------------------
+-- Muestra las respuestas dadas a cada pregunta de cada encuesta.
+-- En esta caso no se pueden crear, editar ni eliminar respuestas, ya que estas son generadas
+-- por los usuarios, ya sea en la inscripcion como en respuestas de las trivias, segun sea el caso.
+---------------------------------------------------------------------------------------------------*/
+
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
@@ -14,13 +20,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="respuesta-index container">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <hr>
-
-    
-        <?= Html::a('Create Respuesta', ['create'], ['class' => 'btn btn-default']) ?>
+    <hr> 
+    <div class="alert alert-success">
         <?= Html::a('Encuestas', ['encuesta/index'], ['class' => 'btn btn-default']) ?>
         <?= Html::a('Preguntas', ['pregunta/index'], ['class' => 'btn btn-default']) ?>
 
+        <!-- Esporta los datos de la grilla al formato que se elija -->
         <?= ExportMenu::widget([
             'dataProvider'=>$dataProvider, //Utiliza el mismo dataProvider de la grilla.
             'columns'=>[
@@ -70,8 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         ]) ?>
     
-    
-    <hr>
+    </div>
     <?php if(isset($pregunta['pregDescripcion'])): ?>
         <h3>Pregunta: <?= Html::encode($pregunta['pregDescripcion']) ?></h3>
     <?php endif ?>
@@ -108,9 +112,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'respValor',
 
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
 
 </div>

@@ -17,7 +17,7 @@ class PreguntaSearch extends Pregunta
     public function rules()
     {
         return [
-            [['idPregunta', 'idRespTipo'], 'integer'],
+            [['idPregunta'], 'integer'],
             [['pregDescripcion', 'idEncuesta', 'idRespTipo'], 'safe'],
         ];
     }
@@ -67,7 +67,7 @@ class PreguntaSearch extends Pregunta
 
         $query->andFilterWhere(['like', 'pregDescripcion', $this->pregDescripcion])
               ->andFilterWhere(['like', 'encuesta.encTitulo', $this->idEncuesta])
-              ->andFilterWhere(['like', 'respTipo.respTipoDescripcion', $this->idRespTipo]);
+              ->andFilterWhere(['like', 'respuesta_tipo.respTipoDescripcion', $this->idRespTipo]);
 
         return $dataProvider;
     }

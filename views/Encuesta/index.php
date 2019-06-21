@@ -2,7 +2,7 @@
 /* --------------------------------------------------------------------------------------------
 --    Vista que muestra el listado de las encuestas cargadas. Podemos publicar la encuesta,  --
 --    editarla y ver el formulario completo.
---    Solamente una sola encuesta va a estar publicada. En caso de querer publicar mas de una--
+--    Solamente una sola encuesta y una trivia van a estar publicadas. En caso de querer publicar mas de una--
 --    al mismo tiempo, hay que modificar 'verencuesta/publicar-encuesta'.
 -------------------------------------------------------------------------------------------- */
 
@@ -24,8 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="encuesta-index">
 
         <h1><?= Html::encode($this->title) ?></h1>
-
-        <p>
+        <hr>
+        <div class="alert alert-success">
             <?= Html::a('Crear Encuesta', ['create'], ['class' => 'btn btn-default d-inline']) ?>
             <?= Html::a('Preguntas', ['pregunta/index'], ['class' => 'btn btn-default d-inline']) ?>
 
@@ -48,8 +48,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 
             ])
-            ?>    
-        </p>
+            ?>  
+        </div>  
         
         <!-- La siguiente grilla muestra los datos en pantalla -->
         <?= GridView::widget([

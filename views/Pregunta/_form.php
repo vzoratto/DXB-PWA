@@ -1,5 +1,9 @@
 <?php
 
+/* -----------------------------------------------------------------------------------------------
+-- Vista utilizada para la creación y modificacion de las preguntas
+-------------------------------------------------------------------------------------------------*/
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
@@ -11,8 +15,10 @@ use yii\helpers\Url;
 /* @var $model app\models\Pregunta */
 /* @var $form yii\widgets\ActiveForm */
 
+// Se buscan los tipos de respuesta disponibles de acuerdo al tipo de encuesta del que se trate
 $lista=RespuestaTipoController::listarTipos($encTipo);
 
+// Mapea el array para utilizarlo en la lista desplegable
 $listas=ArrayHelper::map($lista, 'idRespTipo', 'respTipoDescripcion');
 
 ?>
@@ -37,7 +43,7 @@ $listas=ArrayHelper::map($lista, 'idRespTipo', 'respTipoDescripcion');
     <?= $form->field($model, 'idEncuesta')->hiddenInput(['value'=>$model->idEncuesta])->label(false) ?>   
 
     <div class="form-group">
-        <?= Html::submitButton('Guardar cambios', ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Guardar y seguir':'Guardar cambios', ['class' => 'btn btn-default']) ?>
         <?php if(!$actualizar): ?>
             <?= Html::a('Terminar Encuesta', url::toRoute('encuesta/index'),['class'=>'btn btn-default'])?>
         <?php endif ?>

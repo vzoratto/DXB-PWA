@@ -17,7 +17,7 @@ class RespuestaopcionSearch extends Respuestaopcion
     public function rules()
     {
         return [
-            [['idRespuestaOpcion', 'idPregunta'], 'integer'],
+            [['idRespuestaOpcion'], 'integer'],
             [['opRespvalor', 'idPregunta'], 'safe'],
         ];
     }

@@ -1,5 +1,7 @@
 <?php
 
+// No se ha utilizado en este proyecto
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 

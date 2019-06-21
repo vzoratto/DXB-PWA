@@ -1,4 +1,5 @@
 <?php
+//Permite la modificacion del titulo y descripcion de las encuestas/trivias
 
 use yii\helpers\Html;
 

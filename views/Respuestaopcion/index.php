@@ -17,7 +17,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <hr>
-        <?= Html::a('Crear Opcion de Respuesta', ['create'], ['class' => 'btn btn-default']) ?>
+    <div class="alert alert-success">
+        <?php if($pregunta!=null): ?>
+            <?= Html::a('Crear Opcion de Respuesta', ['create', 'idPregunta'=>$pregunta->idPregunta], ['class' => 'btn btn-default']) ?>
+        <?php endif ?>
+        <?= Html::a('Encuestas', ['encuesta/index'], ['class' => 'btn btn-default']) ?>
+        <?= Html::a('Preguntas', ['pregunta/index'], ['class' => 'btn btn-default']) ?>
    
 
     <?= ExportMenu::widget([
@@ -65,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <hr>
+    </div>
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

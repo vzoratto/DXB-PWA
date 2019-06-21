@@ -17,7 +17,7 @@ class RespuestaSearch extends Respuesta
     public function rules()
     {
         return [
-            [['idRespuesta', 'idPregunta', 'idPersona'], 'integer'],
+            [['idRespuesta'], 'integer'],
             [['respValor', 'idPersona', 'idPregunta'], 'safe'],
         ];
     }

@@ -1,6 +1,6 @@
 <?php
 
-// Renderiza la generación de la encuesta
+// Renderiza la generación de la encuesta/trivia y el update de las mismas
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -40,7 +40,8 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'encPublica')->hiddenInput(['value' => 0])->label(false) ?>
 
         <div class="form-group">
-            <?= Html::submitButton('Siguiente', ['class' => 'btn btn-default', 'autofocus'=>true]) ?>
+            <!-- El nombre del boton cambia de acuerdo a si se esta creando o editando -->
+            <?= Html::submitButton($model->isNewRecord ? 'Siguiente' : 'Guardar Cambios', ['class' => 'btn btn-default', 'autofocus'=>true]) ?>
         </div>
 
     <?php ActiveForm::end(); ?>

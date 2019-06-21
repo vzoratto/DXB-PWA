@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 use app\models\Respuestaopcion;
 use app\models\Resultado;
 use app\models\Pregunta;
+use yii\filters\AccessControl;
+use app\models\Permiso;
 
 /**
  * RespuestaController implements the CRUD actions for Respuesta model.
@@ -99,6 +101,28 @@ class RespuestaController extends Controller
     public function behaviors()
     {
         return [
+            'access'=>[
+                'class' => AccessControl::className(),
+                'only' => [],
+                'rules' => [
+                    [
+                        'actions' => [],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Permiso::requerirRol('administrador') && Permiso::requerirActivo(1);
+                        }
+                    ],
+                    [
+                        'actions' => [],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Permiso::requerirRol('gestor') && Permiso::requerirActivo(1);
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -116,6 +140,9 @@ class RespuestaController extends Controller
     {
         $searchModel = new RespuestaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination=[
+            'pageSize'=>15,
+        ];
         $pregunta=null;
 
         if(isset($_REQUEST['idPregunta'])){
@@ -151,7 +178,7 @@ class RespuestaController extends Controller
     public function actionCreate()
     {
         $model = new Respuesta();
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idRespuesta]);
         }

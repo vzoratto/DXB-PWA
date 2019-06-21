@@ -24,12 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <h1><?= Html::encode($this->title) ?></h1>
         <hr>
-        <div>
+        <div class="alert alert-success">
             
             <?php if ($encuesta!=null): ?>
             <?= Html::a('Create Pregunta', ['create','id'=>$encuesta['idEncuesta']], ['class' => 'btn btn-default']) ?>
             <?php endif ?>
             <?= Html::a('Encuestas', ['encuesta/index'], ['class' => 'btn btn-default']) ?>
+            <?= Html::a('Opciones de respuesta', ['respuestaopcion/index'], ['class' => 'btn btn-default']) ?>
             <?= Html::a('Respuestas', ['respuesta/index'], ['class' => 'btn btn-default']) ?>
 
             <!-- El siguiente widget permite exportar los datos de la grilla que posee la vista a varios tipos de archivos -->
@@ -66,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
            
             <hr>
             <?php if(isset($encuesta['encTitulo'])): ?>
-            <h3>Encuesta: <?= Html::encode($encuesta['encTitulo']) ?></h3>
+                <h3>Encuesta: <?= Html::encode($encuesta['encTitulo']) ?></h3>
             <?php endif ?>
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
@@ -88,6 +89,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute'=>'idRespTipo',
                         'label'=>'Tipo de Respuesta',
                         'value'=>'respTipo.respTipoDescripcion',
+                    ],
+                    ['attribute'=>'',
+                            'format'=>'raw',
+                            'headerOptions'=>['style'=>'color:#1369BF'],
+                            'contentOptions'=>['style'=>'width:120px;'],
+                            'value'=>function($model){
+                                return Html::a('Opciones respuesta',
+                                        ['respuestaopcion/index',
+                                        'idPregunta'=>$model->idPregunta
+                                        ]
+                                );
+                        }
                     ],
                     ['attribute'=>'',
                             'format'=>'raw',
