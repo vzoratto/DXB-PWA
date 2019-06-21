@@ -1,7 +1,4 @@
-INSERT INTO `rol` (`idRol`, `descripcionRol`) VALUES (1, 'corredor');
-INSERT INTO `rol` (`idRol`, `descripcionRol`) VALUES (2, 'administrador');
-INSERT INTO `rol` (`idRol`, `descripcionRol`) VALUES (3, 'gestor');
-INSERT INTO `rol` (`idRol`, `descripcionRol`) VALUES (4, 'invitado');
+INSERT INTO `rol` (`idRol`, `descripcionRol`) VALUES (NULL, 'corredor');
 
 INSERT INTO `usuario` (`idUsuario`,`dniUsuario`,`claveUsuario`,`mailUsuario`,`authkey`,`activado`,`idRol`) VALUES
 (1,12600600,'1234','prueba1@gmail.com','1',1,1),
