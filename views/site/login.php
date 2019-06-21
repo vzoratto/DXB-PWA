@@ -9,12 +9,10 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Iniciar Sesion';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
-    <div class="form-group col-lg-6 col-md-offset-3" aling="center">
-        <h1><?= Html::encode($this->title) ?></h1>
-        <img src="registro/iniciarsesion.png"  style="width: 150px;">
-    </div>
-    <div class="form-group col-lg-6 col-md-offset-3">
+<div class="cover-background contenedor-full full-section" style="background-image:url('assets/img/fondo.jpg');">
+    <div class="box-bd no-label" align="center">
+      <img class="center" src="assets/img/logo-color.png" alt="">
+      <p><?= Html::encode($this->title) ?></p>
         <?php
         $form = ActiveForm::begin([
                     'id' => 'login-form',
@@ -28,24 +26,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'dni')->textInput(['placeholder'=>'Ingresa tu DNI','autofocus' => true, 'class' => 'form-control']) ?>
 
-         <?= $form->field($model, 'password',['inputOptions' => ['class' => 'form-control']])
-            ->passwordInput(['placeholder'=>'Ingresa tu password'])?>
-            
+         <?= $form->field($model, 'password',['inputOptions' => ['class' => 'form-control m-0']])
+            ->passwordInput(['placeholder'=>'Ingresa tu contraseña'])?>
+            <p class="text-center">
+                <?= Html::a('Olvidaste tu contraseña?', ['site/recupass']) ?>
+            </p>
+
         <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-               <?= Html::submitButton('Iniciar Sesion', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-            </div>
+            <?= Html::submitButton('Iniciar Sesion', ['class' => 'btn btn-grande btn-rounded btn-carrera submitbutton width-100', 'name' => 'login-button']) ?>
         </div>
             <p class="text-center">
-                <?= Html::a('Olvidaste tu password?', ['site/recupass']) ?>
+                <?= Html::a('No estas registrado? REGISTRATE!', ['site/registro']) ?>
             </p>
-            <p class="text-center">
-                <?= Html::a('Cambiar password', ['site/cambiapass']) ?>
-            </p>
-            <p class="text-center">
-                <?= Html::a('Si no estas registrado, REGISTRATE!', ['site/registro']) ?>
-            </p>
-<?php ActiveForm::end(); ?>
+            <?php ActiveForm::end(); ?>
     </div>
 </div>
-  
