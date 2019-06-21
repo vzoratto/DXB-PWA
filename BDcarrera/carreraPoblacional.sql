@@ -7,6 +7,25 @@
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
+--
+-- Volcado de datos para la tabla `parametros`
+--
+
+
+INSERT INTO `parametros` (`idParametros`, `cantidadCorredores`) VALUES 
+(NULL, '4'),
+(NULL, '2');
+
+--
+-- Volcado de datos para la tabla `rol`
+--
+
+INSERT INTO `rol` (`idRol`, `descripcionRol`) VALUES 
+(1, 'corredor'),
+(2,'administrador'),
+(3,'gestor'),
+(4,'invitado');
+
 
 --
 -- Volcado de datos para la tabla `provincia`

@@ -1,4 +1,3 @@
-INSERT INTO `rol` (`idRol`, `descripcionRol`) VALUES (NULL, 'corredor');
 
 INSERT INTO `usuario` (`idUsuario`,`dniUsuario`,`claveUsuario`,`mailUsuario`,`authkey`,`activado`,`idRol`) VALUES
 (1,12600600,'1234','prueba1@gmail.com','1',1,1),
@@ -86,11 +85,11 @@ INSERT INTO `persona` (`idPersona`, `idTalleRemera`, `nombrePersona`, `apellidoP
 (NULL, '2', 'mia', 'matorras', '2019-06-11', 'M', 'argentino', '2991234567', 'prueba15@gmail.com', '15', '15', '15', CURRENT_TIMESTAMP, '15', NULL, '1', '0');
 
 INSERT INTO `equipo` (`idEquipo`, `nombreEquipo`, `cantidadPersonas`, `idTipoCarrera`, `dniCapitan`, `deshabilitado`) VALUES
-(NULL, 'elMaMejor', '4', '1', '12600600', '0'),
-(NULL, 'corredoresDeBolsa', '4', '2', '12600601', '0'),
-(NULL, 'Los Pantera', '4', '1', '12600602', '0'),
-(NULL, 'mas rapido que vos', '2', '1', '12600603', '0'),
-(NULL, 'Los correcaminos', '2', '2', '12600604', '0');
+(NULL, '1', '4', '1', '12600600', '0'),
+(NULL, '2', '4', '2', '12600601', '0'),
+(NULL, '3', '4', '1', '12600602', '0'),
+(NULL, '4', '2', '1', '12600603', '0'),
+(NULL, '5', '2', '2', '12600604', '0');
 
 INSERT INTO `grupo` (`idEquipo`, `idPersona`) VALUES
 -- capitanes de los equipos
@@ -114,6 +113,3 @@ INSERT INTO `grupo` (`idEquipo`, `idPersona`) VALUES
 -- equipo 4 de dos personas
  ('4', '15');
  
-INSERT INTO `parametros` (`idParametros`, `cantidadCorredores`) VALUES 
-(NULL, '4'),
-(NULL, '2');
