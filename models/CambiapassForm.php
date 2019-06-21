@@ -12,6 +12,8 @@ class CambiapassForm extends Model{
     public $nuevo_password;
     public $repite_password;
 
+    private $_user=false;
+
     public function rules()
     {
         return [
@@ -41,8 +43,8 @@ class CambiapassForm extends Model{
         if (!$this->hasErrors()) {
             $user = $this->getUser();
   
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Dni o password incorrecto.');
+            if (!$user->validatePassword($this->password)) {
+                $this->addError($attribute, 'Contraseña incorrecto.');
             }
             
         }
@@ -71,7 +73,6 @@ class CambiapassForm extends Model{
       {
           /* @var $user Usuario */
           $user = Usuario::findOne([
-              'activado' => 1,
               'dniUsuario' => $this->dni,
           ]);
           if ($user) {

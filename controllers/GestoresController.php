@@ -35,7 +35,7 @@ class GestoresController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = '/main1';
+        $this->layout = '/main2';
         $searchModel = new GestoresSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -53,7 +53,7 @@ class GestoresController extends Controller
      */
     public function actionView($id)
     {
-        $this->layout = '/main1';
+        $this->layout = '/main2';
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -66,7 +66,7 @@ class GestoresController extends Controller
      */
     public function actionCreate()
     {
-        $this->layout = '/main1';
+        $this->layout = '/main2';
         $model = new Gestores();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -87,7 +87,7 @@ class GestoresController extends Controller
      */
     public function actionUpdate($id)
     {
-        $this->layout = '/main1';
+        $this->layout = '/main2';
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -108,7 +108,7 @@ class GestoresController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->layout = '/main1';
+        $this->layout = '/main2';
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

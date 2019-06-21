@@ -65,7 +65,8 @@ class Persona extends \yii\db\ActiveRecord
              // marca las variables como atributo seguro
              [['fechaNacPersona', 'fechaInscPersona'], 'safe'],
              //verifica que el formato de fecha sea el deseado
-             [['fechaNacPersona', 'fechaInscPersona'],'date', 'format'=>'yyyy-mm-dd'],
+             [['fechaNacPersona'],'date', 'format'=>'yyyy-mm-dd'],
+             [['fechaInscPersona'],'date', 'format'=>'yyyy-mm-dd H:m:s'],
              //comprueba si el valor del campo es 0 o 1, sin mirar el tipo de dato
              ['donador', 'boolean'],
              // comprueba si los campos coinciden con la expresion regular dada

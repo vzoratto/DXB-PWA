@@ -1,5 +1,5 @@
 <?php
-use yii\widgets\ActiveForm;
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
@@ -12,14 +12,8 @@ use app\models\Carrerapersona;
 use app\models\Usuario;
 use app\models\Equipo;
 use app\models\Persona;
-use app\models\Estadopagopersona;
-use app\models\Estadopago;
 use dimmitri\grid\ExpandRowColumn;
 use kartik\export\ExportMenu;
-
-use buttflattery\formwizard\FormWizard; 
-use kartik\tabs\TabsX;
-//use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PersonaSearch */
@@ -28,22 +22,28 @@ use kartik\tabs\TabsX;
 $this->title = 'Menu Gestor ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="persona-index">
-<h1> <br> </h1>
+<div class="kit-index">
 
-
+    <h1>Total de Inscriptos: <?= Html::encode($dataProvider->getCount()) ?></h1>
+	 
 	  
 	 <?php
 		$gridColumns = [
             ['class' => 'yii\grid\SerialColumn'],
-			[   'label' => 'Corredor',
+			[   'label' => 'Apellido',
                 'class' => ExpandRowColumn::class,
                 'attribute' => 'apellidoPersona',
 				'value' => function($model) {
-                    return ($model->persona->apellidoPersona.' '.$model->persona->nombrePersona );
+                    return ($model->persona->apellidoPersona);
                 },
                 'column_id' => 'column-info',
                 'url' => Url::to(['view']),
+            ],
+            [   'label' => 'Nombre',
+                'attribute' => 'nombrePersona',
+                'value' => function($model) {
+                    return ($model->persona->nombrePersona);
+                }
             ],
             [   'label' => 'Documento',
                 'attribute' => 'dniUsuario',
@@ -52,36 +52,44 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
 				
             ],
-
+            ['label' => 'Talle Remera',
+                'attribute' => 'talleRemera',
+                'value' => function($model) {
+                    return ($model->persona->talleRemera->talleRemera);
+                },
+				'filter' => ArrayHelper::map(Talleremera::find()->asArray()->all(), 'talleRemera', 'talleRemera')
+            ],
             ['label' => 'Categoria',
-                'attribute' => 'idTipoCarrera',
+                'attribute' => 'categoria',
                 'value' => function($model) {
                     return ($model->tipoCarrera->descripcionCarrera);
                 },
-			'filter' => ArrayHelper::map(Tipocarrera::find()->asArray()->all(), 'idTipoCarrera', 'descripcionCarrera')
+		    	'filter' => ArrayHelper::map(Tipocarrera::find()->asArray()->all(), 'categoria', 'descripcionCarrera')
             ],
 			['label' => 'Equipo',
 			'attribute' => 'nombreEquipo',
                 'value' => function($model) {
-					//if($model->nombreEquipo ){
                     return ($model->equipo->nombreEquipo);
-					
                 },
-             //   'filter' => ArrayHelper::map(Persona::find()->asArray()->all(), 'idPersona', 'donador'),
             ],
 			['label' => 'Capitan',
 			'attribute' => 'dniCapitan',
                 'value' => function($model) {
-					//if($model->nombreEquipo ){
                     return ($model->equipo->dniCapitan);
-					
                 },
-             //   'filter' => ArrayHelper::map(Persona::find()->asArray()->all(), 'idPersona', 'donador'),
             ],
-          ['class' => 'yii\grid\ActionColumn',
+		    ['label' => 'Retiro Kit',
+			'attribute' => 'retiraKit',
+                'value' => function($model) {
+					if($model->retiraKit )
+                    return ( ($model->retiraKit === 1)? 'si':'no' );
+                },
+                'filter' => ArrayHelper::map(Carrerapersona::find()-> asArray()->all(), 'retiraKit', 'retiraKit'), 
+            ],
+			['class' => 'yii\grid\ActionColumn',
                  'contentOptions'=>
 				 ['style'=>'width: 10%;'],
-                   'template'=>'{update}{delete}',
+                   'template'=>'{update}',
                    'buttons'=>[
 		           'update'=>function($url,$model){
                     return Html::a('<span class="glyphicon glyphicon-pencil"></span>',$url,[
@@ -90,14 +98,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]);
                 }
 		    	],		
-           ],
-			
-	
-	
-	
+           ],	
 ];
-?>
-<?php
+
 // Renders a export dropdown menu
 echo ExportMenu::widget([
     'dataProvider' => $dataProvider,
@@ -138,6 +141,4 @@ echo \kartik\grid\
 	'columns' => $gridColumns
      ]);
 ?>
- </p>
-
-</div>
+ </div>

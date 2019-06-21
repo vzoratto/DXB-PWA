@@ -121,7 +121,7 @@ class SiteController extends Controller
                 if (Permiso::requerirRol('administrador')){
                     return $this->redirect(["site/admin"]);
                 }elseif(Permiso::requerirRol('gestor')){
-                    return $this->redirect(["carrerapersona/index"]); 
+                    return $this->redirect(["site/gestor"]); 
                 }   
             }
             return $this->goBack();
@@ -267,16 +267,18 @@ class SiteController extends Controller
      * @return string
      */
     public function actionCambiapass(){
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
         }
         $model = new CambiaPassForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->validaCambio()) {
-                Yii::$app->getSession()->setFlash('success', 'Perfecto, ahora logueate con tu nuevo password.');
-                
-                echo "<meta http-equiv='refresh' content='8; ".Url::toRoute("site/login")."'>";
+                //Yii::$app->getSession()->setFlash('success', 'Perfecto, ahora logueate con tu nueva contraseña.');
+                Yii::$app->user->logout();
+                if (Yii::$app->user->isGuest) {
+                echo "<meta http-equiv='refresh' content='4; ".Url::toRoute("site/login")."'>";
                 //return $this->goHome();
+                }
             } else {
                 Yii::$app->getSession()->setFlash('error', 'Hubo un problema, vuelve a intentarlo.');
             }
@@ -301,7 +303,16 @@ class SiteController extends Controller
      * @return string
      */
     public function actionAdmin(){
+            $this->layout = '/main2';
             return $this->render('administrar');
     }
-
+    /**
+     * Displays admin page.
+     *
+     * @return string
+     */
+    public function actionGestor(){
+        $this->layout = '/main3';
+        return $this->render('gestionar');
+}
 }

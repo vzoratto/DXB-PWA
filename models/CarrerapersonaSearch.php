@@ -6,7 +6,6 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Carrerapersona;
 use app\models\Talleremera;
-use app\models\Fichamedica;
 use app\models\Usuario;
 use app\models\Equipo;
 use app\models\Tipocarrera;
@@ -23,12 +22,12 @@ class Carrerapersonasearch extends Carrerapersona {
 	public $talleRemera;
 	public $nombreEquipo;
 	public $dniCapitan;
+	public $categoria;
 
     public function rules() {
         return [
             [['idTipoCarrera', 'idPersona', 'reglamentoAceptado', 'retiraKit'], 'integer'],
-            [['apellidoPersona', 'nombrePersona', 'dniUsuario', 'talleRemera','nombreEquipo','dniCapitan'], 'safe'],
-		
+            [['apellidoPersona', 'nombrePersona', 'dniUsuario', 'talleRemera','nombreEquipo','dniCapitan','categoria'], 'safe'],
         ];
     }
 
@@ -50,16 +49,11 @@ class Carrerapersonasearch extends Carrerapersona {
     public function search($params) {
         $query = Carrerapersona::find()
                 ->joinWith(['persona'])
-				
                 ->joinWith(['persona.usuario'])
 				->joinWith(['persona.talleRemera'])
-				->joinWith(['persona.fichaMedica'])
-				
 				->joinWith(['tipoCarrera'])
 				->joinWith(['tipoCarrera.equipo']);
-				
-				
-				
+			
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -83,11 +77,16 @@ class Carrerapersonasearch extends Carrerapersona {
         ]);
         $query->andFilterWhere(['like', 'apellidoPersona', $this->apellidoPersona]);
         $query->andFilterWhere(['like', 'nombrePersona', $this->nombrePersona]);
-		
         $query->andFilterWhere(['like', 'usuario.dniUsuario', $this->dniUsuario]);
         $query->andFilterWhere(['like', 'talleRemera.talleRemera', $this->talleRemera]);
+		
+        $query->andFilterWhere(['like', 'tipoCarrera.descripcionCarrera', $this->categoria]);
+		
         $query->andFilterWhere(['like', 'equipo.nombreEquipo', $this->nombreEquipo]);
+		
         $query->andFilterWhere(['like', 'equipo.dniCapitan', $this->dniCapitan]);
+		
+
         return $dataProvider;
     }
 

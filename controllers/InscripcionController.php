@@ -54,6 +54,9 @@ class InscripcionController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
         //se instancia una variable por cada modelo a utilizar
         $persona = new \app\models\Persona(); //Instanciamos una variable
         $usuario = new \app\models\Usuario(); //Instanciamos una variable
@@ -606,6 +609,37 @@ class InscripcionController extends Controller
         }
         return $existeUsuario;
     }
+    /**
+     * Deletes an existing Persona model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
+    {
+        $this->layout = '/main2';
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the Persona model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Persona the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Persona::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
     
 }
 
