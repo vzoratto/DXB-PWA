@@ -26,6 +26,7 @@ use app\models\Equipo;
 use app\models\Grupo;
 use app\models\Parametros;
 use app\models\Carrerapersona;
+use app\models\Listadeespera;
 use yii\base\Security;
 
 
@@ -55,6 +56,7 @@ class InscripcionController extends Controller
     public function actionIndex()
     {
         //se instancia una variable por cada modelo a utilizar
+        $listaDeEspera = new \app\models\Listadeespera();
         $persona = new \app\models\Persona(); //Instanciamos una variable
         $usuario = new \app\models\Usuario(); //Instanciamos una variable
         $personaDireccion = new \app\models\Personadireccion(); //Instanciamos una variable
@@ -423,6 +425,7 @@ class InscripcionController extends Controller
             $persona->fechaInscPersona=null;
             $persona->idPersonaEmergencia=$personaEmergencia->idPersonaEmergencia;
             $persona->donador=$modeloPersona['donador'];
+            $persona->deshabilitado=0;
             //$persona->estadoPago=null;
             if ($persona->validate()) {
                 // toda la entrada es válida
@@ -484,11 +487,20 @@ class InscripcionController extends Controller
             // Instanciamos una variable de la clase Carrera Persona
             // Asignamos los valores
             $carreraPersona = new Carrerapersona();
-            $carreraPersona->idPersona=$persona->idPersona;
+            $carreraPersona->idPersona=$idPersona;
             $carreraPersona->idTipoCarrera = $idTipoCarrera;
             $carreraPersona->reglamentoAceptado = $modeloCarreraPersona['reglamentoAceptado'];
             $carreraPersona->save(); //Realiza el llenado de la tabla
             
+            // Obtenemos la cantidad de inscriptos
+            // Si la cantidad de personas inscriptas es mayor A XXXXXXXXXXXXXX, se agrega a lista de espera:
+            $cantidadInscriptos = Persona::find()->where(['deshabilitado'=>0])->count();
+            $cantidadMaxInscriptos = 15;
+            if ($cantidadInscriptos>$cantidadMaxInscriptos){
+                 $listaDeEspera = new Listadeespera();
+                 $listaDeEspera->idPersona=$idPersona;
+                 $listaDeEspera->save(); // Realiza el llenado de la tabla
+            }
 
             //RESPUESTA A ENCUESTA
             $respuesta=Yii::$app->request->post();

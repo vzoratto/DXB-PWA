@@ -31,6 +31,7 @@ CREATE TABLE `encuesta` (
   `idEncuesta` int(5) NOT NULL,
   `encTitulo` varchar(150) CHARACTER SET latin1 NOT NULL,
   `encDescripcion` varchar(250) CHARACTER SET latin1 NOT NULL,
+  `encTipo` varchar(10) CHARACTER SET latin1 NOT NULL,
   `encPublica` TINYINT(1)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -323,6 +324,17 @@ CREATE TABLE `usuario` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `listadeespera`
+--
+
+CREATE TABLE `listadeespera` (
+  `idListaDeEspera` int(8) NOT NULL,
+  `idPersona` int(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `vinculopersona`
 --
 
@@ -507,6 +519,15 @@ ALTER TABLE `vinculopersona`
   ADD PRIMARY KEY (`idVinculo`);
 
 --
+-- Indices de la tabla `listadeespera`
+--
+ALTER TABLE `listadeespera`
+  ADD PRIMARY KEY (`idListaDeEspera`);
+
+
+
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -637,6 +658,13 @@ ALTER TABLE `vinculopersona`
   MODIFY `idVinculo` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `listadeespera`
+--
+ALTER TABLE `listadeespera`
+  MODIFY `idListaDeEspera` int(8) NOT NULL AUTO_INCREMENT;
+
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -727,6 +755,13 @@ ALTER TABLE `respuesta`
 --
 ALTER TABLE `respuesta_opcion`
   ADD CONSTRAINT `respuesta_opcion_ibfk_1` FOREIGN KEY (`idPregunta`) REFERENCES `pregunta` (`idPregunta`);
+
+--
+-- Filtros para la tabla `listadeespera`
+--
+ALTER TABLE `listadeespera`
+  ADD CONSTRAINT `listadeespera_ibfk_1` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPersona`);
+
 
 --
 -- Filtros para la tabla `usuario`
