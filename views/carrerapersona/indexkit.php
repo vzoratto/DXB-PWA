@@ -30,7 +30,6 @@ use kartik\tabs\TabsX;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Entrega De Kits ';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="talleRemera">
 <h1> <br> </h1>
@@ -42,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			[   'label' => 'Corredor',
                 'attribute' => 'apellidoPersona',
 				'value' => function($model) {
-                    return ($model->apellidoPersona.' '.$model->nombrePersona );
+                    return ($model->apellidoPersona.' '.$model->nombrePersona);
                 },
             ],
             [   'label' => 'Documento',
@@ -63,9 +62,9 @@ $this->params['breadcrumbs'][] = $this->title;
 			['class' => 'yii\grid\ActionColumn',
                  'contentOptions'=>
 				 ['style'=>'width: 10%;'],
-                   'template'=>'{update}',
+                   'template'=>'{updatekit}',
                    'buttons'=>[
-		           'update'=>function($url,$model){
+		           'updatekit'=>function($url,$model){
                     return Html::a('<span class="glyphicon glyphicon-pencil"></span>',$url,[
                        'class'=>'btn btn-block btn-flat sejajar',
                        'style'=>'width : 50%',
