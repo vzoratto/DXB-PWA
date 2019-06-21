@@ -1,5 +1,7 @@
 <?php
-
+/* ---------------------------------------------------------------------------------------------
+-- Vista que nos permite la generación y carga de las opciones de CheckBox
+-- ----------------------------------------------------------------------------------------------*/
 use app\controllers\PreguntaController;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
@@ -7,6 +9,7 @@ use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RespuestaOpcion*/
+/* @var $opciones app\models\RespuestaOpcion*/
 /* @var $idPregunta app\models\Pregunta*/
 
 $this->title = 'Cargar Las opciones del CheckBox';
@@ -18,21 +21,37 @@ if(!isset($idPregunta)){
 $preg=PreguntaController::entregaPregunta($idPregunta);
 $idEncuesta=$preg->idEncuesta;
 ?>
+<div class="container">
+	<h3>Ingresar las opciones de respuesta para:</h3>
+	<h3><strong><?= $preg->pregDescripcion; ?></strong></h3>
+	<hr>
+	<h4>Entre estas opciones se podran elegir <strong>varias</strong></h4>
 
-<h4>Ingresar las opciones de respuesta para la pregunta:</h4>
-<h3><?= $preg->pregDescripcion; ?></h3>
-<hr>
-<p>Entre estas opciones se podran elegir <strong>varias</strong></p>
-<?php $form = ActiveForm::begin([
-        'method'=>'post',
-        'action'=>Url::toRoute('respuestaopcion/crea-check'),
-])?>
-	<div class='form-group'>
-		<?= $form->field($model, 'opRespvalor')->textInput()->label('Opcion: ')?>
-		<?= $form->field($model, 'idPregunta')->hiddenInput(['value'=>$idPregunta])->label(false)?>
-	</div>
-	<div class='form-group'>
-		<?= Html::submitButton('Guardar Opcion', ['class'=>'btn btn-primary'])?>
-		<?= Html::a('Nueva Pregunta', url::toRoute(['pregunta/create','id'=>$idEncuesta]),['class'=>'btn btn-primary'])?>
-	</div>
-<?php ActiveForm::end()?>
+	<!-- Muestra las opciones cargadas con anterioridad -->
+	<?php if($opciones!=null): ?>
+			<?php $i=1; ?>
+			<div class="alert alert-success">
+
+				<p>Opciones ya cargadas:</p>
+				<?php foreach($opciones as $unaOpcion): ?>
+					<p><strong><?php echo $i." - ".$unaOpcion['opRespvalor'] ?></strong></p>
+					<?php $i++ ?>
+				<?php endforeach ?>
+			</div>
+		<?php endif ?>
+
+	<?php $form = ActiveForm::begin([
+			'method'=>'post',
+			'action'=>Url::toRoute('respuestaopcion/crea-check'),
+	])?>
+		<div class='form-group'>
+			<?= $form->field($model, 'opRespvalor')->textInput(['autofocus'=>true])->label('Opcion: ')?>
+			<?= $form->field($model, 'idPregunta')->hiddenInput(['value'=>$idPregunta])->label(false)?>
+		</div>
+		<div class='form-group'>
+			<?= Html::submitButton('Guardar Opcion', ['class'=>'btn btn-default'])?>
+			<?= Html::a('Nueva Pregunta', url::toRoute(['pregunta/create','id'=>$idEncuesta]),['class'=>'btn btn-default'])?>
+			<?= Html::a('Terminar Encuesta', url::toRoute('encuesta/index'),['class'=>'btn btn-default'])?>
+		</div>
+	<?php ActiveForm::end()?>
+</div>

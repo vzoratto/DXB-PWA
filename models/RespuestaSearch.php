@@ -17,8 +17,8 @@ class RespuestaSearch extends Respuesta
     public function rules()
     {
         return [
-            [['idRespuesta', 'idPregunta', 'idPersona'], 'integer'],
-            [['respValor'], 'safe'],
+            [['idRespuesta'], 'integer'],
+            [['respValor', 'idPersona', 'idPregunta'], 'safe'],
         ];
     }
 
@@ -41,7 +41,8 @@ class RespuestaSearch extends Respuesta
     public function search($params)
     {
         $query = Respuesta::find();
-
+        $query->joinWith(['persona']);
+        $query->joinWith(['pregunta']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -59,11 +60,13 @@ class RespuestaSearch extends Respuesta
         // grid filtering conditions
         $query->andFilterWhere([
             'idRespuesta' => $this->idRespuesta,
-            'idPregunta' => $this->idPregunta,
-            'idPersona' => $this->idPersona,
+            // 'idPregunta' => $this->idPregunta,
+            // 'idPersona' => $this->idPersona,
         ]);
 
-        $query->andFilterWhere(['like', 'respValor', $this->respValor]);
+        $query->andFilterWhere(['like', 'respValor', $this->respValor])
+            ->andFilterWhere(['like', 'persona.nombrePersona', $this->idPersona])
+            ->andFilterWhere(['like', 'pregunta.pregDescripcion', $this->idPregunta]);
 
         return $dataProvider;
     }

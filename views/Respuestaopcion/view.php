@@ -1,4 +1,5 @@
 <?php
+// Vista no utilizada en este proyecto
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;

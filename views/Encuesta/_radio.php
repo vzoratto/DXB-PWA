@@ -1,5 +1,7 @@
 <?php
 
+// Renderiza las vistas de los radios
+
 use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
@@ -15,6 +17,8 @@ use yii\helpers\ArrayHelper;
 <?php foreach($opcion as $clave=>$valor2):?>
     
     <?php foreach($valor2 as $unaOpc):?>
+
+        <!-- Cada opcion de las opciones de respuesta se agrega a un array de opciones para el radio  -->
 
         <?php if($unaOpc['idPregunta']==$idPregunta):?>
             <?php array_push($resp, $unaOpc); ?>

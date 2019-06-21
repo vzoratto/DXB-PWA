@@ -7,15 +7,15 @@ use yii\widgets\Pjax;
 /* @var $searchModel app\models\RespuestaTipoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Respuesta Tipos';
+$this->title = 'Tipos de Respuesta';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="respuestatipo-index">
+<div class="respuestatipo-index container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Respuesta Tipo', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Tipo de Respuesta', ['create'], ['class' => 'btn btn-default']) ?>
     </p>
 
     <?php Pjax::begin(); ?>

@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\conditions\NotCondition;
+use yii\filters\AccessControl;
+use app\models\Permiso;
 
 /**
  * RespuestatipoController implements the CRUD actions for Respuestatipo model.
@@ -41,6 +43,23 @@ class RespuestatipoController extends Controller
     public function behaviors()
     {
         return [
+            'access'=>[
+                'class'=>AccessControl::className(),
+                'only' => [],
+                'rules' => [
+                    [
+                        'actions' => [],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Permiso::requerirRol('administrador') && Permiso::requerirActivo(1);
+                        }
+                    ],
+                    
+                ],
+
+
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

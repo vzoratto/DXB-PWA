@@ -9,6 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\PreguntaSearch;
+use yii\filters\AccessControl;
+use app\models\Permiso;
+use app\models\Pregunta;
 
 /**
  * RespuestaopcionController implements the CRUD actions for Respuestaopcion model.
@@ -29,16 +32,21 @@ class RespuestaopcionController extends Controller
      */
     public function actionCreaDrop()
     {
+        $opciones=null;
         $model = new RespuestaOpcion();
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->idRespuestaOpcion="";
             $model->opRespvalor="";
-            return $this->render('creaDrop', ['model' => $model]);
+
+            // Busca las opciones que ya estan cargadas y arma un array con las mismas
+            $opciones=RespuestaopcionSearch::find()->where(['idPregunta'=>$model->idPregunta])->asArray()->all();
+            return $this->render('creaDrop', ['model' => $model, 'opciones'=>$opciones]);
         }
         
         return $this->render('creaDrop', [
             'model' => $model,
+            'opciones'=>$opciones,
         ]);
     }
     
@@ -47,16 +55,19 @@ class RespuestaopcionController extends Controller
      */
     public function actionCreaCheck()
     {
+        $opciones=null;
         $model = new RespuestaOpcion();
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->idRespuestaOpcion="";
             $model->opRespvalor="";
-            return $this->render('creaCheck', ['model' => $model]);
+            $opciones=RespuestaopcionSearch::find()->where(['idPregunta'=>$model->idPregunta])->asArray()->all();
+            return $this->render('creaCheck', ['model' => $model, 'opciones'=>$opciones]);
         }
         
         return $this->render('creaCheck', [
-            'model' => $model,
+            'model' => $model, 
+            'opciones'=>$opciones,
         ]);
     }
     
@@ -65,16 +76,19 @@ class RespuestaopcionController extends Controller
      */
     public function actionCreaRadio()
     {
+        $opciones=null;
         $model = new RespuestaOpcion();
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->idRespuestaOpcion="";
             $model->opRespvalor="";
-            return $this->render('creaRadio', ['model' => $model]);
+            $opciones=Respuestaopcion::find()->where(['idPregunta'=>$model->idPregunta])->asArray()->all();
+            return $this->render('creaRadio', ['model' => $model, 'opciones'=>$opciones]);
         }
         
         return $this->render('creaRadio', [
             'model' => $model,
+            'opciones'=>$opciones
         ]);
     }
     
@@ -88,7 +102,7 @@ class RespuestaopcionController extends Controller
     public function actionDefineOpcion(){
         
         $idPregunta=$_REQUEST['id'];
-        
+        $opciones=null;
         $tipo=PreguntaSearch::findOne($idPregunta);
         $model=new RespuestaOpcion();
         
@@ -96,11 +110,11 @@ class RespuestaopcionController extends Controller
         if($tipo->idRespTipo == 1){
             return $this->redirect(['pregunta/create', 'model'=>$model,'id'=>$tipo->idEncuesta, 'idPregunta'=>$tipo->idPregunta]);
         }elseif ($tipo->idRespTipo == 2){
-            return $this->render('creaDrop', ['model'=>$model,'idPregunta'=>$tipo->idPregunta]);
+            return $this->render('creaDrop', ['model'=>$model,'idPregunta'=>$tipo->idPregunta, 'opciones'=>$opciones]);
         }elseif ($tipo->idRespTipo == 3){
-            return $this->render('creaCheck', ['model'=>$model,'idPregunta'=>$tipo->idPregunta]);
+            return $this->render('creaCheck', ['model'=>$model,'idPregunta'=>$tipo->idPregunta, 'opciones'=>$opciones]);
         }elseif ($tipo->idRespTipo == 4){
-            return $this->render('creaRadio', ['model'=>$model,'idPregunta'=>$tipo->idPregunta]);
+            return $this->render('creaRadio', ['model'=>$model,'idPregunta'=>$tipo->idPregunta, 'opciones'=>$opciones]);
         }
         
         return $this->render('error', ['idPregunta'=>$idPregunta, 'tipo'=>$tipo]);
@@ -113,6 +127,30 @@ class RespuestaopcionController extends Controller
     public function behaviors()
     {
         return [
+
+            'access'=>[
+                'class' => AccessControl::className(),
+                'only' => [],
+                'rules' => [
+                    [
+                        'actions' => [],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Permiso::requerirRol('administrador') && Permiso::requerirActivo(1);
+                        }
+                    ],
+                    [
+                        'actions' => [],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Permiso::requerirRol('gestor') && Permiso::requerirActivo(1);
+                        }
+                    ],
+                ],
+            ],
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -130,10 +168,19 @@ class RespuestaopcionController extends Controller
     {
         $searchModel = new RespuestaopcionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination=[
+            'pageSize'=>15,
+        ];
+        $pregunta=null;
 
+        if(isset($_REQUEST['idPregunta'])){
+            $dataProvider->query->andWhere('respuesta_opcion.idPregunta='.$_REQUEST['idPregunta']);
+            $pregunta=Pregunta::find()->where(['idPregunta'=>$_REQUEST['idPregunta']])->one();
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'pregunta'=>$pregunta,
         ]);
     }
 
@@ -157,14 +204,25 @@ class RespuestaopcionController extends Controller
      */
     public function actionCreate()
     {
+        if(isset($_REQUEST['idPregunta'])){
+            $idPregunta=$_REQUEST['idPregunta'];
+            $pregunta=PreguntaSearch::find()->where(['idPregunta'=>$idPregunta])->one();
+            $opciones=RespuestaopcionSearch::find()->where(['idPregunta'=>$idPregunta])->asArray()->all();
+        }else{
+            $pregunta=null;
+            $opciones=null;
+        }
+
         $model = new Respuestaopcion();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idRespuestaOpcion]);
+            return $this->redirect(['index', 'idPregunta'=>$pregunta->idPregunta,'id' => $model->idRespuestaOpcion]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'pregunta'=>$pregunta,
+            'opciones'=>$opciones,
         ]);
     }
 
@@ -177,14 +235,21 @@ class RespuestaopcionController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(isset($_REQUEST['pregunta'])){
+            $pregunta=$_REQUEST['pregunta'];
+        }else{
+            $pregunta=null;
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idRespuestaOpcion]);
+            return $this->redirect(['index', 'id' => $model->idRespuestaOpcion]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'pregunta'=>$pregunta,
         ]);
     }
 
