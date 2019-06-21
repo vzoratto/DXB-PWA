@@ -6,11 +6,12 @@ use yii\base\model;
 use app\models\Usuario;
 
 class CambiapassForm extends Model{
- 
+
     public $dni;
     public $password;
     public $nuevo_password;
     public $repite_password;
+    private $_user = false;
 
     private $_user=false;
 
@@ -26,11 +27,11 @@ class CambiapassForm extends Model{
             ['nuevo_password', 'compare', 'compareAttribute' => 'password','operator' => '!=','message' => 'Password y nuevo password deben ser distintos'],
             ['repite_password', 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mi­nimo y maximo 8 caracteres'],
             ['repite_password', 'compare', 'compareAttribute' => 'nuevo_password', 'message' => 'Nuevo password y repite password no coinciden'],
-            
+
         ];
-        
+
     }
-    
+
     /**
      * Validates the password.
      * This method serves as the inline validation for password.
@@ -39,17 +40,17 @@ class CambiapassForm extends Model{
      * @param array $params the additional name-value pairs given in the rule
      */
     public function validatePassword($attribute, $params){
-  
+
         if (!$this->hasErrors()) {
             $user = $this->getUser();
   
             if (!$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Contraseña incorrecto.');
             }
-            
+
         }
     }
-  
+
     /**
      * Finds user by [[dni]]
      *
@@ -60,14 +61,14 @@ class CambiapassForm extends Model{
         if ($this->_user === false) {
             $this->_user = Usuario::findByUsername($this->dni);
         }
-      
+
         return $this->_user;
     }
-  
+
           /**
        * Valida el cambio del password.
        *
-       * @return boolean 
+       * @return boolean
        */
       public function validaCambio()
       {
@@ -82,7 +83,7 @@ class CambiapassForm extends Model{
             }
         }
           return false;
-        
+
       }
     /**
      * funcion random para claves,long 50 hexa
@@ -98,7 +99,7 @@ class CambiapassForm extends Model{
         }
         return $key;
     }
-  
-  
-    
+
+
+
 }

@@ -89,7 +89,18 @@
                     <p class="text-justify"><b>Tiempo de carrerar del circuito completo.</b> El equipo que menos tarda en hacer todos los pasos será el ganador</p>
 
                     <div class="row sm-center">
-                      <a href="<?php echo Url::to(['/inscripcion']); ?>" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Inscribíte</a>
+
+                      <?php if (Yii::$app->user->isGuest) {
+                        // code...
+
+                      echo '<a href="'.Url::to(["/site/registro"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Regístrate</a>';
+
+                    } else {
+
+                      echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Inscribíte</a>';
+
+                    }; ?>
+                      
                     </div>
 
               </div>

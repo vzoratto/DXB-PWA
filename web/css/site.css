@@ -559,7 +559,7 @@ a.desc:after {
 *************************/
 
 .m-0 {
-    margin: 0px;
+    margin: 0px !important;
 }
 
 .p-0 {
@@ -3288,8 +3288,20 @@ a.desc:after {
     font-size: 0.7em;
 }
 
-.no-label label {
-    display: none;
+.db-label {
+  font-variant: all-petite-caps;
+  margin-bottom: 10px;
+  /*margin-left: 5px; */
+  font-size: 0.9em;
+  color: rgba(199, 127, 55, 1);
+}
+
+.db-label label {
+  font-variant: all-petite-caps;
+  margin-bottom: 10px;
+  /*margin-left: 5px; */
+  font-size: 0.9em;
+  color: rgba(199, 127, 55, 1);
 }
 
 .wizard .nav-tabs {
@@ -3449,4 +3461,20 @@ a.desc:after {
 
 .has-success .select2-container--krajee .select2-selection {
     border-color: transparent;
+}
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -50px;
+  position: relative;
+  right: 10px;
+  z-index: 2;
+  cursor: pointer;
+}
+.no-label label {
+    display: none;
+}
+
+.has-error .help-block {
+  display: none;
 }

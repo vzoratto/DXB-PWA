@@ -8,7 +8,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
-use yii\helpers\Url; 
+use yii\helpers\Url;
 use app\models\Usuario;
 use app\models\LoginForm;
 use app\models\ContactForm;
@@ -202,8 +202,8 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-    
-    
+
+
     /**
      * Displays activa cuenta.
      *
@@ -221,7 +221,7 @@ class SiteController extends Controller
             if ($activar->save()){
                         echo "Perfecto registro llevado a cabo correctamente, redireccionando ...";
                         echo "<meta http-equiv='refresh' content='8; ".Url::toRoute("site/login")."'>";
-                            //echo Url::to('site/login');//redirige al login 
+                            //echo Url::to('site/login');//redirige al login
            } else {
                $mensaje="No se pudo activar la cuenta, comunicate con el administrador";
                return $this->render('error', ['mensaje' => $mensaje]);
@@ -238,7 +238,7 @@ class SiteController extends Controller
 
      /**
      * funcion recuperar password.
-     * 
+     *
      *  @return string
      */
     public function actionRecupass(){
@@ -249,7 +249,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 Yii::$app->getSession()->setFlash('success', 'Revisa tu correo, eviamos un nuevo password.');
-                
+
                 echo "<meta http-equiv='refresh' content='8; ".Url::toRoute("site/login")."'>";
                 //return $this->goHome();
             } else {
