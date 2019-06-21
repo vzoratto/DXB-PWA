@@ -1,5 +1,8 @@
 <?php
 
+/* ---------------------------------------------------------------------------------------------
+-- Vista que nos permite la generación y carga de las opciones de las opciones de respuesta posteriores
+-- ----------------------------------------------------------------------------------------------*/
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */

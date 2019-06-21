@@ -1,6 +1,8 @@
 <?php
 
-
+/* ---------------------------------------------------------------------------------------------
+-- Vista que nos permite la generación y carga de las opciones de Lista desplegable
+-- ----------------------------------------------------------------------------------------------*/
 use app\controllers\PreguntaController;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;

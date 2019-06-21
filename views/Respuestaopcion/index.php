@@ -1,5 +1,9 @@
 <?php
 
+/* ----------------------------------------------------------------------------------------------
+-- Permite ver las opciones de respuesta para cada pregunta-
+-- Se pueden generar opciones nuevas para preguntas ya generadas y modificar las ya existentes.
+-- ----------------------------------------------------------------------------------------------*/
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\export\ExportMenu;
@@ -18,15 +22,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <hr>
     <div class="alert alert-success">
+
+        <!-- En caso de que se haya seleccionado una pregunta, activa la opcion de crear una opcion nueva, caso contrario no se puede -->
         <?php if($pregunta!=null): ?>
             <?= Html::a('Crear Opcion de Respuesta', ['create', 'idPregunta'=>$pregunta->idPregunta], ['class' => 'btn btn-default']) ?>
         <?php endif ?>
         <?= Html::a('Encuestas', ['encuesta/index'], ['class' => 'btn btn-default']) ?>
         <?= Html::a('Preguntas', ['pregunta/index'], ['class' => 'btn btn-default']) ?>
    
-
+    <!-- Menu que permite exportar información en varios formatos -->
     <?= ExportMenu::widget([
-        'dataProvider' => $dataProvider,
+        'dataProvider' => $dataProvider, //utiliza el mismo dataProvider que la grilla, solo que utiliza mas información
         // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -83,12 +89,12 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'idRespuestaOpcion',
             // 'idPregunta',
             [
-                'attribute'=>'idPregunta',
+                'attribute'=>'',
                 'label'=>'Tipo',
                 'value'=>'pregunta.encuesta.encTipo',
             ],
             [
-                'attribute'=>'idPregunta',
+                'attribute'=>'',
                 'label'=>'Encuesta',
                 'value'=>'pregunta.encuesta.encTitulo',
             ],
@@ -99,7 +105,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'opRespvalor',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template'=>'{update}'],
         ],
     ]); ?>
 

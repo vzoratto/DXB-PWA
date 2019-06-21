@@ -79,6 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if(isset($pregunta['pregDescripcion'])): ?>
         <h3>Pregunta: <?= Html::encode($pregunta['pregDescripcion']) ?></h3>
     <?php endif ?>
+    
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -86,12 +87,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             // 'idRespuesta',
             [
-                'attribute'=>'idPregunta',
+                'attribute'=>'',
                 'label'=>'Encuesta',
                 'value'=>'pregunta.encuesta.encTitulo',
             ],
             [
-                'attribute'=>'idPregunta',
+                'attribute'=>'',
                 'label'=>'Descripcion Encuesta',
                 'value'=>'pregunta.encuesta.encDescripcion',
             ],
@@ -106,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>'persona.nombreCompleto',
             ],
             [
-                'attribute'=>'idPersona',
+                'attribute'=>'',
                 'label'=>'DNI',
                 'value'=>'persona.usuario.dniUsuario',
             ],
