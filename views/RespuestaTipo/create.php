@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Respuestatipo */
 
-$this->title = 'Create Respuestatipo';
-$this->params['breadcrumbs'][] = ['label' => 'Respuestatipos', 'url' => ['index']];
+$this->title = 'Crear tipo de respuesta';
+$this->params['breadcrumbs'][] = ['label' => 'Tipos de respuesta', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="respuestatipo-create">
