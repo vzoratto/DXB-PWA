@@ -44,13 +44,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'attribute'=>'idPersona',
                     'label'=>'Nombre',
-                    'value'=>'persona.nombrePersona',
+                    'value'=>'persona.nombreCompleto',
                 ],
-                [
-                    'attribute'=>'idPersona',
-                    'label'=>'Apellido',
-                    'value'=>'persona.apellidoPersona',
-                ],
+                
                 [
                     'attribute'=>'idPersona',
                     'label'=>'Sexo',
@@ -103,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'idPersona',
                 'label'=>'Nombre',
-                'value'=>'persona.nombrePersona',
+                'value'=>'persona.nombreCompleto',
             ],
             [
                 'attribute'=>'idPersona',

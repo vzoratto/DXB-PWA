@@ -215,5 +215,14 @@ class Persona extends \yii\db\ActiveRecord
         return $this->hasMany(Respuesta::className(), ['idPersona' => 'idPersona']);
     }
 
+    /**
+     * Devuelbe el nombre completo de la persona
+     * @return string
+     */
+    public function getNombreCompleto()
+    {
+        return $this->nombrePersona.' '.$this->apellidoPersona;
+    }
+
 	
 }
