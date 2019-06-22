@@ -21,6 +21,10 @@
       }
 
   }
+  $persona=new \app\models\Persona();
+  $inscrito=$persona->inscrito();
+
+
 
   ?>
 
@@ -34,16 +38,18 @@
 
           <div class="wow fadeIn btn-dual text-center mt-ten relative">
 
-            <?php if (Yii::$app->user->isGuest) {
+            <?php if ($inscrito==0) {
               // code...
 
             echo '<a href="'.Url::to(["/site/registro"]).'" class="btn btn-white btn-rounded no-margin-lr">Regístrate</a>';
 
-          } else {
+          } elseif($inscrito==2) {
 
             echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-white btn-rounded no-margin-lr">Inscribíte</a>';
 
-          }; ?>
+          }elseif ($inscrito==1){
+                echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-white btn-rounded no-margin-lr">Modificar datos de inscripción</a>';
+            }; ?>
             <a href="#premios" target="_blank" class="btn btn-transparent-white btn-rounded margin-20px-lr sm-margin-5px-top">Conocé más</a>
           </div>
 
@@ -90,16 +96,18 @@
 
                     <div class="row sm-center">
 
-                      <?php if (Yii::$app->user->isGuest) {
+                      <?php if ($inscrito==0) {
                         // code...
 
                       echo '<a href="'.Url::to(["/site/registro"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Regístrate</a>';
 
-                    } else {
+                    } elseif($inscrito==2){
 
                       echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Inscribíte</a>';
 
-                    }; ?>
+                    }elseif ($inscrito==1){
+                          echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Modificar datos de inscripción</a>';
+                      }; ?>
                       
                     </div>
 
