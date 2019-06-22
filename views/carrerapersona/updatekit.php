@@ -14,10 +14,9 @@ $this->params['breadcrumbs'][] = 'Update';
     <h1><?= Html::encode($this->title) ?></h1>
 
 <?php
-    <?php $form = ActiveForm::begin(); ?>
+     $form = ActiveForm::begin(); ?>
 	 <?= $form->field($model ,'retiraKit')->dropDownList( array("1"=>"si","2"=>"no"), ['prompt' => 'Seleccione' ])->label('Retira Kit'); ?>
-	 <?php //echo $form->field($equipo,'nombreEquipo')->textInput(['maxlength' => true])->label('Numero Corredor') ;
-	 ?>
+	 
 
     <?= $form->field($model, 'retiraKit')->textInput() ?>
 
