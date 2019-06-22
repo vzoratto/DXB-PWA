@@ -303,7 +303,8 @@ CREATE TABLE `tipocarrera` (
   `idTipoCarrera` int(2) NOT NULL,
   `descripcionCarrera` varchar(64) DEFAULT NULL,
   `reglamento` varchar(128) DEFAULT NULL,
-  `deshabilitado` tinyint(1) DEFAULT NULL
+  `deshabilitado` tinyint(1) DEFAULT NULL,
+  `cantidadMaximaCorredores` int(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 

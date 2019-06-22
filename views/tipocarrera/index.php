@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'descripcionCarrera',
             'reglamento',
             'deshabilitado',
+            'cantidadMaximaCorredores',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

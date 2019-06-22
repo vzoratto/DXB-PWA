@@ -17,7 +17,7 @@ class TipocarreraSearch extends Tipocarrera
     public function rules()
     {
         return [
-            [['idTipoCarrera', 'deshabilitado'], 'integer'],
+            [['idTipoCarrera', 'deshabilitado', 'cantidadMaximaCorredores'], 'integer'],
             [['descripcionCarrera', 'reglamento'], 'safe'],
         ];
     }
@@ -60,6 +60,7 @@ class TipocarreraSearch extends Tipocarrera
         $query->andFilterWhere([
             'idTipoCarrera' => $this->idTipoCarrera,
             'deshabilitado' => $this->deshabilitado,
+            'cantidadMaximaCorredores' => $this->cantidadMaximaCorredores,
         ]);
 
         $query->andFilterWhere(['like', 'descripcionCarrera', $this->descripcionCarrera])

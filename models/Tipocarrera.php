@@ -11,6 +11,7 @@ use Yii;
  * @property string $descripcionCarrera
  * @property string $reglamento
  * @property int $deshabilitado
+ * @property int $cantidadMaximaCorredores
  *
  * @property Carrerapersona[] $carrerapersonas
  * @property Persona[] $personas
@@ -32,7 +33,7 @@ class Tipocarrera extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['deshabilitado'], 'integer'],
+            [['deshabilitado', 'cantidadMaximaCorredores'], 'integer'],
             [['descripcionCarrera'], 'string', 'max' => 64],
             [['reglamento'], 'string', 'max' => 128],
         ];
@@ -48,6 +49,7 @@ class Tipocarrera extends \yii\db\ActiveRecord
             'descripcionCarrera' => 'Descripcion Carrera',
             'reglamento' => 'Reglamento',
             'deshabilitado' => 'Deshabilitado',
+            'cantidadMaximaCorredores' => 'Cantidad Maxima Corredores',
         ];
     }
 
@@ -70,19 +72,8 @@ class Tipocarrera extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEquipo()
+    public function getEquipos()
     {
         return $this->hasMany(Equipo::className(), ['idTipoCarrera' => 'idTipoCarrera']);
     }
-	
-		public function getCarreraPersona()
-    {
-        return $this->hasMany(CarreraPersona::className(), ['idTipoCarrera' => 'idTipoCarrera'])->viaTable('tipocarrera',['idTipoCarrera'=>'idTipoCarrera']);
-    }
-	
-	
-	
-	
-	
-	
 }
