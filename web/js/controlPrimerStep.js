@@ -55,7 +55,7 @@ $(document).ready(function() {
     $('#usuario-dniusuario').keyup(function(){
         controlarExistenciaDni();
     })
-
+    controlarExistenciaDni();
 })
 
 //Si se clickea en siguiente controlo los valores ingresados. En caso correcto pasa al siguiente step
