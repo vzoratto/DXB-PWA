@@ -13,7 +13,6 @@ use yii\helpers\Url;
 
 ?>
 <div class='container'>
-<br><br>
     <h2>Titulo de Encuesta: <?= $encuesta['encTitulo']?></h2>
     <h4>Descripcion: <?= $encuesta['encDescripcion']?></h4>
     <hr>

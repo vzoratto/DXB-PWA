@@ -18,7 +18,7 @@ $this->title = 'Opciones de Respuesta';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="respuestaopcion-index container">
-<br><br>
+
     <h1><?= Html::encode($this->title) ?></h1>
     <hr>
     <div class="alert alert-success">

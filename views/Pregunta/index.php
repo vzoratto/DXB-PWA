@@ -20,7 +20,6 @@ $this->title = 'Preguntas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container">
-<br><br>
     <div class="pregunta-index">
 
         <h1><?= Html::encode($this->title) ?></h1>

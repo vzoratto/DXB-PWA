@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Tipos de respuesta', 'url' => ['in
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="respuestatipo-create">
-<br><br>
+
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [

@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->idEncuesta, 'url' => ['view
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="container">
-<br><br>
+
     <div class="encuesta-update">
 
         <h1><?= Html::encode($this->title) ?></h1>

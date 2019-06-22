@@ -89,6 +89,14 @@ class PreguntaController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $searchModel = new PreguntaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination = [
@@ -131,7 +139,15 @@ class PreguntaController extends Controller
      */
     public function actionCreate()
     {
-        
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+
         $id=$_REQUEST['id'];//recibe el idEncuesta.
         $encuesta=EncuestaSearch::find()->where(['idEncuesta'=>$id])->one();
         $encTipo=$encuesta->encTipo;
@@ -160,6 +176,14 @@ class PreguntaController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $model = $this->findModel($id);
         $model->encuesta; //agrega al modelo la encuesta a la que pertenece la pregunta a editar
 

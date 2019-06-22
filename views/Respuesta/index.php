@@ -17,7 +17,6 @@ use kartik\export\ExportMenu;
 $this->title = 'Respuestas';
 ?>
 <div class="respuesta-index container">
-<br><br>
     <h1><?= Html::encode($this->title) ?></h1>
     <hr> 
     <div class="alert alert-success">

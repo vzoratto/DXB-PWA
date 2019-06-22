@@ -517,35 +517,35 @@ class InscripcionController extends Controller
             //RESPUESTA A ENCUESTA
             $respuesta=Yii::$app->request->post();
             foreach($respuesta as $clave=>$valor){
-                if(is_numeric($clave)){
+                if(is_numeric($clave)){//solo toma las valores de clave numerico que son los items que tienen datos de respuesta en el array
                     if(is_array($valor)){
-                        foreach($valor as $unValor){
-                            if(is_numeric($unValor)){
-                                $opcion=Respuestaopcion::findOne($unValor);
+                        foreach($valor as $unValor){//Si la repuesta es multiple, recorre el array de esa respuesta para guardar cada uno de los valores
+                            if(is_numeric($unValor)){//Si la respuesta no es un string, entonces es el id de la opcion de respuesta
+                                $opcion=Respuestaopcion::findOne($unValor);//busca la opcion de respuesta que corresponde
                                 $resp['respValor']=$opcion->opRespvalor;
-                            }else{
+                            }else{//Si la respuesta es un string, entonces guarda directamente la respuesta
                                 $resp['respValor']=$unValor;
                             }
                             $resp['idPregunta']=$clave;
                             $resp['idPersona']=$idPersona;
 
-                            $model=new Respuesta();
+                            $model=new Respuesta();//Genera modelo, asigna valores y guarda
                             $model->respValor=$resp['respValor'];
                             $model->idPregunta=$resp['idPregunta'];
                             $model->idPersona=$resp['idPersona'];
                             $model->save();
                         }
-                    }else{
-                        if(is_numeric($valor)){
-                            $opcion=Respuestaopcion::findOne($valor);
+                    }else{//Si la respuesta no es multiple, guarda la la respuesta
+                        if(is_numeric($valor)){//Si la respuesta no es un string, entonces es el id de la opcion de respuesta
+                            $opcion=Respuestaopcion::findOne($valor);//busca la opcion de respuesta que corresponde
                             $resp['respValor']=$opcion->opRespvalor;
-                        }else{
+                        }else{//Si la respuesta es un string, entonces guarda directamente la respuesta
                             $resp['respValor']=$valor;
                         }
                         $resp['idPregunta']=$clave;
                         $resp['idPersona']=$idPersona;
 
-                        $model=new Respuesta();
+                        $model=new Respuesta();//Genera modelo, asigna valores y guarda
                         $model->respValor=$resp['respValor'];
                         $model->idPregunta=$resp['idPregunta'];
                         $model->idPersona=$resp['idPersona'];

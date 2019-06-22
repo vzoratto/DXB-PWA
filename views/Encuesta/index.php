@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="container">
-    <br><br>
+
     <div class="encuesta-index">
 
         <h1><?= Html::encode($this->title) ?></h1>
