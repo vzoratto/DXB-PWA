@@ -27,6 +27,7 @@ use app\models\Grupo;
 use app\models\Parametros;
 use app\models\Carrerapersona;
 use app\models\Listadeespera;
+use app\models\Permiso;
 use yii\base\Security;
 
 
@@ -57,6 +58,14 @@ class InscripcionController extends Controller
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(["site/login"]); 
+        }
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
         }
         //se instancia una variable por cada modelo a utilizar
         $listaDeEspera = new \app\models\Listadeespera();
