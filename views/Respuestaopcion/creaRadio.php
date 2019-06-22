@@ -22,6 +22,7 @@ $preg=PreguntaController::entregaPregunta($idPregunta);
 $idEncuesta=$preg->idEncuesta;
 ?>
 <div class="container">
+<br><br>
 	<h3>Ingresar las opciones de respuesta para:</h3>
 	<h3><?= $preg->pregDescripcion; ?></h3>
 	<hr>
@@ -45,7 +46,7 @@ $idEncuesta=$preg->idEncuesta;
 			'action'=>Url::toRoute('respuestaopcion/crea-radio'),
 	])?>
 		<div class='form-group'>
-			<?= $form->field($model, 'opRespvalor')->textInput()->label('Opcion: ')?>
+			<?= $form->field($model, 'opRespvalor')->textInput(['autofocus'=>true])->label('Opcion: ')?>
 			<?= $form->field($model, 'idPregunta')->hiddenInput(['value'=>$idPregunta])->label(false)?>
 		</div>
 		<div class='form-group'>

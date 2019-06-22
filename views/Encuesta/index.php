@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="container">
+    <br><br>
     <div class="encuesta-index">
 
         <h1><?= Html::encode($this->title) ?></h1>
@@ -41,9 +42,24 @@ $this->params['breadcrumbs'][] = $this->title;
                     'encPublica',
                     
                 ],
+                'exportConfig' => [
+                    ExportMenu::FORMAT_TEXT => false,
+                    ExportMenu::FORMAT_HTML => false,
+                    ExportMenu::FORMAT_EXCEL => false,
+                    ExportMenu::FORMAT_PDF => [
+                        'pdfConfig' => [
+                            'methods' => [
+                                'SetTitle' => 'Encuestas',
+                                'SetSubject' => 'Detalle de encuestas ',
+                                'SetHeader' => ['Encuestas||Generado el: ' . date("r")],
+                                'SetFooter' => ['|Page {PAGENO}|'],
+                                ]
+                        ]
+                    ],
+                ],
 
                 'dropdownOptions' => [
-                    'label' => 'Exportar datos',
+                    'label' => 'Exportar',
                     'class' => 'btn btn-default',
                 ],
                 

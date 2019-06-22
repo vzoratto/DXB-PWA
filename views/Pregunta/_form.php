@@ -28,7 +28,7 @@ $listas=ArrayHelper::map($lista, 'idRespTipo', 'respTipoDescripcion');
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'pregDescripcion')->textInput(['maxlength' => true, 'autofocus'=>true]) ?>
-    <?php if(!$actualizar): ?>
+   
     <?= $form->field($model, 'idRespTipo')->widget(Select2::className(), [
             'data'=>$listas,
             'id'=>'idRespTipo',
@@ -39,7 +39,7 @@ $listas=ArrayHelper::map($lista, 'idRespTipo', 'respTipoDescripcion');
             ],
         ])->label('Tipo de respuesta: ');
     ?>
-    <?php endif ?>
+    
     <?= $form->field($model, 'idEncuesta')->hiddenInput(['value'=>$model->idEncuesta])->label(false) ?>   
 
     <div class="form-group">

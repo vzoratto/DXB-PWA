@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Preguntas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pregunta-create container">
-
+<br><br>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
