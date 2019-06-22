@@ -311,8 +311,13 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionGestor(){
-        $this->layout = '/main3';
-        return $this->render('gestionar');
-}
+        public function actionGestor(){
+            $this->layout = '/main3';
+            return $this->render('gestionar');
+    }
+
+        public function actionReglamento(){
+        
+            return $this->render('reglamento');
+    }
 }
