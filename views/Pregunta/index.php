@@ -72,14 +72,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ],
                 'dropdownOptions' => [
-                    'label' => 'Exportar datos',
+                    'label' => 'Exportar',
                     'class' => 'btn btn-default'
                 ]
             ]) ?>
             
         </div>
 
-        <?php Pjax::begin(); ?>
            
             <hr>
             <?php if(isset($encuesta['encTitulo'])): ?>
@@ -135,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]); 
             ?>
-        <?php Pjax::end(); ?>
+
 
     </div>
 </div>

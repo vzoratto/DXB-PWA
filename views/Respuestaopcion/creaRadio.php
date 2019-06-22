@@ -46,7 +46,7 @@ $idEncuesta=$preg->idEncuesta;
 			'action'=>Url::toRoute('respuestaopcion/crea-radio'),
 	])?>
 		<div class='form-group'>
-			<?= $form->field($model, 'opRespvalor')->textInput()->label('Opcion: ')?>
+			<?= $form->field($model, 'opRespvalor')->textInput(['autofocus'=>true])->label('Opcion: ')?>
 			<?= $form->field($model, 'idPregunta')->hiddenInput(['value'=>$idPregunta])->label(false)?>
 		</div>
 		<div class='form-group'>

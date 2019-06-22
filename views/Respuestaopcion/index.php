@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
             
         ],
         'dropdownOptions' => [
-            'label' => 'Exportar datos',
+            'label' => 'Exportar',
             'class' => 'btn btn-default'
         ],
     ]); ?>
