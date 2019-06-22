@@ -87,7 +87,7 @@ use kartik\switchinput\SwitchInput;
                 'allowClear' => true,
                 'minimumInputLength' => 5,
             ]
-            ]); ?>
+            ])->label('DNI capitan'); ?>
         </div>
 
         <div id="nombreCapitan" class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
@@ -126,7 +126,7 @@ use kartik\switchinput\SwitchInput;
                         'depends'=>['idEquipo'],
                         'url'=>Url::to(['inscripcion/tipocarrera']),
                         'loadingText' => 'Buscando D.N.I...']
-            ]);
+            ])->label('Tipo de carrera');
             ?>
         </div>
 
@@ -146,7 +146,7 @@ use kartik\switchinput\SwitchInput;
                         'id'=>'cantPersonas',
                         'url'=>Url::to(['inscripcion/cantpersonas']),
                         'loadingText' => 'Buscando D.N.I...']
-            ]);
+            ])->label('Cantidad de corredores');
             ?>
         </div>
 
@@ -196,6 +196,7 @@ use kartik\switchinput\SwitchInput;
         <!-- utilizacion de un widget de kartik llamado DatePicker, permite escoger
         una fecha desde un calendario permitiendo tambien seleccionar años o meses
         con una mayor facilidad -->
+        
             <?=  $form->field($persona, 'fechaNacPersona')->textInput(['class'=>'datepicker form-control input-db','id'=>'datepicker', 'placeholder'=>'Fecha de nacimiento']) ?>
 
         </div>
@@ -209,7 +210,7 @@ use kartik\switchinput\SwitchInput;
         </div>
 
         <div id="talleRemera" class="col-md-4 col-lg-4 col-sm-4 col-xs-12 db-label">
-        <?=$form->field($talleRemera, 'idTalleRemera')->dropDownList($listadoTalles, ['prompt' => 'Talle de remera' ]); ?>
+        <?=$form->field($talleRemera, 'idTalleRemera')->dropDownList($listadoTalles, ['prompt' => 'Talle de remera' ])->label('Talle de remera'); ?>
         </div>
     </div>
 
