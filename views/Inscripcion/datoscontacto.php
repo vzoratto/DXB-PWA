@@ -35,13 +35,14 @@ use yii\widgets\MaskedInput;
 
         <!-- Ingreso de telefono. Se utiliza el widget phoneinput para ayudar el ingreso del mismo -->
         <div id="telefonoPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+        <label>Teléfono </label>
             <?= $form->field($persona, 'telefonoPersona')->widget(PhoneInput::className(), [
                 'jsOptions' => [
                 'allowExtensions' => true,
                 'preferredCountries' => ['ar', 'br', 'cl', 'uy', 'py', 'bo'],
                 'nationalMode' => false,
                 ]
-            ])->label('Teléfono') ?>
+            ])->label('') ?>
         </div>
 
         <!-- Ingreso del e-mail -->
