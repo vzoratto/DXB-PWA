@@ -2,61 +2,66 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
-use app\models\Gruposanguineo;
 use app\models\Talleremera;
 use app\models\Tipocarrera;
 use app\models\Carrerapersona;
+use app\models\Carrerapersonasearch;
 use app\models\Usuario;
 use app\models\Equipo;
-use app\models\Grupo;
-use app\models\GrupoSearch;
 use app\models\Persona;
-use app\models\Estadopagopersona;
-use app\models\Estadopago;
 use dimmitri\grid\ExpandRowColumn;
 use kartik\export\ExportMenu;
 use yii\widgets\ActiveForm;
-use buttflattery\formwizard\FormWizard; 
-use kartik\tabs\TabsX;
-//use yii\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\PersonaSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Entrega De Kits ';
 ?>
-<div class="talleRemera">
-<h1> <br> </h1>
+<div class="entregadekits">
 
-  
+    <h1><?= Html::encode($this->title) ?></h1>
+	
+    <h2>Total de Participantes: <?= Html::encode($dataProvider->getCount()) ?></h2>
 	 <?php
+	 // definimos las columnas para el gridview en la variable $gridColumn,despues solo llamamos esa variable.
 		$gridColumns = [
             ['class' => 'yii\grid\SerialColumn'],
 			[   'label' => 'Corredor',
                 'attribute' => 'apellidoPersona',
 				'value' => function($model) {
-                    return ($model->apellidoPersona.' '.$model->nombrePersona);
+                    return ($model->persona->apellidoPersona.' '.$model->persona->nombrePersona);
                 },
             ],
             [   'label' => 'Documento',
                 'attribute' => 'dniUsuario',
                 'value' => function($model) {
-                    return ($model->usuario->dniUsuario);
+                    return ($model->persona->usuario->dniUsuario);
                 },
 				
+            ],
+			[   'label' => 'Sexo',
+                'attribute' => 'sexoPersona',
+                'value' => function($model) {
+                    return ($model->persona->sexoPersona);
+                },
+				
+				'filter' => ArrayHelper::map(Persona::find()->asArray()->all(), 'sexoPersona', 'sexoPersona')
             ],
             ['label' => 'Talle Remera',
                 'attribute' => 'talleRemera',
                 'value' => function($model) {
-                    return ($model->talleRemera->talleRemera);
+                    return ($model->persona->talleRemera->talleRemera);
                 },
 				'filter' => ArrayHelper::map(Talleremera::find()->asArray()->all(), 'talleRemera', 'talleRemera')
+            ],
+			['label' => 'Retira Kit',
+                'attribute' => 'retiraKit',
+                'value' => function($model) {
+                    return ($model->retiraKit=== 1)? 'si':'no';
+                },
+				'filter' => ArrayHelper::map(Carrerapersona::find()->asArray()->all(), 'retiraKit', 'retiraKit')
             ],
 			 
 			['class' => 'yii\grid\ActionColumn',
@@ -72,14 +77,12 @@ $this->title = 'Entrega De Kits ';
                 }
 		    	],		
            ],
-	
-	
 ];
 ?>
 <?php
 
-$dataProvider= new ActiveDataProvider(['query'=> Persona::find()->where(null) ]);
-// Renders a export dropdown menu
+
+// Editamos la salida de export;ocultamos otros formatos y modificamos la salida en PDF
 echo ExportMenu::widget([
     'dataProvider' => $dataProvider,
     'columns' => $gridColumns,
@@ -111,11 +114,13 @@ echo ExportMenu::widget([
 	
 ]);
 
-// You can choose to render your own GridView separately
+// renderisamos usando kartic gridview
+
 echo \kartik\grid\
      GridView::widget([
     'dataProvider' => $dataProvider,
-	'columns' => $gridColumns
+	'filterModel' => $searchModel,
+	'columns' => $gridColumns  // las columnas estan definidas en la variable $gridColumn
      ]);
 ?>
  </p>

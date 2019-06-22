@@ -137,7 +137,7 @@ class RespuestaController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {
+    {$this->layout = '/main3';
         $searchModel = new RespuestaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination=[

@@ -22,7 +22,7 @@ AppAsset::register($this);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
-    <title>Area Administrtiva</title>
+    <title>Area Administrativa</title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -31,7 +31,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Area Administrtiva',
+        'brandLabel' => 'Area Administrativa',
         'brandUrl' => 'index.php?r=site%2Fadmin',
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -46,9 +46,9 @@ AppAsset::register($this);
             ['label' => 'Carrera', 'url' => ['/carrerapersona/index']],
             ['label' => 'Listados ABM','items' => [
                 ['label' => 'Usuario', 'url' => ['/usuario/index']],
-                ['label' => 'Corredor', 'url' => ['/persona/index']],
-                ['label' => 'corredor Invitado', 'url' => ['/invitado/index']],
-                ['label' => 'Inscripcion', 'url' => ['/inscripcion/index']],
+                ['label' => 'Corredores', 'url' => ['/persona/index']],
+                ['label' => 'Inscripcion Invitado', 'url' => ['/invitado/index']],
+                ['label' => 'Inscripcion Corredor', 'url' => ['/inscripcion/index']],
                 ['label' => 'Gestion carrera', 'url' => ['/carrerapersona/index']],
                 ],
               ],

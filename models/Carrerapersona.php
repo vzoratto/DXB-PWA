@@ -20,6 +20,7 @@ use app\models\Tipocarrera;
  */
 class Carrerapersona extends \yii\db\ActiveRecord    
 {
+	//creamos atributos virtuales
 	public $apellidoPersona;
 	public $nombrePersona;
 	public $dniUsuario;
@@ -46,7 +47,8 @@ class Carrerapersona extends \yii\db\ActiveRecord
             [['idTipoCarrera', 'idPersona'], 'unique', 'targetAttribute' => ['idTipoCarrera', 'idPersona']],
             [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
             [['idTipoCarrera'], 'exist', 'skipOnError' => true, 'targetClass' => Tipocarrera::className(), 'targetAttribute' => ['idTipoCarrera' => 'idTipoCarrera']],
-            [['apellidoPersona','nombrePersona','talleRemera','nombreEquipo','categoria'], 'safe'],
+            //los asignamos como safe.
+			[['apellidoPersona','nombrePersona','talleRemera','nombreEquipo','categoria'], 'safe'],
 			
 	   ];
     }
@@ -61,6 +63,7 @@ class Carrerapersona extends \yii\db\ActiveRecord
             'idPersona' => 'Id Persona',
             'reglamentoAceptado' => 'Reglamento Aceptado',
             'retiraKit' => 'Retira Kit',
+			'apellidoPersona'=>'apellidoPersona' ,
         ];
     }
 

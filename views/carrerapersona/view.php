@@ -14,7 +14,7 @@ use yii\widgets\DetailView;
     DetailView::widget([
         'model' => $model,
         'attributes' => [
-		['label' => 'Edad',
+		['label' => 'Fecha de Nacimiento',
                 'attribute' => 'edad',
                 'value' => function($model) {
                     return ($model->persona->fechaNacPersona);
