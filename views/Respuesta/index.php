@@ -15,7 +15,6 @@ use kartik\export\ExportMenu;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Respuestas';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="respuesta-index container">
 

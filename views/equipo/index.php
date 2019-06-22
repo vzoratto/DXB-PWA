@@ -53,9 +53,9 @@ $this->params['breadcrumbs'][] = $this->title;
                    'template'=>'{update}',
                    'buttons'=>[
 		           'update'=>function($url,$model){
-                    return Html::a('<span class="glyphicon glyphicon-edit"></span>',$url,[
-                       'class'=>'btn btn-block btn-primary btn-flat sejajar',
-                       'style'=>'width : 50%',
+                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>',$url,[
+                       'class'=>'btn btn-block  btn-flat sejajar',
+                       
 
                     ]);
                 }

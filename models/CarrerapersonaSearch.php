@@ -9,6 +9,7 @@ use app\models\Talleremera;
 use app\models\Usuario;
 use app\models\Equipo;
 use app\models\Tipocarrera;
+use app\models\Persona;
 
 /**
  * Carrerapersonasearch represents the model behind the search form of `app\models\Carrerapersona`.
@@ -18,16 +19,18 @@ class Carrerapersonasearch extends Carrerapersona {
     /**
      * {@inheritdoc}
      */
+	 //creamos atributos virtuales,que son campos en otras tablas
     public $dniUsuario;
 	public $talleRemera;
 	public $nombreEquipo;
 	public $dniCapitan;
 	public $categoria;
+	public $sexoPersona;
 
     public function rules() {
         return [
             [['idTipoCarrera', 'idPersona', 'reglamentoAceptado', 'retiraKit'], 'integer'],
-            [['apellidoPersona', 'nombrePersona', 'dniUsuario', 'talleRemera','nombreEquipo','dniCapitan','categoria'], 'safe'],
+            [['apellidoPersona', 'nombrePersona', 'dniUsuario', 'talleRemera','nombreEquipo','dniCapitan','sexoPersona','categoria'], 'safe'],
         ];
     }
 
@@ -46,6 +49,10 @@ class Carrerapersonasearch extends Carrerapersona {
      *
      * @return ActiveDataProvider
      */
+	 
+	 // conectamos la tabla Carrerapersona con Persona luego con la tabla Usuario.
+	 // conectamos la tabla Carrerapersona con Persona luego con la tabla Talleremera.
+	 // conectamos la tabla Carrerapersona con Tipocarrera luego con la tabla Equipo.
     public function search($params) {
         $query = Carrerapersona::find()
                 ->joinWith(['persona'])
@@ -75,17 +82,18 @@ class Carrerapersonasearch extends Carrerapersona {
             'reglamentoAceptado' => $this->reglamentoAceptado,
             'retiraKit' => $this->retiraKit,
         ]);
+		
+		//agregamos los campos de las tablas Tipocarrera,Persona,Equipo para traer sus campos y los asignamos
+		//a las variables virtuales,asi trae y filtra por esos valores.
+		
         $query->andFilterWhere(['like', 'apellidoPersona', $this->apellidoPersona]);
         $query->andFilterWhere(['like', 'nombrePersona', $this->nombrePersona]);
+        $query->andFilterWhere(['like', 'sexoPersona', $this->sexoPersona]);
         $query->andFilterWhere(['like', 'usuario.dniUsuario', $this->dniUsuario]);
         $query->andFilterWhere(['like', 'talleRemera.talleRemera', $this->talleRemera]);
-		
-        $query->andFilterWhere(['like', 'tipoCarrera.descripcionCarrera', $this->categoria]);
-		
+        $query->andFilterWhere(['like', 'tipoCarrera.idTipoCarrera', $this->categoria]);
         $query->andFilterWhere(['like', 'equipo.nombreEquipo', $this->nombreEquipo]);
-		
         $query->andFilterWhere(['like', 'equipo.dniCapitan', $this->dniCapitan]);
-		
 
         return $dataProvider;
     }

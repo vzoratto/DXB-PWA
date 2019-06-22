@@ -22,7 +22,7 @@ AppAsset::register($this);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
-    <title>Area Administrtiva</title>
+    <title>Area Gestores</title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -40,7 +40,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Gestor', 'url' => ['/site/gestionar']],
+           // ['label' => 'Gestor', 'url' => ['/site/gestionar']],
             ['label' => 'Equipos', 'url' => ['/equipo/index']],
             ['label' => 'Participantes','items' => [
                 ['label' => 'Ver Todos', 'url' => ['/carrerapersona/index']],
@@ -52,12 +52,10 @@ AppAsset::register($this);
 			],
 			['label' => 'Encuesta','items' => [
                 ['label' => 'Crear Encuesta', 'url' => ['/encuesta/index']],
-                ['label' => 'Restultados Encuesta', 'url' => ['/respuesta/index']],
+                ['label' => 'Resultados Encuesta', 'url' => ['/respuesta/index']],
 				
 			],
 			],
-			
-            ['label' => 'Carrera', 'url' => ['/carrerapersona/index']],
 			
             Yii::$app->user->isGuest ? (
                 ''
