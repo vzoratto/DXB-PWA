@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Encuestas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="encuesta-create container">
-
+<br><br>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [

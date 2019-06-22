@@ -22,6 +22,7 @@ $preg=PreguntaController::entregaPregunta($idPregunta);
 $idEncuesta=$preg->idEncuesta;
 ?>
 <div class="container">
+<br><br>
 	<h3>Ingresar las opciones de respuesta para:</h3>
 	<h3><strong><?= $preg->pregDescripcion; ?></strong></h3>
 	<hr>

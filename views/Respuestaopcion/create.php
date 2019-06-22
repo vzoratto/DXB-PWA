@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Respuestaopcions', 'url' => ['inde
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="respuestaopcion-create container">
-
+<br><br>
     <h1><?= Html::encode($this->title) ?></h1>
     <h2><?php echo Html::encode("Pregunta: ".$pregunta->pregDescripcion) ?></h2>
     

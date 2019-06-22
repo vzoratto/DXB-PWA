@@ -20,6 +20,7 @@ $this->title = 'Preguntas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container">
+<br><br>
     <div class="pregunta-index">
 
         <h1><?= Html::encode($this->title) ?></h1>
@@ -53,6 +54,21 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute'=>'idRespTipo',
                         'label'=>'Tipo de Respuesta',
                         'value'=>'respTipo.respTipoDescripcion',
+                    ],
+                ],
+                'exportConfig' => [
+                    ExportMenu::FORMAT_TEXT => false,
+                    ExportMenu::FORMAT_HTML => false,
+                    ExportMenu::FORMAT_EXCEL => false,
+                    ExportMenu::FORMAT_PDF => [
+                        'pdfConfig' => [
+                            'methods' => [
+                                'SetTitle' => 'Preguntas',
+                                'SetSubject' => 'Detalle de encuestas y preguntas',
+                                'SetHeader' => ['Preguntas de encuestas||Generado el: ' . date("r")],
+                                'SetFooter' => ['|Page {PAGENO}|'],
+                                ]
+                        ]
                     ],
                 ],
                 'dropdownOptions' => [

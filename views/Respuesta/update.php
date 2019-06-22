@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->idRespuesta, 'url' => ['vie
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="respuesta-update">
-
+<br><br>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [

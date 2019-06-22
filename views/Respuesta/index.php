@@ -18,7 +18,7 @@ $this->title = 'Respuestas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="respuesta-index container">
-
+<br><br>
     <h1><?= Html::encode($this->title) ?></h1>
     <hr> 
     <div class="alert alert-success">
@@ -30,7 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider'=>$dataProvider, //Utiliza el mismo dataProvider de la grilla.
             'columns'=>[
                 ['class' => 'yii\grid\SerialColumn'],
-                'idRespuesta',
+                [
+                    'attribute'=>'idPregunta',
+                    'label'=>'Tipo',
+                    'value'=>'pregunta.encuesta.encTipo',
+                ],
                 [
                     'attribute'=>'idPregunta',
                     'label'=>'Encuesta',
@@ -68,6 +72,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value'=>'persona.usuario.dniUsuario',
                 ],
                 'respValor',
+                'idRespuesta',
+            ],
+            'exportConfig' => [
+                ExportMenu::FORMAT_TEXT => false,
+                ExportMenu::FORMAT_HTML => false,
+                ExportMenu::FORMAT_EXCEL => false,
+                ExportMenu::FORMAT_PDF => [
+                    'pdfConfig' => [
+                        'methods' => [
+                            'SetTitle' => 'Respuesta de Encuestas',
+                            'SetSubject' => 'Detalle de encuestas con sus preguntas y respuestas',
+                            'SetHeader' => ['Respuestas||Generado el: ' . date("r")],
+                            'SetFooter' => ['|Page {PAGENO}|'],
+                            ]
+                    ]
+                ],
             ],
             'dropdownOptions' => [
                 'label' => 'Exportar datos',
