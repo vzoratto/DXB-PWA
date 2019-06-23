@@ -24,6 +24,7 @@ use app\models\Respuesta;
 use app\models\Respuestaopcion;
 use app\models\Equipo;
 use app\models\Grupo;
+use app\models\Tipocarrera;
 use app\models\Parametros;
 use app\models\Carrerapersona;
 use app\models\Listadeespera;
@@ -126,82 +127,6 @@ class InscripcionController extends Controller
             ]);
     }
 
-    /**
-     * Lista del modelo de Contacto emergencia.
-     * @return mixed
-     */
-    public function actionContactoemergencia()
-    {
-        $model = new \app\models\Personaemergencia(); //Instanciamos una variable
-
-        return $this->render('contactoemergencia', [
-            'model' => $model,
-        ]);
-    }
-
-    
-    /**
-     * Lista del modelo de Datos de contacto.
-     * @return mixed
-     */
-    public function actionDatoscontacto()
-    {
-        $personaDireccion = new \app\models\Personadireccion(); //Instanciamos una variable
-        $persona= new \app\models\Persona(); //Instanciamos una variable
-
-        return $this->render('datoscontacto', [
-            'personaDireccion' => $personaDireccion,
-            'persona' => $persona,
-        ]);
-    }
-    
-    /**
-     * Lista del modelo de Datos Medicos.
-     * @return mixed
-     */
-    public function actionDatosmedicos()
-    {
-
-        $model = new \app\models\Fichamedica(); //Instanciamos una variable
-
-        return $this->render('datosmedicos', [
-            'model' => $model,
-        ]);
-    }
-    
-    /**
-     * Lista del modelo de Datos Personales.
-     * @return mixed
-     */
-    public function actionDatospersonales()
-    {
-
-        $model = new \app\models\Persona(); //Instanciamos una variable
-        $model1 = new \app\models\Usuario(); //Instanciamos una variable
-
-        return $this->render('datospersonales', [
-            'model' => $model,
-            'model1' => $model1,
-        ]);
-    }
-
-    /**
-     * Lista del modelo de Encuesta.
-     * @return mixed
-     */
-    public function actionEncuesta()
-    {
-
-        $model = new \app\models\Encuesta(); //Instanciamos una variable
-
-        return $this->render('encuesta', [
-            'model' => $model,
-        ]);
-    }
-    /**
-     * Busco la carrera donde está inscripto el equipo del DNI ingresado
-     * @return array
-     */
     public function actionTipocarrera()
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -504,14 +429,23 @@ class InscripcionController extends Controller
             $carreraPersona->reglamentoAceptado = $modeloCarreraPersona['reglamentoAceptado'];
             $carreraPersona->save(); //Realiza el llenado de la tabla
             
-            // Obtenemos la cantidad de inscriptos
-            // Si la cantidad de personas inscriptas es mayor A XXXXXXXXXXXXXX, se agrega a lista de espera:
-            $cantidadInscriptos = Persona::find()->where(['deshabilitado'=>0])->count();
-            $cantidadMaxInscriptos = 15;
-            if ($cantidadInscriptos>$cantidadMaxInscriptos){
+            $objTipoCarrera = Tipocarrera::find()->where(['idTipoCarrera'=>$idTipoCarrera])->one(); //Obtenemos el obj Tipo carrera
+            $cantidadMaximaCorredores = $objTipoCarrera->cantidadMaximaCorredores; // Obtenemos cantidad maxima de corredores de esa carrera
+
+            $cantidadInscriptos=Carrerapersona::find() //Obtenemos la cantidad de personas habilitadas inscriptas en una carrera particular
+            ->innerJoin('persona','carrerapersona.idPersona=persona.idPersona')
+            ->where(['persona.deshabilitado'=>0])
+            ->andWhere(['carrerapersona.idTipocarrera'=>$idTipoCarrera])
+            ->count();
+            // Este count siempre da +1, por el nuevo llenado de la tabla pero que no se confirma hasta que no se hace el commit
+
+
+            $enListaDeEspera = false; // Por defecto, no está en lista de espera. Si lo está, abajo se setea en true
+            if ($cantidadInscriptos>$cantidadMaximaCorredores){
                  $listaDeEspera = new Listadeespera();
                  $listaDeEspera->idPersona=$idPersona;
                  $listaDeEspera->save(); // Realiza el llenado de la tabla
+                 $enListaDeEspera = true;
             }
 
             //RESPUESTA A ENCUESTA
@@ -568,7 +502,11 @@ class InscripcionController extends Controller
                 //mail de confirmacion de inscripcion
                 $subject = "Inscripcion y reglamento"; // Asunto del mail
                 // Cuerpo del mail
-                $body = "<h1>Desafio por Bardas</h1><br><h2>Gracias por inscribirse a la carrera ". $nombrePersona . " " . $apellidoPersona .". </h2> <br/>".
+                $body = "<h1>Desafio por Bardas</h1><br><h2>Gracias por inscribirse a la carrera ". $nombrePersona . " " . $apellidoPersona .". </h2> <br/>";
+                if ($enListaDeEspera){ // Si esta en lista de espera se cambia una parte del texto
+                    $body.="<strong>Como ya se han completado la cantidad de cupos dispuestos inicialmente, actualmente te encuentras en lista de espera</strong><br/>";
+                }
+                $body.=
                 "<h2> Podes ver los terminos y condiciones que has aceptado en el siguiente enlace: </h2>". 
                 "<h2><a href='http://localhost/carrera/web/index.php?r=site%2Freglamento'>Reglamento</a></h2><br>".
                 "<h1>Desafio por Bardas</h1><br>".
