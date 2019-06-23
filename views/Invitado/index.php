@@ -8,7 +8,7 @@ use buttflattery\formwizard\FormWizard;
 /* @var $this yii\web\View */
 
 ?>
-<div class="db-registro cover-background contenedor-full pt-eight" style="background-image:url('assets/img/fondo-color.jpg');">
+<div>
     <!-- comienzo del formulario, se define el metodo de envio de datos y se llama a la accion "store" o guardar-->
     <div class="db-card">
 

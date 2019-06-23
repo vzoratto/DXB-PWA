@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Encuestas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="encuesta-view">
+<div class="encuesta-view reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
 $this->title = 'Entrega De Kits ';
 ?>
-<div class="entregadekits">
+<div class="entregadekits reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 	

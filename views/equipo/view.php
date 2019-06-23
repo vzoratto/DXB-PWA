@@ -9,7 +9,7 @@ use yii\widgets\DetailView;
 $this->title = $model->idEquipo;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="equipo-view">
+<div class="equipo-view reglamento-container">
 
 <div class="col-lg-5">
     <?= DetailView::widget([

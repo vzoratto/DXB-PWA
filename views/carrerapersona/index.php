@@ -23,7 +23,7 @@ use kartik\export\ExportMenu;
 
 $this->title = 'Listado De Participantes ';
 ?>
-<div class="persona-index">
+<div class="carrerapersona-index reglamento-container">
 
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -131,3 +131,4 @@ echo \kartik\grid\
  </p>
 
 </div>
+</section>
