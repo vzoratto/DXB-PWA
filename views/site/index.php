@@ -106,7 +106,7 @@
                       echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Inscribíte</a>';
 
                     }elseif ($inscrito==1){
-                          echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Modificar datos de inscripción</a>';
+                          echo '<a href="'.Url::to(["/inscripcion/editar"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Modificar datos de inscripción</a>';
                       }; ?>
                       
                     </div>

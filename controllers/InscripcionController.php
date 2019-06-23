@@ -126,6 +126,63 @@ class InscripcionController extends Controller
             ]);
     }
 
+    public function actionEditar(){
+        $persona=Persona::findOne(['idUsuario' => $_SESSION['__id']]);
+        $usuario=Usuario::findOne(['idUsuario'=>$_SESSION['__id']]);
+        //accedemos al modelo de personaDireccion de la persona
+        $personaDireccion =$persona->personaDireccion;
+        ////accedemos a la ficha medica de la persona
+        $fichaMedica =$persona->fichaMedica; //Instanciamos una variable
+        $datosEmergencia = new \app\models\Personaemergencia();//Instanciamos una variable
+        $localidad = new \app\models\Localidad(); //Instanciamos una variable
+        $provincia = new \app\models\Provincia(); //Instanciamos una variable
+        $equipo = new \app\models\Equipo(); //Instanciamos una variable
+        $talleRemera=new Talleremera();
+        $provinciaLista = ArrayHelper::map(\app\models\Provincia::find()->all(),'idProvincia','nombreProvincia'); //Lista de las provincias
+        $listadoTalles=ArrayHelper::map(\app\models\Talleremera::find()->all(),'idTalleRemera','talleRemera');
+        $respuesta=new \app\models\Respuesta();
+        $tipoCarrera = new \app\models\Tipocarrera(); //Instanciamos una variable
+        $tipocarreraLista =ArrayHelper::map(\app\models\Tipocarrera::find()->all(),'idTipoCarrera','descripcionCarrera');
+        $cantCorredores =ArrayHelper::map(\app\models\Parametros::find()->all(),'idParametros','cantidadCorredores');
+        $carrerapersona = new \app\models\Carrerapersona();
+
+        $equipoLista= ArrayHelper::map(\app\models\Equipo::find()
+            ->select('COUNT(equipo.idEquipo) AS cantidadCorredores','grupo.idEquipo,equipo.cantidadPersonas,equipo.dniCapitan,')
+            ->innerJoin('grupo','equipo.idEquipo=grupo.idEquipo')
+            ->groupBy(['equipo.idEquipo'])
+            ->having('COUNT(equipo.idEquipo)<equipo.cantidadPersonas')
+            ->all(),'idEquipo','dniCapitan');
+
+        if(yii::$app->user->isGuest){
+            return $this->goHome();
+        }
+
+        $userLogueado=Yii::$app->user;
+
+        return $this->render('editar/index',[
+            'persona'=>$persona,
+            'usuario'=>$usuario,
+            'personaDireccion'=>$personaDireccion,
+            'fichaMedica'=>$fichaMedica,
+            'datosEmergencia'=>$datosEmergencia,
+            'localidad' => $localidad,
+            'provincia' => $provincia,
+            'provinciaLista' => $provinciaLista,
+            'listadoTalles'=>$listadoTalles,
+            'talleRemera'=>$talleRemera,
+            'equipoLista'=>$equipoLista,
+            'equipo'=>$equipo,
+            'tipoCarrera'=>$tipoCarrera,
+            'tipocarreraLista'=>$tipocarreraLista,
+            'cantCorredores'=>$cantCorredores,
+            'swicht'=>null,
+            'datos' => null,
+            'respuesta'=>$respuesta,
+            'user'=>$userLogueado,
+            'carrerapersona'=>$carrerapersona
+        ]);
+    }
+
     /**
      * Lista del modelo de Contacto emergencia.
      * @return mixed
@@ -362,7 +419,7 @@ class InscripcionController extends Controller
 
             //MODELO PERSONA DIRECCION
             // Concatenamos todos los campos relacionados con la Direccion de la persona
-            $direccion=Yii::$app->request->post()['calle'].' '.Yii::$app->request->post()['numero'].' '.Yii::$app->request->post()['piso'].' '.Yii::$app->request->post()['departamento'];
+            $direccion='calle:'.Yii::$app->request->post()['calle'].'numero: '.Yii::$app->request->post()['numero'].'piso:'.Yii::$app->request->post()['piso'].'departamento:'.Yii::$app->request->post()['departamento'];
             $personaDireccion=new Personadireccion(); //Instanciamos una variable de la clase Persona Direccion
             // Asignamos los valores
             $personaDireccion->idLocalidad=$modeloLocalidad['idLocalidad'];

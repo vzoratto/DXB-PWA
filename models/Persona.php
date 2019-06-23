@@ -238,6 +238,7 @@ class Persona extends \yii\db\ActiveRecord
             if($persona!=null){
                 //el usuario esta inscrito a la carrera
                 $estado=1;
+                //si el usuario iscrito a la carrera ya modifico sus datos se setea a 3
                 if($persona->deshabilitado==2){
                     $estado=3;
                 }
