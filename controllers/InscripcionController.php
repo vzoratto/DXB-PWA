@@ -568,10 +568,10 @@ class InscripcionController extends Controller
                 //mail de confirmacion de inscripcion
                 $subject = "Inscripcion y reglamento"; // Asunto del mail
                 // Cuerpo del mail
-                $body = "<h1>Carrera por Bardas</h1><br><h2>Gracias por inscribirse a la carrera ". $nombrePersona . " " . $apellidoPersona .". </h2> <br/>".
+                $body = "<h1>Desafio por Bardas</h1><br><h2>Gracias por inscribirse a la carrera ". $nombrePersona . " " . $apellidoPersona .". </h2> <br/>".
                 "<h2> Podes ver los terminos y condiciones que has aceptado en el siguiente enlace: </h2>". 
                 "<h2><a href='http://localhost/carrera/web/index.php?r=site%2Freglamento'>Reglamento</a></h2><br>".
-                "<h1>Carrera por Bardas</h1><br>".
+                "<h1>Desafio por Bardas</h1><br>".
                 "<a href='www.facebook.com'><img src='facebook.png' alt='fb'></a><br>".
                 "Este mensaje de correo electrónico se envió a ".$mailUsuario;
         

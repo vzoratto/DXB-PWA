@@ -84,15 +84,21 @@ use app\models\Usuario;
                 $user->idRol=1;
                 if ($user->save()) {
                     $dni = urlencode($user->dniUsuario);
+                    $mailUsuario = $user->mailUsuario;
                     $authkey = urlencode($user->authkey);
-			        $subject = "Confirmar registro";//accion validar mail
-                    $body = "<h1>Haga click en el siguiente enlace para finalizar tu registro</h1>";
-                    $body .= "<a href='http://localhost/carrera/web/index.php?r=site/activarcuenta&d=".$dni."&c=".$authkey."'>Confirmar</a>";
-						  
+                    $subject = "Validar direccion de correo";// Asunto del mail
+                    $body = "<h1>Desafio por Bardas</h1><br>
+                    <h2>Hola Usuario ". $dni .". Gracias por registrarse en Desafio por Bardas. </h2> <br/> 
+                    <h2>Para finalizar su registro y poder inscribirse a la carrera, por favor valide su cuenta clickeando en el siguiente enlace. </h2><br/>
+                    <a href='http://localhost/carrera/web/index.php?r=site/activarcuenta&d=".$dni."&c=".$authkey."'>Validar Cuenta</a> <br/>
+					<a href='www.facebook.com'><img src='facebook.png' alt='fb'></a><br>
+                    Este mensaje de correo electrónico se envió a ".$mailUsuario;
+        
+        				  
                    return Yii::$app->mailer->compose()
                         //->setFrom('carreraxbarda@gmail.com')
                         ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
-                        ->setTo($user->mailUsuario)
+                        ->setTo($mailUsuario)
                         ->setSubject($subject)
                         ->setHTMLBody($body)
                         ->send();
