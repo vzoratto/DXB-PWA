@@ -400,6 +400,7 @@ class InscripcionController extends Controller
                 $equipo->idTipoCarrera=$idTipoCarrera;
                 //El DNI del capitan
                 $equipo->dniCapitan=Yii::$app->request->post()['Usuario']['dniUsuario'];
+                $equipo->deshabilitado=0;
                 $equipo->save(); //Realiza el llenado de la tabla
                 $idDbEquipo = Yii::$app->db->getLastInsertID(); //Obtenemos el ID del grupo ingresado
                 $equipo->nombreEquipo=$idDbEquipo; //Le asignamos como nombre de equipo, el ID del grupo
