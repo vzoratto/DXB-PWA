@@ -129,6 +129,18 @@ class InscripcionController extends Controller
     public function actionEditar(){
         $persona=Persona::findOne(['idUsuario' => $_SESSION['__id']]);
         $usuario=Usuario::findOne(['idUsuario'=>$_SESSION['__id']]);
+        $equipo=Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario]);
+        $swicht=1;
+        $tipoCarrera=$equipo->tipoCarrera;
+
+        $cantCorredores=$equipo->cantidadPersonas;
+
+
+        /*if($equipo!=null){
+
+        }*/
+        //print_r($equipo);
+        //die();
         //accedemos al modelo de personaDireccion de la persona
         $personaDireccion =$persona->personaDireccion;
         ////accedemos a la ficha medica de la persona
@@ -136,14 +148,15 @@ class InscripcionController extends Controller
         $datosEmergencia = new \app\models\Personaemergencia();//Instanciamos una variable
         $localidad = new \app\models\Localidad(); //Instanciamos una variable
         $provincia = new \app\models\Provincia(); //Instanciamos una variable
-        $equipo = new \app\models\Equipo(); //Instanciamos una variable
-        $talleRemera=new Talleremera();
+        //$equipo = new \app\models\Equipo(); //Instanciamos una variable
+        $talleRemera=$persona->talleRemera;
         $provinciaLista = ArrayHelper::map(\app\models\Provincia::find()->all(),'idProvincia','nombreProvincia'); //Lista de las provincias
         $listadoTalles=ArrayHelper::map(\app\models\Talleremera::find()->all(),'idTalleRemera','talleRemera');
-        $respuesta=new \app\models\Respuesta();
-        $tipoCarrera = new \app\models\Tipocarrera(); //Instanciamos una variable
-        $tipocarreraLista =ArrayHelper::map(\app\models\Tipocarrera::find()->all(),'idTipoCarrera','descripcionCarrera');
-        $cantCorredores =ArrayHelper::map(\app\models\Parametros::find()->all(),'idParametros','cantidadCorredores');
+        //$respuesta=new \app\models\Respuesta();
+        //$tipoCarrera = new \app\models\Tipocarrera(); //Instanciamos una variable
+        $tipocarreraLista =ArrayHelper::map(\app\models\Tipocarrera::findAll(['idTipoCarrera'=>$equipo->idTipoCarrera]),'idTipoCarrera','descripcionCarrera');
+
+        $cantCorredores =ArrayHelper::map(\app\models\Parametros::findAll(['cantidadCorredores'=>$equipo->cantidadPersonas]),'idParametros','cantidadCorredores');
         $carrerapersona = new \app\models\Carrerapersona();
 
         $equipoLista= ArrayHelper::map(\app\models\Equipo::find()
@@ -160,6 +173,7 @@ class InscripcionController extends Controller
         $userLogueado=Yii::$app->user;
 
         return $this->render('editar/index',[
+            'edit'=>true,
             'persona'=>$persona,
             'usuario'=>$usuario,
             'personaDireccion'=>$personaDireccion,
@@ -175,9 +189,9 @@ class InscripcionController extends Controller
             'tipoCarrera'=>$tipoCarrera,
             'tipocarreraLista'=>$tipocarreraLista,
             'cantCorredores'=>$cantCorredores,
-            'swicht'=>null,
+            'swicht'=>$swicht,
             'datos' => null,
-            'respuesta'=>$respuesta,
+           // 'respuesta'=>$respuesta,
             'user'=>$userLogueado,
             'carrerapersona'=>$carrerapersona
         ]);
