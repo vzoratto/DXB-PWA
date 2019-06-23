@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="persona-form">
+<div class="persona-form reglamento-container">
 
     <?php $form = ActiveForm::begin(); ?>
 

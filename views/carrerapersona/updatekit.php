@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 
 $this->title = ' ' . $model->persona->nombrePersona." ".$model->persona->apellidoPersona;
 ?>
-<div class="carrerapersona-update">
+<div class="carrerapersona-update reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

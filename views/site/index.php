@@ -173,16 +173,16 @@
         </section>
 
         <!-- Seccion imagen/texto-->
-        <section id="reglamento" class="contenedor-full p-0">
+        <section id="reglamento" class=" p-0">
 
         <div class="container-fluid height-100">
 
-          <div class="row height-100">
+          <div class="row ">
 
-              <div class="col-md-6 cover-background height-100 sm-hidden" style="background-image:url('assets/img/basura.png');">
+              <div class="col-md-6 cover-background height-100vh sm-hidden" style="background-image:url('assets/img/basura.png');">
               </div>
 
-              <div class="col-md-6 full-section">
+              <div class="col-md-6 pt-50 pb-0 full-section">
 
                 <h3 class="titulo-primario ml-5 mr-5"> Reglamento</h3>
 

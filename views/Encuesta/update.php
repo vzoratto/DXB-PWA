@@ -11,9 +11,11 @@ $this->params['breadcrumbs'][] = ['label' => 'Encuestas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->idEncuesta, 'url' => ['view', 'id' => $model->idEncuesta]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
+<div class="wrap">
+    
 <div class="container">
 <br><br>
-    <div class="encuesta-update">
+    <div class="encuesta-update reglamento-container">
 
         <h1><?= Html::encode($this->title) ?></h1>
 
@@ -22,4 +24,5 @@ $this->params['breadcrumbs'][] = 'Update';
         ]) ?>
 
     </div>
+</div>
 </div>
