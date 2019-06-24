@@ -29,6 +29,7 @@ INSERT INTO `personadireccion` (`idPersonaDireccion`,`idLocalidad`,`direccionUsu
 (4,4634,'Leguizamon 532'),
 (5,4634,'Alderete 1200');
 
+
 INSERT INTO `personaemergencia` (`idPersonaEmergencia`,`nombrePersonaEmergencia`,`apellidoPersonaEmergencia`,`telefonoPersonaEmergencia`,`idVinculoPersonaEmergencia`) VALUES
 (1,'Juan Roman','Riquelme','2995954821',3),
 (2,'Marcelo','Jara','2994623431',3),
@@ -79,9 +80,6 @@ INSERT INTO `carrerapersona`(`idTipoCarrera`, `idPersona`, `reglamentoAceptado`,
 INSERT INTO `encuesta` (`idEncuesta`, `encTitulo`, `encDescripcion`, `encTipo`, `encPublica`) VALUES
 (1, 'Página Web', 'Encuesta sobre el desarrollo de la página', 'encuesta', 1);
 
-
-
-
 --
 -- Volcado de datos para la tabla `pregunta`
 --
@@ -116,12 +114,6 @@ INSERT INTO `respuesta_opcion` (`idRespuestaOpcion`, `opRespvalor`, `idPregunta`
 (17, '8', 4),
 (18, '9', 4),
 (19, '10', 4);
-
---
--- Volcado de datos para la tabla `respuesta`
---
-
-
 
 --
 -- Volcado de datos para la tabla `respuesta`
