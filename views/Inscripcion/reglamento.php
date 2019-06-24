@@ -12,15 +12,15 @@ use yii\helpers\Url;
 
 <!-- vista del tab reglamento-->
 <div class="reglamento">
-  <div class="align-center">
-  <?php
-        echo \lesha724\documentviewer\ViewerJsDocumentViewer::widget([
-          'url' => '../../../Reglamento/Presentaciondelamateria.pdf', //url на ваш документ или http://example.com/test.odt
-          'width'=>'80%',
-          'height'=>'300px',
-        ]);
-      ?>
-  </div>
+    <div style="width: 100%;height: 100%;margin-left: 10%;">
+    <?php 
+            echo \lesha724\documentviewer\ViewerJsDocumentViewer::widget([
+            'url' => '../../../Reglamento/Presentaciondelamateria.pdf', //url на ваш документ или http://example.com/test.odt
+            'width'=>'80%',
+            'height'=>'300px',
+            ]);
+        ?>
+    </div>
   <?php /*
     <div class="datosCaptcha" >
               <?= $form->field($persona, 'reCaptcha')->widget(
@@ -38,35 +38,56 @@ use yii\helpers\Url;
 
 
 <?php 
-//Copiar y reemplazar el contenido de abajo en /web/assets/bb1d2b31/index.html
+/*Agregar la linea 'style'=>'border-radius: 15px;' en vendor/lesha724/ViewerJsDocument/viewer.php 
+ en la funcion _run()
+La funcion deberia quedar:
+protected function _run(){
+        $options = [
+            'src'=>$this->_getIframeUrl(),
+            'width'=>$this->width,
+            'height'=>$this->height,
+            'allowfullscreen',
+            'webkitallowfullscreen',
+            'style'=>'border-radius: 15px;'
+        ];
+
+        return Html::tag('iframe','',$options);
+    }
+ */
+
+
+//Copiar y reemplazar el contenido de abajo en /web/assets/(buscar en que carpeta esta instaldo pdf.js)/index.html
 /*
 <body>
     <div id="viewer">
         <div id="titlebar" style="visibility: hidden;height: 0px;">
-            <div id="documentName" style="visibility: hidden;"></div>
-            <div id="titlebarRight" style="visibility: hidden;">
+            <div id="documentName" style="visibility: hidden;height: 0px;"></div>
+            <div id="titlebarRight" style="visibility: hidden;height: 0px;">
                 <button id="presentation" class="toolbarButton presentation" title="Presentation"></button>
                 <button id="fullscreen" class="toolbarButton fullscreen" title="Fullscreen"></button>
                 <button id="download" class="toolbarButton download" title="Download"></button>
             </div>
         </div>
         <div id="toolbarContainer" style="visibility: hidden;height: 0px;">
-            <div id="toolbar">
-                <div id="toolbarLeft">
-                    <div id="navButtons" class="splitToolbarButton">
+            <div id="toolbar" style="visibility: hidden;height: 0px;">
+                <div id="toolbarLeft" style="visibility: hidden;height: 0px;">
+                    <div id="navButtons" class="splitToolbarButton" style="visibility: hidden;height: 0px;">
+                        <button id="previous" class="toolbarButton pageUp" title="Previous Page"></button>
                         <div class="splitToolbarButtonSeparator"></div>
+                        <button id="next" class="toolbarButton pageDown" title="Next Page"></button>
                     </div>
-                    <input type="number" id="pageNumber" class="toolbarField pageNumber" style="visibility: hidden;" />
-                    <span id="numPages" class="toolbarLabel" style="visibility: hidden;"></span>
+                    <label id="pageNumberLabel" class="toolbarLabel" for="pageNumber">Page:</label>
+                    <input type="number" id="pageNumber" class="toolbarField pageNumber" />
+                    <span id="numPages" class="toolbarLabel"></span>
                 </div>
-                <div id="toolbarMiddleContainer" class="outerCenter" style="visibility: hidden;">
-                    <div id="toolbarMiddle" class="innerCenter" style="visibility: hidden;">
-                        <div id='zoomButtons' class="splitToolbarButton" style="visibility: hidden;">
-                            <button id="zoomOut" class="toolbarButton zoomOut" title="Zoom Out" style="visibility: hidden;"></button>
-                            <div class="splitToolbarButtonSeparator" style="visibility: hidden;"></div>
-                            <button id="zoomIn" class="toolbarButton zoomIn" title="Zoom In" style="visibility: hidden;"></button>
+                <div id="toolbarMiddleContainer" class="outerCenter">
+                    <div id="toolbarMiddle" class="innerCenter">
+                        <div id='zoomButtons' class="splitToolbarButton">
+                            <button id="zoomOut" class="toolbarButton zoomOut" title="Zoom Out"></button>
+                            <div class="splitToolbarButtonSeparator"></div>
+                            <button id="zoomIn" class="toolbarButton zoomIn" title="Zoom In"></button>
                         </div>
-                        <span id="scaleSelectContainer" class="dropdownToolbarButton" style="visibility: hidden;">
+                        <span id="scaleSelectContainer" class="dropdownToolbarButton">
                                 <select id="scaleSelect" title="Zoom" oncontextmenu="return false;">
                                     <option id="pageAutoOption" value="auto" selected>Automatic</option>
                                     <option id="pageActualOption" value="page-actual">Actual Size</option>
@@ -89,7 +110,7 @@ use yii\helpers\Url;
                 </div>
             </div>
         </div>
-        <div id="canvasContainer" style="background-image:none; background-color:white">
+        <div id="canvasContainer" style="background-image:none; background-color:white;top: 0px;bottom: 0;">
             <div id="canvas"></div>
         </div>
         <div id="overlayNavigator">

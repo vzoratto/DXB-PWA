@@ -14,10 +14,10 @@ $(document).ready(function() {
 
     //Valido el ingreso cuando hay un cambio en telefono calle
     $('#persona-telefonopersona').change(function() {
-        controlTelefonoPersona();
-    })
-    //Valido el ingreso cuando hay un cambio en el email
-    $('#persona-mailpersona').change(function(){
+            controlTelefonoPersona();
+        })
+        //Valido el ingreso cuando hay un cambio en el email
+    $('#persona-mailpersona').change(function() {
         controlEmail();
     })
 })
@@ -43,10 +43,12 @@ function controlTelefonoPersona() {
     if (telContacto == "") {
         //Si esta vacio agrego un borde de color rojo para indicar que hay un error
         $('#persona-telefonopersona').css('border', '1px solid #a94442');
+        $('#telefonoPersonaContacto').css('color', '#a94442'); //Color rojo al label por que hay un error
         siguiente = false; //Seteo la variable
     } else {
         //En caso contrario borro el borde
         $('#persona-telefonopersona').css('border', 'none');
+        $('#telefonoPersonaContacto').css('color', '#3c763d'); //Color verde por que esta correcto
         siguiente = true; //Seteo la variable
     }
     return siguiente;
@@ -60,7 +62,8 @@ function controlNumeroCalle() {
         //Si el campo esta vacio dejo un msj y agrego el color rojo en el borde para indicar que hay un error
         //Primero pruebo que no haya un msj ya existente
         if ($('#msjErrorNumero').children().length < 1) {
-            $('#msjErrorNumero').append("<small style='color:#a94442'>Este campo es obligatorio.</small>");
+            //$('#msjErrorNumero').append("<small style='color:#a94442'>Este campo es obligatorio.</small>");
+            $('#numeroContacto').css('color', '#a94442'); //Color rojo al label por que hay un error
             $('#numero').css('border', '1px solid #a94442');
             siguiente = false;
         }
@@ -70,11 +73,13 @@ function controlNumeroCalle() {
         if (/^([0-9])*$/.test(numero)) {
             //Si es correcto borro el borde para mostrar que no hay mas error
             $('#numero').css('border', 'none');
+            $('#numeroContacto').css('color', '#3c763d'); //Color verde por que esta correcto
             siguiente = true; //Seteo la variable
         } else {
             //Si es incorrecto agrego el borde de color rojo e incrusto un msj de error
             $('#numero').css('border', '1px solid #a94442');
-            $("#msjErrorNumero").append("<small style='color:#a94442'>Debe contener solo numeros.</small>");
+            //$("#msjErrorNumero").append("<small style='color:#a94442'>Debe contener solo numeros.</small>");
+            $('#numeroContacto').css('color', '#a94442'); //Color rojo al label por que hay un error
             siguiente = false; //Seteo la variable
         }
     }
@@ -90,7 +95,8 @@ function controlNombreCalle() {
         //Si el campo esta vacio dejo un msj y agrego el color rojo en el borde para indicar que hay un error
         //Primero pruebo que no haya un msj ya existente
         if ($('#msjErrorCalle').children().length < 1) {
-            $("#msjErrorCalle").append("<small style='color:#a94442'>Este campo es obligatorio.</small>");
+            //$("#msjErrorCalle").append("<small style='color:#a94442'>Este campo es obligatorio.</small>");
+            $('#calleContacto').css('color', '#a94442'); //Color rojo al label por que hay un error
             $('#calle').css('border', '1px solid #a94442');
             siguiente = false;
         }
@@ -101,11 +107,13 @@ function controlNombreCalle() {
         if (patron.test(calle)) {
             //Si el patron es correcto elimino el borde rojo para indicar que esta correcto
             $('#calle').css('border', 'none');
+            $('#calleContacto').css('color', '#3c763d'); //Color verde por que esta correcto
             siguiente = true; //Seteo la variable en true
         } else {
             //Si el patron es incorrecto agrego al borde de color rojo para indicar el error
             $('#calle').css('border', '1px solid #a94442');
-            $("#msjErrorCalle").append("<small style='color:#a94442'>Debe contener solo letras y numeros.</small>"); //y ademas agrego el msj del error
+            //$("#msjErrorCalle").append("<small style='color:#a94442'>Debe contener solo letras y numeros.</small>"); //y ademas agrego el msj del error
+            $('#calleContacto').css('color', '#a94442'); //Color rojo al label por que hay un error
             siguiente = false;
         }
     }
@@ -121,13 +129,13 @@ function controlEmail() {
     if (mailContacto !== "" && patron.test(mailContacto)) {
         //En caso contrario borro el borde
         $('#persona-mailpersona').css('border', 'none');
+        $('.field-persona-mailpersona').addClass('has-success');
         siguiente = true; //Seteo la variable
     } else {
         //Si esta vacio agrego un borde de color rojo para indicar que hay un error
         $('#persona-mailpersona').css('border', '1px solid #a94442');
+        $('.field-persona-mailpersona').removeClass('has-error');
         siguiente = false; //Seteo la variable
     }
     return siguiente;
 }
-
-

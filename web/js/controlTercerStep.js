@@ -157,10 +157,12 @@ function controlDonador() {
     if (donadorfichaMed !== undefined) {
         //Si se selecciono un sexo seteo la variable en true
         $('#donador').css('color', '#606060'); //Quito color rojo para indicar que ya no hay error
+        $('#donadorDatosMedicos').css('color', '#3c763d'); //Color verde por que esta correcto
         siguiente = true;
     } else {
         //En caso contrario en false
         $('#donador').css('color', '#a94442'); //Agrego color rojo para indicar que hay un error
+        $('#donadorDatosMedicos').css('color', '#a94442'); //Color rojo al label por que hay un error
         siguiente = false;
     }
     return siguiente;
@@ -171,9 +173,11 @@ function controlEvalFichaMedica() {
     var siguiente = false;
     if (evalmedifichaMed !== undefined) {
         $('#evaluacionMedica').css('color', '#606060'); //Quito el borde rojo para indicar que ya no hay error
+        $('#evaluacionDatosMedicos').css('color', '#3c763d'); //Color verde por que esta correcto
         siguiente = true;
     } else {
         $('#evaluacionMedica').css('color', '#a94442'); //Agrego un borde rojo para indicar que hay un error
+        $('#evaluacionDatosMedicos').css('color', '#a94442'); //Color rojo al label por que hay un error
         siguiente = false;
     }
     return siguiente;
@@ -184,9 +188,11 @@ function controlInterQuirurgica() {
     var siguiente = false;
     if (intquirfichaMed !== undefined) {
         $('#intervencionQuirurgica').css('color', '#606060'); //Quito el color rojo para indicar que ya no hay error
+        $('#intervencionDatosMedicos').css('color', '#3c763d'); //Color verde por que esta correcto
         siguiente = true;
     } else {
         $('#intervencionQuirurgica').css('color', '#a94442'); //Agrego el color rojo para indicar que hay un error
+        $('#intervencionDatosMedicos').css('color', '#a94442'); //Color rojo al label por que hay un error
         siguiente = false;
     }
     return siguiente;
@@ -197,9 +203,11 @@ function controlTomaSuplementos() {
     var siguiente = false;
     if (suplementosfichaMed !== undefined) {
         $('#suplementos').css('color', '#606060'); //Quito el color rojo para indicar que ya no hay error
+        $('#suplementosDatosMedicos').css('color', '#3c763d'); //Color verde por que esta correcto
         siguiente = true;
     } else {
         $('#suplementos').css('color', '#a94442'); //Agrego color rojo para indicar que hay un error
+        $('#suplementosDatosMedicos').css('color', '#a94442'); //Color rojo al label por que hay un error
         siguiente = false;
     }
     return siguiente;
@@ -210,9 +218,11 @@ function controlTomaMedicamento() {
     var siguiente = false;
     if (medicamentosfichaMed !== undefined) {
         $('#tomaMedicamentos').css('color', '#606060'); //Quito color rojo para indicar que ya no hay error
+        $('#tomaMedicamentosDatosMedicos').css('color', '#3c763d'); //Color verde por que esta correcto
         siguiente = true;
     } else {
         $('#tomaMedicamentos').css('color', '#a94442'); //Agrego color rojo para indicar que hay un error
+        $('#tomaMedicamentosDatosMedicos').css('color', '#a94442'); //Color rojo al label por que hay un error
         siguiente = false
     }
     return siguiente;

@@ -41,18 +41,18 @@ $(document).ready(function() {
 
     //Valido el ingreso cuando hay un cambio en las opciones de capitan
     $('#opcionesCapitan').change(function() {
-        controlCapitanCorredor();
-    })
-    //Valido el ingreso cuando hay un cambio en las opciones de dni
-    $('#usuario-dniusuario').change(function(){
+            controlCapitanCorredor();
+        })
+        //Valido el ingreso cuando hay un cambio en las opciones de dni
+    $('#usuario-dniusuario').change(function() {
         controlNumDoc();
     })
 
-    $('#usuario-dniusuario').change(function(){
-        controlarExistenciaDni();
-    })
-    //Valido el ingreso del dni usuario
-    $('#usuario-dniusuario').keyup(function(){
+    $('#usuario-dniusuario').change(function() {
+            controlarExistenciaDni();
+        })
+        //Valido el ingreso del dni usuario
+    $('#usuario-dniusuario').keyup(function() {
         controlarExistenciaDni();
     })
     controlarExistenciaDni();
@@ -71,7 +71,7 @@ $('#stepwizard_step1_next').click(function() {
     var validoNumDoc = controlNumDoc(); //Valido el ingreso del numero de docuemento
     var validacionExistenciaDni = $('#usuario-dniusuario').attr('siguiente');
     //Si los campos estan correcto agrego la clase "next-step" para pasar al siguiente step
-    if (validoNombre && validoApellido && validoNacionalidad && validoSexo && validoTalleRemera && validoFechaNac && validoCapitanCorredor && validoNumDoc && validacionExistenciaDni=='true') {
+    if (validoNombre && validoApellido && validoNacionalidad && validoSexo && validoTalleRemera && validoFechaNac && validoCapitanCorredor && validoNumDoc && validacionExistenciaDni == 'true') {
         $('#stepwizard_step1_next').addClass('next-step'); //Agrego la clase
     } else {
         $('#stepwizard_step1_next').removeClass('next-step'); //En caso contrario remuevo la clase
@@ -82,15 +82,19 @@ $('#stepwizard_step1_next').click(function() {
 function controlNombre() {
     var nombrePersona = $('#persona-nombrepersona').val(); //Tomo el valor del input
     var patron = /^[a-z-A-Z\D]+$/; //Patron que debe respetarse
-    var cantCaracteresNombre = nombrePersona.length;//Cantidad de caracteres ingresado
+    var cantCaracteresNombre = nombrePersona.length; //Cantidad de caracteres ingresado
     siguiente = false;
     if (patron.test(nombrePersona) && nombrePersona !== '' && cantCaracteresNombre > 1) {
         //Si es corecto el patron y distinto de vacio seteo la variable siguiente siguiente en true
         $('#persona-nombrepersona').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
+        $('.field-persona-nombrepersona').addClass('has-success');
+        $('.field-persona-nombrepersona').removeClass('has-error');
         siguiente = true;
     } else {
         //Si el patron es incorrecto o vacio seteo la variable siguiente en false
         $('#persona-nombrepersona').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+        $('.field-persona-nombrepersona').addClass('has-error');
+        $('.field-persona-nombrepersona').removeClass('has-success');
         siguiente = false;
     }
     return siguiente;
@@ -104,13 +108,18 @@ function controlApellido() {
     if (patron.test(apellidoPersona) && apellidoPersona !== '' && cantCaracteresApellido > 1) {
         //Si es corecto el patron y distinto de vacio seteo la variable siguiente en true
         $('#persona-apellidopersona').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
+        $('.field-persona-apellidopersona').addClass('has-success');
+        $('.field-persona-apellidopersona').removeClass('has-error');
         siguiente = true;
     } else {
         //Si el patron es incorrecto o vacio seteo la variable siguiente en false
         $('#persona-apellidopersona').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+        $('.field-persona-apellidopersona').addClass('has-error');
+        $('.field-persona-apellidopersona').removeClass('has-success');
         siguiente = false;
     }
     return siguiente;
+
 }
 //Funcion que controla la fecha de nacimiento. En este caso solo se controla que no este vacio ya que el widget controla el formato
 function controlFechaNac() {
@@ -119,13 +128,18 @@ function controlFechaNac() {
     if (fechaPersona == "") {
         //Si la fehca de nacimiento esta vacio seteo la variable en false
         $('#datepicker').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+        $('.field-datepicker').addClass('has-error');
+        $('.field-datepicker').removeClass('has-success');
         siguiente = false;
     } else {
         //En caso contrario lo seteo en true
         $('#datepicker').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
+        $('.field-datepicker').addClass('has-success');
+        $('.field-datepicker').removeClass('has-error');
         siguiente = true;
     }
     return siguiente;
+
 }
 //Funcion que controla la seleccion del sexo
 function controlSexo() {
@@ -133,11 +147,11 @@ function controlSexo() {
     siguiente = false;
     if (sexoPersona !== undefined) {
         //Si se selecciono un sexo seteo la variable en true
-        $('#sexoPersona').css('color', '#606060'); //Quito el color rojo para indicar que ya no hay error
+        $('#labelSexoDatoPersonal').css('color', '#3c763d'); //Quito el color rojo para indicar que ya no hay error
         siguiente = true;
     } else {
         //En caso contrario en false
-        $('#sexoPersona').css('color', '#a94442'); //Agrego un color rojo para indicar que hay un error
+        $('#labelSexoDatoPersonal').css('color', '#a94442'); //Agrego un color rojo para indicar que hay un error
         siguiente = false;
     }
     return siguiente;
@@ -149,13 +163,18 @@ function controlTalleRemera() {
     if (talleRemeraPersona > 0) {
         //Si se selecciono un talle seteo la variable en true
         $('#talleremera-idtalleremera').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
+        $('.field-talleremera-idtalleremera').addClass('has-success');
+        $('.field-talleremera-idtalleremera').removeClass('has-error');
         siguiente = true;
     } else {
         //En caso contrario lo seteo en false
         $('#talleremera-idtalleremera').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+        $('.field-talleremera-idtalleremera').addClass('has-error');
+        $('.field-talleremera-idtalleremera').removeClass('has-success');
         siguiente = false;
     }
     return siguiente;
+
 }
 //Funcion que controla el ingreso de la nacionalidad
 function controlNacionalidad() {
@@ -165,10 +184,14 @@ function controlNacionalidad() {
     if (patron.test(nacionalidadPersona) && nacionalidadPersona !== "") {
         //Si el patron es correcto seteo la varibale en true
         $('#persona-nacionalidadpersona').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
+        $('.field-persona-nacionalidadpersona').addClass('has-success');
+        $('.field-persona-nacionalidadpersona').removeClass('has-error');
         siguiente = true;
     } else {
         //En caso contrario lo seteo en false
         $('#persona-nacionalidadpersona').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+        $('.field-persona-nacionalidadpersona').addClass('has-error');
+        $('.field-persona-nacionalidadpersona').removeClass('has-success');
         siguiente = false;
     }
     return siguiente;
@@ -186,17 +209,25 @@ function controlCapitanCorredor() {
         var tipoCarrera = $('#idTipocarrera').val(); //Control ingreso tipo carrera
         var cantPersonas = $('#idParametrosCantPersonas').val(); //Control ingreso cantidad de personas
         if (tipoCarrera > 0) {
-            $(' .select2-container--krajee .select2-selection--single').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
+            $('#idTipocarrera').find('label[class=".select2-container--krajee .select2-selection--single"]').css('border', '0px solid #606060'); //Quito el borde rojo para indicar que ya no hay error
+            $('.field-idTipocarrera').addClass('has-success');
+            $('.field-idTipocarrera').removeClass('has-error');
             tipoCarreraSiguiente = true;
         } else {
-            $(' .select2-container--krajee .select2-selection--single').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+            $('#idTipocarrera').find('label[class=".select2-container--krajee .select2-selection--single"]').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+            $('.field-idTipocarrera').addClass('has-error');
+            $('.field-idTipocarrera').removeClass('has-success');
             tipoCarreraSiguiente = false;
         }
         if (cantPersonas > 0) {
-            $('.select2-container--krajee .select2-selection--single').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
+            $('#idParametrosCantPersonas').find('label[class=".select2-container--krajee .select2-selection--single"]').css('border', '0px solid #606060'); //Quito el borde rojo para indicar que ya no hay error
+            $('.field-idParametrosCantPersonas').addClass('has-success');
+            $('.field-idParametrosCantPersonas').removeClass('has-error');
             cantPersonasSiguiente = true;
         } else {
-            $('.select2-container--krajee .select2-selection--single').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+            $('#idParametrosCantPersonas').find('label[class=".select2-container--krajee .select2-selection--single"]').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+            $('.field-idParametrosCantPersonas').addClass('has-error');
+            $('.field-idParametrosCantPersonas').removeClass('has-success');
             cantPersonasSiguiente = false;
         }
         //Si ambos ingresos son correctos seteo la varibale siguiente en true
@@ -209,13 +240,29 @@ function controlCapitanCorredor() {
     } else {
         //Si el checkbox es cero controlo las opciones que no son de capitan
         var dniCapitan = $('#idEquipo').val(); //Control del ingreso del dni capitan -idequipo
-        
+
         siguiente = false;
         if (dniCapitan > 0) {
-            $('.select2-container--krajee .select2-selection--single').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
+            $('.select2-container--krajee .select2-selection--single').css('border', '0px solid #606060'); //Quito el borde rojo para indicar que ya no hay error
+            $('.field-idEquipo').addClass('has-success');
+            $('.field-idEquipo').removeClass('has-error');
+            $('.field-idNombreCapitan').addClass('has-success');
+            $('.field-idNombreCapitan').removeClass('has-error');
+            $('.field-idTipoDeCarrera').addClass('has-success');
+            $('.field-idTipoDeCarrera').removeClass('has-error');
+            $('.field-idCantidadPersonas').addClass('has-success');
+            $('.field-idCantidadPersonas').removeClass('has-error');
             siguiente = true;
         } else {
             $('.select2-container--krajee .select2-selection--single').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+            $('.field-idEquipo').addClass('has-error');
+            $('.field-idEquipo').removeClass('has-success');
+            $('.field-idNombreCapitan').addClass('has-error');
+            $('.field-idNombreCapitan').removeClass('has-success');
+            $('.field-idTipoDeCarrera').addClass('has-error');
+            $('.field-idTipoDeCarrera').removeClass('has-success');
+            $('.field-idCantidadPersonas').addClass('has-error');
+            $('.field-idCantidadPersonas').removeClass('has-success');
             siguiente = false;
         }
     }
@@ -228,24 +275,30 @@ function controlNumDoc() {
     var patron = /^[0-9]+$/; //Patron que debe respetarse
     var tambienEstaBien = $('#usuario-dniusuario').attr('siguiente');
     siguiente = false;
-    if (patron.test(dniUsuario) && dniUsuario !== '' && tambienEstaBien=="true") {
+    if (patron.test(dniUsuario) && dniUsuario !== '' && tambienEstaBien == "true") {
         //Si es corecto el patron y distinto de vacio seteo la variable siguiente en true
         $('#usuario-dniusuario').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
+        $('.field-usuario-dniusuario').addClass('has-success');
+        $('.field-usuario-dniusuario').removeClass('has-error');
         siguiente = true;
     } else {
         //Si el patron es incorrecto o vacio seteo la variable siguiente en false
         $('#usuario-dniusuario').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
+        $('.field-usuario-dniusuario').addClass('has-error');
+        $('.field-usuario-dniusuario').removeClass('has-success');
         siguiente = false;
     }
     return siguiente;
 }
 
+
 //Esta funcion controla si existe el dni ingresado en la inscripcion
-function controlarExistenciaDni(){
+function controlarExistenciaDni() {
     var dniIngresado = $('#usuario-dniusuario').val();
-    var ajax = new XMLHttpRequest();
+    if (dniIngresado !== "") {
+        var ajax = new XMLHttpRequest();
         //uso del método GET
-        ajax.open("GET", "http://localhost/desarrolloweb/carrera/web/index.php?r=inscripcion/existedni&dniUsuario=" + dniIngresado);
+        ajax.open("GET", "http://localhost/carrera/web/index.php?r=inscripcion/existedni&dniUsuario=" + dniIngresado);
 
         // --Ahora estamos esperando a recibir la respuesta, para eso tenemos la siguiente función que llamamos cada vez que ocurre que el estado cambia.
         ajax.onreadystatechange = function() {
@@ -254,21 +307,21 @@ function controlarExistenciaDni(){
                 if (ajax.readyState == 4) {
                     //mostrar resultado en esta capa
                     dato = ajax.responseText; //transformamos la cadena de texto en un JSON
-                    if(dato == 1){
+                    if (dato == 1) {
                         //Si el patron es incorrecto o vacio seteo la variable siguiente en false
                         $('#usuario-dniusuario').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
                         $('#usuario-dniusuario').attr('siguiente', 'false');
-                    
+
                     } else {
                         //Si es corecto el patron y distinto de vacio seteo la variable siguiente en true
                         $('#usuario-dniusuario').css('border', 'none'); //Quito el borde rojo para indicar que ya no hay error
                         $('#usuario-dniusuario').attr('siguiente', 'true');
-                        }
+                    }
 
                 }
             }
             // como hacemos uso del método GET colocamos null
             // Con Post en lugar de null debería mandarle la cadena de los parámetros y sus valores serian "Provincia"= +provincia
         ajax.send(null);
-
+    }
 }
