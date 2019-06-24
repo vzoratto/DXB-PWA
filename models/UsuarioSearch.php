@@ -18,7 +18,7 @@ class UsuarioSearch extends Usuario
     {
         return [
             [['idUsuario', 'dniUsuario', 'activado', 'idRol'], 'integer'],
-            [['claveUsuario', 'dniUsuario','mailUsuario', 'authkey','idRol'], 'safe'],
+            [['claveUsuario', 'dniUsuario','mailUsuario', 'authkey','idRol','dni'], 'safe'],
         ];
     }
 

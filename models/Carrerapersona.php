@@ -27,6 +27,8 @@ class Carrerapersona extends \yii\db\ActiveRecord
 	public $talleRemera;
 	public $nombreEquipo;
 	public $categoria;
+	public $nombre_completo;
+	public $edad;
     /**
      * {@inheritdoc}
      */
@@ -48,7 +50,7 @@ class Carrerapersona extends \yii\db\ActiveRecord
             [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
             [['idTipoCarrera'], 'exist', 'skipOnError' => true, 'targetClass' => Tipocarrera::className(), 'targetAttribute' => ['idTipoCarrera' => 'idTipoCarrera']],
             //los asignamos como safe.
-			[['apellidoPersona','nombrePersona','talleRemera','nombreEquipo','categoria'], 'safe'],
+			[['apellidoPersona','nombrePersona','talleRemera','nombreEquipo','categoria','nombre_completo','edad'], 'safe'],
 			
 	   ];
     }
@@ -64,6 +66,7 @@ class Carrerapersona extends \yii\db\ActiveRecord
             'reglamentoAceptado' => 'Reglamento Aceptado',
             'retiraKit' => 'Retira Kit',
 			'apellidoPersona'=>'apellidoPersona' ,
+			'edad'=>'edad',
         ];
     }
 
@@ -89,6 +92,16 @@ class Carrerapersona extends \yii\db\ActiveRecord
    
     public function getTalleRemera(){
 	   return $this->hasOne(Persona::className(),['idTalleRemera'=> 'idTalleRemera'])->viaTable (TalleRemera::className(),['idTalleRemera'=>'idTalleRemera']);
+    }
+	public function afterFind() {
+        parent::afterFind();
+        // Concateno el nombre y apellido en el nuevo atributo virtual
+        $this->nombre_completo = "{$this->persona->apellidoPersona} {$this->persona->nombrePersona}";
+        // Calculo y asigno la edad en años en el nuevo atributo virtual
+        $nacimiento = new \DateTime($this->persona->fechaNacPersona);
+        $hoy = new \DateTime();
+        $edad = $hoy->diff($nacimiento);
+        $this->edad = $edad->y; // Se puede usar también $edad->m (meses), $edad->d (días), etc.
     }
 	
 }

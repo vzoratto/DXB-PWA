@@ -4,7 +4,8 @@ namespace app\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
-
+use yii\db\Query; 
+use yii\data\ActiveDataProvider;
 /**
  * This is the model class for table "gestores".
  *
@@ -37,8 +38,10 @@ class Gestores extends \yii\db\ActiveRecord
             [['idUsuario'], 'required'],
             [['idUsuario'], 'integer'],
             ['idUsuario', 'usuario_existe'],
+            [['nombreGestor', 'apellidoGestor'], 'required'],
             [['nombreGestor', 'apellidoGestor'], 'string', 'max' => 64],
             [['telefonoGestor'], 'string', 'max' => 32],
+            [['telefonoGestor'], 'required'],
             [['rol','email'],'safe'],
             [['idUsuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['idUsuario' => 'idUsuario']],
         ];
@@ -51,10 +54,10 @@ class Gestores extends \yii\db\ActiveRecord
     {
         return [
             'idGestor' => 'Id Gestor',
-            'nombreGestor' => 'Nombre Gestor',
-            'apellidoGestor' => 'Apellido Gestor',
-            'telefonoGestor' => 'Telefono Gestor',
-            'idUsuario' => 'Dni Usuario',
+            'nombreGestor' => 'Nombre',
+            'apellidoGestor' => 'Apellido',
+            'telefonoGestor' => 'Telefono',
+            'idUsuario' => 'Dni',
             'rol' => 'Rol',
             'email'=> 'Email',
         ];
@@ -86,5 +89,35 @@ class Gestores extends \yii\db\ActiveRecord
     public function getUsuarios()
     {
         return $this->hasOne(Usuario::className(), ['idUsuario' => 'idUsuario'])->viaTable(Rol::className(), ['idRol' => 'idRol']);
+    }
+
+    public function Adminbusquedas(){
+        $query = new Query;
+        $query 
+           ->select(['g.idGestor,(g.nombreGestor) as Nombre, (g.apellidoGestor) as Apellido,(g.telefonoGestor) as Telefono,(r.descripcionRol) as Rol, (u.dniUsuario) as DNI, (u.mailUsuario) as Email'])
+           ->from('gestores g')
+           ->join('inner join','usuario u','u.idUsuario=g.idusuario')
+           ->join('inner join','rol r','r.idRol=u.idRol')
+	       ->where(['r.idRol'=>'2']) 
+           ->all();
+        $dataProvider = new ActiveDataProvider([
+              'query' => $query,
+        ]);
+    return $dataProvider;
+    }
+    
+    public function Gestorbusquedas(){
+        $query = new Query;
+        $query 
+           ->select(['g.idGestor,(g.nombreGestor) as Nombre, (g.apellidoGestor) as Apellido,(g.telefonoGestor) as Telefono,(r.descripcionRol) as Rol, (u.dniUsuario) as DNI, (u.mailUsuario) as Email'])
+           ->from('gestores g')
+           ->join('inner join','usuario u','u.idUsuario=g.idusuario')
+           ->join('inner join','rol r','r.idRol=u.idRol')
+	       ->where(['r.idRol'=>'3']) 
+           ->all();
+        $dataProvider = new ActiveDataProvider([
+              'query' => $query,
+        ]);
+    return $dataProvider;
     }
 }

@@ -86,7 +86,7 @@ class RespuestaController extends Controller
         return $carga;
     }
 
-    public function actionRespuesta(){
+    public function actionRespuesta(){   
 
         $respuesta=new Respuesta();
         if ($respuesta->load(Yii::$app->request->post())){
@@ -137,7 +137,11 @@ class RespuestaController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {$this->layout = '/main3';
+    {   if(Permiso::requerirRol('administrador')){
+        $this->layout='/main2';
+    }elseif(Permiso::requerirRol('gestor')){
+        $this->layout='/main3';
+    }
         $searchModel = new RespuestaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination=[
@@ -164,7 +168,11 @@ class RespuestaController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
-    {
+    {   if(Permiso::requerirRol('administrador')){
+        $this->layout='/main2';
+    }elseif(Permiso::requerirRol('gestor')){
+        $this->layout='/main3';
+    }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -176,7 +184,11 @@ class RespuestaController extends Controller
      * @return mixed
      */
     public function actionCreate()
-    {
+    {   if(Permiso::requerirRol('administrador')){
+        $this->layout='/main2';
+    }elseif(Permiso::requerirRol('gestor')){
+        $this->layout='/main3';
+    }
         $model = new Respuesta();
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -196,7 +208,11 @@ class RespuestaController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
-    {
+    {   if(Permiso::requerirRol('administrador')){
+        $this->layout='/main2';
+    }elseif(Permiso::requerirRol('gestor')){
+        $this->layout='/main3';
+    }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -216,7 +232,11 @@ class RespuestaController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
-    {
+    {   if(Permiso::requerirRol('administrador')){
+        $this->layout='/main2';
+    }elseif(Permiso::requerirRol('gestor')){
+        $this->layout='/main3';
+    }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -230,7 +250,11 @@ class RespuestaController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
-    {
+    {   if(Permiso::requerirRol('administrador')){
+        $this->layout='/main2';
+    }elseif(Permiso::requerirRol('gestor')){
+        $this->layout='/main3';
+    }
         if (($model = Respuesta::findOne($id)) !== null) {
             return $model;
         }

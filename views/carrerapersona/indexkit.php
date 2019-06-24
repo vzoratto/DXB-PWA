@@ -29,9 +29,9 @@ $this->title = 'Entrega De Kits ';
 		$gridColumns = [
             ['class' => 'yii\grid\SerialColumn'],
 			[   'label' => 'Corredor',
-                'attribute' => 'apellidoPersona',
+                'attribute' => 'nombre_completo',
 				'value' => function($model) {
-                    return ($model->persona->apellidoPersona.' '.$model->persona->nombrePersona);
+					return ($model->nombre_completo);
                 },
             ],
             [   'label' => 'Documento',

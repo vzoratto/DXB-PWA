@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Persona;
 use app\models\PersonaSearch;
+use app\models\Permiso;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,13 +39,17 @@ class PersonaController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = '/main2';
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }
+        $mensaje='';
         $searchModel = new PersonaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'mensaje'=>$mensaje,
         ]);
     }
 
@@ -56,7 +61,11 @@ class PersonaController extends Controller
      */
     public function actionView($id)
     {
-        $this->layout = '/main3';
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -90,7 +99,11 @@ class PersonaController extends Controller
      */
     public function actionUpdate($id)
     {
-        $this->layout='/main3';
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -111,7 +124,9 @@ class PersonaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->layout = '/main2';
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

@@ -38,7 +38,11 @@ $this->title = 'Registrate';
       </div>
 
     </div>
-
+        <?php if (Yii::$app->session->hasFlash('registroFormSubmitted')): ?>
+        <div class="alert alert-success" align="center">
+           Enviamos un email de verificación y/o activación a tu correo, ábrelo para activar tu cuenta"
+        </div>
+        <?php endif; ?>
 </section>
 <?php
 //js que controla la visualizacion del pass

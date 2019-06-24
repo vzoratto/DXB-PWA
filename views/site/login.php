@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cover-background contenedor-full full-section" style="background-image:url('assets/img/fondo.jpg');">
     <div class="box-bd no-label" align="center">
-      <img class="center" src="assets/img/logo-color.png" alt="">
+      <img class="center" src="assets/img/logo-color.png" alt="logo color">
       <p><?= Html::encode($this->title) ?></p>
         <?php
         $form = ActiveForm::begin([

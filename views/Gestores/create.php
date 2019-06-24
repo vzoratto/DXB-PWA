@@ -5,9 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Gestores */
 
-$this->title = 'Crear Administrativos';
-$this->params['breadcrumbs'][] = ['label' => 'Gestores', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Crear ';
+
 ?>
 <div class="gestores-create">
 

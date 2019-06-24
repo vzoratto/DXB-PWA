@@ -7,8 +7,7 @@ use app\models\Usuario;
 /* @var $model app\models\Gestores */
 
 $this->title ='Administrativo: '. $model->nombreGestor;
-$this->params['breadcrumbs'][] = ['label' => 'Gestores', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="gestores-view">
@@ -17,17 +16,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
     <?php
-        // $descRol=Usuario::findIdentity($_SESSION['__id']);
-         //  if($descRol->idRol==2){
+           $descRol=Usuario::findIdentity($_SESSION['__id']);
+            if($descRol->idRol==2){
                echo Html::a('Actualizar', ['update', 'id' => $model->idGestor], ['class' => 'btn btn-primary']); 
                echo Html::a('Eliminar', ['delete', 'id' => $model->idGestor], [
                     'class' => 'btn btn-danger',
                  'data' => [
-                    'confirm' => 'Are you sure you want to delete this item?',
+                    'confirm' => 'Esta seguro que quiere eliminar este registro???',
                    'method' => 'post',
                 ],
               ]);     
-           // }
+            }
             ?>
     </p>
 

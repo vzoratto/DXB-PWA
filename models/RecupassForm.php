@@ -86,11 +86,11 @@ class RecupassForm extends Model
             $user->claveUsuario=crypt($pass, Yii::$app->params["salt"]);//Encriptamos el password
             if ($user->save()) {
              $subject = "Recuperar password";//accion validar mail
-             $body = "<h3>Se le envia un codigo que deberas ingresar como password para loguearte,</h3>";
-             $body .= "<h3>Recuerda, que luego deberas cambiar el password enviado por uno personalizado.</h3>";
-             $body .= "<h3>El password : ".$pass."</h3>";
-             $body .= "<h3>Haga click en el siguiente enlace para finalizar la recuperacion del password</h3>";
-             $body .= "<a href='http://localhost/carrera/web/index.php?r=site/cambiapass'>Ir para cambiar password</a>";
+             $body = "<h3>Se te envía un código que deberás ingresar como contraseña para loguearte,</h3>";
+             $body .= "<h3>Recuerda, que luego deberás cambiar la contraseña enviada por una personalizada.</h3>";
+             $body .= "<h3>La contraseña es : ".$pass."</h3>";
+             $body .= "<h3>Hace click en el siguiente enlace para finalizar la recuperación de la contraseña.</h3>";
+             $body .= "<a href='http://localhost/carrera/web/index.php?r=site/cambiapass'>Ir para cambiar la contraseña</a>";
                   
               return    Yii::$app->mailer->compose()
                   ->setFrom('carreraxbarda@gmail.com')

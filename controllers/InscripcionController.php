@@ -578,10 +578,39 @@ class InscripcionController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->layout = '/main2';
-        $this->findModel($id)->delete();
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }
+       // $this->findModel($id)->delete();
+       $mensaje='';
+       $borrado=false; //Asignamos false a la variable borrado
+       $transaction = Persona::getDb()->beginTransaction(); // Iniciamos una transaccion
+       
+       try {
+       $persona=$this->findModel($id);
+       $grupo=grupo::find()->where(['idPersona'=>$id])->One();
+       $equipo=$grupo->idEquipo;$per=$grupo->idPersona;
+       //echo '<pre>';print_r($grupo);echo $equipo.' '.$per;echo '</pre>';die();
+       Grupo::findOne($equipo,$per)->delete();
+       Persona::findOne($id)->delete();
+       Usuario::findOne($persona->idUsuario)->delete();
+       Personadireccion::findOne($persona->idPersonaDireccion)->delete();
+       Fichamedica::findOne($persona->idFichaMedica)->delete();
+       Personaemergencia::findOne($persona->idPersonaEmergencia)->delete();
+       
+       $transaction->commit();
+            $guardado=true;
+        if(!$borrado){
+            $mensaje="hubo un problema al eliminar este regitro";
+        }
+            return $this->redirect(['persona/index','mensaje'=>$mensaje]);
+        
+      } catch(\Exception $e) {
+          $guardado=false;
 
-        return $this->redirect(['index']);
+          $transaction->rollBack();
+          throw $e;
+      }
     }
 
     /**

@@ -34,9 +34,9 @@ $this->title = 'Listado De Participantes ';
             ['class' => 'yii\grid\SerialColumn'],
 			[   'label' => 'Corredor',
                 'class' => ExpandRowColumn::class,
-                'attribute' => 'apellidoPersona',
+                'attribute' => 'nombre_completo',
 				'value' => function($model) {
-                    return ($model->persona->apellidoPersona.' '.$model->persona->nombrePersona );
+				   return($model->nombre_completo);
                 },
                 'column_id' => 'column-info',
                 'url' => Url::to(['view']),

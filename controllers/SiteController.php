@@ -95,7 +95,15 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = new ContactForm();
+        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+            Yii::$app->session->setFlash('contactFormSubmitted');
+
+            return $this->refresh();
+        }
+        return $this->render('index', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -149,7 +157,7 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionContact()
+   /* public function actionContact()
     {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
@@ -160,7 +168,7 @@ class SiteController extends Controller
         return $this->render('contact', [
             'model' => $model,
         ]);
-    }
+    }*/
     /**
      * funcion random para claves,long 50 hexa
      */
@@ -190,8 +198,10 @@ class SiteController extends Controller
             if ($user = $model->signup()) {
                     //vaciamos valores
 						   $model->dni = null; $model->password = null; $model->email = null;
-                           $mensaje = "Enviamos un email de verificacion y/o activacion a tu correo, abrelo para activar tu cuenta";
-                           return $this->render('correo', ['mensaje' => $mensaje]);
+                           //$mensaje = "Enviamos un email de verificacion y/o activacion a tu correo, abrelo para activar tu cuenta";
+                           //return $this->render('correo', ['mensaje' => $mensaje]);
+                        Yii::$app->session->setFlash('registroFormSubmitted');
+                        return $this->refresh();
                 }else{
                      $model->dni = null;
                      Yii::$app->getSession()->setFlash('error', 'DNI ingresado ya existe, comunicate con el administrador.');

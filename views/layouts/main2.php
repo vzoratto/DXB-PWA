@@ -40,20 +40,33 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Admin', 'url' => ['/site/admin']],
-            ['label' => 'Usuario', 'url' => ['/usuario/index']],
-            ['label' => 'Gestor', 'url' => ['/gestores/index']],
-            ['label' => 'Carrera', 'url' => ['/carrerapersona/index']],
+            
             ['label' => 'Listados ABM','items' => [
                 ['label' => 'Usuario', 'url' => ['/usuario/index']],
-                ['label' => 'Corredores', 'url' => ['/persona/index']],
-                ['label' => 'Inscripcion Invitado', 'url' => ['/invitado/index']],
-                ['label' => 'Inscripcion Corredor', 'url' => ['/inscripcion/index']],
-                ['label' => 'Gestion carrera', 'url' => ['/carrerapersona/index']],
+                ['label' => 'Gestor', 'url' => ['/gestores/index']],
+                ['label' => 'Corredor', 'url' => ['/persona/index']],
+                ['label' => 'corredor Invitado', 'url' => ['/invitado/index']],
+                ['label' => 'Inscripcion', 'url' => ['/inscripcion/index']],
                 ],
               ],
-              
-        
+                 ['label' => 'Dar Permisos','items' => [
+                    ['label' => 'Administrador', 'url' => ['/gestores/altaadmin']],
+                    ['label' => 'Gestor', 'url' => ['/gestores/altagestor']],
+                
+                 ],
+                ],
+                ['label' => 'Ver Permisos','items' => [
+                   ['label' => 'Administrador', 'url' => ['/gestores/busadmin']],
+                   ['label' => 'Gestor', 'url' => ['/gestores/busgestor']],
+                
+                  ],
+                ],
+              ['label' => 'Encuesta','items' => [
+                ['label' => 'Crear Encuesta', 'url' => ['/encuesta/index']],
+                ['label' => 'Resultados Encuesta', 'url' => ['/respuesta/index']],
+				
+			],
+        ],
         
             Yii::$app->user->isGuest ? (
                 ''
