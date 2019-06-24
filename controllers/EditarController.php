@@ -131,6 +131,40 @@ class EditarController extends Controller
     public function actionUpdate(){
         print_r(Yii::$app->request->post());
         die();
+        //accedemos a los datos Persona del formulario
+        $personaForm=Yii::$app->request->post()['Persona'];
+        //accedemos a los datos TalleRemera del formulario
+        $talleRemeraForm=Yii::$app->request->post()['TalleRemera'];
+        //accedemos a los datos TersonaEmergencia del formulario
+        $personaEmergenciaForm=Yii::$app->request->post()['Personaemergencia'];
+        //se busca el modelo Persona de la persona logueada
+        $persona=Persona::findOne(['idUsuario' => $_SESSION['__id']]);
+        //accedemos al modelo PersonaEmrgencia del usuario
+        $personaEmergencia=$persona->personaEmergencia;
+        //accedemos al modelo PersonaDireccion del usuario
+        $personaDireccion=$persona->personaDireccion;
+        $personaDireccion->idLocalidad=Yii::$app->request->post()['Localidad']['idLocalidad'];
+        $personaDireccion->direccionUsuario=Yii::$app->request->post()['calle'];
+        //se actualiza el modelo
+        $personaDireccion->update();
+        $personaEmergencia->nombrePersonaEmergencia=$personaEmergenciaForm['nombrePersonaEmergencia'];
+        $personaEmergencia->apellidoPersonaEmergencia=$personaEmergenciaForm['apellidoPersonaEmergencia'];
+        $personaEmergencia->telefonoPersonaEmergencia=$personaEmergenciaForm['telefonoPersonaEmergencia'];
+        $personaEmergencia->idVinculoPersonaEmergencia=$personaEmergenciaForm['idVinculoPersonaEmergencia'];
+        //se actualiza  el modelo
+        $personaEmergencia->update();
+
+        $persona->nacionalidadPersona=$personaForm['nacionalidadPersona'];
+        $persona->nombrePersona=$personaForm['nombrePersona'];
+        $persona->apellidoPersona=$personaForm['apellidoPersona'];
+        $persona->fechaNacPersona=$personaForm['fechaNacPersona'];
+        $persona->telefonoPersona=$personaForm['telefonoPersona'];
+        $persona->donador=$personaForm['donador'];
+        $persona->idTalleRemera=$talleRemeraForm['idTalleRemera'];
+        $persona->update();
+
+
+
     }
 
     /**
