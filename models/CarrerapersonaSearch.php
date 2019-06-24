@@ -8,6 +8,7 @@ use app\models\Carrerapersona;
 use app\models\Talleremera;
 use app\models\Usuario;
 use app\models\Equipo;
+use app\models\Grupo;
 use app\models\Tipocarrera;
 use app\models\Persona;
 
@@ -59,7 +60,8 @@ class Carrerapersonasearch extends Carrerapersona {
                 ->joinWith(['persona.usuario'])
 				->joinWith(['persona.talleRemera'])
 				->joinWith(['tipoCarrera'])
-				->joinWith(['tipoCarrera.equipo']);
+                ->joinWith(['persona.grupo.equipo']);
+                
 			
         // add conditions that should always apply here
 

@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use app\models\Persona;
 
+use app\models\Equipo;
 use app\models\Tipocarrera;
 
 /**
@@ -87,7 +88,9 @@ class Carrerapersona extends \yii\db\ActiveRecord
     }
 	public function getEquipo()
     {
-        return $this->hasOne(Equipo::className(), ['idTipoCarrera' => 'idTipoCarrera']);
+       // return $this->hasOne(Equipo::className(), ['idTipoCarrera' => 'idTipoCarrera']);
+        return $this->hasOne(Equipo::className(),['idEquipo'=> 'idEquipo'])->viaTable ('grupo',['idPersona'=>'idPersona']);
+  
     }
    
     public function getTalleRemera(){
