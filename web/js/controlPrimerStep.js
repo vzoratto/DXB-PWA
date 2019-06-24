@@ -1,7 +1,7 @@
 $(document).ready(function() {
     //Remuevo la clase "next-step" en el primer paso para que no puedan pasar de step sin antes controlar los datos
     $('#stepwizard_step1_next').removeClass('next-step');
-    $('#usuario-dniusuario').attr('siguiente', 'false');
+    //$('#usuario-dniusuario').attr('siguiente', 'false');
 
     //Si se registra un cambio en cualquier input valido lo ingresado
     //Valido el ingreso cuando hay un cambio en Nombre
@@ -55,7 +55,7 @@ $(document).ready(function() {
     $('#usuario-dniusuario').keyup(function() {
         controlarExistenciaDni();
     })
-    controlarExistenciaDni();
+   // controlarExistenciaDni();
 })
 
 //Si se clickea en siguiente controlo los valores ingresados. En caso correcto pasa al siguiente step
@@ -69,9 +69,9 @@ $('#stepwizard_step1_next').click(function() {
     var validoFechaNac = controlFechaNac(); //Valido fecha nacimiento
     var validoCapitanCorredor = controlCapitanCorredor(); //Valido el ingreso de las opciones de capitan o corredor
     var validoNumDoc = controlNumDoc(); //Valido el ingreso del numero de docuemento
-    var validacionExistenciaDni = $('#usuario-dniusuario').attr('siguiente');
+    //var validacionExistenciaDni = $('#usuario-dniusuario').attr('siguiente');
     //Si los campos estan correcto agrego la clase "next-step" para pasar al siguiente step
-    if (validoNombre && validoApellido && validoNacionalidad && validoSexo && validoTalleRemera && validoFechaNac && validoCapitanCorredor && validoNumDoc && validacionExistenciaDni == 'true') {
+    if (validoNombre && validoApellido && validoNacionalidad && validoSexo && validoTalleRemera && validoFechaNac && validoCapitanCorredor && validoNumDoc /*&& validacionExistenciaDni == 'true'*/) {
         $('#stepwizard_step1_next').addClass('next-step'); //Agrego la clase
     } else {
         $('#stepwizard_step1_next').removeClass('next-step'); //En caso contrario remuevo la clase
