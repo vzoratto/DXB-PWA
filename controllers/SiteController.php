@@ -219,8 +219,8 @@ class SiteController extends Controller
             $activar->activado = 1;
             $activar->authkey = $this->randKey("AxWb98760z", 50);//nueva clave será utilizada para activar el usuario
             if ($activar->save()){
-                        echo "Perfecto registro llevado a cabo correctamente, redireccionando ...";
-                        echo "<meta http-equiv='refresh' content='8; ".Url::toRoute("site/login")."'>";
+                        echo "Registro llevado a cabo correctamente. Será redirigido a la página de Desafio por Bardas...";
+                        echo "<meta http-equiv='refresh' content='6; ".Url::toRoute("site/login")."'>";
                             //echo Url::to('site/login');//redirige al login
            } else {
                $mensaje="No se pudo activar la cuenta, comunicate con el administrador";
