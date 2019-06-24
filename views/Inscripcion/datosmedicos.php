@@ -41,7 +41,7 @@ use yii\widgets\ActiveForm;
         </div>
         <div id="donador" class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
           <div class="db-label m-0">
-            <label class="m-0">¿Donador de sangre?</label>
+            <label id="donadorDatosMedicos" class="m-0">¿Donador de sangre?</label>
           </div>
             <?= $form->field($persona, 'donador')->radioList(array(true=>'Si', false=>'No'))
                                                             ->label(''); ?>
@@ -51,8 +51,8 @@ use yii\widgets\ActiveForm;
 
     <div class="row db-label">
         <div id="evaluacionMedica" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-          <div class="db-label m-0">
-            <label class="m-0">¿Se ha realizado una evaluación médica en el presente año?</label>
+          <div  class="db-label m-0">
+            <label id="evaluacionDatosMedicos" class="m-0">¿Se ha realizado una evaluación médica en el presente año?</label>
           </div>
         <!-- campo tipo radioButton, con dos opciones: SI o NO -->
             <?= $form->field($fichaMedica, 'evaluacionMedica')->radioList(array(true=>'Si', false=>'No'))
@@ -61,7 +61,7 @@ use yii\widgets\ActiveForm;
 
         <div id="intervencionQuirurgica" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
           <div class="db-label m-0">
-            <label class="m-0">¿Se ha realizado una intervención quirúrgica?</label>
+            <label id="intervencionDatosMedicos" class="m-0">¿Se ha realizado una intervención quirúrgica?</label>
           </div>
         <!-- campo tipo radioButton, con dos opciones: SI o NO -->
             <?= $form->field($fichaMedica, 'intervencionQuirurgica')->radioList(array(true=>'Si',false=>'No'))
@@ -72,7 +72,7 @@ use yii\widgets\ActiveForm;
     <div class="row">
         <div id="suplementos" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
           <div class="db-label m-0">
-            <label class="m-0">¿Toma suplementos?</label>
+            <label id="suplementosDatosMedicos" class="m-0">¿Toma suplementos?</label>
           </div>
         <!-- campo tipo radioButton, con dos opciones: SI o NO -->
         <?= $form->field($fichaMedica, 'suplementos')->radioList(array(true=>'Si',false=>'No'))
@@ -81,7 +81,7 @@ use yii\widgets\ActiveForm;
 
         <div id="tomaMedicamentos" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
           <div class="db-label m-0">
-            <label class="m-0">¿Toma medicamentos?</label>
+            <label id="tomaMedicamentosDatosMedicos" class="m-0">¿Toma medicamentos?</label>
           </div>
 
                 <!-- campo tipo radioButton, con dos opciones: SI o NO -->

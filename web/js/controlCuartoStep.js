@@ -45,15 +45,19 @@ $('#stepwizard_step4_next').click(function() {
 function controlNomPersonaEmergencia() {
     var nomPerEme = $('#personaemergencia-nombrepersonaemergencia').val(); //Valor del nombre de la persona emergencia
     var patron = /^[a-zA-Z.,-]+(?:\s[a-zA-Z.,-]+)*$/; //Patron a respetar
-    var cantCaracteresNombreEmergenia = nomPerEme.length;//Cantidad de caracteres del nombre persona de emergencia
+    var cantCaracteresNombreEmergenia = nomPerEme.length; //Cantidad de caracteres del nombre persona de emergencia
     var siguiente = false;
     if (patron.test(nomPerEme) && nomPerEme !== "" && cantCaracteresNombreEmergenia > 1) {
         //Si el valor es distinto a vacio y se respeta el patron se borra el borde para mostrar que no hay error
         $('#personaemergencia-nombrepersonaemergencia').css('border', 'none');
+        $('.field-personaemergencia-nombrepersonaemergencia').removeClass('has-error');
+        $('.field-personaemergencia-nombrepersonaemergencia').addClass('has-success');
         siguiente = true; //Y si setea la variabnle en true
     } else {
         //En caso contrario se agrega un borde rojo para indicar que hay un error
         $('#personaemergencia-nombrepersonaemergencia').css('border', '1px solid #a94442');
+        $('.field-personaemergencia-nombrepersonaemergencia').removeClass('has-success');
+        $('.field-personaemergencia-nombrepersonaemergencia').addClass('has-error');
         siguiente = false; //Y se setea la variable en false
     }
     return siguiente;
@@ -68,10 +72,14 @@ function controlApellidoEmergencia() {
     if (patron.test(appePerEme) && appePerEme !== "" && cantCaracteresApellidoEmergenia > 1) {
         //Si el valor es distinto a vacio y se respeta el patron se borra el borde para mostrar que no hay error
         $('#personaemergencia-apellidopersonaemergencia').css('border', 'none');
+        $('.field-personaemergencia-apellidopersonaemergencia').removeClass('has-error');
+        $('.field-personaemergencia-apellidopersonaemergencia').addClass('has-success');
         siguiente = true; //Y si setea la variabnle en true
     } else {
         //En caso contrario se agrega un borde rojo para indicar que hay un error
         $('#personaemergencia-apellidopersonaemergencia').css('border', '1px solid #a94442');
+        $('.field-personaemergencia-apellidopersonaemergencia').removeClass('has-success');
+        $('.field-personaemergencia-apellidopersonaemergencia').addClass('has-error');
         siguiente = false; //Y se setea la variable en false
     }
     return siguiente;
@@ -83,10 +91,14 @@ function controlVinculoEmergencia() {
     if (vinPerEme > 0) {
         //Si el valor es distinto a vacio y se respeta el patron se borra el borde para mostrar que no hay error
         $('#personaemergencia-idvinculopersonaemergencia').css('border', 'none');
+        $('.field-personaemergencia-idvinculopersonaemergencia').removeClass('has-error');
+        $('.field-personaemergencia-idvinculopersonaemergencia').addClass('has-success');
         siguiente = true; //Y si setea la variabnle en true
     } else {
         //Si esta vacio se agrega un borde rojo para indicar que hay un error
         $('#personaemergencia-idvinculopersonaemergencia').css('border', '1px solid #a94442');
+        $('.field-personaemergencia-idvinculopersonaemergencia').removeClass('has-success');
+        $('.field-personaemergencia-idvinculopersonaemergencia').addClass('has-error');
         siguiente = false; //Y se setea la variable en false
     }
     return siguiente;
@@ -96,21 +108,24 @@ function controlTelefono() {
     var telPersona = $('#persona-telefonopersona').val(); //Valor del telefono personal
     var telPersonaEmergencia = $('#personaemergencia-telefonopersonaemergencia').val(); //Valor telefono de emergencia
     var siguiente = false;
-    if(telPersonaEmergencia == ""){
-            $('#personaemergencia-telefonopersonaemergencia').css('border', '1px solid #a94442');
-            siguiente = false; //Y seteo la variable en false
-    }else{
+    if (telPersonaEmergencia == "") {
+        $('#personaemergencia-telefonopersonaemergencia').css('border', '1px solid #a94442');
+        $('#telefonoContactoEmergenciaLabel').css('color', '#a94442'); //Color rojo al label por que hay un error
+        siguiente = false; //Y seteo la variable en false
+    } else {
         if (telPersona == telPersonaEmergencia) {
             //Si los telefonos son iguales muestro un mensaje de error
             if ($('#msjTelefonoIgual').children().length < 1) {
                 $("#msjTelefonoIgual").append("<small style='color:#a94442'>El contacto de emergencia debe ser distinto a su numero</small>");
                 $('#personaemergencia-telefonopersonaemergencia').css('border', '1px solid #a94442');
+                $('#telefonoContactoEmergenciaLabel').css('color', '#a94442'); //Color rojo al label por que hay un error
                 siguiente = false; //Y seteo la variable en false
             }
         } else {
             //Si son distintos borro el mensaje
             $("#msjTelefonoIgual").empty();
             $('#personaemergencia-telefonopersonaemergencia').css('border', 'none');
+            $('#telefonoContactoEmergenciaLabel').css('color', '#3c763d'); //Color verde por que esta correcto
             siguiente = true; //Y seteo la variable en true
         }
     }
