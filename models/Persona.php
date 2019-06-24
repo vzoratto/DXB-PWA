@@ -227,16 +227,16 @@ class Persona extends \yii\db\ActiveRecord
         //estados
     public function inscrito(){
         //0 para los usuarios visitantes
-        //1 para los inscritos
-        //2 para los no inscritos
-        //3 para los usuarios inscritos que ya actualizaron su perfil
+        //1 para los inscriptos
+        //2 para los no inscriptos
+        //3 para los usuarios inscriptos que ya actualizaron su perfil
         $estado=0;
         if(!Yii::$app->user->isGuest){
             $persona=self::findOne(['idUsuario' => $_SESSION['__id']]);
             if($persona!=null){
-                //el usuario esta inscrito a la carrera
+                //el usuario esta inscripto a la carrera
                 $estado=1;
-                //si el usuario iscrito a la carrera ya modifico sus datos se setea a 3
+                //si el usuario iscripto a la carrera ya modifico sus datos se setea a 3
                 if($persona->deshabilitado==2){
                     $estado=3;
                 }
