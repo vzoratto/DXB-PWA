@@ -1,5 +1,6 @@
 var value = $('#editar').val();
-if(!value==1) {
+console.log(value);
+if(value==0) {
     $(document).ready(function() {
         //Remuevo la clase "next-step" en el primer paso para que no puedan pasar de step sin antes controlar los datos
         $('#stepwizard_step1_next').removeClass('next-step');
