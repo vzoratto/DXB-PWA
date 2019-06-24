@@ -224,6 +224,31 @@ class Persona extends \yii\db\ActiveRecord
     {
         return $this->nombrePersona.' '.$this->apellidoPersona;
     }
+        //estados
+    public function inscrito(){
+        //0 para los usuarios visitantes
+        //1 para los inscritos
+        //2 para los no inscritos
+        //3 para los usuarios inscritos que ya actualizaron su perfil
+        $estado=0;
+        if(!Yii::$app->user->isGuest){
+            $persona=self::findOne(['idUsuario' => $_SESSION['__id']]);
+            if($persona!=null){
+                //el usuario esta inscrito a la carrera
+                $estado=1;
+                //si el usuario iscrito a la carrera ya modifico sus datos se setea a 3
+                if($persona->deshabilitado==2){
+                    $estado=3;
+                }
+            }else{
+                $estado=2;
+            }
+        }else{
+            //es visitante
+            $estado=0;
+        }
+        return $estado;
+    }
 
 	
 }
