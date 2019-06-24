@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                   return $model->persona->nombrePersona;
               }
             ],
-            'imagencomprobante:image',
+            
             ['label'=>'Imagen ticket',
              'attribute'=>'imagencomrobante',
              'format'=>'html',

@@ -17,29 +17,26 @@ use app\models\Estadopago;
 use dimmitri\grid\ExpandRowColumn;
 use kartik\export\ExportMenu;
 
-use buttflattery\formwizard\FormWizard; 
-use kartik\tabs\TabsX;
-//use yii\widgets\ActiveForm;
-
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PersonaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Menu Gestor ';
+$this->title = 'Listado De Participantes ';
 ?>
 <div class="persona-index">
-<h1> <br> </h1>
 
 
+    <h1><?= Html::encode($this->title) ?></h1>
 	  
+    <h2>Total de Participantes: <?= Html::encode($dataProvider->getCount()) ?></h2>
 	 <?php
 		$gridColumns = [
             ['class' => 'yii\grid\SerialColumn'],
 			[   'label' => 'Corredor',
                 'class' => ExpandRowColumn::class,
-                'attribute' => 'apellidoPersona',
+                'attribute' => 'nombre_completo',
 				'value' => function($model) {
-                    return ($model->persona->apellidoPersona.' '.$model->persona->nombrePersona );
+				   return($model->nombre_completo);
                 },
                 'column_id' => 'column-info',
                 'url' => Url::to(['view']),
@@ -53,7 +50,7 @@ $this->title = 'Menu Gestor ';
             ],
 
             ['label' => 'Categoria',
-                'attribute' => 'idTipoCarrera',
+                'attribute' => 'categoria',
                 'value' => function($model) {
                     return ($model->tipoCarrera->descripcionCarrera);
                 },
@@ -62,20 +59,14 @@ $this->title = 'Menu Gestor ';
 			['label' => 'Equipo',
 			'attribute' => 'nombreEquipo',
                 'value' => function($model) {
-					//if($model->nombreEquipo ){
                     return ($model->equipo->nombreEquipo);
-					
                 },
-             //   'filter' => ArrayHelper::map(Persona::find()->asArray()->all(), 'idPersona', 'donador'),
             ],
 			['label' => 'Capitan',
 			'attribute' => 'dniCapitan',
                 'value' => function($model) {
-					//if($model->nombreEquipo ){
                     return ($model->equipo->dniCapitan);
-					
                 },
-             //   'filter' => ArrayHelper::map(Persona::find()->asArray()->all(), 'idPersona', 'donador'),
             ],
           ['class' => 'yii\grid\ActionColumn',
                  'contentOptions'=>

@@ -32,7 +32,7 @@ AppAsset::register($this);
     <?php
     NavBar::begin([
         'brandLabel' => 'Area Gestion de datos',
-        'brandUrl' => 'index.php?r=site%2Fgestionar',
+        'brandUrl' => 'index.php?r=site%2Fgestor',
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -40,7 +40,6 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Gestor', 'url' => ['/site/gestionar']],
             ['label' => 'Equipos', 'url' => ['/equipo/index']],
             ['label' => 'Participantes','items' => [
                 ['label' => 'Ver Todos', 'url' => ['/carrerapersona/index']],
@@ -52,12 +51,10 @@ AppAsset::register($this);
 			],
 			['label' => 'Encuesta','items' => [
                 ['label' => 'Crear Encuesta', 'url' => ['/encuesta/index']],
-                ['label' => 'Restultados Encuesta', 'url' => ['/respuesta/index']],
+                ['label' => 'Resultados Encuesta', 'url' => ['/respuesta/index']],
 				
 			],
-			],
-			
-            ['label' => 'Carrera', 'url' => ['/carrerapersona/index']],
+        ],
 			
             Yii::$app->user->isGuest ? (
                 ''

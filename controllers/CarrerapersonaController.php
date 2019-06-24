@@ -6,6 +6,7 @@ use Yii;
 use app\models\Carrerapersona;
 use app\models\Carrerapersonasearch;
 use app\models\Persona;
+use app\models\Permiso;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,7 +37,11 @@ class CarrerapersonaController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout='/main3';
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $searchModel = new Carrerapersonasearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $persona = new \app\models\Persona();
@@ -58,7 +63,11 @@ class CarrerapersonaController extends Controller
      */
     public function actionView($idTipoCarrera, $idPersona)
     {
-        $this->layout='/main3';
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         return $this->render('view', [
             'model' => $this->findModel($idTipoCarrera, $idPersona),
         ]);
@@ -71,6 +80,11 @@ class CarrerapersonaController extends Controller
      */
     public function actionCreate()
     {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $model = new Carrerapersona();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -92,7 +106,11 @@ class CarrerapersonaController extends Controller
      */
     public function actionUpdate($idTipoCarrera, $idPersona)
     {
-        $this->layout = '/main3';
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $personaC = new Persona();
         $model = $personaC-> findOne(['idPersona'=>$idPersona]);
 
@@ -106,21 +124,29 @@ class CarrerapersonaController extends Controller
     }
 	public function actionUpdatekit($idTipoCarrera, $idPersona)
     { 
-	    $this->layout = '/main3';
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $model = $this->findModel($idTipoCarrera, $idPersona);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'idTipoCarrera' => $model->idTipoCarrera, 'idPersona' => $model->idPersona]);
+            return $this->redirect(['kit', 'idTipoCarrera' => $model->idTipoCarrera, 'idPersona' => $model->idPersona]);
         }
 
-        return $this->render('kit', [
+        return $this->render('updatekit', [
             'model' => $model,
         ]);
     }
 	
     public function actionUpdatepersona($idTipoCarrera, $idPersona)
     {
-        $this->layout = '/main3';
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $personaC= new Persona();
         $model = $this->findModel($idTipoCarrera,$idPersona);
 
@@ -145,7 +171,11 @@ class CarrerapersonaController extends Controller
      */
     public function actionDelete($idTipoCarrera, $idPersona)
     {
-        $this->layout = '/main3';
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $this->findModel($idTipoCarrera, $idPersona)->delete();
 
         return $this->redirect(['index']);
@@ -169,8 +199,20 @@ class CarrerapersonaController extends Controller
     }
 	
    public function actionKit(){
-	   $this->layout = '/main3';
-	   return $this->render('indexkit');
+    $searchModel = new Carrerapersonasearch();
+    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    if(Permiso::requerirRol('administrador')){
+        $this->layout='/main2';
+    }elseif(Permiso::requerirRol('gestor')){
+        $this->layout='/main3';
+    }
+    
+    
+    return $this->render('indexkit', [
+        'searchModel' => $searchModel,
+        'dataProvider'=> $dataProvider,
+        
+    ]);
    }
 
 }

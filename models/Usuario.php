@@ -6,7 +6,7 @@ use Yii;
 use yii\web\IdentityInterface;
 use yii\helpers\ArrayHelper;
 use app\models\Rol;
-use app\models\Usuario;
+
 
 /**
  * This is the model class for table "usuario".
@@ -44,7 +44,7 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             //definicion de campos obligatorios
-            [['dniUsuario', 'claveUsuario', 'mailUsuario', 'authkey', 'activado', 'idRol'], 'required','message'=>'Este campo es obligatorio.'],
+            [['dniUsuario', 'claveUsuario', 'mailUsuario', 'authkey', 'activado'], 'required','message'=>'Este campo es obligatorio.'],
             //valida que los datos dniUsuario, activado e idRol sean de tipo entero
             [['dniUsuario', 'activado', 'idRol'], 'integer','message'=>'Este valor es incorrecto.'],
             //valida que claveUsuario y mailUsuario sean de tipo string con un maximo de 100 caracteres

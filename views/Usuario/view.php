@@ -7,8 +7,7 @@ use app\models\Usuario;
 /* @var $model app\models\Usuario */
 
 $this->title = 'Usuario: '.$model->idUsuario;
-$this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="usuario-view">
@@ -23,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
               echo  Html::a('Eliminar', ['delete', 'id' => $model->idUsuario], [
                 'class' => 'btn btn-danger',
                 'data' => [
-                    'confirm' => 'Are you sure you want to delete this item?',
+                    'confirm' => 'Esta seguro que quiere eliminar este registro???',
                     'method' => 'post',
                 ],
             ]);     

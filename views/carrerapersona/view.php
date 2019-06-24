@@ -17,7 +17,7 @@ use yii\widgets\DetailView;
 		['label' => 'Edad',
                 'attribute' => 'edad',
                 'value' => function($model) {
-                    return ($model->persona->fechaNacPersona);
+                    return ($model->edad.' años ('.$model->persona->fechaNacPersona.')');
                 }
             ],
 			['label' => 'Telefono',

@@ -11,7 +11,6 @@ use app\models\Rol;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Usuarios';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="usuario-index">
 
@@ -19,10 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Crear Usuario', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-    
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    </p>s
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

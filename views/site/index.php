@@ -1,4 +1,9 @@
-<?php use yii\helpers\Url; ?>
+<?php 
+use yii\helpers\Url;
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
+
+ ?>
 
 <section id="inicio" class="contenedor-full p-0">
 <?php
@@ -30,7 +35,7 @@
 
         <div class="logo wow fadeIn">
 
-          <img src="assets/img/logo-inicio.png" alt="">
+          <img src="assets/img/logo-inicio.png" alt="logo inicio">
 
           <div class="wow fadeIn btn-dual text-center mt-ten relative">
 
@@ -226,27 +231,33 @@
               </div>
 
             </div>
-
+            <div class="site-contact"></div>
               <div class="col-xs-12 col-md-7">
                 <h4 class="titulo-primario" id="contacto">Contactanos</h3>
-                  <form>
+                <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
                     <div class="form-group">
-                      <input type="email" class="input-db" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail *">
+                       <?= $form->field($model, 'email')->textInput(['class'=>'input-db','id'=>'exampleInputEmail1','aria-describedby'=>'emailHelp',' placeholder'=>'E-mail *']) ?>
                     </div>
                     <div class="form-group">
-                      <input type="text" class="input-db" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Asunto *">
+                       <?= $form->field($model, 'subject')->textInput(['class'=>'input-db','id'=>'exampleInputEmail1','aria-describedby'=>'emailHelp',' placeholder'=>'Asunto *']) ?>
                     </div>
                     <div class="form-group">
-                      <textarea class="input-db" id="exampleInputComentario" placeholder="Ingrese su mensaje... *" rows="3"></textarea>
+                       <?= $form->field($model, 'body')->textarea(['class'=>'input-db','id'=>'exampleInputComentario','placeholder'=>'Ingrese su mensaje... *','rows' => 3]) ?>
                     </div>
-                    <button type="submit" class="btn btn-grande btn-rounded btn-carrera mt-10">Enviar</button>
-                  </form>
+                    <div class="form-group">
+                        <?= Html::submitButton('Enviar', ['class' => 'btn btn-grande btn-rounded btn-carrera mt-10', 'name' => 'contact-button']) ?>
+                    </div>
+                <?php ActiveForm::end(); ?>
               </div>
-
+            </div>
           </div>
 
         </div>
-
+        <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
+        <div class="alert alert-success" align="center">
+        Gracias por contactarnos. Responderemos a la mayor brevedad posible.
+        </div>
+        <?php endif; ?>
         </section>
         <section id="footer">
           <div class="container">

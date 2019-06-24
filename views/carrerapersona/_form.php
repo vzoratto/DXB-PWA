@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'idTalleRemera')->textInput() ?>
+    <?= $form->field($model, 'idTalleRemera')->textInput(['maxlength' => true , 'disabled' => true]) ?>
 
     <?= $form->field($model, 'nombrePersona')->textInput(['maxlength' => true]) ?>
 
@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'fechaNacPersona')->textInput() ?>
 
-    <?= $form->field($model, 'sexoPersona')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'sexoPersona')->textInput(['maxlength' => true , 'hidden'=>true]) ?>
 
     <?= $form->field($model, 'nacionalidadPersona')->textInput(['maxlength' => true]) ?>
 
@@ -47,7 +47,7 @@ use yii\widgets\ActiveForm;
     
     
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar Datos', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

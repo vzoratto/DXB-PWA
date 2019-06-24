@@ -9,26 +9,24 @@ use app\models\Usuario;
 /* @var $searchModel app\models\PersonaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Personas';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Corredor';
+
 ?>
 <div class="persona-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Persona', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+   <h3><?= Html::encode($mensaje) ?></h3>
+    
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
-            //'idPersona',
+            [  'label'=>'Referencia',
+                'attribute'=>'idPersona',
+           ],
             //'idTalleRemera',
             'nombrePersona',
             'apellidoPersona',
@@ -42,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  'value' => function($model) {
                      return ($model->usuario->dniUsuario);
                  },
-                //'filter' => ArrayHelper::map(Usuario::find()->asArray()->all(), 'idUsuario', 'dniUsuario')
+                'filter' => ArrayHelper::map(Usuario::find()->asArray()->all(), 'idUsuario', 'dniUsuario'),
                 
                ],
                  //'idPersonaDireccion',
