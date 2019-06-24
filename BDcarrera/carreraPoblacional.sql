@@ -23092,9 +23092,9 @@ INSERT INTO `vinculopersona` (`idVinculo`, `nombreVinculo`) VALUES
 -- Volcado de datos para la tabla `tipocarrera`
 --
 
-INSERT INTO `tipocarrera` (`idTipoCarrera`, `descripcionCarrera`, `deshabilitado`) VALUES
-(1, 'Recreativa - 4 KM', NULL),
-(2, 'Competitiva - 8 KM', NULL);
+INSERT INTO `tipocarrera` (`idTipoCarrera`, `descripcionCarrera`, `cantidadMaximaCorredores` ,`deshabilitado`) VALUES
+(1, 'Recreativa - 4 KM', 3, NULL),
+(2, 'Competitiva - 8 KM', 8 ,NULL);
 
 -- --------------------------------------------------------
 
