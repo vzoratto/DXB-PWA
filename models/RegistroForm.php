@@ -87,13 +87,48 @@ use app\models\Usuario;
                     $mailUsuario = $user->mailUsuario;
                     $authkey = urlencode($user->authkey);
                     $subject = "Validar direccion de correo";// Asunto del mail
-                    $body = "<h1>Desafio por Bardas</h1><br>
-                    <h2>Hola Usuario ". $dni .". Gracias por registrarse en Desafio por Bardas. </h2> <br/> 
-                    <h2>Para finalizar su registro y poder inscribirse a la carrera, por favor valide su cuenta clickeando en el siguiente enlace. </h2><br/>
-                    <a href='http://localhost/carrera/web/index.php?r=site/activarcuenta&d=".$dni."&c=".$authkey."'>Validar Cuenta</a> <br/>
-					<a href='www.facebook.com'><img src='facebook.png' alt='fb'></a><br>
-                    Este mensaje de correo electrónico se envió a ".$mailUsuario;
-        
+                    $body = "
+                        <div style='width:100%; background:#eee; position:relative; font-family:sans-serif; padding-bottom:40px'>
+                                <div style='position:relative; margin:auto; width:600px; background:white; padding:20px'>
+
+                                        <center>
+
+
+                                        <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
+
+                                        <h2 style='font-weight:100; color:#999'>DESAFIO POR LAS BARDAS</h2>
+
+                                        <hr style='border:1px solid #ccc; width:90%'>
+                                        <h3 style='font-weight:100; color:#999; padding:0 20px'><strong>Su registro se completo exitósamente. </strong></h3><br>
+                                        <h4 style='font-weight:100; color:#999; padding:0 20px'>Gracias por registrarse en Desafio por Bardas</h4>
+                                        <h4 style='font-weight:100; color:#999; padding:0 20px'>Para finalizar su registro y poder inscribirse a la carrera, por favor valide su cuenta ingresando al siguiente enlace</h4>
+
+                                        <a href='http://localhost/carrera/web/index.php?r=site/activarcuenta&d=".$dni."&c=".$authkey."' style='text-decoration:none'>
+
+                                        <div style='line-height:60px; background:#ff8f04; width:60%; color:white'>Validar cuenta</div>
+
+                                        </a>
+
+                                        <br>
+
+                                        <hr style='border:1px solid #ccc; width:90%'>
+
+                                        <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-kyzwnDvqRrA/XREB-8qtiJI/AAAAAAAAAkM/CMPVQEjwxDcHXyvMg62yuOt_bpY-SwDLgCLcBGAs/s320/placas%2B4-03.jpg'>
+
+                                        <h5 style='font-weight:100; color:#999'>Este mensaje de correo electrónico se envió a ".$mailUsuario."</h5>
+                                            
+                                        <h5 style='font-weight:100; color:#999'>Te invitamos a que veas nuestras redes sociales.</h5>
+
+                                        <a href='#'><img src='https://1.bp.blogspot.com/-BR60W75cIco/XREFTGbPHZI/AAAAAAAAAks/FQUMI8DkynoP69YnYRjGZ1ylnNeYhM5BwCLcBGAs/s320/facebook-logo.png' style='width: 7%'></a>
+                                        <a href='#'><img src='https://1.bp.blogspot.com/-xhmzOVdv0xc/XREFTPz-ZyI/AAAAAAAAAk0/y2OOhH7A1fgRSswuqDkcKaRRkPMFkwEEwCLcBGAs/s320/twitter-logo.png' style='width: 7%'></a>
+                                        <a href='#'><img src='https://1.bp.blogspot.com/-NKIBF9SSXCU/XREFTOvwjII/AAAAAAAAAkw/cn679IM4LMQvcIMVCsgetU7gTDyM5DhwgCLcBGAs/s320/instagram-logo.png' style='width: 7%'></a>
+		
+                                        </center>
+
+                                </div>
+
+                        </div>";
+       
         				  
                    return Yii::$app->mailer->compose()
                         //->setFrom('carreraxbarda@gmail.com')
