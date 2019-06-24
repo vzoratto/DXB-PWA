@@ -14,7 +14,7 @@ use kartik\export\ExportMenu;
 
 $this->title = 'Fichas Medicas';
 ?>
-<div class="fichamedica-index">
+<div class="fichamedica-index reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 	
@@ -136,7 +136,10 @@ echo \kartik\grid\
      GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
-	'columns' => $gridColumns
+	'columns' => $gridColumns,
+	'options' => [
+		'class' => 'table-responsive',
+	],
      ]);
 ?>
  </p>

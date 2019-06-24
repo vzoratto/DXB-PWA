@@ -10,17 +10,12 @@ use app\models\Rol;
 /* @var $searchModel app\models\GestoresSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Administrativos';
-$this->params['breadcrumbs'][] = ['label' => 'Admin', 'url' => ['administrar']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Listado administrador/gestor';
+
 ?>
 <div class="gestores-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Crear Administrativos', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

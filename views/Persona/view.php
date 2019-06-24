@@ -7,8 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Persona */
 
 $this->title = $model->idPersona;
-$this->params['breadcrumbs'][] = ['label' => 'Personas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="persona-view">
@@ -16,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->idPersona], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->idPersona], [
+        <?= Html::a('Actualizar', ['update', 'id' => $model->idPersona], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Eliminar', ['inscripcion/delete', 'id' => $model->idPersona], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                //'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -29,23 +28,30 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-           // 'idPersona',
+            [  'label'=>'Referencia Persona',
+                'attribute'=>'idPersona',
+        ],
            // 'idTalleRemera',
             'nombrePersona',
             'apellidoPersona',
             'fechaNacPersona',
-            'sexoPersona',
-            'nacionalidadPersona',
+           // 'sexoPersona',
+           // 'nacionalidadPersona',
             'telefonoPersona',
             'mailPersona',
-            //'idUsuario',
-           // 'idPersonaDireccion',
-            //'idFichaMedica',
-            'fechaInscPersona',
+            [ 'label'=>'DNI',
+                'attribute' => 'idUsuario',
+                 'value' => function($model) {
+                     return ($model->usuario->dniUsuario);
+                 },
+                ],
+            //'idPersonaDireccion',
+           // 'idFichaMedica',
+            //'fechaInscPersona',
            // 'idPersonaEmergencia',
            // 'idResultado',
-            'donador',
-            //'deshabilitado',
+           // 'donador',
+           // 'deshabilitado',
         ],
     ]) ?>
 

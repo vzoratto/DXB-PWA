@@ -30,7 +30,7 @@ class Carrerapersonasearch extends Carrerapersona {
     public function rules() {
         return [
             [['idTipoCarrera', 'idPersona', 'reglamentoAceptado', 'retiraKit'], 'integer'],
-            [['apellidoPersona', 'nombrePersona', 'dniUsuario', 'talleRemera','nombreEquipo','dniCapitan','sexoPersona','categoria'], 'safe'],
+            [['apellidoPersona', 'nombrePersona', 'dniUsuario', 'talleRemera','nombreEquipo','dniCapitan','sexoPersona','categoria','nombre_completo','edad'], 'safe'],
         ];
     }
 
@@ -94,6 +94,7 @@ class Carrerapersonasearch extends Carrerapersona {
         $query->andFilterWhere(['like', 'tipoCarrera.idTipoCarrera', $this->categoria]);
         $query->andFilterWhere(['like', 'equipo.nombreEquipo', $this->nombreEquipo]);
         $query->andFilterWhere(['like', 'equipo.dniCapitan', $this->dniCapitan]);
+		 $query->andFilterWhere(['like', 'CONCAT(apellidoPersona, " ", nombrePersona)', $this->nombre_completo]);
 
         return $dataProvider;
     }

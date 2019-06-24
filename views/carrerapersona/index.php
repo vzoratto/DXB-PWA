@@ -23,7 +23,7 @@ use kartik\export\ExportMenu;
 
 $this->title = 'Listado De Participantes ';
 ?>
-<div class="persona-index">
+<div class="carrerapersona-index reglamento-container">
 
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -34,9 +34,9 @@ $this->title = 'Listado De Participantes ';
             ['class' => 'yii\grid\SerialColumn'],
 			[   'label' => 'Corredor',
                 'class' => ExpandRowColumn::class,
-                'attribute' => 'apellidoPersona',
+                'attribute' => 'nombre_completo',
 				'value' => function($model) {
-                    return ($model->persona->apellidoPersona.' '.$model->persona->nombrePersona );
+				   return($model->nombre_completo);
                 },
                 'column_id' => 'column-info',
                 'url' => Url::to(['view']),
@@ -131,3 +131,4 @@ echo \kartik\grid\
  </p>
 
 </div>
+</section>

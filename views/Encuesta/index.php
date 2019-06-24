@@ -20,9 +20,10 @@ $this->title = 'Listado de Encuestas y Trivias';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="container">
-
-    <div class="encuesta-index">
+<div class="wrap">
+    <div class="container">
+    <br><br>
+    <div class="encuesta-index reglamento-container">
 
         <h1><?= Html::encode($this->title) ?></h1>
         <hr>
@@ -120,6 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\ActionColumn', 'template'=> '{update}'],           
             ],
         ]); ?>
+    </div>
     </div>
 </div>
 

@@ -35,7 +35,7 @@ use yii\widgets\MaskedInput;
 
         <!-- Ingreso de telefono. Se utiliza el widget phoneinput para ayudar el ingreso del mismo -->
         <div id="telefonoPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-        <label>Teléfono </label>
+        <label id="telefonoPersonaContacto">Teléfono </label>
             <?= $form->field($persona, 'telefonoPersona')->widget(PhoneInput::className(), [
                 'jsOptions' => [
                 'allowExtensions' => true,
@@ -84,12 +84,12 @@ use yii\widgets\MaskedInput;
     <div id="direccionUsuario">
         <div class="row db-label">
             <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6" id="calleDireccion">
-              <label>Calle </label>
+              <label id="calleContacto">Calle </label>
                 <?= Html::input('text','calle',$datos['calle'], $option=['class'=>'form-control','id'=>'calle','placeholder' => 'Calle']) ?>
                 <div id="msjErrorCalle"></div>
             </div>
             <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2" id="numeroDireccion">
-              <label>Número </label>
+              <label id="numeroContacto">Número </label>
                 <?=  Html::input('text','numero', $datos['numero'], $option=['class'=>'form-control', 'id'=> 'numero','placeholder' => 'Numero']) ?>
                 <div id="msjErrorNumero"></div>
             </div>

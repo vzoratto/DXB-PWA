@@ -29,6 +29,7 @@ use app\models\Parametros;
 use app\models\Carrerapersona;
 use app\models\Listadeespera;
 use app\models\RegistroForm;
+use app\models\Permiso;
 use yii\helper\Json;
 use yii\base\Security;
 
@@ -55,7 +56,11 @@ class InvitadoController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout='/main3';
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         //se instancia una variable por cada modelo a utilizar
         $persona = new \app\models\Persona(); //Instanciamos una variable
         $usuario = new \app\models\Usuario(); //Instanciamos una variable

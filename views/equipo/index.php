@@ -24,7 +24,8 @@ use buttflattery\formwizard\FormWizard;
 $this->title = 'Equipos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="equipo-index">
+<div class="equipo-index reglamento-container">
+
 
     <h1>Total de Equipos: <?= Html::encode($dataProvider->getCount()) ?></h1>
 

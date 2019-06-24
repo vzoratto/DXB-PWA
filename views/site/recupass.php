@@ -6,15 +6,13 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Recuperar Password';
+$this->title = 'Recuperar Contraseña';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-recupass">
-    <div class="form-group col-lg-6 col-md-offset-3" align="center">
-        <h1><?= Html::encode($this->title) ?></h1>
-        <img src="registro/iniciarsesion.png"  style="width: 150px;">
-    </div>
-    <div class="form-group col-lg-6 col-md-offset-3">
+<div class="cover-background contenedor-full full-section" style="background-image:url('assets/img/fondo.jpg');">
+    <div class="box-bd no-label" align="center">
+      <img class="center" src="assets/img/logo-color.png" alt="logo color">
+        <p><?= Html::encode($this->title) ?></p>
         <?php
         $form = ActiveForm::begin([
                     'id' => 'recupass-form',
@@ -34,11 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
              
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
-               <?= Html::submitButton('Recuperar', ['class' => 'btn btn-primary', 'name' => 'recupass-button']) ?>
+               <?= Html::submitButton('Recuperar', ['class' => 'btn btn-grande btn-rounded btn-carrera submitbutton width-100', 'name' => 'recupass-button']) ?>
             </div>
         </div>
 
-<?php ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
     </div>
 </div>
   

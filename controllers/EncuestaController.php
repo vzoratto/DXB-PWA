@@ -66,15 +66,11 @@ class EncuestaController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(["site/login"]); 
-        }
-        if(Permiso::requerirRol('administrador')){
-            $this->layout='/main2';
-        }elseif(Permiso::requerirRol('gestor')){
-            $this->layout='/main3';
-        }
+    {   if(Permiso::requerirRol('administrador')){
+        $this->layout='/main2';
+    }elseif(Permiso::requerirRol('gestor')){
+        $this->layout='/main3';
+    }
         $searchModel = new EncuestaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination=[
@@ -93,7 +89,11 @@ class EncuestaController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
-    {
+    {   if(Permiso::requerirRol('administrador')){
+        $this->layout='/main2';
+    }elseif(Permiso::requerirRol('gestor')){
+        $this->layout='/main3';
+    }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -105,15 +105,11 @@ class EncuestaController extends Controller
      * @return mixed
      */
     public function actionCreate()
-    {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(["site/login"]); 
-        }
-        if(Permiso::requerirRol('administrador')){
-            $this->layout='/main2';
-        }elseif(Permiso::requerirRol('gestor')){
-            $this->layout='/main3';
-        }
+    {   if(Permiso::requerirRol('administrador')){
+        $this->layout='/main2';
+    }elseif(Permiso::requerirRol('gestor')){
+        $this->layout='/main3';
+    }
         $model = new Encuesta();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -136,15 +132,11 @@ class EncuestaController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
-    {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(["site/login"]); 
-        }
-        if(Permiso::requerirRol('administrador')){
-            $this->layout='/main2';
-        }elseif(Permiso::requerirRol('gestor')){
-            $this->layout='/main3';
-        }
+    {   if(Permiso::requerirRol('administrador')){
+        $this->layout='/main2';
+    }elseif(Permiso::requerirRol('gestor')){
+        $this->layout='/main3';
+    }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -164,7 +156,11 @@ class EncuestaController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
-    {
+    {   if(Permiso::requerirRol('administrador')){
+        $this->layout='/main2';
+    }elseif(Permiso::requerirRol('gestor')){
+        $this->layout='/main3';
+    }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -178,7 +174,11 @@ class EncuestaController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
-    {
+    {   if(Permiso::requerirRol('administrador')){
+        $this->layout='/main2';
+    }elseif(Permiso::requerirRol('gestor')){
+        $this->layout='/main3';
+    }
         if (($model = Encuesta::findOne($id)) !== null) {
             return $model;
         }
