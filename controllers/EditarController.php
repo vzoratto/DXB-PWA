@@ -129,39 +129,77 @@ class EditarController extends Controller
 
     //funcion que actualiza los datos en la bd
     public function actionUpdate(){
-        print_r(Yii::$app->request->post());
-        die();
-        //accedemos a los datos Persona del formulario
-        $personaForm=Yii::$app->request->post()['Persona'];
-        //accedemos a los datos TalleRemera del formulario
-        $talleRemeraForm=Yii::$app->request->post()['TalleRemera'];
-        //accedemos a los datos TersonaEmergencia del formulario
-        $personaEmergenciaForm=Yii::$app->request->post()['Personaemergencia'];
-        //se busca el modelo Persona de la persona logueada
-        $persona=Persona::findOne(['idUsuario' => $_SESSION['__id']]);
-        //accedemos al modelo PersonaEmrgencia del usuario
-        $personaEmergencia=$persona->personaEmergencia;
-        //accedemos al modelo PersonaDireccion del usuario
-        $personaDireccion=$persona->personaDireccion;
-        $personaDireccion->idLocalidad=Yii::$app->request->post()['Localidad']['idLocalidad'];
-        $personaDireccion->direccionUsuario=Yii::$app->request->post()['calle'];
-        //se actualiza el modelo
-        $personaDireccion->update();
-        $personaEmergencia->nombrePersonaEmergencia=$personaEmergenciaForm['nombrePersonaEmergencia'];
-        $personaEmergencia->apellidoPersonaEmergencia=$personaEmergenciaForm['apellidoPersonaEmergencia'];
-        $personaEmergencia->telefonoPersonaEmergencia=$personaEmergenciaForm['telefonoPersonaEmergencia'];
-        $personaEmergencia->idVinculoPersonaEmergencia=$personaEmergenciaForm['idVinculoPersonaEmergencia'];
-        //se actualiza  el modelo
-        $personaEmergencia->update();
+        $transaction=Yii::$app->db->beginTransaction();
 
-        $persona->nacionalidadPersona=$personaForm['nacionalidadPersona'];
-        $persona->nombrePersona=$personaForm['nombrePersona'];
-        $persona->apellidoPersona=$personaForm['apellidoPersona'];
-        $persona->fechaNacPersona=$personaForm['fechaNacPersona'];
-        $persona->telefonoPersona=$personaForm['telefonoPersona'];
-        $persona->donador=$personaForm['donador'];
-        $persona->idTalleRemera=$talleRemeraForm['idTalleRemera'];
-        $persona->update();
+        try{
+
+            //se accede a los datos Persona del formulario
+            $personaForm=Yii::$app->request->post()['Persona'];
+            //se accede a los datos TalleRemera del formulario
+            $talleRemeraForm=Yii::$app->request->post()['Talleremera'];
+            //se accede a los datos TersonaEmergencia del formulario
+            $personaEmergenciaForm=Yii::$app->request->post()['Personaemergencia'];
+            //se accede al modeo FichaMedica del formulario
+            $fichaMedicaForm=Yii::$app->request->post()['Fichamedica'];
+            //se busca el modelo Persona de la persona logueada
+            $persona=Persona::findOne(['idUsuario' => $_SESSION['__id']]);
+            //se accede al modelo PersonaEmrgencia del usuario
+            $personaEmergencia=$persona->personaEmergencia;
+            //se accede al modelo PersonaDireccion del usuario
+            $personaDireccion=$persona->personaDireccion;
+            $personaDireccion->idLocalidad=Yii::$app->request->post()['Localidad']['idLocalidad'];
+            $personaDireccion->direccionUsuario=Yii::$app->request->post()['calle'];
+            //se actualiza el modelo
+            $personaDireccion->update();
+            $personaEmergencia->nombrePersonaEmergencia=$personaEmergenciaForm['nombrePersonaEmergencia'];
+            $personaEmergencia->apellidoPersonaEmergencia=$personaEmergenciaForm['apellidoPersonaEmergencia'];
+            $personaEmergencia->telefonoPersonaEmergencia=$personaEmergenciaForm['telefonoPersonaEmergencia'];
+            $personaEmergencia->idVinculoPersonaEmergencia=$personaEmergenciaForm['idVinculoPersonaEmergencia'];
+            //se actualiza  el modelo
+            $personaEmergencia->update();
+
+            //accedemos al modelo FichaMedica de la persona
+            $fichaMedica=$persona->fichaMedica;
+            $fichaMedica->obraSocial=$fichaMedicaForm['obraSocial'];
+            $fichaMedica->peso=$fichaMedicaForm['peso'];
+            $fichaMedica->altura=$fichaMedicaForm['altura'];
+            $fichaMedica->frecuenciaCardiaca=$fichaMedicaForm['frecuenciaCardiaca'];
+            $fichaMedica->idGrupoSanguineo=$fichaMedicaForm['idGrupoSanguineo'];
+            $fichaMedica->evaluacionMedica=$fichaMedicaForm['evaluacionMedica'];
+            $fichaMedica->intervencionQuirurgica=$fichaMedicaForm['intervencionQuirurgica'];
+            $fichaMedica->suplementos=$fichaMedicaForm['suplementos'];
+            $fichaMedica->tomaMedicamentos=$fichaMedicaForm['tomaMedicamentos'];
+            $fichaMedica->observaciones=$fichaMedicaForm['observaciones'];
+            //se actualiza el modelo
+            $fichaMedica->update();
+
+            $persona->nacionalidadPersona=$personaForm['nacionalidadPersona'];
+            $persona->nombrePersona=$personaForm['nombrePersona'];
+            $persona->apellidoPersona=$personaForm['apellidoPersona'];
+            $persona->fechaNacPersona=$personaForm['fechaNacPersona'];
+            $persona->telefonoPersona=$personaForm['telefonoPersona'];
+            $persona->donador=$personaForm['donador'];
+            $persona->idTalleRemera=$talleRemeraForm['idTalleRemera'];
+            $persona->sexoPersona=$personaForm['sexoPersona'];
+            $persona->update();
+            //una vez que actualiza sus datos el persona deshabilitado se setea a 2 para que no vuelva a actualizar sus datos
+            $persona->deshabilitado=2;
+            $persona->update();
+            $transaction->commit();
+            $guardado=true;
+            if ($guardado){ // Si la actualizacion es correcta se redirecciona al index
+
+                $mensaje = "Se actualizaron correctamente tus datos ";
+                return Yii::$app->response->redirect(['site/index','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
+            }else{
+                $mensaje = "Ha ocurrido un error,vuelve a intentarlo";
+                return Yii::$app->response->redirect(['site/index','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
+            }
+        }catch (\Exception $e){
+            $transaction->rollBack();
+            throw $e;
+        }
+
 
 
 
