@@ -10,11 +10,11 @@ use yii\helpers\Html;
 /* @var $pregunta app\models\Pregunta */
 
 $this->title = 'Crear Opciones de respusta';
-$this->params['breadcrumbs'][] = ['label' => 'Respuestaopcions', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Opciones de respuesta', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="respuestaopcion-create container">
-<br><br>
+<div class="respuestaopcion-create reglamento-container">
+
     <h1><?= Html::encode($this->title) ?></h1>
     <h2><?php echo Html::encode("Pregunta: ".$pregunta->pregDescripcion) ?></h2>
     

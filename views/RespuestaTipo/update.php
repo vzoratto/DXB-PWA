@@ -7,11 +7,11 @@ use yii\helpers\Html;
 
 $this->title = 'Actualizar tipos de respuesta: ' . $model->idRespTipo;
 $this->params['breadcrumbs'][] = ['label' => 'Tipos de Respuesta', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->idRespTipo, 'url' => ['view', 'id' => $model->idRespTipo]];
+//$this->params['breadcrumbs'][] = ['label' => $model->idRespTipo, 'url' => ['view', 'id' => $model->idRespTipo]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="respuestatipo-update container">
-<br><br>
+<div class="respuestatipo-update reglamento-container">
+
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [

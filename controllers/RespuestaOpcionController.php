@@ -12,6 +12,7 @@ use app\models\PreguntaSearch;
 use yii\filters\AccessControl;
 use app\models\Permiso;
 use app\models\Pregunta;
+use app\models\Persona;
 
 /**
  * RespuestaopcionController implements the CRUD actions for Respuestaopcion model.
@@ -166,6 +167,14 @@ class RespuestaopcionController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $searchModel = new RespuestaopcionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination=[
@@ -204,6 +213,15 @@ class RespuestaopcionController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+
         if(isset($_REQUEST['idPregunta'])){
             $idPregunta=$_REQUEST['idPregunta'];
             $pregunta=PreguntaSearch::find()->where(['idPregunta'=>$idPregunta])->one();
@@ -235,6 +253,15 @@ class RespuestaopcionController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+        
         if(isset($_REQUEST['pregunta'])){
             $pregunta=$_REQUEST['pregunta'];
         }else{

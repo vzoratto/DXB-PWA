@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
 $this->title = 'Tipos de Respuesta';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="respuestatipo-index container">
+<div class="respuestatipo-index reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Respuestaopcions', 'url' => ['inde
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="respuestaopcion-view">
+<div class="respuestaopcion-view reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

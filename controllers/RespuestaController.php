@@ -137,7 +137,8 @@ class RespuestaController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {   if(Permiso::requerirRol('administrador')){
+    {
+        if(Permiso::requerirRol('administrador')){
         $this->layout='/main2';
     }elseif(Permiso::requerirRol('gestor')){
         $this->layout='/main3';

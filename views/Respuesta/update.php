@@ -8,11 +8,11 @@ use yii\helpers\Html;
 
 $this->title = 'Update Respuesta: ' . $model->idRespuesta;
 $this->params['breadcrumbs'][] = ['label' => 'Respuestas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->idRespuesta, 'url' => ['view', 'id' => $model->idRespuesta]];
+//$this->params['breadcrumbs'][] = ['label' => $model->idRespuesta, 'url' => ['view', 'id' => $model->idRespuesta]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="respuesta-update">
-<br><br>
+<div class="respuesta-update reglamento-container">
+
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [

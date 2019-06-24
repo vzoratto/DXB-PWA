@@ -11,7 +11,7 @@ use app\models\Respuesta;
 use app\models\EncuestaSearch;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\helpers\Url;
+use app\models\Permiso;
 
 /**
  * Controlador utilizado para armar y mostrar las encuestas
@@ -45,6 +45,14 @@ class VerencuestaController extends Controller{
 
     public function actionVerEncuesta()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $idEncuesta=$_REQUEST['idEncuesta'];
 
         $encuesta=Encuesta::findOne($idEncuesta);

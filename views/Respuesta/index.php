@@ -15,9 +15,10 @@ use kartik\export\ExportMenu;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Respuestas';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="respuesta-index reglamento-container">
-<br><br>
+
     <h1><?= Html::encode($this->title) ?></h1>
     <hr> 
     <div class="alert alert-success">

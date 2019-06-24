@@ -12,7 +12,6 @@ use yii\filters\AccessControl;
 use app\models\Permiso;
 
 
-
 /**
  * EncuestaController implements the CRUD actions for Encuesta model.
  */
