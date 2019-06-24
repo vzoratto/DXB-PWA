@@ -7,7 +7,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Recuperar Contraseña';
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="cover-background contenedor-full full-section" style="background-image:url('assets/img/fondo.jpg');">
     <div class="box-bd no-label" align="center">
@@ -37,6 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
         <?php ActiveForm::end(); ?>
+        <?php if (Yii::$app->session->hasFlash('registroFormSubmitted')): ?>
+        <div class="alert alert-success" align="center">
+           Enviamos un mensaje a tu correo, ábrelo y encontrarás una contraseña temporal."
+        </div>
+        <?php endif; ?>
     </div>
+    
 </div>
   

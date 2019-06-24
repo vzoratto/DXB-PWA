@@ -198,8 +198,6 @@ class SiteController extends Controller
             if ($user = $model->signup()) {
                     //vaciamos valores
 						   $model->dni = null; $model->password = null; $model->email = null;
-                           //$mensaje = "Enviamos un email de verificacion y/o activacion a tu correo, abrelo para activar tu cuenta";
-                           //return $this->render('correo', ['mensaje' => $mensaje]);
                         Yii::$app->session->setFlash('registroFormSubmitted');
                         return $this->refresh();
                 }else{
@@ -258,7 +256,8 @@ class SiteController extends Controller
         $model = new RecupassForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->getSession()->setFlash('success', 'Revisa tu correo, eviamos un nuevo password.');
+                Yii::$app->session->setFlash('registroFormSubmitted');
+                //return $this->refresh();
 
                 echo "<meta http-equiv='refresh' content='8; ".Url::toRoute("site/login")."'>";
                 //return $this->goHome();
@@ -283,11 +282,9 @@ class SiteController extends Controller
         $model = new CambiaPassForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->validaCambio()) {
-                //Yii::$app->getSession()->setFlash('success', 'Perfecto, ahora logueate con tu nueva contraseña.');
-                Yii::$app->user->logout();
+                Yii::$app->user->logout();//se cierra la sesion
                 if (Yii::$app->user->isGuest) {
-                echo "<meta http-equiv='refresh' content='4; ".Url::toRoute("site/login")."'>";
-                //return $this->goHome();
+                    return $this->redirect(["site/login"]); //se redirige a iniciar sesion
                 }
             } else {
                 Yii::$app->getSession()->setFlash('error', 'Hubo un problema, vuelve a intentarlo.');
