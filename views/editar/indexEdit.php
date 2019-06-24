@@ -16,8 +16,11 @@ use buttflattery\formwizard\FormWizard;
                 "enableClientValidation"=>false,
                 'enableAjaxValidation'=>false,
             ]); ?>
+            <input type="hidden" value="1" id="editar">
+
 
             <?php
+
             $wizard_config = [
                 'id' => 'stepwizard',
                 'steps' => [
