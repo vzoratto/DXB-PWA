@@ -12,14 +12,14 @@ use yii\bootstrap\ActiveForm;
       if(isset($_REQUEST['mensaje'])){
           if ($guardado==true) {
               ?>
-              <div class="alert alert-success">
+              <div class="alert alert-index alert-success">
                 <button type="button" class="close ml-20" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <span><?php echo $_REQUEST['mensaje'];?></span>
               </div>
               <?php
           } else {
               ?>
-              <div class="alert alert-danger">
+              <div class="alert alert-index alert-danger">
                 <button type="button" class="close ml-20" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <span><?php echo $_REQUEST['mensaje'];?></span>
               </div>

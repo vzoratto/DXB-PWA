@@ -4458,10 +4458,10 @@ a.desc:after {
     font-weight: 700;
 }
 
-.alert {
-  position: absolute;
+.alert-index {
+position: absolute;
   z-index: 10;
-  top: 50%;
-  left: 40%;
+  top: 60%;
+  left: 35%;
   box-shadow: 0 0px 5px 1px rgba(0, 0, 0, 0.65);
 }

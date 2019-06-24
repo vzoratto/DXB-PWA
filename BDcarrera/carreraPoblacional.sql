@@ -23093,7 +23093,7 @@ INSERT INTO `vinculopersona` (`idVinculo`, `nombreVinculo`) VALUES
 --
 
 INSERT INTO `tipocarrera` (`idTipoCarrera`, `descripcionCarrera`, `cantidadMaximaCorredores` ,`deshabilitado`) VALUES
-(1, 'Recreativa - 4 KM', 3, NULL),
+(1, 'Recreativa - 4 KM', 2, NULL),
 (2, 'Competitiva - 8 KM', 8 ,NULL);
 
 -- --------------------------------------------------------
