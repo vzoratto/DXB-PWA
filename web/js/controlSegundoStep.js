@@ -1,26 +1,35 @@
 $(document).ready(function() {
-    //Remuevo la clase "next-step" en el primer paso para que no puedan pasar de step sin antes controlar los datos
-    $('#stepwizard_step2_next').removeClass('next-step');
+    var edit=$("input[name*='edit']").val();
+    if(edit==1){
+        $('#stepwizard_step2_next').addClass('next-step'); //Agrego la clase
+        return ;
+    }else{
 
-    //Valido el ingreso cuando hay un cambio en nombre calle
-    $('#calle').keyup(function() {
-        controlNombreCalle();
-    })
+        //Remuevo la clase "next-step" en el primer paso para que no puedan pasar de step sin antes controlar los datos
+        $('#stepwizard_step2_next').removeClass('next-step');
 
-    //Valido el ingreso cuando hay un cambio en numero calle
-    $('#numero').keyup(function() {
-        controlNumeroCalle();
-    })
+        //Valido el ingreso cuando hay un cambio en nombre calle
+        $('#calle').keyup(function() {
+            controlNombreCalle();
+        })
 
-    //Valido el ingreso cuando hay un cambio en telefono calle
-    $('#persona-telefonopersona').change(function() {
+        //Valido el ingreso cuando hay un cambio en numero calle
+        $('#numero').keyup(function() {
+            controlNumeroCalle();
+        })
+
+        //Valido el ingreso cuando hay un cambio en telefono calle
+        $('#persona-telefonopersona').change(function() {
             controlTelefonoPersona();
         })
         //Valido el ingreso cuando hay un cambio en el email
-    $('#persona-mailpersona').change(function() {
-        controlEmail();
-    })
-})
+        $('#persona-mailpersona').change(function() {
+            controlEmail();
+        })
+
+    }
+
+});
 
 //Se ejecuta cada vez que hago click en el boton "siguiente" del segundo step
 $('#stepwizard_step2_next').click(function() {

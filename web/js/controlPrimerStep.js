@@ -1,61 +1,74 @@
 $(document).ready(function() {
-    //Remuevo la clase "next-step" en el primer paso para que no puedan pasar de step sin antes controlar los datos
-    $('#stepwizard_step1_next').removeClass('next-step');
-    $('#usuario-dniusuario').attr('siguiente', 'false');
+    var edit=$("input[name*='edit']").val();
+    if(edit==1){
+        console.log('ss');
 
-    //Si se registra un cambio en cualquier input valido lo ingresado
-    //Valido el ingreso cuando hay un cambio en Nombre
-    $('#persona-nombrepersona').change(function() {
-        controlNombre();
-    })
+    }else{
+        console.log('aca');
+        //Remuevo la clase "next-step" en el primer paso para que no puedan pasar de step sin antes controlar los datos
+        $('#stepwizard_step1_next').removeClass('next-step');
+        $('#usuario-dniusuario').attr('siguiente', 'false');
 
-    //Valido el ingreso cuando hay un cambio en Apellido
-    $('#persona-apellidopersona').change(function() {
-        controlApellido();
-    })
+        //Si se registra un cambio en cualquier input valido lo ingresado
+        //Valido el ingreso cuando hay un cambio en Nombre
+        $('#persona-nombrepersona').change(function() {
+            controlNombre();
+        })
 
-    //Valido el ingreso cuando hay un cambio en Fecha de nacimiento
-    $('#datepicker').change(function() {
-        controlFechaNac();
-    })
+        //Valido el ingreso cuando hay un cambio en Apellido
+        $('#persona-apellidopersona').change(function() {
+            controlApellido();
+        })
 
-    //Valido el ingreso cuando hay un cambio en sexo persona
-    $('input[name="Persona[sexoPersona]"]').change(function() {
-        controlSexo();
-    })
+        //Valido el ingreso cuando hay un cambio en Fecha de nacimiento
+        $('#datepicker').change(function() {
+            controlFechaNac();
+        })
 
-    //Valido el ingreso cuando hay un cambio en talle remera
-    $('#talleremera-idtalleremera').change(function() {
-        controlTalleRemera();
-    })
+        //Valido el ingreso cuando hay un cambio en sexo persona
+        $('input[name="Persona[sexoPersona]"]').change(function() {
+            controlSexo();
+        })
 
-    //Valido el ingreso cuando hay un cambio en nacionalidad persona
-    $('#persona-nacionalidadpersona').change(function() {
-        controlNacionalidad();
-    })
+        //Valido el ingreso cuando hay un cambio en talle remera
+        $('#talleremera-idtalleremera').change(function() {
+            controlTalleRemera();
+        })
 
-    //Valido el ingreso cuando hay un cambio en las opciones de corredor
-    $('#opcionesNoSoyCapitan').change(function() {
-        controlCapitanCorredor();
-    })
+        //Valido el ingreso cuando hay un cambio en nacionalidad persona
+        $('#persona-nacionalidadpersona').change(function() {
+            controlNacionalidad();
+        })
 
-    //Valido el ingreso cuando hay un cambio en las opciones de capitan
-    $('#opcionesCapitan').change(function() {
+        //Valido el ingreso cuando hay un cambio en las opciones de corredor
+        $('#opcionesNoSoyCapitan').change(function() {
+            controlCapitanCorredor();
+        })
+
+        //Valido el ingreso cuando hay un cambio en las opciones de capitan
+        $('#opcionesCapitan').change(function() {
             controlCapitanCorredor();
         })
         //Valido el ingreso cuando hay un cambio en las opciones de dni
-    $('#usuario-dniusuario').change(function() {
-        controlNumDoc();
-    })
+        $('#usuario-dniusuario').change(function() {
+            controlNumDoc();
+        })
 
-    $('#usuario-dniusuario').change(function() {
+        $('#usuario-dniusuario').change(function() {
             controlarExistenciaDni();
         })
         //Valido el ingreso del dni usuario
-    $('#usuario-dniusuario').keyup(function() {
+        $('#usuario-dniusuario').keyup(function() {
+            controlarExistenciaDni();
+        })
         controlarExistenciaDni();
-    })
-    controlarExistenciaDni();
+
+
+    }
+
+
+
+
 })
 
 //Si se clickea en siguiente controlo los valores ingresados. En caso correcto pasa al siguiente step
