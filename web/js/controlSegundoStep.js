@@ -2,15 +2,15 @@ $(document).ready(function() {
     //Remuevo la clase "next-step" en el primer paso para que no puedan pasar de step sin antes controlar los datos
     $('#stepwizard_step2_next').removeClass('next-step');
 
-    //Valido el ingreso cuando hay un cambio en nombre calle
+   /* //Valido el ingreso cuando hay un cambio en nombre calle
     $('#calle').keyup(function() {
         controlNombreCalle();
-    })
+    })*/
 
     //Valido el ingreso cuando hay un cambio en numero calle
-    $('#numero').keyup(function() {
+    /*$('#numero').keyup(function() {
         controlNumeroCalle();
-    })
+    })*/
 
     //Valido el ingreso cuando hay un cambio en telefono calle
     $('#persona-telefonopersona').change(function() {
@@ -26,10 +26,10 @@ $(document).ready(function() {
 $('#stepwizard_step2_next').click(function() {
     var validoTelefono = controlTelefonoPersona(); //Valido el telefono
     var validoNombreCalle = controlNombreCalle(); //Valido el nombre
-    var validoNumeroCalle = controlNumeroCalle(); //Valido el numero
+    //var validoNumeroCalle = controlNumeroCalle(); //Valido el numero
     var validoEmail = controlEmail(); //Valido el email
     //Si los campos estan correcto agrego la clase "next-step" para pasar al siguiente step
-    if (validoTelefono && validoNumeroCalle && validoNombreCalle && validoEmail) {
+    if (validoTelefono /*&& validoNumeroCalle*/ && validoNombreCalle && validoEmail) {
         $('#stepwizard_step2_next').addClass('next-step'); //Agrego la clase
     } else {
         $('#stepwizard_step2_next').removeClass('next-step'); //Remuevo la clase

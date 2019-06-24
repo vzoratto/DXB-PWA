@@ -1,7 +1,7 @@
 $(document).ready(function() {
     //Remuevo la clase "next-step" en el primer paso para que no puedan pasar de step sin antes controlar los datos
-    $('#stepwizard_step1_next').removeClass('next-step');
-    $('#usuario-dniusuario').attr('siguiente', 'false');
+    //$('#stepwizard_step1_next').removeClass('next-step');
+    //$('#usuario-dniusuario').attr('siguiente', 'false');
 
     //Si se registra un cambio en cualquier input valido lo ingresado
     //Valido el ingreso cuando hay un cambio en Nombre
@@ -44,18 +44,18 @@ $(document).ready(function() {
             controlCapitanCorredor();
         })
         //Valido el ingreso cuando hay un cambio en las opciones de dni
-    $('#usuario-dniusuario').change(function() {
+    /*$('#usuario-dniusuario').change(function() {
         controlNumDoc();
-    })
+    })*/
 
-    $('#usuario-dniusuario').change(function() {
-            controlarExistenciaDni();
+   /* $('#usuario-dniusuario').change(function() {
+           // controlarExistenciaDni();
         })
         //Valido el ingreso del dni usuario
     $('#usuario-dniusuario').keyup(function() {
-        controlarExistenciaDni();
-    })
-    controlarExistenciaDni();
+       // controlarExistenciaDni();
+    })*/
+    //controlarExistenciaDni();
 })
 
 //Si se clickea en siguiente controlo los valores ingresados. En caso correcto pasa al siguiente step
@@ -68,13 +68,15 @@ $('#stepwizard_step1_next').click(function() {
     var validoTalleRemera = controlTalleRemera(); //Valido el talle remera
     var validoFechaNac = controlFechaNac(); //Valido fecha nacimiento
     var validoCapitanCorredor = controlCapitanCorredor(); //Valido el ingreso de las opciones de capitan o corredor
-    var validoNumDoc = controlNumDoc(); //Valido el ingreso del numero de docuemento
-    var validacionExistenciaDni = $('#usuario-dniusuario').attr('siguiente');
+   // var validoNumDoc = controlNumDoc(); //Valido el ingreso del numero de docuemento
+   // var validacionExistenciaDni = $('#usuario-dniusuario').attr('siguiente');
     //Si los campos estan correcto agrego la clase "next-step" para pasar al siguiente step
-    if (validoNombre && validoApellido && validoNacionalidad && validoSexo && validoTalleRemera && validoFechaNac && validoCapitanCorredor && validoNumDoc && validacionExistenciaDni == 'true') {
+    if (validoNombre && validoApellido && validoNacionalidad && validoSexo && validoTalleRemera && validoFechaNac && validoCapitanCorredor/*&& && validoNumDoc  validacionExistenciaDni == 'true'*/) {
         $('#stepwizard_step1_next').addClass('next-step'); //Agrego la clase
     } else {
-        $('#stepwizard_step1_next').removeClass('next-step'); //En caso contrario remuevo la clase
+        //agrego el next, para saltear validacion d js deberia estar con la clase remove
+        $('#stepwizard_step1_next').addClass('next-step'); //Agrego la clase
+        //$('#stepwizard_step1_next').removeClass('next-step'); //En caso contrario remuevo la clase
     }
 })
 
@@ -270,7 +272,7 @@ function controlCapitanCorredor() {
 }
 
 //Funcion que controla el ingreso del dni
-function controlNumDoc() {
+/*function controlNumDoc() {
     var dniUsuario = $('#usuario-dniusuario').val(); //Valor del input dni
     var patron = /^[0-9]+$/; //Patron que debe respetarse
     var tambienEstaBien = $('#usuario-dniusuario').attr('siguiente');
@@ -289,10 +291,11 @@ function controlNumDoc() {
         siguiente = false;
     }
     return siguiente;
-}
+}*/
 
 
 //Esta funcion controla si existe el dni ingresado en la inscripcion
+/*
 function controlarExistenciaDni() {
     var dniIngresado = $('#usuario-dniusuario').val();
     if (dniIngresado !== "") {
@@ -324,4 +327,4 @@ function controlarExistenciaDni() {
             // Con Post en lugar de null debería mandarle la cadena de los parámetros y sus valores serian "Provincia"= +provincia
         ajax.send(null);
     }
-}
+}*/
