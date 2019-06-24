@@ -13,7 +13,7 @@ class CambiapassForm extends Model{
     public $repite_password;
     private $_user = false;
 
-    private $_user=false;
+   // private $_user=false;
 
     public function rules()
     {
