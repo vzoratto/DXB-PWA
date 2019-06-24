@@ -504,16 +504,51 @@ class InscripcionController extends Controller
                 //mail de confirmacion de inscripcion
                 $subject = "Inscripcion y reglamento"; // Asunto del mail
                 // Cuerpo del mail
-                $body = "<h1>Desafio por Bardas</h1><br><h2>Gracias por inscribirse a la carrera ". $nombrePersona . " " . $apellidoPersona .". </h2> <br/>";
+                $body = "<div style='width:100%; background:#eee; position:relative; font-family:sans-serif; padding-bottom:40px'>
+                                <div style='position:relative; margin:auto; width:600px; background:white; padding:20px'>
+
+                                        <center>
+
+
+                                        <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
+
+                                        <h2 style='font-weight:100; color:#999'>DESAFIO POR LAS BARDAS</h2>
+
+                                        <hr style='border:1px solid #ccc; width:90%'>
+                        
+                                        <h3 style='font-weight:100; color:#999; padding:0 20px'><strong>Gracias por inscribirse a la carrera ".$nombrePersona." ".$apellidoPersona." </strong></h3>";
+                
                 if ($enListaDeEspera){ // Si esta en lista de espera se cambia una parte del texto
-                    $body.="<strong>Como ya se han completado la cantidad de cupos dispuestos inicialmente, actualmente te encuentras en lista de espera</strong><br/>";
+                    $body.="<h3 style='font-weight:100; color:black; padding:0 20px'><strong>Como ya se han completado la cantidad de cupos dispuestos inicialmente, actualmente te encuentras en lista de espera</strong></h3>";
                 }
                 $body.=
-                "<h2> Podes ver los terminos y condiciones que has aceptado en el siguiente enlace: </h2>". 
-                "<h2><a href='http://localhost/carrera/web/index.php?r=site%2Freglamento'>Reglamento</a></h2><br>".
-                "<h1>Desafio por Bardas</h1><br>".
-                "<a href='www.facebook.com'><img src='facebook.png' alt='fb'></a><br>".
-                "Este mensaje de correo electrónico se envió a ".$mailUsuario;
+                        "              <h4 style='font-weight:100; color:#999; padding:0 20px'>Podes ver los terminos y condiciones que has aceptado en el siguiente enlace:</h4>
+
+                                        <a href='http://localhost/carrera/web/index.php?r=site%2Freglamento' style='text-decoration:none'>
+
+                                        <div style='line-height:60px; background:#ff8f04; width:60%; color:white'>Reglamento</div>
+
+                                        </a>
+
+                                        <br>
+
+                                        <hr style='border:1px solid #ccc; width:90%'>
+
+                                        <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-Xf-qhOCBgSU/XRETQF_AIZI/AAAAAAAAAlM/MIDNs-As2XowGFS9e_7idpVIfefsGe8WACLcBGAs/s320/placas%2B4-01.jpg'>
+
+                                        <h5 style='font-weight:100; color:#999'>Este mensaje de correo electrónico se envió a ".$mailUsuario."</h5>
+                                            
+                                        <h5 style='font-weight:100; color:#999'>Te invitamos a que veas nuestras redes sociales.</h5>
+
+                                        <a href='#'><img src='https://1.bp.blogspot.com/-BR60W75cIco/XREFTGbPHZI/AAAAAAAAAks/FQUMI8DkynoP69YnYRjGZ1ylnNeYhM5BwCLcBGAs/s320/facebook-logo.png' style='width: 7%'></a>
+                                        <a href='#'><img src='https://1.bp.blogspot.com/-xhmzOVdv0xc/XREFTPz-ZyI/AAAAAAAAAk0/y2OOhH7A1fgRSswuqDkcKaRRkPMFkwEEwCLcBGAs/s320/twitter-logo.png' style='width: 7%'></a>
+                                        <a href='#'><img src='https://1.bp.blogspot.com/-NKIBF9SSXCU/XREFTOvwjII/AAAAAAAAAkw/cn679IM4LMQvcIMVCsgetU7gTDyM5DhwgCLcBGAs/s320/instagram-logo.png' style='width: 7%'></a>
+		
+                                        </center>
+
+                                </div>
+
+                        </div>";
         
 
                 Yii::$app->mailer->compose()
