@@ -14,7 +14,7 @@ use buttflattery\formwizard\FormWizard;
 
       <?php $form = ActiveForm::begin([
           'method'=>'post',
-          "action"=>"index.php?r=invitado%2Fstore",
+          "action"=>"index.php?r=editar%2Fupdate",
       		"enableClientValidation"=>true,
       ]); ?>
 
@@ -80,10 +80,10 @@ $wizard_config = [
 			'buttons' => [
                 'save' => [
                     'html' => Html::submitButton(
-                        Yii::t('app', 'Terminar inscripción'),
+                        Yii::t('app', 'Actualizar datos'),
                         [
                             'class' => 'btn btn-success',
-							'value' => 'Terminar inscripción',
+							'value' => 'Actualizar datos',
 							'disabled' => false
                         ]
                     ),

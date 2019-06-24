@@ -24,7 +24,7 @@ use kartik\switchinput\SwitchInput;
 <!-- Checkbox donde selecciona si es capitan del equipo o no-->
 <div class="row" style="margin-left: 20px;">
     <div class="left" >
-        <label>¿Soy Capitan?</label>
+        <label>Sos capitán</label>
     </div>
     <div class="switch pull-left" >
         <input type="radio" class="switch-input input-db" name="swichtCapitan" value="1" id="week" onClick=controlSwichtCapitan() >
@@ -42,13 +42,16 @@ use kartik\switchinput\SwitchInput;
         
         <div id="tipoCarrera" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
         <div>Carrera</div>
+            <!--$form->field($tipoCarrera,'idTipoCarrera')->dropDownList($tipocarreraLista,['readonly'=>true])->label('');-->
+            <?= Html::input('text','tipoCarrera',$tipoCarrera->descripcionCarrera, $option=['class'=>'form-control','disabled'=>true]) ?>
 
-            <?= $form->field($tipoCarrera,'idTipoCarrera')->dropDownList($tipocarreraLista,['readonly'=>true])->label(''); ?>
+
         </div>
         
         <div id="cantidadPeronas" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
         <div>Cantidad de corredores</div>
-            <?= $form->field($equipo,'cantidadPersonas')->dropDownList($cantCorredores,['readonly'=>true])->label(''); ?>
+            <!-- $form->field($equipo,'cantidadPersonas')->dropDownList($cantCorredores,['readonly'=>true])->label('');  -->
+            <?= Html::input('text','cantidadPersonas',$cantCorredores, $option=['class'=>'form-control','disabled'=>true]) ?>
 
         </div>
 
@@ -151,7 +154,7 @@ use kartik\switchinput\SwitchInput;
     -->
     <div id="dniUsuario" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
     <div>DNI</div>
-        <?= $form->field($usuario, 'dniUsuario')->textInput(['class' => 'input-db','placeholder'=>'DNI'])->label('')?>
+        <?= $form->field($usuario, 'dniUsuario')->textInput(['class' => 'input-db','placeholder'=>'DNI','readonly'=>true])->label('')?>
     </div>
     
     <div id="nacionalidadPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">

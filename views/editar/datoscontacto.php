@@ -37,7 +37,7 @@ use yii\widgets\MaskedInput;
         <!-- Ingreso del e-mail -->
         <div id="mailPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
         <div>E-mail</div>
-        <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true,'placeholder'=>'ejemplo@email.com'])->label('') ?>
+        <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true,'placeholder'=>'ejemplo@email.com','readonly'=>true])->label('') ?>
         </div>
 
     </div>
@@ -50,7 +50,7 @@ use yii\widgets\MaskedInput;
                 'data' => $provinciaLista,
                 'id'=>'idProvincia',
                 'options' => [
-                    'value' => '20',
+                    'value' => $provincia->idProvincia,
                     'placeholder' => 'Seleccione una provincia...',
                     'id'=>'idProvincia']
                 ])->label(''); ?>
@@ -60,12 +60,12 @@ use yii\widgets\MaskedInput;
         <div>Localidad</div>
             <?= $form->field($localidad, 'idLocalidad')->widget(DepDrop::classname(), [
                     'type' => DepDrop::TYPE_SELECT2,
-                    'value' => '4634',
+                    'value' => '4709',
                     'pluginOptions'=>[
                         'initialize' => true,
                         'placeholder' => 'Seleccione una localidad...',
                         'depends'=>['idProvincia'],
-                        'url'=>Url::to(['localidad/localidades']),
+                        'url'=>Url::to(['editar/localidades']),
                         'loadingText' => 'Cargando localidades...']
             ])->label('');
             ?>

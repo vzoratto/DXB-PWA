@@ -134,6 +134,9 @@ class InscripcionController extends Controller
         $tipoCarrera=$equipo->tipoCarrera;
 
         $cantCorredores=$equipo->cantidadPersonas;
+        $personaDireccion=$persona->personaDireccion;
+
+
 
 
         /*if($equipo!=null){
@@ -142,12 +145,13 @@ class InscripcionController extends Controller
         //print_r($equipo);
         //die();
         //accedemos al modelo de personaDireccion de la persona
-        $personaDireccion =$persona->personaDireccion;
+        //$personaDireccion =$persona->personaDireccion;
         ////accedemos a la ficha medica de la persona
         $fichaMedica =$persona->fichaMedica; //Instanciamos una variable
         $datosEmergencia = new \app\models\Personaemergencia();//Instanciamos una variable
-        $localidad = new \app\models\Localidad(); //Instanciamos una variable
-        $provincia = new \app\models\Provincia(); //Instanciamos una variable
+        $localidad = $personaDireccion->localidad; //Instanciamos una variable
+        $provincia = $localidad->provincia; //Instanciamos una variable
+
         //$equipo = new \app\models\Equipo(); //Instanciamos una variable
         $talleRemera=$persona->talleRemera;
         $provinciaLista = ArrayHelper::map(\app\models\Provincia::find()->all(),'idProvincia','nombreProvincia'); //Lista de las provincias
@@ -433,7 +437,7 @@ class InscripcionController extends Controller
 
             //MODELO PERSONA DIRECCION
             // Concatenamos todos los campos relacionados con la Direccion de la persona
-            $direccion='calle:'.Yii::$app->request->post()['calle'].'numero: '.Yii::$app->request->post()['numero'].'piso:'.Yii::$app->request->post()['piso'].'departamento:'.Yii::$app->request->post()['departamento'];
+            $direccion=Yii::$app->request->post()['calle'].' '.Yii::$app->request->post()['numero'].' '.Yii::$app->request->post()['piso'].' '.Yii::$app->request->post()['departamento'];
             $personaDireccion=new Personadireccion(); //Instanciamos una variable de la clase Persona Direccion
             // Asignamos los valores
             $personaDireccion->idLocalidad=$modeloLocalidad['idLocalidad'];
