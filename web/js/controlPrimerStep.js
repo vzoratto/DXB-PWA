@@ -301,7 +301,7 @@ if(value==0) {
         if (dniIngresado !== "") {
             var ajax = new XMLHttpRequest();
             //uso del método GET
-            ajax.open("GET", "http://localhost/carrera/web/index.php?r=inscripcion/existedni&dniUsuario=" + dniIngresado);
+            ajax.open("GET", "index.php?r=inscripcion/existedni&dniUsuario=" + dniIngresado);
 
             // --Ahora estamos esperando a recibir la respuesta, para eso tenemos la siguiente función que llamamos cada vez que ocurre que el estado cambia.
             ajax.onreadystatechange = function() {
