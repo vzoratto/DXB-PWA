@@ -24,7 +24,9 @@ use kartik\switchinput\SwitchInput;
                 if($capitan==true){
                     ?>
                 <div class="left" >
-                    <label>Capitán:</label>
+                    <label style="font-weight: bold">Sos capitán:</label>
+                    <br>
+                    <br>
                 </div>
                 <?php
 
@@ -55,9 +57,10 @@ use kartik\switchinput\SwitchInput;
             <!-- Estas son las opciones que ve si selecciona que es capitan -->
             <?php
             if($capitan==true){
+
                 ?>
                 <div class="row no-label">
-                    <div id="opcionesCapitan" style="display:none" aria-label="..." class="col-1">
+                    <div id="opcionesCapitan" style="<?php ($capitan==false)?"display:none":"";?>" aria-label="..." class="col-1">
 
                         <div id="tipoCarrera" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
                             <div>Carrera</div>
@@ -83,7 +86,7 @@ use kartik\switchinput\SwitchInput;
                 ?>
                 <!-- Opciones que visualiza si selecciona que no es capitan -->
                 <div class="row no-label">
-                    <div id="opcionesNoSoyCapitan" style="display:block" aria-label="..." class="col-1">
+                    <div id="opcionesNoSoyCapitan" style="<?php ($capitan==true)?"display:none":"";?>" aria-label="..." class="col-1">
 
                         <div id="dniCapitan" class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
                             <div>DNI capitán</div>

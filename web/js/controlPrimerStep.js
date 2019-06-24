@@ -34,15 +34,15 @@ $(document).ready(function() {
         controlNacionalidad();
     })
 
-    //Valido el ingreso cuando hay un cambio en las opciones de corredor
+   /* //Valido el ingreso cuando hay un cambio en las opciones de corredor
     $('#opcionesNoSoyCapitan').change(function() {
         controlCapitanCorredor();
-    })
+    })*/
 
     //Valido el ingreso cuando hay un cambio en las opciones de capitan
-    $('#opcionesCapitan').change(function() {
+    /*$('#opcionesCapitan').change(function() {
             controlCapitanCorredor();
-        })
+        })*/
         //Valido el ingreso cuando hay un cambio en las opciones de dni
     /*$('#usuario-dniusuario').change(function() {
         controlNumDoc();
@@ -67,11 +67,11 @@ $('#stepwizard_step1_next').click(function() {
     var validoSexo = controlSexo(); //Valido el sexo
     var validoTalleRemera = controlTalleRemera(); //Valido el talle remera
     var validoFechaNac = controlFechaNac(); //Valido fecha nacimiento
-    var validoCapitanCorredor = controlCapitanCorredor(); //Valido el ingreso de las opciones de capitan o corredor
+   // var validoCapitanCorredor = controlCapitanCorredor(); //Valido el ingreso de las opciones de capitan o corredor
    // var validoNumDoc = controlNumDoc(); //Valido el ingreso del numero de docuemento
    // var validacionExistenciaDni = $('#usuario-dniusuario').attr('siguiente');
     //Si los campos estan correcto agrego la clase "next-step" para pasar al siguiente step
-    if (validoNombre && validoApellido && validoNacionalidad && validoSexo && validoTalleRemera && validoFechaNac && validoCapitanCorredor/*&& && validoNumDoc  validacionExistenciaDni == 'true'*/) {
+    if (validoNombre && validoApellido && validoNacionalidad && validoSexo && validoTalleRemera && validoFechaNac ){//&& validoCapitanCorredor/*&& && validoNumDoc  validacionExistenciaDni == 'true'*/) {
         $('#stepwizard_step1_next').addClass('next-step'); //Agrego la clase
     } else {
         //agrego el next, para saltear validacion d js deberia estar con la clase remove
