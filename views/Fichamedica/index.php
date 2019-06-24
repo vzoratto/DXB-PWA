@@ -42,14 +42,14 @@ $this->title = 'Fichas Medicas';
 				   'value'=> function($model){
 					   return ($model->persona->donador === 1)? 'si':'no';
 				   },
-			'filter' => ArrayHelper::map(Persona::find()->asArray()->all(), 'donador', 'donador'),
+			'filter' =>array("1"=>"si","0"=>"no")
 			],
             ['label'=>'Medicamentos',
 			   'attribute'=>'tomaMedicamentos',
 				   'value'=> function($model){
 					   return ($model->tomaMedicamentos === 1)? 'si':'no';
 				   },
-			'filter' => ArrayHelper::map(Fichamedica::find()->asArray()->all(), 'tomaMedicamentos', 'tomaMedicamentos'),
+			'filter' =>array("1"=>"si","0"=>"no")
 			],
 			['label'=>'Obra Social',
 			   'attribute'=>'obraSocial',
@@ -81,7 +81,7 @@ $this->title = 'Fichas Medicas';
 					   return($model->intervencionQuirurgica=== 1)? 'si':'no';
 				   },
 				   
-			'filter' => ArrayHelper::map(Fichamedica::find()->asArray()->all(), 'intervencionQuirurgica', 'intervencionQuirurgica'),
+			'filter' =>array("1"=>"si","0"=>"no")
 			],
 			['label'=>'Suplementos',
 			   'attribute'=>'suplementos',
@@ -89,7 +89,7 @@ $this->title = 'Fichas Medicas';
 					   return($model->suplementos=== 1)? 'si':'no';
 				   },
 				   
-			'filter' => ArrayHelper::map(Fichamedica::find()->asArray()->all(), 'intervencionQuirurgica', 'intervencionQuirurgica'),
+			'filter' =>array("1"=>"si","0"=>"no")
 			],
 			['label'=>'Observaciones',
 			   'attribute'=>'observaciones',

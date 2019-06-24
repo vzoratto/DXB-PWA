@@ -18,7 +18,7 @@ use yii\widgets\MaskedInput;
 
 <?php
     $idRol = $user->identity->idRol;
-    if ($idRol == 3 ){ // Si es gestora
+    if ($idRol == 3 || $idRol == 2){ // Si es gestora o administradora
         $soloLectura = false; //Significa que va a poder cambiar los valores del DNI del usuario y su Mail
         $mailUsuario = '';
     } else {

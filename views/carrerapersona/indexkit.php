@@ -61,7 +61,7 @@ $this->title = 'Entrega De Kits ';
                 'value' => function($model) {
                     return ($model->retiraKit=== 1)? 'si':'no';
                 },
-				'filter' => ArrayHelper::map(Carrerapersona::find()->asArray()->all(), 'retiraKit', 'retiraKit')
+				'filter' => array("1"=>"si","0"=>"no")
             ],
 
 			['class' => 'yii\grid\ActionColumn',

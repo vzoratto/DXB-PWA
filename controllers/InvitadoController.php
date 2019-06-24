@@ -412,6 +412,7 @@ class InvitadoController extends Controller
             $carreraPersona->idPersona=$persona->idPersona;
             $carreraPersona->idTipoCarrera = $idTipoCarrera;
             $carreraPersona->reglamentoAceptado = 1; //Acepta el reglamento obligatoriamente
+            $carreraPersona->retiraKit=0;
             $carreraPersona->save(); //Realiza el llenado de la tabla
             
             $objTipoCarrera = Tipocarrera::find()->where(['idTipoCarrera'=>$idTipoCarrera])->one(); //Obtenemos el obj Tipo carrera
@@ -470,10 +471,10 @@ class InvitadoController extends Controller
 
 
                 $mensaje = "Enviamos un email con su registro de inscripcion ";
-                return Yii::$app->response->redirect(['site/index','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
+                return Yii::$app->response->redirect(['site/gestor','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
             }else{
                 $mensaje = "Ha ocurrido un error al llevar a cabo tu inscripcion,vuelve a intentarlo";
-                return Yii::$app->response->redirect(['site/index','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
+                return Yii::$app->response->redirect(['site/gestor','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
             }
 
 
