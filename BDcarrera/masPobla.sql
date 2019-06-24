@@ -1,115 +1,129 @@
 
 INSERT INTO `usuario` (`idUsuario`,`dniUsuario`,`claveUsuario`,`mailUsuario`,`authkey`,`activado`,`idRol`) VALUES
-(1,12600600,'1234','prueba1@gmail.com','1',1,1),
-(2,12600601,'1234','prueba2@gmail.com','1',1,1),
-(3,12600602,'1234','prueba3@gmail.com','1',1,1),
-(4,12600603,'1234','prueba4@gmail.com','1',1,1),
-(5,12600604,'1234','prueba5@gmail.com','1',1,1),
-(6,12620605,'1234','prueba6@gmail.com','1',1,1),
-(7,30600606,'1234','prueba7@gmail.com','1',1,1),
-(8,12600607,'1234','prueba8@gmail.com','1',1,1),
-(9,25600608,'1234','prueba9@gmail.com','1',1,1),
-(10,14657609,'1234','prueba10@gmail.com','1',1,1),
-(11,12600610,'1234','prueba11@gmail.com','1',1,1),
-(12,16607611,'1234','prueba12@gmail.com','1',1,1),
-(13,82630612,'1234','prueba13@gmail.com','1',1,1),
-(14,72634613,'1234','prueba14@gmail.com','1',1,1),
-(15,32300614,'1234','prueba15@gmail.com','1',1,1);
+(1,40960405,'caE6qCXEV/s2A','diegonmontes@gmail.com','1',1,1),
+(2,39354991,'caDGuJRIWiRPs','aluderosa@gmail.com','1',1,1),
+(3,34662680,'caVXPp5MKwxLQ','alewachu@gmail.com','1',1,1),
+(4,39523328,'caw9VuCEKKmzs','arielvillalobos@gmail.com','1',1,1),
+(5,14780341,'capXGYjL7lKE.','lilianapaez@gmail.com','1',1,3),
+(6,32020624,'ca.qB0Uxiws5U','carolinasalgado@gmail.com','1',1,3),
+(7,35178582,'ca5MeixRJe8SM','alexisbascuñan@gmail.com','1',1,3),
+(8,40000000,'caf9l5OO9fegE','ciromartinez@gmail.com','1',1,1);
 
-INSERT INTO `fichamedica` (`obraSocial`,`peso`,`altura`,`frecuenciaCardiaca`,`idGrupoSanguineo`,`evaluacionMedica`,`intervencionQuirurgica`,`tomaMedicamentos`,`suplementos`,`observaciones`) VALUES
-('ISSN',80,1.23,60,1,1,1,1,1,'creo que voy a ganar'),
-('ISSN',89,2.23,62,2,1,1,1,1,'creo que voy a ganar'),
-('pamy',60,1.73,64,3,1,1,1,1,'creo que voy a ganar'),
-('coso',80,1.75,66,4,1,1,1,1,'creo que voy a ganar'),
-('ISSN',71,1.78,80,5,1,1,1,1,'creo que voy a ganar'),
-('coso',80,1.72,100,6,1,1,1,1,'creo que voy a ganar'),
-('ISSN',80,1.74,40,1,1,1,1,1,'creo que voy a ganar'),
-('ISSN',99,1.68,46,7,1,1,1,1,'creo que voy a ganar'),
-('pamy',80,1.69,67,8,1,1,1,1,'creo que voy a ganar'),
-('ISSN',102,1.89,89,8,1,1,1,1,'creo que voy a ganar'),
-('ISSN',120,1.84,66,3,1,1,1,1,'creo que voy a ganar'),
-('ISSN',87,1.63,69,5,1,1,1,1,'creo que voy a ganar'),
-('coso',86,1.87,83,2,1,1,1,1,'creo que voy a ganar'),
-('ISSN',67,1.45,59,7,1,1,1,1,'creo que voy a ganar'),
-('ISSN',84,1.69,90,5,1,1,1,1,'creo que voy a ganar');
+INSERT INTO `gestores`(`idGestor`, `nombreGestor`, `apellidoGestor`, `telefonoGestor`, `idUsuario`) VALUES 
+(1,'Liliana', 'Paez', '2994704242',5),
+(2,'Carolina','Salgado','2995624569',6),
+(3,'Alexis','Bascuñan','2994523212',7);
+
+INSERT INTO `fichamedica` (`idFichaMedica`,`obraSocial`,`peso`,`altura`,`frecuenciaCardiaca`,`idGrupoSanguineo`,`evaluacionMedica`,`intervencionQuirurgica`,`tomaMedicamentos`,`suplementos`,`observaciones`) VALUES
+(1,'ISSN',80,1.73,60,1,1,1,1,1,'Me estoy haciendo los controles'),
+(2,'ISSN',89,2.23,62,2,1,1,1,1,'Tengo tendinitis en la muñeca'),
+(3,'PAMI',60,1.73,64,3,1,1,1,1,'Me hice analisis de sangre y tengo el colesterol alto'),
+(4,'OSDEPYM',80,1.75,66,4,1,1,1,1,'Tuve una lesion de tobillo hace 2 meses'),
+(5,'IOSFA',55,1.71,66,4,1,0,1,0,'Ninguna');
+
 
 INSERT INTO `personadireccion` (`idPersonaDireccion`,`idLocalidad`,`direccionUsuario`) VALUES
-(1,2365,'direcion 1234'),
-(2,18,'direcion 1234'),
-(3,1586,'direcion 1234'),
-(4,82,'direcion 1234'),
-(5,268,'direcion 1234'),
-(6,846,'direcion 1234'),
-(7,12,'direcion 1234'),
-(8,698,'direcion 1234'),
-(9,234,'direcion 1234'),
-(10,489,'direcion 1234'),
-(11,325,'direcion 1234'),
-(12,259,'direcion 1234'),
-(13,856,'direcion 1234'),
-(14,864,'direcion 1234'),
-(15,658,'direcion 1234');
+(1,4634,'Cacheuta 1000'),
+(2,4635,'Roca 1030'),
+(3,4634,'Sarmiento 670'),
+(4,4634,'Leguizamon 532'),
+(5,4634,'Alderete 1200');
+
 
 INSERT INTO `personaemergencia` (`idPersonaEmergencia`,`nombrePersonaEmergencia`,`apellidoPersonaEmergencia`,`telefonoPersonaEmergencia`,`idVinculoPersonaEmergencia`) VALUES
-(1,'juan','perez','2991234567',1),
-(2,'marcelo','cos','2991234567',2),
-(3,'edith','mimo','2991234567',3),
-(4,'maria','suarez','2991234567',4),
-(5,'digo','rubio','2991234567',2),
-(6,'ricardo','flaco','2991234567',2),
-(7,'marco','gordo','2991234567',4),
-(8,'cristian','kilo','2991234567',3),
-(9,'oscar','hernan','2991234567',2),
-(10,'hipolito','rios','2991234567',2),
-(11,'sebatia','perez','2991234567',3),
-(12,'gol','prato','2991234567',1),
-(13,'josefina','pez','2991234567',1),
-(14,'delfina','fua','2991234567',2),
-(15,'alfred','otroperez','2991234567',2);
+(1,'Juan Roman','Riquelme','2995954821',3),
+(2,'Marcelo','Jara','2994623431',3),
+(3,'Diego','Maradona','2995692312',1),
+(4,'Juan','Perez','2996345678',3),
+(5,'Omar','Solis','2996389273',3);
+
 
 INSERT INTO `persona` (`idPersona`, `idTalleRemera`, `nombrePersona`, `apellidoPersona`, `fechaNacPersona`, `sexoPersona`, `nacionalidadPersona`, `telefonoPersona`, `mailPersona`, `idUsuario`, `idPersonaDireccion`, `idFichaMedica`, `fechaInscPersona`, `idPersonaEmergencia`, `idResultado`, `donador`, `deshabilitado`) VALUES
-(NULL, '2', 'juan', 'wacho', '2019-06-11', 'M', 'argentino', '2991234567', 'prueba1@gmail.com', '1', '1', '1', CURRENT_TIMESTAMP, '1', NULL, '1', '0'),
-(NULL, '3', 'emili', 'perez', '2019-06-11', 'M', 'argentino', '2991234567', 'prueba2@gmail.com', '2', '2', '2', CURRENT_TIMESTAMP, '2', NULL, '1', '0'),
-(NULL, '4', 'emiliano', 'moncho', '2019-06-11', 'M', 'argentino', '2991234567', 'prueba3@gmail.com', '3', '3', '3', CURRENT_TIMESTAMP, '3', NULL, '1', '0'),
-(NULL, '5', 'jose', 'pepe', '2019-06-11', 'M', 'argentino', '2991234567', 'prueba4@gmail.com', '4', '4', '4', CURRENT_TIMESTAMP, '4', NULL, '1', '0'),
-(NULL, '6', 'alu', 'apellidofeo', '2019-06-11', 'M', 'argentino', '2991234567', 'prueba5@gmail.com', '5', '5', '5', CURRENT_TIMESTAMP, '5', NULL, '1', '0'),
-(NULL, '7', 'sofia', 'miranda', '2019-06-11', 'F', 'argentino', '2991234567', 'prueba6@gmail.com', '6', '6', '6', CURRENT_TIMESTAMP, '6', NULL, '1', '0'),
-(NULL, '5', 'lili', 'mirinda', '2019-06-11', 'M', 'argentino', '2991234567', 'prueba7@gmail.com', '7', '7', '7', CURRENT_TIMESTAMP, '7', NULL, '1', '0'),
-(NULL, '5', 'julia', 'cocas', '2019-06-11', 'F', 'argentino', '2991234567', 'prueba8@gmail.com', '8', '8', '8', CURRENT_TIMESTAMP, '8', NULL, '1', '0'),
-(NULL, '5', 'julian', 'poncho', '2019-06-11', 'M', 'argentino', '2991234567', 'prueba9@gmail.com', '9', '9', '9', CURRENT_TIMESTAMP, '9', NULL, '1', '0'),
-(NULL, '4', 'julieta', 'perez', '2019-06-11', 'F', 'argentino', '2991234567', 'prueba10@gmail.com', '10', '10', '10', CURRENT_TIMESTAMP, '10', NULL, '1', '0'),
-(NULL, '3', 'mariano', 'berlingo', '2019-06-11', 'F', 'argentino', '2991234567', 'prueba11@gmail.com', '11', '11', '11', CURRENT_TIMESTAMP, '11', NULL, '1', '0'),
-(NULL, '3', 'pepe', 'fiat', '2019-06-11', 'M', 'argentino', '2991234567', 'prueba12@gmail.com', '12', '12', '12', CURRENT_TIMESTAMP, '12', NULL, '1', '0'),
-(NULL, '1', 'leopoldo', 'nosequeponer', '2019-06-11', 'M', 'argentino', '2991234567', 'prueba13@gmail.com', '13', '13', '13', CURRENT_TIMESTAMP, '13', NULL, '1', '0'),
-(NULL, '1', 'esteban', 'gregoria', '2019-06-11', 'M', 'argentino', '2991234567', 'prueba14@gmail.com', '14', '14', '14', CURRENT_TIMESTAMP, '14', NULL, '1', '0'),
-(NULL, '2', 'mia', 'matorras', '2019-06-11', 'M', 'argentino', '2991234567', 'prueba15@gmail.com', '15', '15', '15', CURRENT_TIMESTAMP, '15', NULL, '1', '0');
+(1, 2, 'Diego', 'Montes', '1998-01-11', 'M', 'argentino', '2994232323', 'diegonmontes@gmail.com', 1, 1, 1, CURRENT_TIMESTAMP, 1, NULL, 1, 0),
+(2, 2, 'Alumine', 'de Rosa', '1997-01-01', 'F', 'argentino', '2994732172', 'aluderosa@gmail.com', 2, 2, 2, CURRENT_TIMESTAMP, 2, NULL, 1, 0),
+(3, 3, 'Alejandro', 'Wachu', '1997-04-11', 'M', 'argentino', '2995293245', 'alewachu@gmail.com', 3, 3, 3, CURRENT_TIMESTAMP, 3, NULL, 1, 0),
+(4, 2, 'Ariel', 'Villalobos', '1992-01-10', 'M', 'argentino', '2994582623', 'arielvillalobos@gmail.com', 4, 4, 4, CURRENT_TIMESTAMP, 4, NULL, 0, 0),
+(5, 2, 'Ciro', 'Martinez', '1982-03-04', 'M', 'argentino', '2994263518', 'ciromartinez@gmail.com', 8, 5, 5, CURRENT_TIMESTAMP, 5, NULL, 0, 0);
+
 
 INSERT INTO `equipo` (`idEquipo`, `nombreEquipo`, `cantidadPersonas`, `idTipoCarrera`, `dniCapitan`, `deshabilitado`) VALUES
-(NULL, '1', '4', '1', '12600600', '0'),
-(NULL, '2', '4', '2', '12600601', '0'),
-(NULL, '3', '4', '1', '12600602', '0'),
-(NULL, '4', '2', '1', '12600603', '0'),
-(NULL, '5', '2', '2', '12600604', '0');
+(1, '1', 2, 1, '34662680', 0),
+(2, '2', 4, 2, '40960405', 0),
+(3, '3', 2, 2, '40000000', 0);
 
 INSERT INTO `grupo` (`idEquipo`, `idPersona`) VALUES
 -- capitanes de los equipos
- ('1', '1'),
- ('2', '2'),
- ('3', '3'),
- ('4', '4'),
- ('5', '5'),
--- equipo 1 de cuatro personas
- ('1', '6'),
- ('1', '7'),
- ('1', '8'),
--- equipo 2 de cuatro personas
- ('2', '9'),
- ('2', '10'),
- ('2', '11'),
--- equipo 3 de tres personas
- ('3', '12'),
- ('3', '13'),
- ('3', '14'),
--- equipo 4 de dos personas
- ('4', '15');
+ (1, 3),
+ (2, 1),
+ (3, 5),
  
+-- equipo 2 de cuatro personas
+ (1, 2),
+-- equipo 1 de dos personas
+ (1, 4);
+
+--
+-- Volcado de datos para la tabla `carrerapersona`
+--
+
+INSERT INTO `carrerapersona`(`idTipoCarrera`, `idPersona`, `reglamentoAceptado`, `retiraKit`) VALUES 
+(2,1,1,0), 
+(2,2,1,0), 
+(1,3,1,0), 
+(1,4,1,0), 
+(2,5,1,0);
+ 
+--
+-- Volcado de datos para la tabla `encuesta`
+--
+
+INSERT INTO `encuesta` (`idEncuesta`, `encTitulo`, `encDescripcion`, `encTipo`, `encPublica`) VALUES
+(1, 'Página Web', 'Encuesta sobre el desarrollo de la página', 'encuesta', 1);
+
+--
+-- Volcado de datos para la tabla `pregunta`
+--
+
+INSERT INTO `pregunta` (`idPregunta`, `pregDescripcion`, `idEncuesta`, `idRespTipo`) VALUES
+(1, '¿Le pareció fácil inscribirse?', 1, 4),
+(2, '¿Qué le pareció el diseño?', 1, 3),
+(3, '¿Cómo mejorarí­a la página?', 1, 1),
+(4, 'Ponle un puntaje a esta página (10 excelente)', 1, 2);
+
+--
+-- Volcado de datos para la tabla `respuesta_opcion`
+--
+
+INSERT INTO `respuesta_opcion` (`idRespuestaOpcion`, `opRespvalor`, `idPregunta`) VALUES
+(1, 'Si', 1),
+(2, 'No', 1),
+(3, 'Un poco', 1),
+(4, 'No tanto', 1),
+(5, 'Lindo', 2),
+(6, 'Feo', 2),
+(7, 'Regular', 2),
+(8, 'Horrible', 2),
+(9, 'Hermoso', 2),
+(10, '1', 4),
+(11, '2', 4),
+(12, '3', 4),
+(13, '4', 4),
+(14, '5', 4),
+(15, '6', 4),
+(16, '7', 4),
+(17, '8', 4),
+(18, '9', 4),
+(19, '10', 4);
+
+--
+-- Volcado de datos para la tabla `respuesta`
+--
+
+INSERT INTO `respuesta` (`idRespuesta`, `respValor`, `idPregunta`, `idPersona`) VALUES
+(1, 'Si', 1, 1),
+(2, 'Lindo', 2, 1),
+(3, 'Nunca vi nada mas hermoso', 2, 1),
+(4, 'No tanto', 2, 2),
+(5, 'Si', 1, 3),
+(6, 'Lindo', 2, 3);
+
