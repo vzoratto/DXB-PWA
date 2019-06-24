@@ -18,7 +18,7 @@ CREATE TABLE `carrerapersona` (
   `idTipoCarrera` int(2) NOT NULL,
   `idPersona` int(8) NOT NULL,
   `reglamentoAceptado` tinyint(1) DEFAULT NULL,
-  `retiraKit` tinyint(1) DEFAULT NULL
+  `retiraKit` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
