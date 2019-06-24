@@ -29,7 +29,7 @@ $this->title = 'Listado administrador/gestor';
             'nombreGestor',
             'apellidoGestor',
             'telefonoGestor',
-              [ 
+              [
                 'attribute' => 'idUsuario',
                  'value' => function($model) {
                      return ($model->usuario->dniUsuario);

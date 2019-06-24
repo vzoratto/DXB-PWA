@@ -47,15 +47,15 @@ AppAsset::register($this);
                 ['label' => 'Inscribir Invitado', 'url' => ['/invitado/index']],
                 ['label' => 'Inscripcion Corredor', 'url' => ['/inscripcion/index']],
                 ['label' => 'Entrega de Kit', 'url' => ['carrerapersona/kit']],
-			],	
+			],
 			],
 			['label' => 'Encuesta','items' => [
                 ['label' => 'Crear Encuesta', 'url' => ['/encuesta/index']],
                 ['label' => 'Resultados Encuesta', 'url' => ['/respuesta/index']],
-				
+
 			],
         ],
-			
+
             Yii::$app->user->isGuest ? (
                 ''
             ) : (
@@ -95,5 +95,3 @@ AppAsset::register($this);
 </body>
 </html>
 <?php $this->endPage() ?>
-
-

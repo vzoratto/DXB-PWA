@@ -22,7 +22,7 @@ $this->title = 'Entrega De Kits ';
 <div class="entregadekits reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
-	
+
     <h2>Total de Participantes: <?= Html::encode($dataProvider->getCount()) ?></h2>
 	 <?php
 	 // definimos las columnas para el gridview en la variable $gridColumn,despues solo llamamos esa variable.
@@ -39,14 +39,14 @@ $this->title = 'Entrega De Kits ';
                 'value' => function($model) {
                     return ($model->persona->usuario->dniUsuario);
                 },
-				
+
             ],
 			[   'label' => 'Sexo',
                 'attribute' => 'sexoPersona',
                 'value' => function($model) {
                     return ($model->persona->sexoPersona);
                 },
-				
+
 				'filter' => ArrayHelper::map(Persona::find()->asArray()->all(), 'sexoPersona', 'sexoPersona')
             ],
             ['label' => 'Talle Remera',
@@ -63,7 +63,7 @@ $this->title = 'Entrega De Kits ';
                 },
 				'filter' => ArrayHelper::map(Carrerapersona::find()->asArray()->all(), 'retiraKit', 'retiraKit')
             ],
-			 
+
 			['class' => 'yii\grid\ActionColumn',
                  'contentOptions'=>
 				 ['style'=>'width: 10%;'],
@@ -75,7 +75,7 @@ $this->title = 'Entrega De Kits ';
                        'style'=>'width : 50%',
                     ]);
                 }
-		    	],		
+		    	],
            ],
 ];
 ?>
@@ -88,7 +88,7 @@ echo ExportMenu::widget([
     'columns' => $gridColumns,
 	'filename'=>'DesafioBardas',
 	'target' => ExportMenu::TARGET_SELF,
-	
+
 	'hiddenColumns'=>[0, 1],
 	'exportConfig' => [
         ExportMenu::FORMAT_HTML => false,
@@ -104,14 +104,14 @@ echo ExportMenu::widget([
                 ]
             ]
         ],
-		
+
     ],
 	'dropdownOptions' => [
         'label' => 'Exportar',
         'class' => 'btn btn-secondary'
     ]
-	
-	
+
+
 ]);
 
 // renderisamos usando kartic gridview

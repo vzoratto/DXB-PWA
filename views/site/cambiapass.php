@@ -15,7 +15,7 @@ $usu=Yii::$app->user->identity->dniUsuario;
 <div class="box-bd no-label" align="center">
      <img class="center" src="assets/img/logo-color.png" alt="">
         <p><?= Html::encode($this->title) ?></p>
-        
+
         <?php
         $form = ActiveForm::begin([
                     'id' => 'cambiapass-form',

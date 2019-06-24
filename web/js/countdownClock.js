@@ -1,7 +1,7 @@
 // Setea la fecha que empieza a contar
-var countDownDate = new Date("Sep 5, 2019 15:37:25").getTime();
+var countDownDate = new Date("Sep 8, 2019 11:00:00").getTime();
 
-if (document.getElementById("demo")) {
+if (document.body.contains(document.getElementById("demo"))) {
 
   // Actualiza la cuenta regresiva cada 1 segundo
   var x = setInterval(function() {

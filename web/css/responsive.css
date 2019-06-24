@@ -3081,7 +3081,7 @@
     .half-section {padding: 20px 0;}
 
     .contenedor-full {
-      height: auto;
+      /*height: auto;*/
     }
     .colabora img {
       display: block;

@@ -34,7 +34,7 @@ AppAsset::register($this);
   <?php
   NavBar::begin([
       'options' => [
-          'class' => 'navbar-fixed-top sticky',
+          'class' => 'navbar-fixed-top',
           'id' => 'bardasHeader'
       ],
   ]);

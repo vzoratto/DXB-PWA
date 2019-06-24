@@ -7,7 +7,10 @@ body {
     min-height: 100%;
     height: auto;
     margin: 0 auto -60px;
-    padding: 0 0 60px;
+    padding: 0 0;
+    background-image: url(../assets/img/fondo.jpg)!important;
+    background-size: cover;
+    overflow-x: scroll;
 }
 
 .wrap>.container {
@@ -4445,9 +4448,6 @@ a.desc:after {
     display: none;
 }
 
-.wrap{
-    background: url(../assets/img/fondo.jpg)!important;
-}    
 .btn-success {
     background: rgba(199, 127, 55, 1);
     border: 1px solid #f7f7f8;
@@ -4456,4 +4456,12 @@ a.desc:after {
     font-family: "Montserrat", sans-serif;
     font-size: 14px;
     font-weight: 700;
+}
+
+.alert {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 40%;
+  box-shadow: 0 0px 5px 1px rgba(0, 0, 0, 0.65);
 }

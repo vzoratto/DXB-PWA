@@ -14,11 +14,22 @@ $this->title = 'Usuarios';
 ?>
 <div class="usuario-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="row mtb-20">
 
-    <p>
-        <?= Html::a('Crear Usuario', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>s
+      <div class="col-xs-6 col-md-6 p-0">
+
+        <h1 class="m-0"><?= Html::encode($this->title) ?></h1>
+
+      </div>
+
+      <div class="col-xs-6 col-md-6">
+
+        <?= Html::a('Usuario +', ['create'], ['class' => 'btn btn-success']) ?>
+
+      </div>
+
+    </div>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -34,7 +45,7 @@ $this->title = 'Usuarios';
             'mailUsuario',
            // 'authkey',
             //'activado',
-          
+
              [ 'label'=>'Rol',
                'attribute' => 'idRol',
                 'value' => function($model) {
@@ -42,16 +53,16 @@ $this->title = 'Usuarios';
                 },
                 'filter' => ArrayHelper::map(Rol::find()->asArray()->all(), 'idRol', 'descripcionRol'),
               ],
-              
+
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Actions',
                 'headerOptions' => ['style' => 'color:#337ab7'],
-                
+
                 ],
-            
+
           ],
-        
+
     ]); ?>
 
 

@@ -40,7 +40,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            
+
             ['label' => 'Listados ABM','items' => [
                 ['label' => 'Usuario', 'url' => ['/usuario/index']],
                 ['label' => 'Gestor', 'url' => ['/gestores/index']],
@@ -52,22 +52,22 @@ AppAsset::register($this);
                  ['label' => 'Dar Permisos','items' => [
                     ['label' => 'Administrador', 'url' => ['/gestores/altaadmin']],
                     ['label' => 'Gestor', 'url' => ['/gestores/altagestor']],
-                
+
                  ],
                 ],
                 ['label' => 'Ver Permisos','items' => [
                    ['label' => 'Administrador', 'url' => ['/gestores/busadmin']],
                    ['label' => 'Gestor', 'url' => ['/gestores/busgestor']],
-                
+
                   ],
                 ],
               ['label' => 'Encuesta','items' => [
                 ['label' => 'Crear Encuesta', 'url' => ['/encuesta/index']],
                 ['label' => 'Resultados Encuesta', 'url' => ['/respuesta/index']],
-				
+
 			],
         ],
-        
+
             Yii::$app->user->isGuest ? (
                 ''
             ) : (
@@ -107,5 +107,3 @@ AppAsset::register($this);
 </body>
 </html>
 <?php $this->endPage() ?>
-
-

@@ -1,10 +1,20 @@
-window.onscroll = function() {myFunction()};
-
 var header = document.getElementById("bardasHeader");
 
-var sticky = header.offsetTop;
+if (document.body.contains(header)) {
 
-function myFunction() {
+  var sticky = header.offsetTop;
+
+  if (document.body.contains(document.getElementById("not-full"))) {
+    window.onscroll = function() {
+      menuColor();
+    }
+  } else {
+    header.classList.add("sticky");
+  };
+
+}
+
+function menuColor() {
   if (window.pageYOffset > sticky) {
     header.classList.add("sticky");
   } else {

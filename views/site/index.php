@@ -1,10 +1,10 @@
-<?php 
+<?php
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
  ?>
-
+<div id="not-full"></div>
 <section id="inicio" class="contenedor-full p-0">
 <?php
   $guardado=(isset($_REQUEST['guardado']) ? $_REQUEST['guardado']: false );
@@ -13,13 +13,15 @@ use yii\bootstrap\ActiveForm;
           if ($guardado==true) {
               ?>
               <div class="alert alert-success">
-                  <p><?php echo $_REQUEST['mensaje'];?></p>
+                <button type="button" class="close ml-20" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <span><?php echo $_REQUEST['mensaje'];?></span>
               </div>
               <?php
           } else {
               ?>
               <div class="alert alert-danger">
-                  <p><?php echo $_REQUEST['mensaje'];?></p>
+                <button type="button" class="close ml-20" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <span><?php echo $_REQUEST['mensaje'];?></span>
               </div>
               <?php
           }
@@ -49,7 +51,7 @@ use yii\bootstrap\ActiveForm;
             echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-white btn-rounded no-margin-lr">Inscribíte</a>';
 
           }; ?>
-            <a href="#premios" target="_blank" class="btn btn-transparent-white btn-rounded margin-20px-lr sm-margin-5px-top">Conocé más</a>
+            <a href="#premios" class="btn btn-transparent-white btn-rounded margin-20px-lr sm-margin-5px-top">Conocé más</a>
           </div>
 
         </div>
@@ -105,7 +107,7 @@ use yii\bootstrap\ActiveForm;
                       echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Inscribíte</a>';
 
                     }; ?>
-                      
+
                     </div>
 
               </div>
@@ -146,7 +148,7 @@ use yii\bootstrap\ActiveForm;
 
               <h4 class="subtitulo mt-ten sub-auspicia sm-center"> Auspicia </h4>
 
-              <img class="provincia" src="assets/img/colabora/provincia.png" alt="">
+              <a href="http://neuquen.gov.ar/" target="_blank"> <img class="provincia" src="assets/img/colabora/provincia.png" alt=""> </a>
 
             </div>
 
@@ -154,9 +156,9 @@ use yii\bootstrap\ActiveForm;
 
               <h4 class="subtitulo mt-ten sm-center"> Organiza </h4>
 
-              <a href="https://www.uncoactiva.com/" target="_blank"> <img class="largo" src="assets/img/colabora/unco-activa.png" alt=""> </a>
+              <a href="https://www.uncoactiva.com/" target="_blank"> <img class="largo" src="assets/img/colabora/unco-activa.png" alt="Unco activa"> </a>
 
-              <img class="redondo" src="assets/img/colabora/unco.png" alt="">
+              <a href="https://www.uncoma.edu.ar/" target="_blank"> <img class="redondo" src="assets/img/colabora/unco.png" alt="Universidad Nacional del Comahue"> </a>
 
             </div>
 
@@ -164,9 +166,9 @@ use yii\bootstrap\ActiveForm;
 
               <h4 class="subtitulo mt-ten sm-center"> Participa </h4>
 
-              <img class="largo" src="assets/img/colabora/facias.png" alt="">
+                <a href="http://faciasweb.uncoma.edu.ar/" target="_blank"> <img class="largo" src="assets/img/colabora/facias.png" alt="Facultad de ciencias del ambiente y la salud"> </a>
 
-              <img class="redondo" src="assets/img/colabora/fai.png" alt="">
+                <a href="http://faiweb.uncoma.edu.ar/" target="_blank"> <img class="redondo" src="assets/img/colabora/fai.png" alt="Facultad de informatica"> </a>
 
             </div>
 
@@ -232,7 +234,7 @@ use yii\bootstrap\ActiveForm;
 
             </div>
             <div class="site-contact"></div>
-              <div class="col-xs-12 col-md-7">
+              <div class="col-xs-12 col-md-7 no-label">
                 <h4 class="titulo-primario" id="contacto">Contactanos</h3>
                 <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
                     <div class="form-group">
@@ -255,7 +257,7 @@ use yii\bootstrap\ActiveForm;
         </div>
         <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
         <div class="alert alert-success" align="center">
-        Gracias por contactarnos. Responderemos a la mayor brevedad posible.
+        Gracias por contactarnos. Responderemos en breve :)
         </div>
         <?php endif; ?>
         </section>
@@ -266,9 +268,9 @@ use yii\bootstrap\ActiveForm;
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
                 <ul class="list-unstyled list-inline social text-center">
-                  <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                  <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                  <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+                  <li class="list-inline-item"><a href="https://www.facebook.com/UNCOActiva/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                  <li class="list-inline-item"><a href="https://twitter.com/prensaunco" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                  <li class="list-inline-item"><a href="https://www.instagram.com/unco_activa/" target="_blank"><i class="fa fa-instagram"></i></a></li>
                 </ul>
               </div>
             </div>

@@ -22,7 +22,7 @@ if (!Yii::$app->user->isGuest) {
     $usu =Usuario::findOne($_SESSION['__id']);
     $rol=Rol::find()->where(['idRol'=>$usu->idRol])->One();
     $nombre =Gestores::find()->where(['idUsuario'=>$usu->idUsuario])->One();
-    
+
 
 }else {
     $msg = "No se puede acceder a esta pagina";
@@ -33,23 +33,15 @@ $this->title = "Menu administrativo";
 <div class="site-administar">
 
         <div class="jumbotron">
+          <img src="../web/assets/img/logo-color.png" alt="logo-color" class="mb-20" style="max-width:150px;">
             <h1>Hola <?= $nombre->nombreGestor ?></h1>
             <h4><?= "Rol :  " .$rol->descripcionRol ?></h4>
-               <p class="lead">Que disfrutes un buen dia laboral.</p>
+               <p class="lead">Que tengas un buen dia!</p>
 
-               <p></p>
         </div>
     <div class="body-content">
-    
-         
-    
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <img src='registro/atleta11.gif' alt='atleta corriendo'/>
-            </div>
-            
-        </div>
+
 
     </div>
-  
+
 </div>
