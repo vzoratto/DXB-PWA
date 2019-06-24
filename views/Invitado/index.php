@@ -17,7 +17,7 @@ use buttflattery\formwizard\FormWizard;
           "action"=>"index.php?r=invitado%2Fstore",
       		"enableClientValidation"=>true,
       ]); ?>
-
+        <input type="hidden" value="0" id="editar">
 <?php
 
 $wizard_config = [
