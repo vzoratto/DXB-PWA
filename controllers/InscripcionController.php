@@ -435,7 +435,7 @@ class InscripcionController extends Controller
 
             $cantidadInscriptos=Carrerapersona::find() //Obtenemos la cantidad de personas habilitadas inscriptas en una carrera particular
             ->innerJoin('persona','carrerapersona.idPersona=persona.idPersona')
-            ->where(['persona.deshabilitado'=>0])
+            ->where(['persona.deshabilitado'=>'<>1'])
             ->andWhere(['carrerapersona.idTipocarrera'=>$idTipoCarrera])
             ->count();
             // Este count siempre da +1, por el nuevo llenado de la tabla pero que no se confirma hasta que no se hace el commit
