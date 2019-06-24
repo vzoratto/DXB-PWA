@@ -9,7 +9,7 @@ $this->title = 'Crear tipo de respuesta';
 $this->params['breadcrumbs'][] = ['label' => 'Tipos de respuesta', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="respuestatipo-create">
+<div class="respuestatipo-create reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

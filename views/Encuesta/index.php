@@ -20,9 +20,9 @@ $this->title = 'Listado de Encuestas y Trivias';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="wrap">
+<div class="">
     <div class="container">
-    <br><br>
+    
     <div class="encuesta-index reglamento-container">
 
         <h1><?= Html::encode($this->title) ?></h1>

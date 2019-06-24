@@ -10,10 +10,10 @@ use yii\helpers\Html;
 
 $this->title = 'Modificar opción de respuesta: ' . $model->opRespvalor;
 $this->params['breadcrumbs'][] = ['label' => 'Respuestaopcions', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->idRespuestaOpcion, 'url' => ['view', 'id' => $model->idRespuestaOpcion]];
+//$this->params['breadcrumbs'][] = ['label' => $model->idRespuestaOpcion, 'url' => ['view', 'id' => $model->idRespuestaOpcion]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="respuestaopcion-update container">
+<div class="respuestaopcion-update reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

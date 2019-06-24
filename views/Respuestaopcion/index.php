@@ -17,7 +17,7 @@ use yii\widgets\Pjax;
 $this->title = 'Opciones de Respuesta';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="respuestaopcion-index container">
+<div class="respuestaopcion-index reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <hr>

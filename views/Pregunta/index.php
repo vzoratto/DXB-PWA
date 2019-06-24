@@ -19,7 +19,7 @@ use yii\helpers\Url;
 $this->title = 'Preguntas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="container">
+<div class=" reglamento-container">
     <div class="pregunta-index">
 
         <h1><?= Html::encode($this->title) ?></h1>

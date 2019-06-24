@@ -10,7 +10,7 @@ $this->title = 'Create Respuesta';
 $this->params['breadcrumbs'][] = ['label' => 'Respuestas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="respuesta-create">
+<div class="respuesta-create reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

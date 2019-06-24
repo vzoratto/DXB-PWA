@@ -7,10 +7,10 @@ use yii\helpers\Html;
 
 $this->title = 'Modificar Pregunta: ' . $model->pregDescripcion;
 $this->params['breadcrumbs'][] = ['label' => 'Preguntas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->idPregunta, 'url' => ['view', 'id' => $model->idPregunta]];
+//$this->params['breadcrumbs'][] = ['label' => $model->idPregunta, 'url' => ['view', 'id' => $model->idPregunta]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="pregunta-update container">
+<div class="pregunta-update reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

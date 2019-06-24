@@ -11,7 +11,7 @@ $this->title = 'Generar una pregunta';
 $this->params['breadcrumbs'][] = ['label' => 'Preguntas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="pregunta-create container">
+<div class="pregunta-create reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
