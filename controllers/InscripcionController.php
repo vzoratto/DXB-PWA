@@ -235,7 +235,7 @@ class InscripcionController extends Controller
         try {
             //Si la gestora ingreasa un corredor
             $idRol = $userLogueado->identity->idRol; // Obtenemos el ID rol del usuario logeado
-            if ($idRol == 3 ){ // Si es gestora, implica que va a inscribir a algun corredor que no pudo inscribirse y que no tiene Usuario.
+            if ($idRol == 3 || $idRol == 2){ // Si es gestora o administradora, implica que va a inscribir a algun corredor que no pudo inscribirse y que no tiene Usuario.
                 //Por lo tanto, se crea una tupla nueva en la tabla Usuario
 
                 //MODELO USUARIO
@@ -428,6 +428,7 @@ class InscripcionController extends Controller
             $carreraPersona->idPersona=$idPersona;
             $carreraPersona->idTipoCarrera = $idTipoCarrera;
             $carreraPersona->reglamentoAceptado = $modeloCarreraPersona['reglamentoAceptado'];
+            $carreraPersona->retiraKit=0;
             $carreraPersona->save(); //Realiza el llenado de la tabla
             
             $objTipoCarrera = Tipocarrera::find()->where(['idTipoCarrera'=>$idTipoCarrera])->one(); //Obtenemos el obj Tipo carrera
@@ -526,10 +527,23 @@ class InscripcionController extends Controller
 
 
                 $mensaje = "Enviamos un email con su registro de inscripcion ";
+                if ($idRol == 3){ // Si es gestora, implica que va a inscribir a algun corredor que no pudo inscribirse y que no tiene Usuario.
+                    return Yii::$app->response->redirect(['site/gestion','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
+                } elseif ($idRol==2){
+                    return Yii::$app->response->redirect(['site/admin','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
+                } else {
                 return Yii::$app->response->redirect(['site/index','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
+                }
             }else{
                 $mensaje = "Ha ocurrido un error al llevar a cabo tu inscripcion,vuelve a intentarlo";
+                if ($idRol == 3){ // Si es gestora, implica que va a inscribir a algun corredor que no pudo inscribirse y que no tiene Usuario.
+                    return Yii::$app->response->redirect(['site/gestionar','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
+                } elseif ($idRol==2){
+                    return Yii::$app->response->redirect(['site/admin','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
+                } else {
                 return Yii::$app->response->redirect(['site/index','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
+                }
+                
             }
 
 

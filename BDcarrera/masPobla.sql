@@ -4,10 +4,13 @@ INSERT INTO `usuario` (`idUsuario`,`dniUsuario`,`claveUsuario`,`mailUsuario`,`au
 (2,39354991,'caDGuJRIWiRPs','aluderosa@gmail.com','1',1,1),
 (3,34662680,'caVXPp5MKwxLQ','alewachu@gmail.com','1',1,1),
 (4,39523328,'caw9VuCEKKmzs','arielvillalobos@gmail.com','1',1,1),
-(5,14780341,'capXGYjL7lKE.','lilianapaez@gmail.com','1',1,3),
+(5,14780341,'capXGYjL7lKE.','lilianapaez@gmail.com','1',1,2),
 (6,32020624,'ca.qB0Uxiws5U','carolinasalgado@gmail.com','1',1,3),
 (7,35178582,'ca5MeixRJe8SM','alexisbascuñan@gmail.com','1',1,3),
 (8,40000000,'caf9l5OO9fegE','ciromartinez@gmail.com','1',1,1);
+(8,12979152,'calxIFIXi6N3Y','susanafalzetta@gmail.com','1',1,1);
+
+
 
 INSERT INTO `gestores`(`idGestor`, `nombreGestor`, `apellidoGestor`, `telefonoGestor`, `idUsuario`) VALUES 
 (1,'Liliana', 'Paez', '2994704242',5),
