@@ -52,7 +52,7 @@ AppAsset::register($this);
           ['label' => 'Inscripcion', 'url' => 'index.php?r=inscripcion/index', 'visible' => !Yii::$app->user->isGuest],
           !Yii::$app->user->isGuest ?(
           ['label' =>"<i class='fa fa-user-circle-o ml-30 ml-sm-0' aria-hidden='true'></i>",'items' => [
-            ['label' => 'Mi perfíl', 'url' => 'index.php?r=usuario%2Fperfil'],
+            ['label' => 'Mi perfíl', 'url' => 'index.php?r=editar%2Feditar'],
             ['label' => 'Cambiar contraseña', 'url' => 'index.php?r=site/cambiapass'],
             ['label' => 'Cerrar sesión', 'url' => 'index.php?r=site%2Flogout', 'linkOptions' => ['data-method' => 'post']],
           ],
