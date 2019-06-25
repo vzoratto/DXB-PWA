@@ -41,7 +41,7 @@ class Fichamedica extends \yii\db\ActiveRecord
     {
         return [
             // Se declaran todos los campos obligatorios
-            [['peso','altura','frecuenciaCardiaca', 'evaluacionMedica', 'intervencionQuirurgica', 'tomaMedicamentos','suplementos','obraSocial','idGrupoSanguineo'], 'required','message' => 'Este campo es obligatorio.'],
+            [['peso','altura', 'evaluacionMedica', 'intervencionQuirurgica', 'tomaMedicamentos','suplementos','obraSocial','idGrupoSanguineo'], 'required','message' => 'Este campo es obligatorio.'],
             // Se valida que frecuencia cardiaca acepte solo caracteres numericos
             [['frecuenciaCardiaca'],'match','pattern'=>"/^[0-9]*$/",'message'=>"Unicamente se aceptan caracteres numericos"],
             // Valida que los siguientes campos sean booleanos
@@ -65,9 +65,9 @@ class Fichamedica extends \yii\db\ActiveRecord
     {
         return [
             'idFichaMedica' => 'Id Ficha Medica',
-            'obraSocial' => 'Obra Social',
-            'peso' => 'Peso',
-            'altura' => 'Altura',
+            'obraSocial' => 'Obra Social *',
+            'peso' => 'Peso *',
+            'altura' => 'Altura *',
             'frecuenciaCardiaca' => 'Frecuencia Cardiaca',
             'idGrupoSanguineo' => 'Id Grupo Sanguineo',
             'evaluacionMedica' => 'Evaluacion Medica',

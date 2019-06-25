@@ -17,11 +17,6 @@ $(document).ready(function() {
         controlAltura();
     })
 
-    //Valido el ingreso cuando hay un cambio en frecuencia cardiaca
-    $('#fichamedica-frecuenciacardiaca').change(function() {
-        controlFrecuenciaCardiaca();
-    })
-
     //Valido el ingreso cuando hay un cambio en sangre
     $('#fichamedica-idgruposanguineo').change(function() {
         controlSangre();
@@ -58,7 +53,6 @@ $('#stepwizard_step3_next').click(function() {
     var validoObraSocial = controlObraSocial(); //Valido obra social
     var validoPeso = controlPeso(); //Valido peso
     var validoAltura = controlAltura(); //Valido altura
-    var validoFrecuenciaCardiaca = controlFrecuenciaCardiaca(); //Valido frecuencia cardiaca
     var validoTipoSangre = controlSangre(); //Valido tipo de sangre
     var validoDonador = controlDonador(); //Valido donador
     var validoFicaMedica = controlEvalFichaMedica(); //Valido ficha medica
@@ -67,7 +61,7 @@ $('#stepwizard_step3_next').click(function() {
     var validpMedicamentos = controlTomaMedicamento(); //Valido toma medicamentos
 
     //Si los campos estan correcto agrego la clase "next-step" para pasar al siguiente step
-    if (validoAltura && validoDonador && validoFicaMedica && validoFrecuenciaCardiaca && validoIntQui && validoObraSocial && validoPeso && validoSuplemento && validoTipoSangre && validpMedicamentos) {
+    if (validoAltura && validoDonador && validoFicaMedica && validoIntQui && validoObraSocial && validoPeso && validoSuplemento && validoTipoSangre && validpMedicamentos) {
         $('#stepwizard_step3_next').addClass('next-step'); //Agrego la clase
     } else {
         $('#stepwizard_step3_next').removeClass('next-step'); //En caso contrario remuevo la clase
@@ -121,21 +115,7 @@ function controlAltura() {
     }
     return siguiente;
 }
-//Funcion que controla el dato de la frecuencia cardiaca
-function controlFrecuenciaCardiaca() {
-    var frecfichaMed = $('#fichamedica-frecuenciacardiaca').val(); //Valor frecuencia cardiaca
-    var patron = /^[0-9]*$/; //Patron a respetar
-    var siguiente = false;
-    if (patron.test(frecfichaMed) && frecfichaMed !== '') {
-        //Si el valor es distinto a vacio y se respeta el patron se borra el borde para mostrar que no hay error
-        $('#fichamedica-frecuenciacardiaca').css('border', 'none');
-        siguiente = true; //Y se setea en true la variable
-    } else {
-        $('#fichamedica-frecuenciacardiaca').css('border', '1px solid #a94442');
-        siguiente = false; //Y se setea la variable en false
-    }
-    return siguiente;
-}
+
 //Funcion que controla si se selecciono un tipo de sangre
 function controlSangre() {
     var tipoSangrefichaMed = $('#fichamedica-idgruposanguineo').val(); //Valor grupo sanguinieo
