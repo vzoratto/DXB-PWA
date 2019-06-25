@@ -264,10 +264,10 @@ class GestoresController extends Controller
             $transaction->commit();
             $guardado=true;
             if ($guardado){     // Si el alta es guardada correctamente, se envia un mail de confirmacion 
-                return $this->redirect(['gestores/busadmin']);
+                return $this->redirect(['index']);
             }else{
                 //$mensaje = "Ha ocurrido un error al llevar a cabo tu inscripcion,vuelve a intentarlo";
-                return $this->redirect(['gestores/busgestor']);
+                return $this->redirect(['index']);
             }
         } catch(\Exception $e) {
             $guardado=false;

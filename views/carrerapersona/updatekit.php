@@ -14,7 +14,7 @@ $this->title = ' ' . $model->persona->nombrePersona." ".$model->persona->apellid
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php $form = ActiveForm::begin(); ?>
-	 <?= $form->field($model ,'retiraKit')->dropDownList( array("1"=>"si","2"=>"no"), ['prompt' => 'Seleccione' ])->label('Retira Kit'); ?>
+	 <?= $form->field($model ,'retiraKit')->dropDownList( array("1"=>"si","2"=>"no"), ['class'=>'sm-width-40 width-40 block', 'prompt' => 'Seleccione' ])->label('Retira Kit'); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success'],['carrerapersona/index']) ?>
