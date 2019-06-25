@@ -17,7 +17,6 @@ use buttflattery\formwizard\FormWizard;
           "action"=>"index.php?r=inscripcion%2Fstore",
       		"enableClientValidation"=>true,
       ]); ?>
-        <input type="hidden" value="0" id="editar">
 
 <?php
 
