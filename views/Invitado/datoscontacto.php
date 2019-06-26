@@ -24,7 +24,7 @@ use yii\widgets\MaskedInput;
     
         <!-- Ingreso de telefono. Se utiliza el widget phoneinput para ayudar el ingreso del mismo -->
         <div id="telefonoPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-        <label id="telefonoPersonaContacto">Teléfono </label>
+        <label id="telefonoPersonaContacto">Teléfono *</label>
             <?= $form->field($persona, 'telefonoPersona')->widget(PhoneInput::className(), [
                 'jsOptions' => [
                 'allowExtensions' => true,
@@ -36,7 +36,7 @@ use yii\widgets\MaskedInput;
         
         <!-- Ingreso del e-mail -->
         <div id="mailPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-        <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true,'placeholder'=>'ejemplo@email.com'])->label('E-mail') ?>
+        <?= $form->field($persona, 'mailPersona')->textInput(['maxlength' => true,'placeholder'=>'ejemplo@email.com'])->label('E-mail *') ?>
         </div>
 
     </div>
@@ -51,7 +51,7 @@ use yii\widgets\MaskedInput;
                     'value' => '20',
                     'placeholder' => 'Seleccione una provincia...',
                     'id'=>'idProvincia']
-                ])->label('Provincia'); ?>
+                ])->label('Provincia *'); ?>
         </div>
         
         <div id="idLocalidad" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
@@ -64,7 +64,7 @@ use yii\widgets\MaskedInput;
                         'depends'=>['idProvincia'],
                         'url'=>Url::to(['localidad/localidades']),
                         'loadingText' => 'Cargando localidades...']
-            ])->label('Localidad');
+            ])->label('Localidad *');
             ?>
         </div>
     </div>
@@ -73,12 +73,12 @@ use yii\widgets\MaskedInput;
     <div id="direccionUsuario"> 
         <div class="row db-label">
             <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6" id="calleDireccion">
-            <label id="calleContacto">Calle </label>
+            <label id="calleContacto">Calle *</label>
                 <?= Html::input('text','calle',$datos['calle'], $option=['class'=>'form-control','id'=>'calle','placeholder' => 'Calle']) ?>
                 <div id="msjErrorCalle"></div>
             </div>
             <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2" id="numeroDireccion">
-            <label id="numeroContacto">Número </label>
+            <label id="numeroContacto">Número *</label>
                 <?=  Html::input('text','numero', $datos['numero'], $option=['class'=>'form-control', 'id'=> 'numero','placeholder' => 'Numero']) ?>
                 <div id="msjErrorNumero"></div>
             </div>

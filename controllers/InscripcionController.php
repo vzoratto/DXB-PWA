@@ -522,7 +522,7 @@ class InscripcionController extends Controller
                     $body.="<h3 style='font-weight:100; color:black; padding:0 20px'><strong>Como ya se han completado la cantidad de cupos dispuestos inicialmente, actualmente te encuentras en lista de espera</strong></h3>";
                 }
                 $body.=
-                        "              <h4 style='font-weight:100; color:#999; padding:0 20px'>Podes ver los terminos y condiciones que has aceptado en el siguiente enlace:</h4>
+                        "              <h4 style='font-weight:100; color:#999; padding:0 20px'>Podés ver los términos y condiciones que has aceptado en el siguiente enlace:</h4>
 
                                         <a href='http://localhost/carrera/web/index.php?r=site%2Freglamento' style='text-decoration:none'>
 
@@ -536,7 +536,7 @@ class InscripcionController extends Controller
 
                                         <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-Xf-qhOCBgSU/XRETQF_AIZI/AAAAAAAAAlM/MIDNs-As2XowGFS9e_7idpVIfefsGe8WACLcBGAs/s320/placas%2B4-01.jpg'>
 
-                                        <h5 style='font-weight:100; color:#999'>Este mensaje de correo electrónico se envió a ".$mailUsuario."</h5>
+                                        <h5 style='font-weight:100; color:#999'>Este mensaje de córreo electrónico se envió a ".$mailUsuario."</h5>
                                             
                                         <h5 style='font-weight:100; color:#999'>Te invitamos a que veas nuestras redes sociales.</h5>
 
@@ -563,7 +563,7 @@ class InscripcionController extends Controller
 
                 $mensaje = "Enviamos un email con su registro de inscripcion ";
                 if ($idRol == 3){ // Si es gestora, implica que va a inscribir a algun corredor que no pudo inscribirse y que no tiene Usuario.
-                    return Yii::$app->response->redirect(['site/gestion','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
+                    return Yii::$app->response->redirect(['site/gestor','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
                 } elseif ($idRol==2){
                     return Yii::$app->response->redirect(['site/admin','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
                 } else {
@@ -572,7 +572,7 @@ class InscripcionController extends Controller
             }else {
                 $mensaje = "Ha ocurrido un error al llevar a cabo tu inscripcion,vuelve a intentarlo";
                 if ($idRol == 3) { // Si es gestora, implica que va a inscribir a algun corredor que no pudo inscribirse y que no tiene Usuario.
-                    return Yii::$app->response->redirect(['site/gestionar', 'guardado' => $guardado, 'mensaje' => $mensaje])->send();
+                    return Yii::$app->response->redirect(['site/gestor', 'guardado' => $guardado, 'mensaje' => $mensaje])->send();
                 } elseif ($idRol == 2) {
                     return Yii::$app->response->redirect(['site/admin', 'guardado' => $guardado, 'mensaje' => $mensaje])->send();
                 } else {

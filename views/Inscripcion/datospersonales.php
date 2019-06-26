@@ -34,7 +34,7 @@ use kartik\switchinput\SwitchInput;
 
     <div class="row" style="margin-left: 20px;">
         <div class="left db-label" >
-            <label>¿Soy Capitan?</label>
+            <label>¿Soy Capitan? *</label>
         </div>
         <div class="switch pull-left" >
             <input type="radio" class="switch-input input-db" name="swichtCapitan" value="1" id="week" onClick=controlSwichtCapitan() >
@@ -56,7 +56,7 @@ use kartik\switchinput\SwitchInput;
                     'options' => [
                         'placeholder' => 'Elegí una carrera', 'id'=>'idTipocarrera'
                     ],
-                    ])->label('Carreras'); ?>
+                    ])->label('Carreras *'); ?>
             </div>
 
             <div id="cantidadPeronas" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
@@ -66,7 +66,7 @@ use kartik\switchinput\SwitchInput;
                 'options' => [
                     'placeholder' => 'Cantidad corredores', 'id'=>'idParametrosCantPersonas',
                 ],
-                ])->label('Cantidad de corredores'); ?>
+                ])->label('Cantidad de corredores *'); ?>
             </div>
 
 
@@ -85,9 +85,9 @@ use kartik\switchinput\SwitchInput;
             ],
             'pluginOptions' => [
                 'allowClear' => true,
-                'minimumInputLength' => 5,
+                'minimumInputLength' => 8,
             ]
-            ])->label('DNI capitan'); ?>
+            ])->label('DNI capitan *'); ?>
         </div>
 
         <div id="nombreCapitan" class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
@@ -151,22 +151,7 @@ use kartik\switchinput\SwitchInput;
         </div>
 
         <?php /*
-        <div id="nombreEquipo" class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
-            <?= $form->field($equipo, 'nombreEquipo')->widget(DepDrop::classname(), [
-                    'type' => DepDrop::TYPE_SELECT2,
-                    'disabled' => true,
-                    'options' => [
-                        'id' => 'idNombreEquipo',
-                    ],
-                    'pluginOptions'=>[
-                        'initialize' => true,
-                        'placeholder' => 'Nombre capitan...',
-                        'depends'=>['idEquipo'],
-                        'url'=>Url::to(['inscripcion/datos']),
-                        'loadingText' => 'Esperando D.N.I. capitan...']
-            ])->label('Nombre equipo');
-            ?>
-        </div>
+       
         */?>
 
     </div>
@@ -175,7 +160,7 @@ use kartik\switchinput\SwitchInput;
     <div class="row db-label">
 
         <div id="dniUsuario" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-            <?= $form->field($usuario, 'dniUsuario')->textInput(['value'=>$dniUsuario,'readonly'=> $soloLectura, 'class' => 'input-db','placeholder'=>'DNI'])->label('DNI')?>
+            <?= $form->field($usuario, 'dniUsuario')->textInput(['value'=>$dniUsuario,'readonly'=> $soloLectura, 'class' => 'input-db','placeholder'=>'DNI','autocomplete'=>'off'])->label('DNI *')?>
         </div>
 
         <div id="nacionalidadPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
@@ -203,14 +188,14 @@ use kartik\switchinput\SwitchInput;
 
         <div id="sexoPersona" class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
           <div class="db-label m-0">
-            <label id="labelSexoDatoPersonal"class="m-0">Sexo</label>
+            <label id="labelSexoDatoPersonal"class="m-0">Sexo *</label>
           </div>
             <!-- campo tipo radioButton, con dos opciones: SI o NO -->
             <?= $form->field($persona, 'sexoPersona')->radioList(array('F'=>'Femenino','M'=>'Masculino'))->label('')?>
         </div>
 
         <div id="talleRemera" class="col-md-4 col-lg-4 col-sm-4 col-xs-12 db-label">
-        <?=$form->field($talleRemera, 'idTalleRemera')->dropDownList($listadoTalles, ['prompt' => 'Talle de remera' ])->label('Talle de remera'); ?>
+        <?=$form->field($talleRemera, 'idTalleRemera')->dropDownList($listadoTalles, ['prompt' => 'Talle de remera' ])->label('Talle de remera *'); ?>
         </div>
     </div>
 
