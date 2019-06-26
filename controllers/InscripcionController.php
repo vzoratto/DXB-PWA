@@ -229,7 +229,7 @@ class InscripcionController extends Controller
     public function actionStore(){
 
         $guardado=false; //Asignamos false a la variable guardado
-        $transaction = Persona::getDb()->beginTransaction(); // Iniciamos una transaccion
+        $transaction = Yii::$app->getDb()->beginTransaction(); // Iniciamos una transaccion
         $userLogueado=Yii::$app->user;  // Obtenemos el objeto del usuario logeado
 
         try {
@@ -355,7 +355,7 @@ class InscripcionController extends Controller
             $persona->sexoPersona=$modeloPersona['sexoPersona'];
             $persona->nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
             $persona->telefonoPersona=$modeloPersona['telefonoPersona'];
-           $persona->mailPersona=$modeloPersona['mailPersona'];
+            $persona->mailPersona=$modeloPersona['mailPersona'];
             $persona->idUsuario=$idUsuario;
             $persona->idPersonaDireccion=$personaDireccion->idPersonaDireccion;
             $persona->idFichaMedica=$fichaMedica->idFichaMedica;
