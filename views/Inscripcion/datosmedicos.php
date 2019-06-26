@@ -94,6 +94,9 @@ use yii\widgets\ActiveForm;
         <?= $form->field($fichaMedica, 'observaciones')->textInput(['maxlength' => 256])->label('Observaciones') ?>
         </div>
     </div>
+    <div class="db-label m-0">
+            <label id="labelSexoDatoPersonal"class="m-0">Los campos con * son obligatorios</label>
+          </div>
 </div>
 
 

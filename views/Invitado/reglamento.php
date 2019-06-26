@@ -35,7 +35,9 @@ use yii\helpers\Url;
   <?= $form->field($carrerapersona, 'reglamentoAceptado')->checkbox(['label' => 'He leido y acepto los términos y condiciones', 'uncheck' => 0]); ?>
 </div>
 </div>
-
+<div class="db-label m-0">
+            <label id="labelSexoDatoPersonal"class="m-0">Los campos con * son obligatorios</label>
+          </div>
 
 <?php 
 //Copiar y reemplazar el contenido de abajo en /web/assets/bb1d2b31/index.html
