@@ -1,6 +1,5 @@
 var value = $('#editar').val();
-
-if(!value==1){
+if (value == 0) {
     $(document).ready(function() {
         //Remuevo la clase "next-step" en el primer paso para que no puedan pasar de step sin antes controlar los datos
         $('#stepwizard_step2_next').removeClass('next-step');
@@ -17,15 +16,15 @@ if(!value==1){
 
         //Valido el ingreso cuando hay un cambio en telefono calle
         $('#persona-telefonopersona').change(function() {
-            controlTelefonoPersona();
-        })
-        //Valido el ingreso cuando hay un cambio en el email
+                controlTelefonoPersona();
+            })
+            //Valido el ingreso cuando hay un cambio en el email
         $('#persona-mailpersona').change(function() {
             controlEmail();
         })
     })
 
-//Se ejecuta cada vez que hago click en el boton "siguiente" del segundo step
+    //Se ejecuta cada vez que hago click en el boton "siguiente" del segundo step
     $('#stepwizard_step2_next').click(function() {
         var validoTelefono = controlTelefonoPersona(); //Valido el telefono
         var validoNombreCalle = controlNombreCalle(); //Valido el nombre
@@ -39,7 +38,7 @@ if(!value==1){
         }
     })
 
-//Control ingreso telefono de contacto
+    //Control ingreso telefono de contacto
     function controlTelefonoPersona() {
         var telContacto = $('#persona-telefonopersona').val(); //Valor del telefono de contacto
         siguiente = false;
@@ -57,7 +56,7 @@ if(!value==1){
         return siguiente;
     }
 
-//Control ingreso numero de calle.
+    //Control ingreso numero de calle.
     function controlNumeroCalle() {
         var numero = $('#numero').val(); //Valor del numero de la calle
         siguiente = false;
@@ -89,7 +88,7 @@ if(!value==1){
         return siguiente;
     }
 
-//Controla el ingreso del nombre de la clase
+    //Controla el ingreso del nombre de la clase
     function controlNombreCalle() {
         var calle = $('#calle').val(); //Valor nombre de la calle
         patron = /^[A-Za-z0-9^ ]+$/; //Patron que debe respetar. El ingreso puede ser alfa numerico
@@ -124,7 +123,7 @@ if(!value==1){
     }
 
 
-//Control ingreso email
+    //Control ingreso email
     function controlEmail() {
         var mailContacto = $('#persona-mailpersona').val(); //Valor del email
         patron = /^[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/; //Patron a respetar
