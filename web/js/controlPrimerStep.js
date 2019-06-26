@@ -210,26 +210,27 @@ if (value == 0) {
             siguiente = false;
             var tipoCarrera = $('#idTipocarrera').val(); //Control ingreso tipo carrera
             var cantPersonas = $('#idParametrosCantPersonas').val(); //Control ingreso cantidad de personas
+            //Controlo si ingreso la carrera que se va a inscribir
             if (tipoCarrera > 0) {
-                $('#idTipocarrera').find('label[class=".select2-container--krajee .select2-selection--single"]').css('border', '0px solid #606060'); //Quito el borde rojo para indicar que ya no hay error
-                $('.field-idTipocarrera').addClass('has-success');
+                //Si selecciono una opcion pinto el borde de verde
                 $('.field-idTipocarrera').removeClass('has-error');
+                $('.field-idTipocarrera').addClass('has-success');
                 tipoCarreraSiguiente = true;
             } else {
-                $('#idTipocarrera').find('label[class=".select2-container--krajee .select2-selection--single"]').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
-                $('.field-idTipocarrera').addClass('has-error');
+                //En caso contrario lo pinto de rojo para indicar que hay un error
                 $('.field-idTipocarrera').removeClass('has-success');
+                $('.field-idTipocarrera').addClass('has-error');
                 tipoCarreraSiguiente = false;
             }
             if (cantPersonas > 0) {
-                $('#idParametrosCantPersonas').find('label[class=".select2-container--krajee .select2-selection--single"]').css('border', '0px solid #606060'); //Quito el borde rojo para indicar que ya no hay error
-                $('.field-idParametrosCantPersonas').addClass('has-success');
+                //Si selecciono una opcion pinto el borde de verde
                 $('.field-idParametrosCantPersonas').removeClass('has-error');
+                $('.field-idParametrosCantPersonas').addClass('has-success');
                 cantPersonasSiguiente = true;
             } else {
-                $('#idParametrosCantPersonas').find('label[class=".select2-container--krajee .select2-selection--single"]').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
-                $('.field-idParametrosCantPersonas').addClass('has-error');
+                //En caso contrario lo pinto de rojo para indicar que hay un error
                 $('.field-idParametrosCantPersonas').removeClass('has-success');
+                $('.field-idParametrosCantPersonas').addClass('has-error');
                 cantPersonasSiguiente = false;
             }
             //Si ambos ingresos son correctos seteo la varibale siguiente en true
@@ -245,7 +246,6 @@ if (value == 0) {
 
             siguiente = false;
             if (dniCapitan > 0) {
-                $('.select2-container--krajee .select2-selection--single').css('border', '0px solid #606060'); //Quito el borde rojo para indicar que ya no hay error
                 $('.field-idEquipo').addClass('has-success');
                 $('.field-idEquipo').removeClass('has-error');
                 $('.field-idNombreCapitan').addClass('has-success');
@@ -256,7 +256,6 @@ if (value == 0) {
                 $('.field-idCantidadPersonas').removeClass('has-error');
                 siguiente = true;
             } else {
-                $('.select2-container--krajee .select2-selection--single').css('border', '1px solid #a94442'); //Agrego un borde rojo para indicar que hay un error
                 $('.field-idEquipo').addClass('has-error');
                 $('.field-idEquipo').removeClass('has-success');
                 $('.field-idNombreCapitan').addClass('has-error');

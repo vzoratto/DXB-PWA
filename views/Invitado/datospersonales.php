@@ -77,7 +77,7 @@ use kartik\switchinput\SwitchInput;
         ],
         'pluginOptions' => [
             'allowClear' => true,
-            'minimumInputLength' => 5,
+            'minimumInputLength' => 8,
         ]
         ])->label('DNI capitan *'); ?>
     </div>
