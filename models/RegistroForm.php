@@ -73,23 +73,21 @@ use app\models\Usuario;
          */
         public function signup()
         {
-            $transaction=Usuario::getDb()->beginTransaction();
-            try{
-                if ($this->validate()) {
-                    $user = new Usuario();
-                    $user->dniUsuario = $this->dni;
-                    $user->mailUsuario = $this->email;
-                    $user->claveUsuario=crypt($this->password, Yii::$app->params["salt"]);//Encriptamos el password
-                    $user->authkey = $this->randKey("carrerabarda", 50);//clave será utilizada para activar el usuario
-                    $user->activado=0;
-                    $user->idRol=1;
-                    if ($user->save()) {
-                        $transaction->commit();
-                        $dni = urlencode($user->dniUsuario);
-                        $mailUsuario = $user->mailUsuario;
-                        $authkey = urlencode($user->authkey);
-                        $subject = "Validar direccion de correo";// Asunto del mail
-                        $body = "
+            
+            if ($this->validate()) {
+                $user = new Usuario();
+                $user->dniUsuario = $this->dni;
+                $user->mailUsuario = $this->email;
+                $user->claveUsuario=crypt($this->password, Yii::$app->params["salt"]);//Encriptamos el password
+                $user->authkey = $this->randKey("carrerabarda", 50);//clave será utilizada para activar el usuario
+                $user->activado=0;
+                $user->idRol=1;
+                if ($user->save()) {
+                    $dni = urlencode($user->dniUsuario);
+                    $mailUsuario = $user->mailUsuario;
+                    $authkey = urlencode($user->authkey);
+                    $subject = "Validar direccion de correo";// Asunto del mail
+                    $body = "
                         <div style='width:100%; background:#eee; position:relative; font-family:sans-serif; padding-bottom:40px'>
                                 <div style='position:relative; margin:auto; width:600px; background:white; padding:20px'>
 
@@ -130,25 +128,18 @@ use app\models\Usuario;
                                 </div>
 
                         </div>";
-
-
-                        return Yii::$app->mailer->compose()
-                            //->setFrom('carreraxbarda@gmail.com')
-                            ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
-                            ->setTo($mailUsuario)
-                            ->setSubject($subject)
-                            ->setHTMLBody($body)
-                            ->send();
-
-                    }
+       
+        				  
+                   return Yii::$app->mailer->compose()
+                        //->setFrom('carreraxbarda@gmail.com')
+                        ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
+                        ->setTo($mailUsuario)
+                        ->setSubject($subject)
+                        ->setHTMLBody($body)
+                        ->send();
+                    
                 }
-
-            }catch (\Exception $e){
-                $transaction->rollBack();
-                throw $e;
-
             }
-
             return null;
         }
         /**
