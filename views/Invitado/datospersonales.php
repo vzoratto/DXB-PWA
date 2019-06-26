@@ -187,7 +187,9 @@ use kartik\switchinput\SwitchInput;
     </div>
 </div>
 
-
+<div class="db-label m-0">
+            <label id="labelSexoDatoPersonal"class="m-0">Los campos con * son obligatorios</label>
+          </div>
 </div>
 
 </div>

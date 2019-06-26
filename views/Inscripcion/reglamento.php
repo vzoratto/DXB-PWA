@@ -32,10 +32,12 @@ use yii\helpers\Url;
     </div>
    */ ?>
 <div id="reglamentoAceptado">
-  <?= $form->field($carrerapersona, 'reglamentoAceptado')->checkbox(['label' => 'He leido y acepto los términos y condiciones', 'uncheck' => 0]); ?>
+  <?= $form->field($carrerapersona, 'reglamentoAceptado')->checkbox(['label' => 'He leido y acepto los términos y condiciones*', 'uncheck' => 0]); ?>
 </div>
 </div>
-
+<div class="db-label m-0">
+            <label id="labelSexoDatoPersonal"class="m-0">Los campos con * son obligatorios</label>
+          </div>
 
 <?php 
 /*Agregar la linea 'style'=>'border-radius: 15px;' en vendor/lesha724/ViewerJsDocument/viewer.php 
