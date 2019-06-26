@@ -489,10 +489,13 @@ class InscripcionController extends Controller
                     }
                 }    
             }
+            //como la respuesta a la encuesta es lo ultimo que se debe guardar, si esta se guarda correctamente
+            //significa que persona se guardo correctamente, por lo tanto hacemos el commit a la base de datos
             if($encuestaGuardada){
                 $transaction->commit();
                 $guardado=true;
             }else{
+                //de lo contrario un rollback
                 $transaction->rollBack();
                 $guardado=false;
             }
