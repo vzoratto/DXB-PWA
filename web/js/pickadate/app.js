@@ -1,5 +1,7 @@
 
 // Spanish
+var editar=$('#editar').val();
+
 
 $.extend($.fn.pickadate.defaults, {
     monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
@@ -25,3 +27,13 @@ var input_date=$('#datepicker').pickadate({
 
 
 });
+//si el usuario esta editando sus datos la fechadeNac ya deberia aparecer en el formulario
+if(editar==1){
+    var fechaNac=$("input[name='Persona[fechaNacPersona]']").val();
+
+    var newDate = fechaNac.split('-').join(',');
+
+    var date_picker=input_date.pickadate('picker');
+
+    date_picker.set('select', new Date(newDate))
+}
