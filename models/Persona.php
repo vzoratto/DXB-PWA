@@ -225,5 +225,18 @@ class Persona extends \yii\db\ActiveRecord
         return $this->nombrePersona.' '.$this->apellidoPersona;
     }
 
+    public function guardado(){
+        $guardado=false;
+        $idUsu=Yii::$app->user->identity->idUsuario;
+        $persona=self::findOne(['idUsuario'=>$idUsu]);
+
+        if ($persona!=null){
+            $guardado=true;
+
+        }
+
+        return $guardado;
+    }
+
 	
 }

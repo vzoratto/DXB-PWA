@@ -355,7 +355,7 @@ class InscripcionController extends Controller
             $persona->sexoPersona=$modeloPersona['sexoPersona'];
             $persona->nacionalidadPersona=$modeloPersona['nacionalidadPersona'];
             $persona->telefonoPersona=$modeloPersona['telefonoPersona'];
-            $persona->mailPersona=$modeloPersona['mailPersona'];
+           $persona->mailPersona=$modeloPersona['mailPersona'];
             $persona->idUsuario=$idUsuario;
             $persona->idPersonaDireccion=$personaDireccion->idPersonaDireccion;
             $persona->idFichaMedica=$fichaMedica->idFichaMedica;
@@ -492,7 +492,7 @@ class InscripcionController extends Controller
             //Si se realiza el commit, asigna true a la variable guardado
             $transaction->commit();
             $guardado=true;
-            if ($guardado){     // Si la inscripcion es guardada correctamente, se envia un mail de confirmacion 
+            if ($persona->guardado()){     // Si la inscripcion es guardada correctamente, se envia un mail de confirmacion
 
                 // Obtenemos el Objeto usuario para obtener sus dato
                 $objUsuario=Usuario::find()->where(['idUsuario'=>$idUsuario])->one();
@@ -570,6 +570,7 @@ class InscripcionController extends Controller
                     return Yii::$app->response->redirect(['site/index','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
                 }
             }else {
+                $guardado=false;
                 $mensaje = "Ha ocurrido un error al llevar a cabo tu inscripcion,vuelve a intentarlo";
                 if ($idRol == 3) { // Si es gestora, implica que va a inscribir a algun corredor que no pudo inscribirse y que no tiene Usuario.
                     return Yii::$app->response->redirect(['site/gestionar', 'guardado' => $guardado, 'mensaje' => $mensaje])->send();
