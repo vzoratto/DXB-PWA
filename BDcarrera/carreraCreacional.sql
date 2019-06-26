@@ -170,7 +170,7 @@ CREATE TABLE `persona` (
   `idUsuario` int(8) NOT NULL,
   `idPersonaDireccion` int(8) DEFAULT NULL,
   `idFichaMedica` int(8) DEFAULT NULL,
-  `fechaInscPersona` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fechaInscPersona` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `idPersonaEmergencia` int(8) DEFAULT NULL,
   `idResultado` int(4) DEFAULT NULL,
   `donador` tinyint(1) DEFAULT NULL,
