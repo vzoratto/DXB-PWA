@@ -229,7 +229,7 @@ class InscripcionController extends Controller
     public function actionStore(){
 
         $guardado=false; //Asignamos false a la variable guardado
-        $transaction = Persona::getDb()->beginTransaction(); // Iniciamos una transaccion
+        $transaction = Yii::$app->getDb()->beginTransaction(); // Iniciamos una transaccion
         $userLogueado=Yii::$app->user;  // Obtenemos el objeto del usuario logeado
 
         try {
@@ -469,7 +469,7 @@ class InscripcionController extends Controller
                             $model->respValor=$resp['respValor'];
                             $model->idPregunta=$resp['idPregunta'];
                             $model->idPersona=$resp['idPersona'];
-                            $model->save();
+                            $encuestaGuardada=$model->save();
                         }
                     }else{//Si la respuesta no es multiple, guarda la la respuesta
                         if(is_numeric($valor)){//Si la respuesta no es un string, entonces es el id de la opcion de respuesta
@@ -485,13 +485,19 @@ class InscripcionController extends Controller
                         $model->respValor=$resp['respValor'];
                         $model->idPregunta=$resp['idPregunta'];
                         $model->idPersona=$resp['idPersona'];
-                        $model->save();
+                        $encuestaGuardada=$model->save();
                     }
                 }    
             }
+            if($encuestaGuardada){
+                $transaction->commit();
+                $guardado=true;
+            }else{
+                $transaction->rollBack();
+                $guardado=false;
+            }
             //Si se realiza el commit, asigna true a la variable guardado
-            $transaction->commit();
-            $guardado=true;
+
             if ($guardado){     // Si la inscripcion es guardada correctamente, se envia un mail de confirmacion 
 
                 // Obtenemos el Objeto usuario para obtener sus dato
