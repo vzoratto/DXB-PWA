@@ -43,6 +43,7 @@ AppAsset::register($this);
             ['label' => 'Equipos', 'url' => ['/equipo/index']],
             ['label' => 'Participantes','items' => [
                 ['label' => 'Ver Todos', 'url' => ['/carrerapersona/index']],
+                ['label' => 'En Espera', 'url' => ['/listadeespera/index']],
                 ['label' => 'Fichas Medicas', 'url' => ['/fichamedica/index']],
                 ['label' => 'Inscribir Invitado', 'url' => ['/invitado/index']],
                 ['label' => 'Inscripcion Corredor', 'url' => ['/inscripcion/index']],

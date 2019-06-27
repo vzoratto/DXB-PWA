@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use Yii\db\Query;
+use app\models\Listadeespera;
 
 /**
  * This is the model class for table "persona".
@@ -94,12 +95,12 @@ class Persona extends \yii\db\ActiveRecord
         return [
             'idPersona' => 'Id Persona',
             'idTalleRemera' => 'Talle Remera',
-            'nombrePersona' => 'Nombre *',
-            'apellidoPersona' => 'Apellido *',
-            'fechaNacPersona' => 'Fecha Nacimiento *',
+            'nombrePersona' => 'Nombre ',
+            'apellidoPersona' => 'Apellido',
+            'fechaNacPersona' => 'Fecha Nacimiento',
             'sexoPersona' => 'Sexo',
-            'nacionalidadPersona' => 'Nacionalidad *',
-            'telefonoPersona' => 'Telefono *',
+            'nacionalidadPersona' => 'Nacionalidad ',
+            'telefonoPersona' => 'Telefono',
             'mailPersona' => 'Mail',
             'idUsuario' => 'Id Usuario',
             'idPersonaDireccion' => 'Direccion',
@@ -207,6 +208,11 @@ class Persona extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Talleremera::className(), ['idTalleRemera' => 'idTalleRemera']);
     }
+    
+    public function getListadeespera()
+    {
+        return $this->hasOne(Listadeespera::className(), ['idPersona' => 'idPersona']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -223,33 +229,6 @@ class Persona extends \yii\db\ActiveRecord
     public function getNombreCompleto()
     {
         return $this->nombrePersona.' '.$this->apellidoPersona;
-    }
-
-    //si al actualizar el email , es el mismo que el del usuario actual
-    public function mismoUsuarioEmail($email){
-        $mismo=false;
-        //usuario actual
-        $usuario=Usuario::findOne(['idUsuario'=>$_SESSION['__id']]);
-
-        //si el usuario quiere actualizar su email
-        if($usuario->mailUsuario==$email){
-            $mismo=true;
-
-        }else{
-            $mismo=false;
-        }
-        return $mismo;
-    }
-    //no existe un email igual al introducido
-    public function noExisteEmail($email){
-        $valido=false;
-        $usuarioConEmailIntroducido=Usuario::findOne(['mailUsuario'=>$email]);
-        if($usuarioConEmailIntroducido==null){
-            $valido=true;
-        }else{
-            $valido=false;
-        }
-        return $valido;
     }
 
 	

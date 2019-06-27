@@ -4,7 +4,7 @@ namespace app\models;
 
 use Yii;
 use app\models\Persona;
-
+use app\models\Listadeespera;
 use app\models\Equipo;
 use app\models\Tipocarrera;
 
@@ -96,6 +96,13 @@ class Carrerapersona extends \yii\db\ActiveRecord
     public function getTalleRemera(){
 	   return $this->hasOne(Persona::className(),['idTalleRemera'=> 'idTalleRemera'])->viaTable (TalleRemera::className(),['idTalleRemera'=>'idTalleRemera']);
     }
+
+    public function getListadeespera(){
+        return $this->hasOne(Listadeespera::className(),['idPersona'=> 'idPersona']);
+   
+     }
+
+
 	public function afterFind() {
         parent::afterFind();
         // Concateno el nombre y apellido en el nuevo atributo virtual

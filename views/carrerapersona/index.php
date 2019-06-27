@@ -8,6 +8,7 @@ use yii\grid\GridView;
 use app\models\Gruposanguineo;
 use app\models\Talleremera;
 use app\models\Tipocarrera;
+use app\models\Listadeespera;
 use app\models\Carrerapersona;
 use app\models\Usuario;
 use app\models\Equipo;
@@ -23,6 +24,7 @@ use kartik\export\ExportMenu;
 
 $this->title = 'Listado De Participantes ';
 ?>
+
 <div class="carrerapersona-index reglamento-container">
 
 
@@ -81,10 +83,17 @@ $this->title = 'Listado De Participantes ';
                 }
 		    	],		
            ],
-			
-	
-	
-	
+           ['label' => 'Espera',
+			'attribute' => 'enespera',
+                'value' => function($model) {
+                    if(isset($model->listadeespera->idPersona)){
+                   return ("Si");
+                    }else{
+                        return ("No");
+                    }
+                },
+               // 'filter' => array("No"=>"No"),
+            ],	
 ];
 ?>
 <?php

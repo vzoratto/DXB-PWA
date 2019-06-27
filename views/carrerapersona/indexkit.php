@@ -13,6 +13,7 @@ use app\models\Carrerapersonasearch;
 use app\models\Usuario;
 use app\models\Equipo;
 use app\models\Persona;
+use app\models\Listadeespera;
 use dimmitri\grid\ExpandRowColumn;
 use kartik\export\ExportMenu;
 use yii\widgets\ActiveForm;
@@ -40,6 +41,17 @@ $this->title = 'Entrega De Kits ';
                     return ($model->persona->usuario->dniUsuario);
                 },
 
+            ],
+            ['label' => 'Espera',
+			'attribute' => 'enespera',
+                'value' => function($model) {
+                    if(isset($model->listadeespera->idPersona)){
+                   return ("Si");
+                    }else{
+                        return ("No");
+                    }
+                },
+               
             ],
 			[   'label' => 'Sexo',
                 'attribute' => 'sexoPersona',
