@@ -3506,7 +3506,8 @@ a.desc:after {
 
 .contenedor-full {
     width: 100%;
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
 }
 
 .contenedor-mitad {
@@ -4335,7 +4336,7 @@ a.desc:after {
 .colabora img {
     filter: brightness(0);
     cursor: pointer;
-    margin-right: 15px;
+    margin-right: 5px;
 }
 
 .colabora img:hover {
@@ -4444,10 +4445,6 @@ a.desc:after {
     display: none;
 }
 
-.has-error .help-block {
-    display: none;
-}
-
 .btn-success {
     background: rgba(199, 127, 55, 1);
     border: 1px solid #f7f7f8;
@@ -4473,4 +4470,21 @@ a.desc:after {
 .soloLectura {
     background-color: #eeeeee !important;
     opacity: 1 !important;
+}
+
+.table {
+  background-color: #FFF !important;
+  margin-bottom: 50px !important;
+}
+
+.invitado .wizard {
+  margin-bottom: 50px;
+}
+
+.wrap .pt-eight {
+  padding-top: 0px;
+}
+
+.wrap .db-registro {
+  background-image: none !important;
 }

@@ -161,9 +161,11 @@ $userLogueado=Yii::$app->user; // Obtenemos el objeto del usuario logeado
 
               <h4 class="subtitulo mt-ten sm-center"> Organiza </h4>
 
-              <a href="https://www.uncoactiva.com/" target="_blank"> <img class="largo" src="assets/img/colabora/unco-activa.png" alt="Unco activa"> </a>
+              <a href="https://www.uncoma.edu.ar/" target="_blank"> <img class="width-20" src="assets/img/colabora/rsu.png" alt="Programa de compromiso social universitario"> </a>
 
-              <a href="https://www.uncoma.edu.ar/" target="_blank"> <img class="redondo" src="assets/img/colabora/unco.png" alt="Universidad Nacional del Comahue"> </a>
+              <a href="https://www.uncoactiva.com/" target="_blank"> <img class="width-50" src="assets/img/colabora/unco-activa.png" alt="Unco activa"> </a>
+
+              <a href="https://www.facebook.com/pg/bienestaruncoma" target="_blank"> <img class="width-20" src="assets/img/colabora/bienestar.png" alt="Bien Estar UNCOMA"> </a>
 
             </div>
 
