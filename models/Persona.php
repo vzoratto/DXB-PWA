@@ -242,14 +242,36 @@ class Persona extends \yii\db\ActiveRecord
     }
     //no existe un email igual al introducido
     public function noExisteEmail($email){
-        $valido=false;
+        $valido=true;
         $usuarioConEmailIntroducido=Usuario::findOne(['mailUsuario'=>$email]);
         if($usuarioConEmailIntroducido==null){
             $valido=true;
         }else{
-            $valido=false;
+            $valido=true;
         }
         return $valido;
+    }
+
+
+
+    public function inscrito(){
+        //0 para los usuarios visitantes
+        //1 para los inscriptos
+        //2 para los no inscriptos
+        //3 para los usuarios inscriptos que ya actualizaron su perfil
+        $estado=0;
+        if(!Yii::$app->user->isGuest){
+            $persona=self::findOne(['idUsuario' => $_SESSION['__id']]);
+            if($persona!=null){
+               $estado=1;
+            }else{
+                $estado=2;
+            }
+        }else{
+            //es visitante
+            $estado=0;
+        }
+        return $estado;
     }
 
 	
