@@ -133,6 +133,7 @@ function controlNombreCalle() {
 
 //Control ingreso email
 function controlEmail() {
+
     var mailContacto = $('#persona-mailpersona').val(); //Valor del email
     patron = /^[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/; //Patron a respetar
     siguiente = false;
@@ -147,5 +148,44 @@ function controlEmail() {
         $('.field-persona-mailpersona').removeClass('has-error');
         siguiente = false; //Seteo la variable
     }
+    var valueEditar = $('#editar').val();
+    //si es 1 significa que debo hacer la peticion ajax para comprobar que el email pueda ser usado
+    if(valueEditar==1){
+        var respuesta=verificaAjaxEmail();
+        if(respuesta==1){
+            $('#persona-mailpersona').css('border', '1px solid #a94442');
+            $('.field-persona-mailpersona').removeClass('has-error');
+            siguiente=false;
+        }
+
+    }
+
+
+
+
+
     return siguiente;
+}
+//peticion ajax para comprobar que el email no exista
+//devuelve 1 si existe,0 si esta disponible
+ function verificaAjaxEmail(){
+
+     mailContacto = $('#persona-mailpersona').val();
+     //var siguiente=false;
+    var valueEditar = $('#editar').val();
+    if(valueEditar==1){
+
+        //var msj=$.ajax({type:"get",url:"index.php?r=editar/email",emailUsu:mailContacto}).responseText;
+
+        $.ajax({
+            url: "index.php?r=editar/email&emailUsu="+mailContacto,
+            type: 'GET',
+            async: false,
+            success: function(data) {
+                 dataToReturn = data;
+            }
+        });
+
+    }
+    return dataToReturn;
 }
