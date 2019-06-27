@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use Yii\db\Query;
+use app\models\Listadeespera;
 
 /**
  * This is the model class for table "persona".
@@ -94,12 +95,12 @@ class Persona extends \yii\db\ActiveRecord
         return [
             'idPersona' => 'Id Persona',
             'idTalleRemera' => 'Talle Remera',
-            'nombrePersona' => 'Nombre *',
-            'apellidoPersona' => 'Apellido *',
-            'fechaNacPersona' => 'Fecha Nacimiento *',
+            'nombrePersona' => 'Nombre ',
+            'apellidoPersona' => 'Apellido',
+            'fechaNacPersona' => 'Fecha Nacimiento',
             'sexoPersona' => 'Sexo',
-            'nacionalidadPersona' => 'Nacionalidad *',
-            'telefonoPersona' => 'Telefono *',
+            'nacionalidadPersona' => 'Nacionalidad ',
+            'telefonoPersona' => 'Telefono',
             'mailPersona' => 'Mail',
             'idUsuario' => 'Id Usuario',
             'idPersonaDireccion' => 'Direccion',
@@ -206,6 +207,11 @@ class Persona extends \yii\db\ActiveRecord
     public function getTalleRemera()
     {
         return $this->hasOne(Talleremera::className(), ['idTalleRemera' => 'idTalleRemera']);
+    }
+    
+    public function getListadeespera()
+    {
+        return $this->hasOne(Listadeespera::className(), ['idPersona' => 'idPersona']);
     }
 
     /**
