@@ -159,13 +159,13 @@ class EditarController extends Controller
             $personaDireccion->idLocalidad=Yii::$app->request->post()['Personadireccion']['idLocalidad'];
             $personaDireccion->direccionUsuario=Yii::$app->request->post()['calle'];
             //se actualiza el modelo
-            $personaDireccion->update();
+            $personaDireccion->save();
             $personaEmergencia->nombrePersonaEmergencia=$personaEmergenciaForm['nombrePersonaEmergencia'];
             $personaEmergencia->apellidoPersonaEmergencia=$personaEmergenciaForm['apellidoPersonaEmergencia'];
             $personaEmergencia->telefonoPersonaEmergencia=$personaEmergenciaForm['telefonoPersonaEmergencia'];
             $personaEmergencia->idVinculoPersonaEmergencia=$personaEmergenciaForm['idVinculoPersonaEmergencia'];
             //se actualiza  el modelo
-            $personaEmergencia->update();
+            $personaEmergencia->save();
             //accedemos al modelo FichaMedica de la persona
             $fichaMedica=$persona->fichaMedica;
             $fichaMedica->obraSocial=$fichaMedicaForm['obraSocial'];
@@ -179,7 +179,7 @@ class EditarController extends Controller
             $fichaMedica->tomaMedicamentos=$fichaMedicaForm['tomaMedicamentos'];
             $fichaMedica->observaciones=$fichaMedicaForm['observaciones'];
             //se actualiza el modelo
-            $fichaMedica->update();
+            $fichaMedica->save();
             $persona->nacionalidadPersona=$personaForm['nacionalidadPersona'];
             $persona->nombrePersona=$personaForm['nombrePersona'];
             $persona->apellidoPersona=$personaForm['apellidoPersona'];
@@ -188,14 +188,38 @@ class EditarController extends Controller
             $persona->donador=$personaForm['donador'];
             $persona->idTalleRemera=$talleRemeraForm['idTalleRemera'];
             $persona->sexoPersona=$personaForm['sexoPersona'];
-            $persona->mailPersona=$personaForm['mailPersona'];
-            $persona->update();
-            //se actualiza el email del usuario
-            $usuario=Yii::$app->user->identity;
-            $usuario->mailUsuario=$persona->mailPersona;
-            $usuario->update();
-            $transaction->commit();
-            $guardado=true;
+
+
+            //si el usuario introduce el mismo email que el que tenia no se actualiza
+            if($persona->mismoUsuarioEmail($personaForm['mailPersona'])==false){
+                //de lo contrario, primero verifica que no exista un usuario cone l mismo email
+                if($persona->noExisteEmail($personaForm['mailPersona'])){
+                    $persona->mailPersona=$personaForm['mailPersona'];
+                    if($persona->save()){
+                        $usuarioDelaPersona=$persona->usuario;
+                        $usuarioDelaPersona->mailUsuario=$personaForm['mailPersona'];
+                        $actualizado=$usuarioDelaPersona->save();
+
+                    }
+                    //si el email ya esta introducido no se guardan los datos
+                }else{
+                    $actualizado=false;
+                }
+
+             //si el usuario no quiere actualizar su email, se guardan los demas registros , sin actualizar el email
+            }else{
+                $actualizado=$persona->save();
+            }
+
+
+            if($actualizado){
+                $transaction->commit();
+                $guardado=1;
+            }else{
+                $transaction->rollBack();
+                $guardado=0;
+            }
+
             if ($guardado){ // Si la actualizacion es correcta se redirecciona al index
                 $mensaje = "Se actualizaron correctamente tus datos ";
                 return Yii::$app->response->redirect(['site/index','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
