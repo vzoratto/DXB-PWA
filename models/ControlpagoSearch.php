@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Estadopagopersona;
+use app\models\Controlpago;
 
 /**
- * EstadopagopersonaSearch represents the model behind the search form of `app\models\Estadopagopersona`.
+ * ControlpagoSearch represents the model behind the search form of `app\models\Controlpago`.
  */
-class EstadopagopersonaSearch extends Estadopagopersona
+class ControlpagoSearch extends Controlpago
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class EstadopagopersonaSearch extends Estadopagopersona
     public function rules()
     {
         return [
-            [['idEstadoPago', 'idPersona'], 'integer'],
-            [['fechaPago'], 'safe'],
+            [['idControlpago', 'idPago', 'idUsuario'], 'integer'],
+            [['fechaPago', 'fechachequeado'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class EstadopagopersonaSearch extends Estadopagopersona
      */
     public function search($params)
     {
-        $query = Estadopagopersona::find();
+        $query = Controlpago::find();
 
         // add conditions that should always apply here
 
@@ -58,9 +58,11 @@ class EstadopagopersonaSearch extends Estadopagopersona
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idEstadoPago' => $this->idEstadoPago,
-            'idPersona' => $this->idPersona,
+            'idControlpago' => $this->idControlpago,
+            'idPago' => $this->idPago,
             'fechaPago' => $this->fechaPago,
+            'fechachequeado' => $this->fechachequeado,
+            'idUsuario' => $this->idUsuario,
         ]);
 
         return $dataProvider;

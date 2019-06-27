@@ -3,17 +3,19 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Estadopago;
-use app\models\EstadopagoSearch;
+use app\models\Controlpago;
+use app\models\ControlpagoSearch;
 use app\models\Permiso;
+use app\models\Usuario;
+use yii\web\IdentityInterface;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * EstadopagoController implements the CRUD actions for Estadopago model.
+ * ControlpagoController implements the CRUD actions for Controlpago model.
  */
-class EstadopagoController extends Controller
+class ControlpagoController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,7 +33,7 @@ class EstadopagoController extends Controller
     }
 
     /**
-     * Lists all Estadopago models.
+     * Lists all Controlpago models.
      * @return mixed
      */
     public function actionIndex()
@@ -41,7 +43,7 @@ class EstadopagoController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-        $searchModel = new EstadopagoSearch();
+        $searchModel = new ControlpagoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -51,7 +53,7 @@ class EstadopagoController extends Controller
     }
 
     /**
-     * Displays a single Estadopago model.
+     * Displays a single Controlpago model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -69,7 +71,7 @@ class EstadopagoController extends Controller
     }
 
     /**
-     * Creates a new Estadopago model.
+     * Creates a new Controlpago model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
@@ -80,10 +82,10 @@ class EstadopagoController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-        $model = new Estadopago();
+        $model = new Controlpago();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idEstadoPago]);
+            return $this->redirect(['view', 'id' => $model->idControlpago]);
         }
 
         return $this->render('create', [
@@ -92,7 +94,7 @@ class EstadopagoController extends Controller
     }
 
     /**
-     * Updates an existing Estadopago model.
+     * Updates an existing Controlpago model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -107,17 +109,21 @@ class EstadopagoController extends Controller
         }
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idEstadoPago]);
+        if ($model->load(Yii::$app->request->post())){
+           $usuario= Usuario::findIdentity($_SESSION['__id']);
+          $model->idUsuario=$usuario->idUsuario;
+         if($model->save()) {
+             
+            return $this->redirect(['view', 'id' => $model->idControlpago]);
         }
-
+    }
         return $this->render('update', [
             'model' => $model,
         ]);
     }
 
     /**
-     * Deletes an existing Estadopago model.
+     * Deletes an existing Controlpago model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -136,15 +142,15 @@ class EstadopagoController extends Controller
     }
 
     /**
-     * Finds the Estadopago model based on its primary key value.
+     * Finds the Controlpago model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Estadopago the loaded model
+     * @return Controlpago the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Estadopago::findOne($id)) !== null) {
+        if (($model = Controlpago::findOne($id)) !== null) {
             return $model;
         }
 

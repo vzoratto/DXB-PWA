@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Estadopago;
+use app\models\Pago;
 
 /**
- * EstadopagoSearch represents the model behind the search form of `app\models\Estadopago`.
+ * PagoSearch represents the model behind the search form of `app\models\Pago`.
  */
-class EstadopagoSearch extends Estadopago
+class PagoSearch extends Pago
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class EstadopagoSearch extends Estadopago
     public function rules()
     {
         return [
-            [['idEstadoPago'], 'integer'],
-            [['descripcionEstadoPago'], 'safe'],
+            [['idPago', 'importePagado', 'idPersona', 'idImporte', 'idEquipo'], 'integer'],
+            [['entidadPago', 'imagenComprobante'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class EstadopagoSearch extends Estadopago
      */
     public function search($params)
     {
-        $query = Estadopago::find();
+        $query = Pago::find();
 
         // add conditions that should always apply here
 
@@ -58,10 +58,15 @@ class EstadopagoSearch extends Estadopago
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idEstadoPago' => $this->idEstadoPago,
+            'idPago' => $this->idPago,
+            'importePagado' => $this->importePagado,
+            'idPersona' => $this->idPersona,
+            'idImporte' => $this->idImporte,
+            'idEquipo' => $this->idEquipo,
         ]);
 
-        $query->andFilterWhere(['like', 'descripcionEstadoPago', $this->descripcionEstadoPago]);
+        $query->andFilterWhere(['like', 'entidadPago', $this->entidadPago])
+            ->andFilterWhere(['like', 'imagenComprobante', $this->imagenComprobante]);
 
         return $dataProvider;
     }
