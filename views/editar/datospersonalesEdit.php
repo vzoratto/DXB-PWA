@@ -55,7 +55,7 @@ use kartik\switchinput\SwitchInput;
             <?php
             if($capitan==true){
                 ?>
-                <div class="row no-label">
+                <div class="row db-label">
                     <div id="opcionesCapitan" style="<?php ($capitan==false)?"display:none":"";?>" aria-label="..." class="col-1">
 
                         <div id="tipoCarrera" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
@@ -81,7 +81,7 @@ use kartik\switchinput\SwitchInput;
             }else{
                 ?>
                 <!-- Opciones que visualiza si selecciona que no es capitan -->
-                <div class="row no-label">
+                <div class="row db-label">
                     <div id="opcionesNoSoyCapitan" style="<?php ($capitan==true)?"display:none":"";?>" aria-label="..." class="col-1">
 
                         <div id="dniCapitan" class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
@@ -118,34 +118,34 @@ use kartik\switchinput\SwitchInput;
 
 
 
-            <div class="row no-label">
+            <div class="row db-label">
 
                 <!--
                 -->
                 <div id="dniUsuario" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-                    <div>DNI *</div>
-                    <?= $form->field($usuario, 'dniUsuario')->textInput(['class' => 'input-db soloLectura','placeholder'=>'DNI','readonly'=>true])->label('')?>
+
+                    <?= $form->field($usuario, 'dniUsuario')->textInput(['class' => 'input-db soloLectura','placeholder'=>'DNI','readonly'=>true])->label('DNI *')?>
                 </div>
 
                 <div id="nacionalidadPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-                    <div>Nacionalidad *</div>
+
                     <?= $form->field($persona, 'nacionalidadPersona')->textInput(['maxlength' => true, 'class' => 'input-db', 'placeholder'=>'Nacionalidad']) ?>
                 </div>
 
                 <div id="nombrePersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-                    <div>Nombre *</div>
+
                     <?= $form->field($persona, 'nombrePersona')->textInput(['maxlength' => true, 'class' => 'input-db','placeholder'=>'Nombre']) ?>
                 </div>
 
                 <div id="apellidoPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-                    <div>Apellido *</div>
+
                     <?= $form->field($persona, 'apellidoPersona')->textInput(['maxlength' => true, 'class' => 'input-db','placeholder'=>'Apellido'])?>
                 </div>
             </div>
             <div class="row">
 
-                <div id="fechaNacPersona" class="col-md-4 col-lg-4 col-sm-4 col-xs-12 no-label">
-                    <div>Fecha de nacimiento *</div>
+                <div id="fechaNacPersona" class="col-md-4 col-lg-4 col-sm-4 col-xs-12 db-label">
+
                     <!-- utilizacion de un widget de kartik llamado DatePicker, permite escoger
                     una fecha desde un calendario permitiendo tambien seleccionar años o meses
                     con una mayor facilidad -->
@@ -154,14 +154,16 @@ use kartik\switchinput\SwitchInput;
                 </div>
 
                 <div id="sexoPersona" class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
-                    <div>Sexo *</div>
+                    <div class="db-label m-0">
+                        <label id="labelSexoDatoPersonal" class="m-0">Sexo *</label>
+                    </div>
                     <!-- campo tipo radioButton, con dos opciones: SI o NO -->
                     <?= $form->field($persona, 'sexoPersona')->radioList(array('F'=>'Femenino','M'=>'Masculino'))->label('')?>
                 </div>
 
-                <div id="talleRemera" class="col-md-4 col-lg-4 col-sm-4 col-xs-12 no-label">
-                    <div>Talle de remera *</div>
-                    <?=$form->field($talleRemera, 'idTalleRemera')->dropDownList($listadoTalles, ['prompt' => 'Talle de remera' ]); ?>
+                <div id="talleRemera" class="col-md-4 col-lg-4 col-sm-4 col-xs-12 db-label">
+
+                    <?=$form->field($talleRemera, 'idTalleRemera')->dropDownList($listadoTalles, ['prompt' => 'Talle de remera' ])->label('Talle de remera *'); ?>
                 </div>
             </div>
 
