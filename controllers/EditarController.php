@@ -52,12 +52,12 @@ class EditarController extends Controller
         }
 
         $persona=Persona::findOne(['idUsuario' => $_SESSION['__id']]);
-        /*//busca la persona logueada
+        //busca la persona logueada
 
-        //si la persona logueada ya modifico sus datos por una vez, es dirigida a la pagina d inicio
-        if($persona->deshabilitado==2){
+        //si la persona logueada no se inscribio, no puede modificar sus datos
+        if($persona==null){
             return $this->goHome();
-        }*/
+        }
         $usuario=Usuario::findOne(['idUsuario'=>$_SESSION['__id']]);
         $equipo=Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario]);
         $nombreCapitan=null;
@@ -139,6 +139,7 @@ class EditarController extends Controller
     public function actionUpdate(){
 
 
+
         $transaction=Yii::$app->db->beginTransaction();
         try{
             //se accede a los datos Persona del formulario
@@ -155,7 +156,7 @@ class EditarController extends Controller
             $personaEmergencia=$persona->personaEmergencia;
             //se accede al modelo PersonaDireccion del usuario
             $personaDireccion=$persona->personaDireccion;
-            $personaDireccion->idLocalidad=Yii::$app->request->post()['Localidad']['idLocalidad'];
+            $personaDireccion->idLocalidad=Yii::$app->request->post()['Personadireccion']['idLocalidad'];
             $personaDireccion->direccionUsuario=Yii::$app->request->post()['calle'];
             //se actualiza el modelo
             $personaDireccion->update();
