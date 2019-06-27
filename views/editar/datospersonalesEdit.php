@@ -24,7 +24,7 @@ use kartik\switchinput\SwitchInput;
                 if($capitan==true){
                     ?>
                     <div class="left" >
-                        <label style="font-weight: bold">Sos capitán:</label>
+                        <label style="font-weight: bold">Sos capitán: </label>
                         <br>
                     </div>
                     <?php
@@ -123,29 +123,29 @@ use kartik\switchinput\SwitchInput;
                 <!--
                 -->
                 <div id="dniUsuario" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-                    <div>DNI</div>
+                    <div>DNI *</div>
                     <?= $form->field($usuario, 'dniUsuario')->textInput(['class' => 'input-db','placeholder'=>'DNI','readonly'=>true])->label('')?>
                 </div>
 
                 <div id="nacionalidadPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-                    <div>Nacionalidad</div>
+                    <div>Nacionalidad *</div>
                     <?= $form->field($persona, 'nacionalidadPersona')->textInput(['maxlength' => true, 'class' => 'input-db', 'placeholder'=>'Nacionalidad']) ?>
                 </div>
 
                 <div id="nombrePersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-                    <div>Nombre</div>
+                    <div>Nombre *</div>
                     <?= $form->field($persona, 'nombrePersona')->textInput(['maxlength' => true, 'class' => 'input-db','placeholder'=>'Nombre']) ?>
                 </div>
 
                 <div id="apellidoPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-                    <div>Apellido</div>
+                    <div>Apellido *</div>
                     <?= $form->field($persona, 'apellidoPersona')->textInput(['maxlength' => true, 'class' => 'input-db','placeholder'=>'Apellido'])?>
                 </div>
             </div>
             <div class="row">
 
                 <div id="fechaNacPersona" class="col-md-4 col-lg-4 col-sm-4 col-xs-12 no-label">
-                    <div>Fecha de nacimiento</div>
+                    <div>Fecha de nacimiento *</div>
                     <!-- utilizacion de un widget de kartik llamado DatePicker, permite escoger
                     una fecha desde un calendario permitiendo tambien seleccionar años o meses
                     con una mayor facilidad -->
@@ -154,13 +154,13 @@ use kartik\switchinput\SwitchInput;
                 </div>
 
                 <div id="sexoPersona" class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
-                    <div>Sexo</div>
+                    <div>Sexo *</div>
                     <!-- campo tipo radioButton, con dos opciones: SI o NO -->
                     <?= $form->field($persona, 'sexoPersona')->radioList(array('F'=>'Femenino','M'=>'Masculino'))->label('')?>
                 </div>
 
                 <div id="talleRemera" class="col-md-4 col-lg-4 col-sm-4 col-xs-12 no-label">
-                    <div>Talle de remera</div>
+                    <div>Talle de remera *</div>
                     <?=$form->field($talleRemera, 'idTalleRemera')->dropDownList($listadoTalles, ['prompt' => 'Talle de remera' ]); ?>
                 </div>
             </div>
