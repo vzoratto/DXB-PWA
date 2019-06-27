@@ -27,7 +27,7 @@ $this->title = 'Listado De Participantes ';
 
 
     <h1><?= Html::encode($this->title) ?></h1>
-	  
+
     <h2>Total de Participantes: <?= Html::encode($dataProvider->getCount()) ?></h2>
 	 <?php
 		$gridColumns = [
@@ -46,7 +46,7 @@ $this->title = 'Listado De Participantes ';
                 'value' => function($model) {
                     return ($model->persona->usuario->dniUsuario);
                 },
-				
+
             ],
 
             ['label' => 'Categoria',
@@ -79,12 +79,12 @@ $this->title = 'Listado De Participantes ';
                        'style'=>'width : 50%',
                     ]);
                 }
-		    	],		
+		    	],
            ],
-			
-	
-	
-	
+
+
+
+
 ];
 ?>
 <?php
@@ -94,7 +94,7 @@ echo ExportMenu::widget([
     'columns' => $gridColumns,
 	'filename'=>'DesafioBardas',
 	'target' => ExportMenu::TARGET_SELF,
-	
+
 	'hiddenColumns'=>[0, 1],
 	'exportConfig' => [
         ExportMenu::FORMAT_HTML => false,
@@ -110,14 +110,14 @@ echo ExportMenu::widget([
                 ]
             ]
         ],
-		
+
     ],
 	'dropdownOptions' => [
         'label' => 'Exportar',
         'class' => 'btn btn-secondary'
     ]
-	
-	
+
+
 ]);
 
 // You can choose to render your own GridView separately

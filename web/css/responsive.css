@@ -3147,6 +3147,12 @@
       margin-left: 0px;
     }
 
+    .reglamento-container {
+      border-radius: 0px;
+      padding: 60px 20px;
+      margin-top: 0px;
+    }
+
     /*======================
     === Stepper Registro ===
     ======================*/
