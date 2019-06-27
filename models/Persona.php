@@ -225,7 +225,7 @@ class Persona extends \yii\db\ActiveRecord
         return $this->nombrePersona.' '.$this->apellidoPersona;
     }
 
-    //si al actualizar el email , es el mismo que el del usuario actual se valido
+    //si al actualizar el email , es el mismo que el del usuario actual
     public function mismoUsuarioEmail($email){
         $mismo=false;
         //usuario actual
@@ -240,6 +240,7 @@ class Persona extends \yii\db\ActiveRecord
         }
         return $mismo;
     }
+    //no existe un email igual al introducido
     public function noExisteEmail($email){
         $valido=false;
         $usuarioConEmailIntroducido=Usuario::findOne(['mailUsuario'=>$email]);
