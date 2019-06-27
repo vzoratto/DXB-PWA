@@ -189,9 +189,9 @@ CREATE table  `pago` (
 CREATE table  `controlpago` (
 	  `idControlpago` int(8) NOT NULL AUTO_INCREMENT,
 	   idPago int(8) NOT NULL,
-	  `fechaPago` date default null,
-	  fechachequeado date default null,
-	  idUsuario int(8) NOT NULL,
+	  `fechaPago`  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	  fechachequeado date default 0,
+	  idUsuario int(8) not null default 0,
 	  PRIMARY KEY (idControlpago),
 	  FOREIGN KEY (`idPago`) REFERENCES pago (`idPago`),
 	  FOREIGN KEY (`idUsuario`) REFERENCES usuario (`idUsuario`)

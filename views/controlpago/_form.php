@@ -12,16 +12,28 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'idPago')->textInput() ?>
+   <!-- <?= $form->field($model, 'idPago')->textInput() ?>-->
 
     <?= $form->field($model, 'fechaPago')->textInput() ?>
 
-    <?= $form->field($model, 'fechachequeado')->textInput() ?>
+    <?php
+      if (!$model->isNewRecord)
+		  echo $form->field($model, 'fechachequeado')->textInput(['value'=>date("Y-m-d"), 'readonly'=> true]); 
+	  else 
+	      echo $form->field($model, 'fechachequeado')->textInput();
+	  ?>
+      <?php
+      if ($model->isNewRecord)
+        //echo $form->field($model, 'idUsuario')->textInput() 
 
-    <?= $form->field($model, 'idUsuario')->textInput() ?>
-
+       ?>
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <?php
+      if ($model->isNewRecord) 
+             echo Html::submitButton('Ingresar', ['class' => 'btn btn-success']);
+      else	 
+		     echo Html::submitButton('Actualizar', ['class' => 'btn btn-success']);
+	  ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -32,7 +32,7 @@ class Controlpago extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idPago', 'idUsuario'], 'required'],
+            [['idPago'], 'required'],
             [['idPago', 'idUsuario'], 'integer'],
             [['fechaPago', 'fechachequeado'], 'safe'],
             [['idPago'], 'exist', 'skipOnError' => true, 'targetClass' => Pago::className(), 'targetAttribute' => ['idPago' => 'idPago']],
@@ -68,5 +68,12 @@ class Controlpago extends \yii\db\ActiveRecord
     public function getUsuario()
     {
         return $this->hasOne(Usuario::className(), ['idUsuario' => 'idUsuario']);
+    }
+
+    public function getDarusuario(){
+        if($fecha=self::find()->where(['fechachequeado'=>'0000-00-00'])->all()){
+         return $fecha;
+        }
+        
     }
 }

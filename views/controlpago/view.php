@@ -6,9 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Controlpago */
 
-$this->title = $model->idControlpago;
-$this->params['breadcrumbs'][] = ['label' => 'Controlpagos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title ='Referencia: '. $model->idControlpago;
+
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="controlpago-view">
@@ -16,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->idControlpago], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->idControlpago], [
+        <?= Html::a('Actualizar', ['update', 'id' => $model->idControlpago], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Eliminar', ['delete', 'id' => $model->idControlpago], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,11 +28,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idControlpago',
-            'idPago',
+            //'idControlpago',
+           // 'idPago',
             'fechaPago',
             'fechachequeado',
-            'idUsuario',
+            ['attribute'=>'idUsuario',
+              'value'=>function($model){
+                  if(!$model->darusuario){
+                    return($model->darusuario==false)?'':'ninguno';
+                  }else{
+                  return($model->usuario->dniUsuario);}
+              },
+            ],
         ],
     ]) ?>
 

@@ -72,9 +72,10 @@ class PagoController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+            'model' => $this->findModel($id),]
+        );
     }
 
     /**
@@ -130,15 +131,13 @@ class PagoController extends Controller
             }
             $model1=new Controlpago;
             $model1->idPago=$idpago;
-            $model1->fechaPago=new \DateTime();
-            $model1->fechachequeado=null;
-            $model1->idUsuario=null;
-            //s echo "<pre>";print_r($model1);echo"</pre>";die();
+            $model1->idUsuario=$usuario->idUsuario;
             if($model1->save()){
                 //enviamos mail
                 return $this->redirect(['view', 'id' => $model->idPago]);   
             }else{
                 //mandamos error
+                echo "<pre>";print_r($model1->errors);echo"</pre>";die();
             }
         }
     
@@ -152,6 +151,73 @@ class PagoController extends Controller
             'importecarrera'=>$importecarrera,//importe del tipo de carrera
         ]);
     }
+    /**
+     * Creates a new Pago model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+   /* public function actionCreate1()
+    {/*
+        $usuario=Usuario::findIdentity($_SESSION['__id']);
+        $persona=Persona::findOne(['idUsuario' => $_SESSION['__id']]);
+        if($grupo=Grupo::findOne(['idPersona'=>$persona->idPersona])){
+              $equipo=Equipo::findOne(['idEquipo'=>$grupo->idEquipo]);
+              $tipocarrera=TipoCarrera::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+              $importecarrera=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+        } */ 
+      /*  if(Permiso::requerirRol('administrador')){
+                $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+                $this->layout='/main3';
+        }
+       
+        $model = new Pago();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->idPersona=$persona->idPersona;
+        
+           $model->imagenComprobante = UploadedFile::getInstance($model, 'imagenComprobante');
+           $imagen_nombre='persona_'.$model->idPersona.'.'.$model->imagenComprobante->extension;
+           $imagen_dir='archivo/pagoinscripcion/'.$imagen_nombre;
+           $model->imagenComprobante->saveAs($imagen_dir);
+           $model->imagenComprobante=$imagen_dir;
+           $model->idEquipo=$equipo->idEquipo;
+           $model->idImporte=$importecarrera->idImporte;
+           
+         // echo "<pre>";print_r($model);echo"</pre>";die();
+           if($model->save()){
+            $idpago = Yii::$app->db->getLastInsertID(); //Obtenemos el ID del ultimo usuario ingresado
+            $pagado=$importecarrera->importe - $model->importePagado;
+              if($importecarrera->importe ==$pagado){
+                $total=0;
+              }elseif($importecarrera->importe > $pagado){
+                $total=1;
+              }
+              //return $this->redirect(['view', 'id' => $model->idPago]);     
+            }
+            $model1=new Controlpago;
+            $model1->idPago=$idpago;
+            $model1->idUsuario=$usuario->idUsuario;
+            if($model1->save()){
+                //enviamos mail
+                return $this->redirect(['view', 'id' => $model->idPago]);   
+            }else{
+                //mandamos error
+                echo "<pre>";print_r($model1->errors);echo"</pre>";die();
+            }
+        }
+    
+    
+        return $this->render('create', [
+            'model' => $model,
+            'equipo'=> $equipo,//dniCapitan,idEquipo,idTipoCarrera
+            'persona'=> $persona,//idPersona
+            'usuario'=> $usuario,//idUsuario, dniUsuario,mailUsuario
+            'tipocarrera'=>$tipocarrera,//descripcionCarrera
+            'importecarrera'=>$importecarrera,//importe del tipo de carrera
+        ]);
+}*/
+
 
     /**
      * Updates an existing Pago model.

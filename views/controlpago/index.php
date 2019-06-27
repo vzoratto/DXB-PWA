@@ -7,15 +7,15 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ControlpagoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Controlpagos';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Control de pagos';
+
 ?>
 <div class="controlpago-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Controlpago', ['create'], ['class' => 'btn btn-success']) ?>
+        
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,11 +26,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idControlpago',
-            'idPago',
+            //'idControlpago',
+           // 'idPago',
             'fechaPago',
             'fechachequeado',
-            'idUsuario',
+            ['attribute'=>'idUsuario',
+              'value'=>function($model){
+                  if(!$model->darusuario){
+                    return($model->usuario->idUsuario)?'ninguno':'';
+                  }else{
+                  return($model->usuario->dniUsuario);}
+              },
+            ],
+                  
+              
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -5,10 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Controlpago */
 
-$this->title = 'Update Controlpago: ' . $model->idControlpago;
-$this->params['breadcrumbs'][] = ['label' => 'Controlpagos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->idControlpago, 'url' => ['view', 'id' => $model->idControlpago]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Chequear pago referencia: ' . $model->idControlpago;
+
 ?>
 <div class="controlpago-update">
 
@@ -16,6 +14,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+
     ]) ?>
 
 </div>
