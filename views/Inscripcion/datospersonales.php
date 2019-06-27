@@ -20,9 +20,11 @@ use kartik\switchinput\SwitchInput;
     if ($idRol == 3  || $idRol == 2 ){ // Si es gestora o administradora
         $soloLectura = false; //Significa que va a poder cambiar los valores del DNI del usuario y su Mail
         $dniUsuario = '';
+        $css = '';
     } else {
         $soloLectura = true;
         $dniUsuario = $user->identity->dniUsuario;
+        $css = 'soloLectura';
     }
 ?>
 <div class="persona-form" id="primerStep">
@@ -160,7 +162,7 @@ use kartik\switchinput\SwitchInput;
     <div class="row db-label">
 
         <div id="dniUsuario" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-            <?= $form->field($usuario, 'dniUsuario')->textInput(['value'=>$dniUsuario,'readonly'=> $soloLectura, 'class' => 'input-db','placeholder'=>'DNI','autocomplete'=>'off'])->label('DNI *')?>
+            <?= $form->field($usuario, 'dniUsuario')->textInput(['value'=>$dniUsuario,'readonly'=> $soloLectura,'class' => 'input-db '.$css,'placeholder'=>'DNI','autocomplete'=>'off'])->label('DNI *')?>
         </div>
 
         <div id="nacionalidadPersona" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">

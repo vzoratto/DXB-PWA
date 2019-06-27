@@ -64,7 +64,8 @@ class ViewerJsDocumentViewer extends ADocumentViewer
             'width'=>$this->width,
             'height'=>$this->height,
             'allowfullscreen',
-            'webkitallowfullscreen'
+            'webkitallowfullscreen',
+            'style'=>'border-radius: 15px;'
         ];
 
         return Html::tag('iframe','',$options);

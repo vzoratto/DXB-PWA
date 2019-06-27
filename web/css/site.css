@@ -4459,13 +4459,18 @@ a.desc:after {
 }
 
 .alert-index {
-position: absolute;
-  z-index: 10;
-  top: 65%;
-  left: 35%;
-  box-shadow: 0 0px 5px 1px rgba(0, 0, 0, 0.65);
+    position: absolute;
+    z-index: 10;
+    top: 65%;
+    left: 35%;
+    box-shadow: 0 0px 5px 1px rgba(0, 0, 0, 0.65);
 }
 
 .block {
     display: block;
+}
+
+.soloLectura {
+    background-color: #eeeeee !important;
+    opacity: 1 !important;
 }

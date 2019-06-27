@@ -2,6 +2,8 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use app\models\Persona;
+$userLogueado=Yii::$app->user; // Obtenemos el objeto del usuario logeado
 
  ?>
 <div id="not-full"></div>
@@ -47,9 +49,12 @@ use yii\bootstrap\ActiveForm;
             echo '<a href="'.Url::to(["/site/registro"]).'" class="btn btn-white btn-rounded no-margin-lr">Regístrate</a>';
 
           } else {
-
-            echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-white btn-rounded no-margin-lr">Inscribíte</a>';
-
+            if(!Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+              $idRol = $userLogueado->identity->idRol;
+              if ($idRol == 1  || $idRol == 4 ){ // Si es gestora o administradora
+                echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-white btn-rounded no-margin-lr">Inscribíte</a>';
+              }
+            }
           }; ?>
             <a href="#premios" class="btn btn-transparent-white btn-rounded margin-20px-lr sm-margin-5px-top">Conocé más</a>
           </div>
