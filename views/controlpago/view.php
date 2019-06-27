@@ -4,20 +4,20 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Estadopago */
+/* @var $model app\models\Controlpago */
 
-$this->title = $model->idEstadoPago;
-$this->params['breadcrumbs'][] = ['label' => 'Estadopagos', 'url' => ['index']];
+$this->title = $model->idControlpago;
+$this->params['breadcrumbs'][] = ['label' => 'Controlpagos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="estadopago-view">
+<div class="controlpago-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->idEstadoPago], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->idEstadoPago], [
+        <?= Html::a('Update', ['update', 'id' => $model->idControlpago], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->idControlpago], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,8 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idEstadoPago',
-            'descripcionEstadoPago',
+            'idControlpago',
+            'idPago',
+            'fechaPago',
+            'fechachequeado',
+            'idUsuario',
         ],
     ]) ?>
 

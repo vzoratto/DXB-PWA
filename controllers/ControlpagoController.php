@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Estadopagopersona;
-use app\models\EstadopagopersonaSearch;
+use app\models\Controlpago;
+use app\models\ControlpagoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * EstadopagopersonaController implements the CRUD actions for Estadopagopersona model.
+ * ControlpagoController implements the CRUD actions for Controlpago model.
  */
-class EstadopagopersonaController extends Controller
+class ControlpagoController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class EstadopagopersonaController extends Controller
     }
 
     /**
-     * Lists all Estadopagopersona models.
+     * Lists all Controlpago models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new EstadopagopersonaSearch();
+        $searchModel = new ControlpagoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,30 +45,29 @@ class EstadopagopersonaController extends Controller
     }
 
     /**
-     * Displays a single Estadopagopersona model.
-     * @param integer $idEstadoPago
-     * @param integer $idPersona
+     * Displays a single Controlpago model.
+     * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idEstadoPago, $idPersona)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idEstadoPago, $idPersona),
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Estadopagopersona model.
+     * Creates a new Controlpago model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Estadopagopersona();
+        $model = new Controlpago();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idEstadoPago' => $model->idEstadoPago, 'idPersona' => $model->idPersona]);
+            return $this->redirect(['view', 'id' => $model->idControlpago]);
         }
 
         return $this->render('create', [
@@ -77,19 +76,18 @@ class EstadopagopersonaController extends Controller
     }
 
     /**
-     * Updates an existing Estadopagopersona model.
+     * Updates an existing Controlpago model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $idEstadoPago
-     * @param integer $idPersona
+     * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idEstadoPago, $idPersona)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($idEstadoPago, $idPersona);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idEstadoPago' => $model->idEstadoPago, 'idPersona' => $model->idPersona]);
+            return $this->redirect(['view', 'id' => $model->idControlpago]);
         }
 
         return $this->render('update', [
@@ -98,31 +96,29 @@ class EstadopagopersonaController extends Controller
     }
 
     /**
-     * Deletes an existing Estadopagopersona model.
+     * Deletes an existing Controlpago model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $idEstadoPago
-     * @param integer $idPersona
+     * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idEstadoPago, $idPersona)
+    public function actionDelete($id)
     {
-        $this->findModel($idEstadoPago, $idPersona)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Estadopagopersona model based on its primary key value.
+     * Finds the Controlpago model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $idEstadoPago
-     * @param integer $idPersona
-     * @return Estadopagopersona the loaded model
+     * @param integer $id
+     * @return Controlpago the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idEstadoPago, $idPersona)
+    protected function findModel($id)
     {
-        if (($model = Estadopagopersona::findOne(['idEstadoPago' => $idEstadoPago, 'idPersona' => $idPersona])) !== null) {
+        if (($model = Controlpago::findOne($id)) !== null) {
             return $model;
         }
 

@@ -3,17 +3,17 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Estadopago;
-use app\models\EstadopagoSearch;
+use app\models\Importeinscripcion;
+use app\models\ImporteinscripcionSearch;
 use app\models\Permiso;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * EstadopagoController implements the CRUD actions for Estadopago model.
+ * ImporteinscripcionController implements the CRUD actions for Importeinscripcion model.
  */
-class EstadopagoController extends Controller
+class ImporteinscripcionController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,7 +31,7 @@ class EstadopagoController extends Controller
     }
 
     /**
-     * Lists all Estadopago models.
+     * Lists all Importeinscripcion models.
      * @return mixed
      */
     public function actionIndex()
@@ -41,7 +41,7 @@ class EstadopagoController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-        $searchModel = new EstadopagoSearch();
+        $searchModel = new ImporteinscripcionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -51,7 +51,7 @@ class EstadopagoController extends Controller
     }
 
     /**
-     * Displays a single Estadopago model.
+     * Displays a single Importeinscripcion model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -69,7 +69,7 @@ class EstadopagoController extends Controller
     }
 
     /**
-     * Creates a new Estadopago model.
+     * Creates a new Importeinscripcion model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
@@ -80,10 +80,10 @@ class EstadopagoController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-        $model = new Estadopago();
+        $model = new Importeinscripcion();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idEstadoPago]);
+            return $this->redirect(['view', 'id' => $model->idImporte]);
         }
 
         return $this->render('create', [
@@ -92,7 +92,7 @@ class EstadopagoController extends Controller
     }
 
     /**
-     * Updates an existing Estadopago model.
+     * Updates an existing Importeinscripcion model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -108,7 +108,7 @@ class EstadopagoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idEstadoPago]);
+            return $this->redirect(['view', 'id' => $model->idImporte]);
         }
 
         return $this->render('update', [
@@ -117,7 +117,7 @@ class EstadopagoController extends Controller
     }
 
     /**
-     * Deletes an existing Estadopago model.
+     * Deletes an existing Importeinscripcion model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -136,15 +136,15 @@ class EstadopagoController extends Controller
     }
 
     /**
-     * Finds the Estadopago model based on its primary key value.
+     * Finds the Importeinscripcion model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Estadopago the loaded model
+     * @return Importeinscripcion the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Estadopago::findOne($id)) !== null) {
+        if (($model = Importeinscripcion::findOne($id)) !== null) {
             return $model;
         }
 

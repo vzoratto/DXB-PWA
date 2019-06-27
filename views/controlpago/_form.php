@@ -4,17 +4,21 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Estadopago */
+/* @var $model app\models\Controlpago */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="estadopago-form">
+<div class="controlpago-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'idEstadoPago')->textInput() ?>
+    <?= $form->field($model, 'idPago')->textInput() ?>
 
-    <?= $form->field($model, 'descripcionEstadoPago')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'fechaPago')->textInput() ?>
+
+    <?= $form->field($model, 'fechachequeado')->textInput() ?>
+
+    <?= $form->field($model, 'idUsuario')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

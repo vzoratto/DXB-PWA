@@ -65,9 +65,14 @@ AppAsset::register($this);
                 ['label' => 'Crear Encuesta', 'url' => ['/encuesta/index']],
                 ['label' => 'Resultados Encuesta', 'url' => ['/respuesta/index']],
 
-			],
-        ],
-
+			    ],
+              ],
+                ['label' => 'Pagos','items' => [
+                ['label' => 'Pagos ver todos', 'url' => ['/pago/index']],
+                ['label' => 'Control de pagos', 'url' => ['/controlpago/index']],
+                ['label' => 'Importe inscripcion', 'url' => ['/importeinscripcion/index']],
+                ],
+              ],
             Yii::$app->user->isGuest ? (
                 ''
             ) : (

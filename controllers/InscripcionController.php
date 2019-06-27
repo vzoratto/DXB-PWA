@@ -572,7 +572,7 @@ class InscripcionController extends Controller
             }else {
                 $mensaje = "Ha ocurrido un error al llevar a cabo tu inscripcion,vuelve a intentarlo";
                 if ($idRol == 3) { // Si es gestora, implica que va a inscribir a algun corredor que no pudo inscribirse y que no tiene Usuario.
-                    return Yii::$app->response->redirect(['site/gestionar', 'guardado' => $guardado, 'mensaje' => $mensaje])->send();
+                    return Yii::$app->response->redirect(['site/gestion', 'guardado' => $guardado, 'mensaje' => $mensaje])->send();
                 } elseif ($idRol == 2) {
                     return Yii::$app->response->redirect(['site/admin', 'guardado' => $guardado, 'mensaje' => $mensaje])->send();
                 } else {

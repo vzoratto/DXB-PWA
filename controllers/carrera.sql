@@ -78,11 +78,7 @@ CREATE TABLE `personaDireccion` (
 		FOREIGN KEY (`idLocalidad`) REFERENCES localidad (`idLocalidad`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE table  `estadoPago` (
-	  `idEstadoPago` int(8) NOT NULL AUTO_INCREMENT,
-	  `descripcionEstadoPago` varchar(64),
-	  PRIMARY KEY(`idEstadoPago`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 CREATE table  `rol` (
 	  `idRol` int(8) NOT NULL AUTO_INCREMENT,
@@ -144,14 +140,7 @@ CREATE TABLE `persona` (
 	  FOREIGN KEY (`idTalleRemera`) REFERENCES talleremera (`idTalleRemera`)  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE table  `estadoPagoPersona` (
-	  `idEstadoPago` int(8) NOT NULL,
-	   idPersona int(8) NOT NULL,
-	  `fechaPago` timestamp,
-	  PRIMARY KEY (idEstadoPago,idPersona),
-	  FOREIGN KEY(`idEstadoPago`)REFERENCES estadoPago (`idEstadoPago`),
-	  FOREIGN KEY (`idPersona`) REFERENCES persona (`idPersona`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 CREATE TABLE `gestores` (
 	  `idGestor` int(8) NOT NULL AUTO_INCREMENT,
@@ -162,5 +151,48 @@ CREATE TABLE `gestores` (
 	  PRIMARY KEY (`idGestor`),
 	  FOREIGN KEY (`idUsuario`) REFERENCES usuario (`idUsuario`) 	  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-----------------------------------------------------------------------------
+CREATE table  `importeinscripcion` (
+	  `idImporte` int(4) NOT NULL AUTO_INCREMENT,
+	  `importe` int(7) NOT NULL,
+	  `deshabilitado` tinyint(1) DEFAULT NULL,
+	  `idTipoCarrera` int(2) NOT NULL,
+	  PRIMARY KEY(`idImporte`),
+	  FOREIGN KEY (IdTipoCarrera) REFERENCES tipocarrera (idTipoCarrera)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
+CREATE table  `estadopago` (
+	  `idEstadoPago` int(8) NOT NULL AUTO_INCREMENT,
+	  `descripcionEstadoPago` varchar(64),
+	  PRIMARY KEY(`idEstadoPago`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+`deshabilitado` tinyint(1) DEFAULT NULL,
+	  `idTipoCarrera` int(2) NOT NULL,
+
+CREATE table  `pago` (
+	  `idPago` int(8) NOT NULL AUTO_INCREMENT,
+      importePagado int(7) NOT NULL,
+	  entidadPago varchar(64) NOT NULL,
+	  imagenComprobante varchar(255) NOT NULL,
+	  idPersona int(8) NOT NULL,
+	  idImporte int(4) NOT NULL,
+	  idEquipo int(8) DEFAULT NULL,
+	  PRIMARY KEY (idPago),
+	  FOREIGN KEY (`idPersona`) REFERENCES persona (`idPersona`),
+	  FOREIGN KEY (`idImporte`) REFERENCES importeinscripcion (`idImporte`),
+	  FOREIGN KEY (`idEquipo`) REFERENCES equipo (`idEquipo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+CREATE table  `controlpago` (
+	  `idControlpago` int(8) NOT NULL AUTO_INCREMENT,
+	   idPago int(8) NOT NULL,
+	  `fechaPago` date default null,
+	  fechachequeado date default null,
+	  idUsuario int(8) NOT NULL,
+	  PRIMARY KEY (idControlpago),
+	  FOREIGN KEY (`idPago`) REFERENCES pago (`idPago`),
+	  FOREIGN KEY (`idUsuario`) REFERENCES usuario (`idUsuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -7,7 +7,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Iniciar Sesion';
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="cover-background contenedor-full full-section" style="background-image:url('assets/img/fondo.jpg');">
     <div class="box-bd no-label" align="center">

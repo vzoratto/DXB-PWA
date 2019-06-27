@@ -4,20 +4,20 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Estadopagopersona */
+/* @var $model app\models\Pago */
 
-$this->title = $model->idEstadoPago;
-$this->params['breadcrumbs'][] = ['label' => 'Estadopagopersonas', 'url' => ['index']];
+$this->title = $model->idPago;
+$this->params['breadcrumbs'][] = ['label' => 'Pagos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="estadopagopersona-view">
+<div class="pago-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'idEstadoPago' => $model->idEstadoPago, 'idPersona' => $model->idPersona], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'idEstadoPago' => $model->idEstadoPago, 'idPersona' => $model->idPersona], [
+        <?= Html::a('Update', ['update', 'id' => $model->idPago], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->idPago], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,9 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idEstadoPago',
+            'idPago',
+            'importePagado',
+            'entidadPago',
+            'imagenComprobante',
             'idPersona',
-            'fechaPago',
+            'idImporte',
+            'idEquipo',
         ],
     ]) ?>
 
