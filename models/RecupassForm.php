@@ -86,21 +86,21 @@ class RecupassForm extends Model
             $user->claveUsuario=crypt($pass, Yii::$app->params["salt"]);//Encriptamos el password
             if ($user->save()) {
              $subject = "Recuperar password";//accion validar mail
-             
-             $body = "<div style='width:100%; background:#eee; position:relative; font-family:sans-serif; padding-bottom:40px'>
-                                <div style='position:relative; margin:auto; width:600px; background:white; padding:20px'>
+
+                $body = "<div style='width:100%; background:#eee; position:relative; font-family:sans-serif; padding-bottom:40px'>
+                                <div class='col-lg-12 col-xs-6' style='position:relative; margin: auto; max-width: 500px; background:white; padding:20px'>
 
                                         <center>
 
 
                                         <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
 
-                                        <h2 style='font-weight:100; color:#999'>DESAFIO POR LAS BARDAS</h2>
+                                        <h2 style='font-weight:100; color:black'><strong>DESAFIO POR LAS BARDAS</strong></h2>
 
                                         <hr style='border:1px solid #ccc; width:90%'>
-                                        <h3 style='font-weight:100; color:#999; padding:0 20px'>Se te envía un código que deberás ingresar como contraseña para loguearte. <br> Recuerda, que luego deberás cambiar la contraseña enviada por una personalizada.</h3><br>
-                                        <h4 style='font-weight:100; color:#999; padding:0 20px'>La contraseña es : ".$pass."</h4>
-                                        <h4 style='font-weight:100; color:#999; padding:0 20px'>Hace click en el siguiente enlace para finalizar la recuperación de la contraseña.</h4>
+                                        <h3 style='font-weight:100; color:black; padding:0 20px'>Se te envía un código que deberás ingresar como contraseña para loguearte. <br> Recuerda, que luego deberás cambiar la contraseña enviada por una personalizada.</h3><br>
+                                        <h4 style='font-weight:100; color:black; padding:0 20px'>La contraseña es :<strong> ".$pass."</strong></h4>
+                                        <h4 style='font-weight:100; color:black; padding:0 20px'>Hace click en el siguiente enlace para finalizar la recuperación de la contraseña.</h4>
 
                                         <a href='http://localhost/carrera/web/index.php?r=site/cambiapass' style='text-decoration:none'>
 
@@ -114,11 +114,10 @@ class RecupassForm extends Model
 
                                         <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-iT_-pQzmOPo/XREg3ohXqnI/AAAAAAAAAlg/YGQRUExWZOIfmsHgaeiwb4RK7yZA4MgUACLcBGAs/s320/placas%2B5-02.jpg'>
                                 
-                                        <h5 style='font-weight:100; color:#999'>Te invitamos a que veas nuestras redes sociales.</h5>
+                                        <h5 style='font-weight:100; color:black'>Te invitamos a que veas nuestras redes sociales.</h5>
 
-                                        <a href='#'><img src='https://1.bp.blogspot.com/-BR60W75cIco/XREFTGbPHZI/AAAAAAAAAks/FQUMI8DkynoP69YnYRjGZ1ylnNeYhM5BwCLcBGAs/s320/facebook-logo.png' style='width: 7%'></a>
-                                        <a href='#'><img src='https://1.bp.blogspot.com/-xhmzOVdv0xc/XREFTPz-ZyI/AAAAAAAAAk0/y2OOhH7A1fgRSswuqDkcKaRRkPMFkwEEwCLcBGAs/s320/twitter-logo.png' style='width: 7%'></a>
-                                        <a href='#'><img src='https://1.bp.blogspot.com/-NKIBF9SSXCU/XREFTOvwjII/AAAAAAAAAkw/cn679IM4LMQvcIMVCsgetU7gTDyM5DhwgCLcBGAs/s320/instagram-logo.png' style='width: 7%'></a>
+                                        <a href='https://www.facebook.com/bienestaruncoma/'><img src='https://1.bp.blogspot.com/-BR60W75cIco/XREFTGbPHZI/AAAAAAAAAks/FQUMI8DkynoP69YnYRjGZ1ylnNeYhM5BwCLcBGAs/s320/facebook-logo.png' style='width: 7%'></a>
+                                        <a href='https://www.instagram.com/sbucomahue/'><img src='https://1.bp.blogspot.com/-NKIBF9SSXCU/XREFTOvwjII/AAAAAAAAAkw/cn679IM4LMQvcIMVCsgetU7gTDyM5DhwgCLcBGAs/s320/instagram-logo.png' style='width: 7%'></a>
 		
                                         </center>
 
