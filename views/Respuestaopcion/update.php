@@ -9,9 +9,9 @@ use yii\helpers\Html;
 /* @var $pregunta app\models\Pregunta */
 
 $this->title = 'Modificar opción de respuesta: ' . $model->opRespvalor;
-$this->params['breadcrumbs'][] = ['label' => 'Respuestaopcions', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = ['label' => 'Respuestaopcions', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = ['label' => $model->idRespuestaOpcion, 'url' => ['view', 'id' => $model->idRespuestaOpcion]];
-$this->params['breadcrumbs'][] = 'Update';
+// $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="respuestaopcion-update reglamento-container">
 

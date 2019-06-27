@@ -7,8 +7,8 @@ use yii\helpers\Html;
 /* @var $model app\models\Respuesta */
 
 $this->title = 'Create Respuesta';
-$this->params['breadcrumbs'][] = ['label' => 'Respuestas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => 'Respuestas', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="respuesta-create reglamento-container">
 

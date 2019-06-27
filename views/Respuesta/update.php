@@ -7,9 +7,9 @@ use yii\helpers\Html;
 /* @var $model app\models\Respuesta */
 
 $this->title = 'Update Respuesta: ' . $model->idRespuesta;
-$this->params['breadcrumbs'][] = ['label' => 'Respuestas', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = ['label' => 'Respuestas', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = ['label' => $model->idRespuesta, 'url' => ['view', 'id' => $model->idRespuesta]];
-$this->params['breadcrumbs'][] = 'Update';
+// $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="respuesta-update reglamento-container">
 

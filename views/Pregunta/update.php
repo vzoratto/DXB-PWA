@@ -6,9 +6,9 @@ use yii\helpers\Html;
 /* @var $model app\models\Pregunta */
 
 $this->title = 'Modificar Pregunta: ' . $model->pregDescripcion;
-$this->params['breadcrumbs'][] = ['label' => 'Preguntas', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = ['label' => 'Preguntas', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = ['label' => $model->idPregunta, 'url' => ['view', 'id' => $model->idPregunta]];
-$this->params['breadcrumbs'][] = 'Update';
+// $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="pregunta-update reglamento-container">
 
