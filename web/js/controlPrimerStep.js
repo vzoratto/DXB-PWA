@@ -3,6 +3,20 @@ $(document).ready(function() {
     $('#stepwizard_step1_next').removeClass('next-step');
     var valueEditar = $('#editar').val();
     if (valueEditar == 1) {
+        //como el formualrio de editar ya contendra datos validos, ponemos los label en verde
+        $(".db-label").css("color", "#3c763d");
+        $('.control-label').css("color","#3c763d");
+        $('#labelSexoDatoPersonal').css("color","#3c763d");
+        $('#telefonoPersonaContacto').css("color","#3c763d");
+        $('#calleContacto').css("color","#3c763d");
+        $('#donadorDatosMedicos').css("color","#3c763d");
+        $('#evaluacionDatosMedicos').css("color","#3c763d");
+        $('#intervencionQuirurgica').css("color","#3c763d");
+        $('#suplementosDatosMedicos').css("color","#3c763d");
+        $('#tomaMedicamentosDatosMedicos').css("color","#3c763d");
+        $('#intervencionDatosMedicos').css("color","#3c763d");
+        $('#telefonoContactoEmergenciaLabel').css("color","#3c763d");
+
         $('#usuario-dniusuario').attr('siguiente', 'true');
     } else {
         $('#usuario-dniusuario').attr('siguiente', 'false');
