@@ -50,7 +50,7 @@ use yii\widgets\MaskedInput;
             </div>
 
             <div id="idLocalidad" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-                <?= $form->field($localidad, 'idLocalidad')->widget(DepDrop::classname(), [
+                <?= $form->field($personaDireccion, 'idLocalidad')->widget(DepDrop::classname(), [
                     'type' => DepDrop::TYPE_SELECT2,
                     //'value' => '4634',
                     'pluginOptions'=>[

@@ -33,6 +33,7 @@ class Personadireccion extends \yii\db\ActiveRecord
             //valida que la direccionUsuario sean de tipo string con un maximo de 64 caracteres
             [['direccionUsuario'], 'string', 'max' => 64],
             [['idLocalidad'], 'exist', 'skipOnError' => true, 'targetClass' => Localidad::className(), 'targetAttribute' => ['idLocalidad' => 'idLocalidad']],
+            ['idLocalidad','required']
         ];
     }
 
