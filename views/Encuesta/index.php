@@ -17,13 +17,13 @@ use kartik\export\ExportMenu;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Listado de Encuestas y Trivias';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="">
-    <div class="container">
+    <div class=" reglamento-container">
     
-    <div class="encuesta-index reglamento-container">
+    <div class="encuesta-index" style=" overflow:scroll">
 
         <h1><?= Html::encode($this->title) ?></h1>
         <hr>

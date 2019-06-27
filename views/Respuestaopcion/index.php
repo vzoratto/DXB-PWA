@@ -15,7 +15,7 @@ use yii\widgets\Pjax;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Opciones de Respuesta';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="respuestaopcion-index reglamento-container">
 
@@ -105,7 +105,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'opRespvalor',
 
-            ['class' => 'yii\grid\ActionColumn', 'template'=>'{update}'],
+            ['class' => 'yii\grid\ActionColumn', 'template'=>'{update}{delete}'],
         ],
     ]); ?>
 

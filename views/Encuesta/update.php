@@ -7,9 +7,9 @@ use yii\helpers\Html;
 /* @var $model app\models\Encuesta */
 
 $this->title = 'Actualizar '.$model->encTipo.': ';
-$this->params['breadcrumbs'][] = ['label' => 'Encuestas', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = ['label' => 'Encuestas', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = ['label' => $model->idEncuesta, 'url' => ['view', 'id' => $model->idEncuesta]];
-$this->params['breadcrumbs'][] = 'Update';
+// $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="">
     

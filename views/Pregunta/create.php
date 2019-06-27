@@ -8,8 +8,8 @@ use yii\helpers\Html;
 
 
 $this->title = 'Generar una pregunta';
-$this->params['breadcrumbs'][] = ['label' => 'Preguntas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => 'Preguntas', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pregunta-create reglamento-container">
 

@@ -21,6 +21,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Guardar' : 'Guardar Cambios', ['class' => 'btn btn-default']) ?>
+        <?= Html::a('Cancelar', ['respuestaopcion/index', 'idPregunta'=>$pregunta['idPregunta'] ],['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

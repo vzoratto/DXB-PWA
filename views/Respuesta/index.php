@@ -15,7 +15,7 @@ use kartik\export\ExportMenu;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Respuestas';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="respuesta-index reglamento-container">
 
@@ -50,11 +50,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label'=>'Pregunta',
                     'value'=>'pregunta.pregDescripcion',
                 ],
-                [
-                    'attribute'=>'idPersona',
-                    'label'=>'Nombre',
-                    'value'=>'persona.nombreCompleto',
-                ],
+                // Descomentar estas lineas si se quiere agregar a las repuestas los nombres de las
+                // personas que la contestaron
+                // [
+                //     'attribute'=>'idPersona',
+                //     'label'=>'Nombre',
+                //     'value'=>'persona.nombreCompleto',
+                // ],
                 
                 [
                     'attribute'=>'idPersona',
@@ -66,11 +68,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label'=>'Nacionalidad',
                     'value'=>'persona.nacionalidadPersona',
                 ],
-                [
-                    'attribute'=>'idPersona',
-                    'label'=>'DNI',
-                    'value'=>'persona.usuario.dniUsuario',
-                ],
+                // Descomentar estas lineas si se quiere agregar a las repuestas los nombres de las
+                // personas que la contestaron
+                // [
+                //     'attribute'=>'idPersona',
+                //     'label'=>'DNI',
+                //     'value'=>'persona.usuario.dniUsuario',
+                // ],
                 'respValor',
                 'idRespuesta',
             ],
@@ -94,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'btn btn-default'
             ]
         ]) ?>
-    
+
     </div>
     <?php if(isset($pregunta['pregDescripcion'])): ?>
         <h3>Pregunta: <?= Html::encode($pregunta['pregDescripcion']) ?></h3>

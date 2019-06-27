@@ -31,7 +31,7 @@ class Encuesta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['encTitulo', 'encDescripcion', 'encTipo'], 'required'],
+            [['encTitulo', 'encTipo'], 'required'],
             [['encPublica'], 'integer'],
             [['encTitulo'], 'string', 'max' => 150],
             [['encDescripcion'], 'string', 'max' => 250],

@@ -42,6 +42,7 @@ use yii\widgets\ActiveForm;
         <div class="form-group">
             <!-- El nombre del boton cambia de acuerdo a si se esta creando o editando -->
             <?= Html::submitButton($model->isNewRecord ? 'Siguiente' : 'Guardar Cambios', ['class' => 'btn btn-default', 'autofocus'=>true]) ?>
+            <?= Html::a('Cancelar',['encuesta/index'], ['class'=>'btn btn-default'])?>
         </div>
 
     <?php ActiveForm::end(); ?>

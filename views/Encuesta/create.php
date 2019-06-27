@@ -7,8 +7,8 @@ use yii\helpers\Html;
 
 
 $this->title = 'Crear nueva Encuesta/Trivia';
-$this->params['breadcrumbs'][] = ['label' => 'Encuestas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => 'Encuestas', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="">
     <div class="container">

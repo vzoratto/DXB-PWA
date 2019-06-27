@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $model app\models\Respuestatipo */
 
 $this->title = 'Crear tipo de respuesta';
-$this->params['breadcrumbs'][] = ['label' => 'Tipos de respuesta', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => 'Tipos de respuesta', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="respuestatipo-create reglamento-container">
 

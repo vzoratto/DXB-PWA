@@ -17,7 +17,7 @@ use yii\helpers\Url;
 /* @var $encuesta app\models\Encuesta */
 
 $this->title = 'Preguntas';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class=" reglamento-container">
     <div class="pregunta-index">
