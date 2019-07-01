@@ -11,7 +11,8 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
-
+$persona=new \app\models\Persona();
+$inscrito=$persona->inscrito();
 ?>
 
 
@@ -49,10 +50,11 @@ AppAsset::register($this);
           ['label' => 'Reglamento', 'url' => ['/site/index', '#' => 'reglamento']],
           ['label' => 'Contacto', 'url' => ['/site/index', '#' => 'contacto']],
           ['label' => 'Iniciar Sesion', 'url' => 'index.php?r=site%2Flogin', 'visible' => Yii::$app->user->isGuest],
-          ['label' => 'Inscripcion', 'url' => 'index.php?r=inscripcion/index', 'visible' => !Yii::$app->user->isGuest],
+          ($inscrito==2)?['label' => 'Inscripcion', 'url' => 'index.php?r=inscripcion/index', 'visible' => !Yii::$app->user->isGuest]:'',
           !Yii::$app->user->isGuest ?(
           ['label' =>"<i class='fa fa-user-circle-o ml-30 ml-sm-0' aria-hidden='true'></i>",'items' => [
-            ['label' => 'Mi perfíl', 'url' => 'index.php?r=editar%2Feditar'],
+
+           ($inscrito==1)? ['label' => 'Mi perfíl', 'url' => 'index.php?r=editar%2Feditar']:'',
             ['label' => 'Cambiar contraseña', 'url' => 'index.php?r=site/cambiapass'],
             ['label' => 'Cerrar sesión', 'url' => 'index.php?r=site%2Flogout', 'linkOptions' => ['data-method' => 'post']],
           ],

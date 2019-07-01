@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Estadopago;
 use app\models\EstadopagoSearch;
+use app\models\Permiso;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,6 +36,11 @@ class EstadopagoController extends Controller
      */
     public function actionIndex()
     {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $searchModel = new EstadopagoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -52,6 +58,11 @@ class EstadopagoController extends Controller
      */
     public function actionView($id)
     {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -64,6 +75,11 @@ class EstadopagoController extends Controller
      */
     public function actionCreate()
     {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $model = new Estadopago();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -84,6 +100,11 @@ class EstadopagoController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -104,6 +125,11 @@ class EstadopagoController extends Controller
      */
     public function actionDelete($id)
     {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

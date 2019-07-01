@@ -22,7 +22,7 @@ $this->title = 'Listado de Encuestas y Trivias';
 
 <div class="">
     <div class=" reglamento-container">
-    
+
     <div class="encuesta-index" style=" overflow:scroll">
 
         <h1><?= Html::encode($this->title) ?></h1>
@@ -41,7 +41,7 @@ $this->title = 'Listado de Encuestas y Trivias';
                     'encTitulo',
                     'encDescripcion',
                     'encPublica',
-                    
+
                 ],
                 'exportConfig' => [
                     ExportMenu::FORMAT_TEXT => false,
@@ -63,23 +63,23 @@ $this->title = 'Listado de Encuestas y Trivias';
                     'label' => 'Exportar',
                     'class' => 'btn btn-default',
                 ],
-                
+
             ])
-            ?>  
-        </div>  
-        
+            ?>
+        </div>
+
         <!-- La siguiente grilla muestra los datos en pantalla -->
         <?= GridView::widget([
             'dataProvider' => $dataProvider, //utiliza el mismo dataprovider del ExportMenu
             'filterModel' => $searchModel,
-            
+
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
                 'encTipo',
                 'encTitulo',
                 'encDescripcion',
                 'encPublica',
-                
+
                 ['attribute'=>'',
                         'format'=>'raw',
                         'headerOptions'=>['style'=>'color:#1369BF'],
@@ -92,7 +92,7 @@ $this->title = 'Listado de Encuestas y Trivias';
                                     ]
                             );
                     }
-                ],            
+                ],
                 ['attribute'=>'',
                         'format'=>'raw',
                         'headerOptions'=>['style'=>'color:#1369BF'],
@@ -117,11 +117,10 @@ $this->title = 'Listado de Encuestas y Trivias';
                                     ]
                             );
                     }
-                ],           
-                ['class' => 'yii\grid\ActionColumn', 'template'=> '{update}'],           
+                ],
+                ['class' => 'yii\grid\ActionColumn', 'template'=> '{update}'],
             ],
         ]); ?>
     </div>
     </div>
 </div>
-

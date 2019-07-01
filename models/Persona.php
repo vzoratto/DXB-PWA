@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use Yii\db\Query;
+use app\models\Listadeespera;
 
 /**
  * This is the model class for table "persona".
@@ -94,12 +95,12 @@ class Persona extends \yii\db\ActiveRecord
         return [
             'idPersona' => 'Id Persona',
             'idTalleRemera' => 'Talle Remera',
-            'nombrePersona' => 'Nombre *',
-            'apellidoPersona' => 'Apellido *',
-            'fechaNacPersona' => 'Fecha Nacimiento *',
+            'nombrePersona' => 'Nombre ',
+            'apellidoPersona' => 'Apellido',
+            'fechaNacPersona' => 'Fecha Nacimiento',
             'sexoPersona' => 'Sexo',
-            'nacionalidadPersona' => 'Nacionalidad *',
-            'telefonoPersona' => 'Telefono *',
+            'nacionalidadPersona' => 'Nacionalidad ',
+            'telefonoPersona' => 'Telefono',
             'mailPersona' => 'Mail',
             'idUsuario' => 'Id Usuario',
             'idPersonaDireccion' => 'Direccion',
@@ -207,6 +208,11 @@ class Persona extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Talleremera::className(), ['idTalleRemera' => 'idTalleRemera']);
     }
+    
+    public function getListadeespera()
+    {
+        return $this->hasOne(Listadeespera::className(), ['idPersona' => 'idPersona']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -242,14 +248,36 @@ class Persona extends \yii\db\ActiveRecord
     }
     //no existe un email igual al introducido
     public function noExisteEmail($email){
-        $valido=false;
+        $valido=true;
         $usuarioConEmailIntroducido=Usuario::findOne(['mailUsuario'=>$email]);
         if($usuarioConEmailIntroducido==null){
             $valido=true;
         }else{
-            $valido=false;
+            $valido=true;
         }
         return $valido;
+    }
+
+
+
+    public function inscrito(){
+        //0 para los usuarios visitantes
+        //1 para los inscriptos
+        //2 para los no inscriptos
+        //3 para los usuarios inscriptos que ya actualizaron su perfil
+        $estado=0;
+        if(!Yii::$app->user->isGuest){
+            $persona=self::findOne(['idUsuario' => $_SESSION['__id']]);
+            if($persona!=null){
+               $estado=1;
+            }else{
+                $estado=2;
+            }
+        }else{
+            //es visitante
+            $estado=0;
+        }
+        return $estado;
     }
 
 	

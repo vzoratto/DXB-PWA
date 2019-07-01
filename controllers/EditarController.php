@@ -381,4 +381,27 @@ class EditarController extends Controller
         }
         return ['output'=>'', 'selected'=>''];
     }
+
+    public function actionEmail(){
+        //obtengo persona autenticada
+        $persona=Persona::findOne(['idUsuario'=>$_SESSION['__id']]);
+        $existe=1;
+        //recibo el email de la peticion ajax
+        $emailUsu=Yii::$app->request->get()['emailUsu'];
+        //busco un usuario que coincida con el email
+        $usu=Usuario::findOne(['mailUsuario'=>$emailUsu]);
+        //compruebo que el email del usuario autenticado sea el mismo que el enviado
+        //con esto verifico que la persona no quiere actualziar su email
+        if($persona->mismoUsuarioEmail($emailUsu)){
+            $existe=0;
+            return $existe;
+        }
+        //si no encontro un usuario con un email similar significa que se puede utilizar
+       if($usu==null){
+           $existe=0;
+
+       }
+       return $existe;
+
+    }
 }

@@ -8,7 +8,7 @@ use buttflattery\formwizard\FormWizard;
 /* @var $this yii\web\View */
 
 ?>
-<div>
+<div class="invitado">
     <!-- comienzo del formulario, se define el metodo de envio de datos y se llama a la accion "store" o guardar-->
     <div class="db-card">
 
@@ -94,7 +94,7 @@ $wizard_config = [
                 ]
             ],
 		],
-         
+
         	],
         	'start_step' => 1, // Optional, start with a specific step
         ];

@@ -37,7 +37,7 @@ use yii\widgets\ActiveForm;
         <div class="form-group">
             <?= $form->field($model, 'encDescripcion')->textInput(['maxlength' => true, 'autofocus'=>true]) ?>
         </div>
-        <?= $form->field($model, 'encPublica')->hiddenInput(['value' => 0])->label(false) ?>
+        <?= $form->field($model, 'encPublica')->hiddenInput(['value' => $model->encPublica])->label(false) ?>
 
         <div class="form-group">
             <!-- El nombre del boton cambia de acuerdo a si se esta creando o editando -->

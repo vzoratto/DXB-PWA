@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Listadeespera;
 use app\models\ListadeesperaSearch;
+use app\models\Permiso;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,6 +36,11 @@ class ListadeesperaController extends Controller
      */
     public function actionIndex()
     {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $searchModel = new ListadeesperaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -52,6 +58,11 @@ class ListadeesperaController extends Controller
      */
     public function actionView($id)
     {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -84,6 +95,16 @@ class ListadeesperaController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

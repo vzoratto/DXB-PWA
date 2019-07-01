@@ -26,12 +26,13 @@ class Carrerapersonasearch extends Carrerapersona {
 	public $nombreEquipo;
 	public $dniCapitan;
 	public $categoria;
-	public $sexoPersona;
+    public $sexoPersona;
+    public $espera;
 
     public function rules() {
         return [
             [['idTipoCarrera', 'idPersona', 'reglamentoAceptado', 'retiraKit'], 'integer'],
-            [['apellidoPersona', 'nombrePersona', 'dniUsuario', 'talleRemera','nombreEquipo','dniCapitan','sexoPersona','categoria','nombre_completo','edad'], 'safe'],
+            [['apellidoPersona', 'nombrePersona', 'dniUsuario', 'talleRemera','nombreEquipo','dniCapitan','sexoPersona','categoria','nombre_completo','edad','espera'], 'safe'],
         ];
     }
 
@@ -60,7 +61,8 @@ class Carrerapersonasearch extends Carrerapersona {
                 ->joinWith(['persona.usuario'])
 				->joinWith(['persona.talleRemera'])
 				->joinWith(['tipoCarrera'])
-                ->joinWith(['persona.grupo.equipo']);
+                ->joinWith(['persona.grupo.equipo'])
+                ->joinWith(['persona.listadeespera']);
                 
 			
         // add conditions that should always apply here
@@ -80,7 +82,7 @@ class Carrerapersonasearch extends Carrerapersona {
         // grid filtering conditions
         $query->andFilterWhere([
             'idTipoCarrera' => $this->idTipoCarrera,
-            'idPersona' => $this->idPersona,
+           // 'idPersona' => $this->idPersona,
             'reglamentoAceptado' => $this->reglamentoAceptado,
             'retiraKit' => $this->retiraKit,
         ]);
@@ -96,7 +98,11 @@ class Carrerapersonasearch extends Carrerapersona {
         $query->andFilterWhere(['like', 'tipoCarrera.idTipoCarrera', $this->categoria]);
         $query->andFilterWhere(['like', 'equipo.nombreEquipo', $this->nombreEquipo]);
         $query->andFilterWhere(['like', 'equipo.dniCapitan', $this->dniCapitan]);
-		 $query->andFilterWhere(['like', 'CONCAT(apellidoPersona, " ", nombrePersona)', $this->nombre_completo]);
+        $query->andFilterWhere(['like', 'CONCAT(apellidoPersona, " ", nombrePersona)', $this->nombre_completo]);
+        
+        $query->andFilterWhere(['like', 'listadeespera.idPersona', $this->espera]);
+
+        $query->andFilterWhere(['like', 'carrerapersona.idPersona', $this->idPersona]);
 
         return $dataProvider;
     }
