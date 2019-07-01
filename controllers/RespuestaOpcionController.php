@@ -13,6 +13,7 @@ use yii\filters\AccessControl;
 use app\models\Permiso;
 use app\models\Pregunta;
 use app\models\Persona;
+use app\models\EncuestaSearch;
 
 /**
  * RespuestaopcionController implements the CRUD actions for Respuestaopcion model.
@@ -226,21 +227,31 @@ class RespuestaopcionController extends Controller
             $idPregunta=$_REQUEST['idPregunta'];
             $pregunta=PreguntaSearch::find()->where(['idPregunta'=>$idPregunta])->one();
             $opciones=RespuestaopcionSearch::find()->where(['idPregunta'=>$idPregunta])->asArray()->all();
+            $encuesta = EncuestaSearch::findOne($pregunta->idEncuesta);
+            $encTipo=$encuesta->encTipo;
         }else{
             $pregunta=null;
             $opciones=null;
+            $encTipo=null;
+            
         }
-
         $model = new Respuestaopcion();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'idPregunta'=>$pregunta->idPregunta,'id' => $model->idRespuestaOpcion]);
+            return $this->redirect([
+                            'index', 
+                            'idPregunta'=>$pregunta->idPregunta,
+                            'id' => $model->idRespuestaOpcion,
+                            'encTipo'=>$encTipo,
+                        ]);
         }
 
         return $this->render('create', [
             'model' => $model,
             'pregunta'=>$pregunta,
             'opciones'=>$opciones,
+            'encTipo'=>$encTipo,
+
         ]);
     }
 
@@ -264,8 +275,11 @@ class RespuestaopcionController extends Controller
         
         if(isset($_REQUEST['pregunta'])){
             $pregunta=$_REQUEST['pregunta'];
+            $encuesta=EncuestaSearch::findOne($pregunta->idEncuesta);
+            $encTipo=$encuesta->encTipo;
         }else{
             $pregunta=null;
+            $encTipo=null;
         }
         
         $model = $this->findModel($id);
@@ -277,6 +291,7 @@ class RespuestaopcionController extends Controller
         return $this->render('update', [
             'model' => $model,
             'pregunta'=>$pregunta,
+            'encTipo'=>$encTipo
         ]);
     }
 

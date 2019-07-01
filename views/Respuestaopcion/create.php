@@ -8,6 +8,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Respuestaopcion */
 /* @var $pregunta app\models\Pregunta */
+/* @var $encTipo app\models\Encuesta */
 
 $this->title = 'Crear Opciones de respusta';
 // $this->params['breadcrumbs'][] = ['label' => 'Opciones de respuesta', 'url' => ['index']];
@@ -33,7 +34,8 @@ $this->title = 'Crear Opciones de respusta';
 
     <?= $this->render('_form', [
         'model' => $model,
-        'pregunta'=>$pregunta,
+		'pregunta'=>$pregunta,
+		'encTipo'=>$encTipo,
     ]) ?>
 
 </div>

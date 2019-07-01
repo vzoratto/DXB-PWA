@@ -23,9 +23,9 @@ class RespuestatipoController extends Controller
 
         if($encTipo=="trivia")
         {
-            $lista=$tipos->find()->where(['respTipoDescripcion' => 'Lista'])
-                ->orWhere(['respTipoDescripcion' => 'Multi opcion'])
-                ->orWhere(['respTipoDescripcion' => 'Unica opcion'])
+            $lista=$tipos->find()->where(['respTipoDescripcion' => 'Lista desplegable para seleccionar'])
+                ->orWhere(['respTipoDescripcion' => 'Responder con mas de una opción'])
+                ->orWhere(['respTipoDescripcion' => 'Responder con una única opción'])
                 ->all();
 
         }

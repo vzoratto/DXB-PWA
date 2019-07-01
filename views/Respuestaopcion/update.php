@@ -20,6 +20,7 @@ $this->title = 'Modificar opción de respuesta: ' . $model->opRespvalor;
     <?= $this->render('_form', [
         'model' => $model,
         'pregunta'=>$pregunta,
+        'encTipo'=>$encTipo
     ]) ?>
 
 </div>
