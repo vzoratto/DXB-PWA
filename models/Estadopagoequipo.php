@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+//estado del equipo
 /**
  * This is the model class for table "estadopagoequipo".
  *

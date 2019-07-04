@@ -1,7 +1,7 @@
 <?php
 
 namespace app\models;
-
+//estado del equipo
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Estadopagoequipo;

@@ -8,6 +8,7 @@ use app\models\EstadopagoequipoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+//estado del equipo
 
 /**
  * EstadopagoequipoController implements the CRUD actions for Estadopagoequipo model.

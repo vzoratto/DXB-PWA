@@ -8,7 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Estadopagoequipos';
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="estadopagoequipo-index">
 
