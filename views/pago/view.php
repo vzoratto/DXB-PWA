@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
+use app\models\Permiso;
 /* @var $this yii\web\View */
 /* @var $model app\models\Pago */
 //vista donde el gestor puede consultar el pago y chequear-------------------------- 
@@ -17,13 +17,16 @@ $this->title = 'Detalle del pago ingresado';
     <p>
     <?php $model1=$model;?>
         <?= Html::a('Chequear', ['controlpago/view', 'id' => $model->idPago], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Eliminar', ['delete', 'id' => $model->idPago], [
+        <?Php      
+        if(Permiso::requerirRol('administrador')):
+        echo Html::a('Eliminar pago?', ['delete', 'id' => $model->idPago], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Esta seguro de querer eliminar este registro???',
                 'method' => 'post',
             ],
-        ]) ?>
+        ]); ?>
+        <?Php endif ?>
     </p>
 
     <?= DetailView::widget([

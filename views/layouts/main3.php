@@ -55,7 +55,13 @@ AppAsset::register($this);
 
 			],
         ],
-
+        ['label' => 'Pagos','items' => [
+            ['label' => 'Pagos ver todos', 'url' => ['/pago/index']],
+            ['label' => 'Ingresar un pago', 'url' => ['/pago/create1']],
+            ['label' => 'Control de pagos', 'url' => ['/controlpago/index']],
+            ['label' => 'Importe inscripcion', 'url' => ['/importeinscripcion/index']],
+            ],
+          ],
             Yii::$app->user->isGuest ? (
                 ''
             ) : (
