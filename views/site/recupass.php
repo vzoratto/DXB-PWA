@@ -23,9 +23,10 @@ $this->title = 'Recuperar Contraseña';
                     ],
         ]);
         ?>
-
+         <figure>
          <?= $form->field($model, 'dni')->textInput(['placeholder'=>'Ingresa tu dni','autofocus' => true, 'class' => 'form-control']) ?>
-
+         <figcaption><strong>DNI: S&oacute;lo n&uacute;meros, sin puntos</strong></figcaption>
+         </figure>
          <?= $form->field($model, 'email',['inputOptions' => ['class' => 'form-control']])
             ->textinput(['placeholder'=>'Ingresa tu email'])?>
             

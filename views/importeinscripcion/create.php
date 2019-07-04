@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Importeinscripcion */
 
-$this->title = 'Crear importe de inscripcion';
+$this->title = 'Crear importe inscripcion';
 
 ?>
 <div class="importeinscripcion-create">

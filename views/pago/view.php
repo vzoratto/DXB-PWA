@@ -5,8 +5,8 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Pago */
-
-$this->title = $model->idPago;
+//vista donde el gestor puede consultar el pago y chequear-------------------------- 
+$this->title = 'Detalle del pago ingresado';
 
 \yii\web\YiiAsset::register($this);
 ?>
@@ -20,7 +20,7 @@ $this->title = $model->idPago;
         <?= Html::a('Eliminar', ['delete', 'id' => $model->idPago], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Esta seguro de querer eliminar este registro???',
                 'method' => 'post',
             ],
         ]) ?>
@@ -29,23 +29,28 @@ $this->title = $model->idPago;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idPago',
+            ['label'=>'Referencia pago',
+            'attribute'=>'idPago',
+            ],
             'importePagado',
             'entidadPago',
-            
             ['attribute'=>'idPersona',
             'value'=>function($model){
-                return ($model->persona->nombrePersona);
-
+                return ($model->persona->nombreCompleto);
                 },
             ],
-            //'idImporte',
             ['label'=>'Nombre de Equipo',
             'attribute'=>'idEquipo',
             'value'=>function($model){
                 return($model->equipo->nombreEquipo);
-            },
-        ],
+               },
+           ],
+           ['label'=>'Costo inscripcion',
+            'attribute'=>'idImporte',
+            'value'=>function($model){
+                return ($model->importe->importe);
+                },
+            ],
         'imagenComprobante:image',
     ],
     ]) ?>
