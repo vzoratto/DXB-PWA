@@ -3,7 +3,8 @@
 namespace app\models;
 
 use Yii;
-
+use yii\data\ActiveDataProvider;
+use yii\db\Query;
 /**
  * This is the model class for table "pago".
  *
@@ -22,6 +23,8 @@ use Yii;
  */
 class Pago extends \yii\db\ActiveRecord
 {
+    public $dniUsu;
+    public $chequeado;
     /**
      * {@inheritdoc}
      */
@@ -37,7 +40,7 @@ class Pago extends \yii\db\ActiveRecord
     {
         return [
             [['importePagado', 'entidadPago', 'imagenComprobante', 'idPersona', 'idImporte'], 'required'],
-            [['importePagado', 'idPersona', 'idImporte', 'idEquipo'], 'integer'],
+            [['importePagado', 'idPersona', 'idImporte', 'idEquipo','dniUsu','chequeado'], 'integer'],
             [['entidadPago'], 'string', 'max' => 64],
             [['imagenComprobante'], 'file','extensions' => 'jpg, jpeg, png, bmp, jpe'],
             [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
@@ -53,8 +56,10 @@ class Pago extends \yii\db\ActiveRecord
     {
         return [
             'idPago' => 'Id Pago',
+            'dniUsu'=> 'DNI participante',
             'importePagado' => 'Importe Pagado',
             'entidadPago' => 'Entidad Pago',
+            'chequeado'=>'Chequeado',
             'imagenComprobante' => 'Imagen Comprobante',
             'idPersona' => 'Persona',
             'idImporte' => 'Importe',
@@ -101,6 +106,7 @@ class Pago extends \yii\db\ActiveRecord
          return $query->suma;
     }
 
+<<<<<<< HEAD
     public function buscaequipo(){
         
         $estadopago=0;//0 para los equipos que no pagaron
@@ -120,4 +126,7 @@ class Pago extends \yii\db\ActiveRecord
         }
         return $estadopago;
     }
+=======
+    
+>>>>>>> parent of 874d7b6... Revert "Merge branch 'lili-ultimo'"
 }

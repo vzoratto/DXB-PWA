@@ -7,18 +7,13 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ControlpagoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Control de pagos';
+$this->title = 'Control pagos';
 
 ?>
 <div class="controlpago-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -26,22 +21,24 @@ $this->title = 'Control de pagos';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            //'idControlpago',
-           // 'idPago',
+           // 'idControlpago',
+           ['label'=>'Referencia del pago',
+            'attribute'=>'idPago',
+            ],
             'fechaPago',
             'fechachequeado',
-            ['attribute'=>'idUsuario',
-              'value'=>function($model){
-                  if(!$model->darusuario){
-                    return($model->usuario->idUsuario)?'ninguno':'';
-                  }else{
-                  return($model->usuario->dniUsuario);}
-              },
+            ['attribute'=>'chequeado',
+             'value'=>function($model){
+                 return ($model->chequeado==0)?'no':'si';
+             },
+               'filter'=>array('0'=>'no','1'=>'si'),
             ],
-                  
-              
+            //'idGestor',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+            'class' => 'yii\grid\ActionColumn',
+            'template'=> '{view} {update}',
+            ],
         ],
     ]); ?>
 

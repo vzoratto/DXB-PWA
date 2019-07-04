@@ -3,7 +3,11 @@
 namespace app\models;
 
 use Yii;
+<<<<<<< HEAD
 //estado del equipo
+=======
+
+>>>>>>> parent of 874d7b6... Revert "Merge branch 'lili-ultimo'"
 /**
  * This is the model class for table "estadopagoequipo".
  *

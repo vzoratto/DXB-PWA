@@ -26,9 +26,9 @@ $usu=Yii::$app->user->identity->dniUsuario;
                     ]
         ]);
         ?>
-
+     
      <?= $form->field($model, 'dni')->textInput(['value'=>$usu,'readonly'=> true]) ?>
-    <?= $form->field($model, 'password')->passwordInput(['id' => '','placeholder'=>'Contraseña']) ?>
+     <?= $form->field($model, 'password')->passwordInput(['id' => '','placeholder'=>'Contraseña']) ?>
      <?= $form->field($model, 'nuevo_password')->passwordInput(['id' => 'password-field','placeholder'=>'Nueva contraseña']) ?>
      <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
      <?= $form->field($model, 'repite_password')->passwordInput(['placeholder'=>'Repite la nueva contraseña']) ?>

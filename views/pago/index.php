@@ -14,19 +14,13 @@ $this->title = 'Pagos recibidos';
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            ['label'=>'Referencia',
+            ['label'=>'Referencia pago',
              'attribute'=>'idPago',
             ],
             'importePagado',
@@ -34,9 +28,15 @@ $this->title = 'Pagos recibidos';
             
             ['attribute'=>'idPersona',
             'value'=>function($model){
-                return ($model->persona->nombrePersona);
+                return ($model->persona->nombreCompleto);
 
                 },
+            ],
+            ['attribute'=>'chequeado',
+             'value'=>function($model){
+                 return ($model->chequeado==0)?'no':'si';
+             },
+               'filter'=>array('0'=>'no','1'=>'si'),
             ],
             ['label'=>'Imagen ticket',
              'attribute'=>'imagenComrobante',
@@ -44,13 +44,13 @@ $this->title = 'Pagos recibidos';
              'value'=>function($model){
                  return yii\bootstrap\Html::img($model->imagenComprobante,['width'=>'100']); 
              }
-
             ],
-            
             //'idImporte',
             //'idEquipo',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template'=> '{view} {update}',
+                ],
         ],
     ]); ?>
 

@@ -168,6 +168,13 @@ class Persona extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuario::className(), ['idUsuario' => 'idUsuario']);
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDniUsuario()
+    {
+        return ' DNI '.$this->dniUsuario;
+    }
 
     /**
      * @return \yii\db\ActiveQuery

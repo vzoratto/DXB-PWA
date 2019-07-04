@@ -4388,7 +4388,19 @@ a.desc:after {
 .box-bd textform {
     font-size: 30px;
 }
+.box-bd1{
+    margin: auto;
+    border-radius: 20px;
+    box-shadow: 0 0 15px black;
+    padding: 30px;
+    max-width: 420px;
+    width: 30%;
+    background: white;
+}
 
+.box-bd1 textform {
+    font-size: 30px;
+}
 
 /* Medium devices (landscape phones, 576px and up)*/
 
@@ -4397,10 +4409,19 @@ a.desc:after {
         width: 75%;
         max-width: 300px;
     }
+	.box-bd1 {
+        width: 75%;
+        max-width: 400px;
+    }
 }
 
 @media (max-width: 400px) {
     .box-bd {
+        background: none;
+        border: 0;
+        box-shadow: none;
+    }
+	.box-bd1 {
         background: none;
         border: 0;
         box-shadow: none;
