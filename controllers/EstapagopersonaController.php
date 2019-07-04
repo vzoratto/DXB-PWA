@@ -9,6 +9,7 @@ use app\models\Permiso;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+//estado del equipo
 
 /**
  * EstapagopersonaController implements the CRUD actions for Estapagopersona model.

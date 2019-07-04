@@ -7,8 +7,8 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\RespuestaTriviaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Respuesta Trivias';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Estadopagoequipos';
+
 ?>
 <div class="respuesta-trivia-index">
 
