@@ -344,6 +344,20 @@ CREATE TABLE `vinculopersona` (
   `nombreVinculo` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `respuesta_trivia`
+--
+
+CREATE TABLE `respuesta_trivia` (
+  `idRespTrivia` int(11) NOT NULL,
+  `respTriviaValor` varchar(250) NOT NULL,
+  `idPregunta` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
 --
 -- Índices para tablas volcadas
 --
@@ -526,6 +540,12 @@ ALTER TABLE `listadeespera`
   ADD PRIMARY KEY (`idListaDeEspera`);
 
 
+--
+-- Indices de la tabla `respuesta_trivia`
+--
+ALTER TABLE `respuesta_trivia`
+  ADD PRIMARY KEY (`idRespTrivia`),
+  ADD KEY `idPregunta` (`idPregunta`);
 
 
 --
@@ -663,6 +683,15 @@ ALTER TABLE `vinculopersona`
 --
 ALTER TABLE `listadeespera`
   MODIFY `idListaDeEspera` int(8) NOT NULL AUTO_INCREMENT;
+
+
+
+--
+-- AUTO_INCREMENT de la tabla `respuesta_trivia`
+--
+ALTER TABLE `respuesta_trivia`
+  MODIFY `idRespTrivia` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
 
 
 --

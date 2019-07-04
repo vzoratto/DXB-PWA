@@ -23073,10 +23073,10 @@ INSERT INTO `gruposanguineo` (`idGrupoSanguineo`, `tipoGrupoSanguineo`) VALUES
 --
 
 INSERT INTO `respuesta_tipo` (`idRespTipo`, `respTipoDescripcion`) VALUES
-(1, 'Texto'),
-(2, 'Lista'),
-(3, 'Multi opcion'),
-(4, 'Unica opcion');
+(1, 'Responder con Texto'),
+(2, 'Lista desplegable para seleccionar'),
+(3, 'Responder con mas de una opción'),
+(4, 'Responder con una única opción');
 
 
 --
