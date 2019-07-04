@@ -106,5 +106,23 @@ class Pago extends \yii\db\ActiveRecord
          return $query->suma;
     }
 
-    
+    public function buscaequipo(){
+        
+        $estadopago=0;//0 para los equipos que no pagaron
+        if(!Yii::$app->user->isGuest){
+        $persona=Persona::findOne(['idUsuario'=>$_SESSION['__id']]);
+        $grupo=Grupo::findOne(['idPersona'=>$persona->idPersona]);
+        if($grupo!=null){
+          $estadoequipo=Estadopagoequipo::findOne(['idEquipo'=>$grupo->idEquipo]);
+            if($estadoequipo!=null ){
+               if($estadoequipo->idEstadoPago==2){
+                   $estadopago=2; //2 para los equipos con pago parcial
+              }else{
+                $estadopago=3;//3 para los equipos pago total o cancelo
+              }
+            }   
+          }
+        }
+        return $estadopago;
+    }
 }
