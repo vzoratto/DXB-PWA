@@ -4,6 +4,9 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use app\models\Persona;
 $userLogueado=Yii::$app->user; // Obtenemos el objeto del usuario logeado
+$persona=new \app\models\Persona();
+$inscrito=$persona->inscrito();
+
 
  ?>
 <div id="not-full"></div>
@@ -107,9 +110,9 @@ $userLogueado=Yii::$app->user; // Obtenemos el objeto del usuario logeado
 
                       echo '<a href="'.Url::to(["/site/registro"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Regístrate</a>';
 
-                    } else {
+                    } if($inscrito==2) {
 
-                      echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Inscribíte</a>';
+                      echo'<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Inscribíte</a>';
 
                     }; ?>
 

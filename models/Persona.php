@@ -264,7 +264,7 @@ class Persona extends \yii\db\ActiveRecord
         //0 para los usuarios visitantes
         //1 para los inscriptos
         //2 para los no inscriptos
-        //3 para los usuarios inscriptos que ya actualizaron su perfil
+       
         $estado=0;
         if(!Yii::$app->user->isGuest){
             $persona=self::findOne(['idUsuario' => $_SESSION['__id']]);
