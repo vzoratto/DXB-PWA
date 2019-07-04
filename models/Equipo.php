@@ -78,4 +78,6 @@ class Equipo extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Persona::className(), ['idPersona' => 'idPersona'])->viaTable('grupo', ['idEquipo' => 'idEquipo']);
     }
+
+
 }
