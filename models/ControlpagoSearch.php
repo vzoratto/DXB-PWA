@@ -17,7 +17,7 @@ class ControlpagoSearch extends Controlpago
     public function rules()
     {
         return [
-            [['idControlpago', 'idPago', 'chequeado', 'idGestor'], 'integer'],
+            [['idControlpago', 'idPago', 'idUsuario'], 'integer'],
             [['fechaPago', 'fechachequeado'], 'safe'],
         ];
     }
@@ -62,8 +62,7 @@ class ControlpagoSearch extends Controlpago
             'idPago' => $this->idPago,
             'fechaPago' => $this->fechaPago,
             'fechachequeado' => $this->fechachequeado,
-            'chequeado' => $this->chequeado,
-            'idGestor' => $this->idGestor,
+            'idUsuario' => $this->idUsuario,
         ]);
 
         return $dataProvider;

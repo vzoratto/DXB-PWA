@@ -5,12 +5,6 @@ namespace app\controllers;
 use Yii;
 use app\models\Equipo;
 use app\models\EquipoSearch;
-use app\models\Carrerapersona;
-use app\models\Usuario;
-use app\models\Persona;
-use app\models\Grupo;
-use app\models\CambiaCapitanForm;
-use app\models\Permiso;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -99,52 +93,6 @@ class EquipoController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing Equipo model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionCambia()
-    {
-        if(Permiso::requerirRol('administrador')){
-            $this->layout='/main2';
-        }elseif(Permiso::requerirRol('gestor')){
-            $this->layout='/main3';
-        }
-       // $model = $this->findModel($id);
-       $model=new CambiaCapitanForm;
-      
-        if ($model->load(Yii::$app->request->post())){ 
-            
-            if($equipo=Equipo::find()->where(['dniCapitan'=>$model->dniCapitan]) !=null){
-                $usuario=Usuario::find()->where(['dniUsuario'=>$equipo->dniCapitan]);
-                $persona=Persona::find()->where(['idUsuario'=>$usuario->idUsuario]);
-              $equipo->dniCapitan=$model->dniUsuario;
-              if($equipo->save()){
-                  $grupo=Grupo::find()->where(['idPersona'=>$persona->idPersona]);
-                  $grupo->idPersona=$model->idUsuario;
-                  if($grupo->save()){
-                      $carreraper=Carrerapersona::find()->where(['idPersona'=>$persona->idPersona]);
-                      $carreraper->idPersona=$model->idUsuario;
-                      if($carreraper->save()){
-                       return $this->Yii::$app->session->setFlash('contactFormSubmitted');
-
-                        //return $this->refresh();
-                      }
-                    }
-              }
-            }
-            return $this->redirect(['index', 'id' => $model->idEquipo]);
-        }
-    
-        return $this->render('cambia', [
-            'model' => $model,
-            
         ]);
     }
 

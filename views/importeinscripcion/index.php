@@ -30,22 +30,20 @@ $this->title = 'Importe de la inscripción';
 
            // 'idImporte',
             'importe',
+            ['attribute'=>'deshabilitado',
+             'value'=>function($model){
+                 return ($model->deshabilitado==0)?'no':'si';
+             },
+               //'filter'=>array('0'=>'no','1'=>'si'),
+            ],
+
             ['attribute'=>'idTipoCarrera',
             'value'=>function($model){
                 return ($model->tipoCarrera->descripcionCarrera);
             },
             'filter' => ArrayHelper::map(Tipocarrera::find()->asArray()->all(), 'idTipoCarrera', 'descripcionCarrera'),
            ],
-           ['attribute'=>'deshabilitado',
-             'value'=>function($model){
-                 return ($model->deshabilitado==0)?'no':'si';
-             },
-               //'filter'=>array('0'=>'no','1'=>'si'),
-            ],
-           [
-            'class' => 'yii\grid\ActionColumn',
-            'template'=> '{view} {update}',
-            ],
+            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 

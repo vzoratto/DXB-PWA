@@ -11,14 +11,17 @@ use Yii;
  * @property int $importePagado
  * @property string $entidadPago
  * @property string $imagenComprobante
+ * @property string $fechaPago
+ * @property string $fechachequeado
  * @property int $idPersona
  * @property int $idImporte
  * @property int $idEquipo
+ * @property int $idUsuario
  *
- * @property Controlpago[] $controlpagos
  * @property Persona $persona
  * @property Importeinscripcion $importe
  * @property Equipo $equipo
+ * @property Usuario $usuario
  */
 class Pago extends \yii\db\ActiveRecord
 {
@@ -36,13 +39,15 @@ class Pago extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['importePagado', 'entidadPago', 'imagenComprobante', 'idPersona', 'idImporte'], 'required'],
-            [['importePagado', 'idPersona', 'idImporte', 'idEquipo'], 'integer'],
+            [['importePagado', 'entidadPago', 'imagenComprobante', 'idPersona', 'idImporte', 'idUsuario'], 'required'],
+            [['importePagado', 'idPersona', 'idImporte', 'idEquipo', 'idUsuario'], 'integer'],
+            [['fechaPago', 'fechachequeado'], 'safe'],
             [['entidadPago'], 'string', 'max' => 64],
             [['imagenComprobante'], 'file','extensions' => 'jpg, jpeg, png, bmp, jpe'],
             [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
             [['idImporte'], 'exist', 'skipOnError' => true, 'targetClass' => Importeinscripcion::className(), 'targetAttribute' => ['idImporte' => 'idImporte']],
             [['idEquipo'], 'exist', 'skipOnError' => true, 'targetClass' => Equipo::className(), 'targetAttribute' => ['idEquipo' => 'idEquipo']],
+            [['idUsuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['idUsuario' => 'idUsuario']],
         ];
     }
 
@@ -56,18 +61,13 @@ class Pago extends \yii\db\ActiveRecord
             'importePagado' => 'Importe Pagado',
             'entidadPago' => 'Entidad Pago',
             'imagenComprobante' => 'Imagen Comprobante',
-            'idPersona' => 'Persona',
+            'fechaPago' => 'Fecha Pago',
+            'fechachequeado' => 'Fecha chequeado',
+            'idPersona' =>  'Persona',
             'idImporte' => 'Importe',
             'idEquipo' => 'Equipo',
+            'idUsuario' => 'Usuario',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getControlpagos()
-    {
-        return $this->hasMany(Controlpago::className(), ['idPago' => 'idPago']);
     }
 
     /**
@@ -92,5 +92,13 @@ class Pago extends \yii\db\ActiveRecord
     public function getEquipo()
     {
         return $this->hasOne(Equipo::className(), ['idEquipo' => 'idEquipo']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsuario()
+    {
+        return $this->hasOne(Usuario::className(), ['idUsuario' => 'idUsuario']);
     }
 }

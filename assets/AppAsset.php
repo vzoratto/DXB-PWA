@@ -23,7 +23,6 @@ class AppAsset extends AssetBundle
         'css/site.css',
         'css/responsive.css',
         'css/botonSwicht.css',
-		'css/mensaje.css',
         'js/pickadate/themes/default.css',
         'js/pickadate/themes/classic.date.css',
     ];

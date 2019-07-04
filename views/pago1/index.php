@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\EstadopagoequipoSearch */
+/* @var $searchModel app\models\PagoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Estadopagoequipos';
+$this->title = 'Pagos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="estadopagoequipo-index">
+<div class="pago-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Estadopagoequipo', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Pago', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,8 +26,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idEstadoPago',
-            'idEquipo',
+          //  'idPago',
+            'importePagado',
+            'entidadPago',
+            'imagenComprobante',
+            'fechaPago',
+            //'fechachequeado',
+            //'idPersona',
+            //'idImporte',
+            //'idEquipo',
+            //'idUsuario',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

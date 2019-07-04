@@ -23,15 +23,13 @@ $this->title = 'Registrate';
         ],
 
     ]); ?>
-        <figure>
-        <?= $form->field($model, 'dni')->textInput(['placeholder'=>'DNI','autofocus' => true]) ?>
-        <figcaption><strong>DNI: S&oacute;lo n&uacute;meros, sin puntos</strong></figcaption>
-        </figure>
+        <?= $form->field($model, 'dni')->textInput(['id' => '#demo13','placeholder'=>'DNI','autofocus' => true]) ?>
+        <span toggle="#demo13" class="fa fa-question-circle field-icon "></span>
         <?= $form->field($model, 'password')->passwordInput(['id' => 'password-field','placeholder'=>'Contraseña']) ?>
         <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
         <?= $form->field($model, 'repite_password')->passwordInput(['placeholder'=>'Repetir contraseña']) ?>
         <?= $form->field($model, 'email')->textInput(['placeholder'=>'Email','autofocus' => true]) ?>
-
+        far fa-question-circle
         <div class="form-group">
 
           <?= Html::submitButton('Registrate', ['class' => 'btn btn-medio btn-rounded btn-carrera width-100', 'name' => 'registro-button']) ?>
@@ -58,4 +56,13 @@ $this->registerJs("$('.toggle-password').click(function() {
     input.attr('type', 'password');
   }
 });");
+$this->registerJs("$('#demo13').click(function() { 
+  $.blockUI({ 
+      theme:     true, 
+      title:    'This is your title', 
+      message:  '<p>This is your message.</p>', 
+      timeout:   2000 
+  }); 
+});    
+")
 ?>

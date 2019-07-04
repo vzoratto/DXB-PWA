@@ -7,7 +7,8 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Pago */
 
 $this->title = $model->idPago;
-
+$this->params['breadcrumbs'][] = ['label' => 'Pagos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="pago-view">
@@ -15,12 +16,11 @@ $this->title = $model->idPago;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-    <?php $model1=$model;?>
-        <?= Html::a('Chequear', ['controlpago/view', 'id' => $model->idPago], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Actualizar', ['update', 'id' => $model->idPago], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Eliminar', ['delete', 'id' => $model->idPago], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Esta seguro de eliminar este registro???',
                 'method' => 'post',
             ],
         ]) ?>
@@ -32,22 +32,14 @@ $this->title = $model->idPago;
             'idPago',
             'importePagado',
             'entidadPago',
-            
-            ['attribute'=>'idPersona',
-            'value'=>function($model){
-                return ($model->persona->nombrePersona);
-
-                },
-            ],
-            //'idImporte',
-            ['label'=>'Nombre de Equipo',
-            'attribute'=>'idEquipo',
-            'value'=>function($model){
-                return($model->equipo->nombreEquipo);
-            },
+            'imagenComprobante',
+            'fechaPago',
+            'fechachequeado',
+            'idPersona',
+            'idImporte',
+            'idEquipo',
+            'idUsuario',
         ],
-        'imagenComprobante:image',
-    ],
     ]) ?>
 
 </div>

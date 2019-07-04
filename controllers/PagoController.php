@@ -17,8 +17,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-use yii\data\arrayDataProvider;
-use yii\db\Query; 
+
+
 /**
  * PagoController implements the CRUD actions for Pago model.
  */
@@ -52,53 +52,12 @@ class PagoController extends Controller
         }
         $searchModel = new PagoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        //echo '<pre>';var_dump($dataProvider);echo '</pre>';die();
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
 
-    /**
-     * Lists all Pago models.
-     * @return mixed
-     */
-    public function actionIndex1()
-    {
-        if(Permiso::requerirRol('administrador')){
-            $this->layout='/main2';
-        }elseif(Permiso::requerirRol('gestor')){
-            $this->layout='/main3';
-        }
-        $searchModel = new PagoSearch();
-        $dataProvider = $searchModel->check();
-        //echo '<pre>';var_dump($dataProvider);echo '</pre>';die();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
-
-    /**
-     * Lists all Pago models.
-     * @return mixed
-     */
-    public function actionIndex2()
-    {
-        if(Permiso::requerirRol('administrador')){
-            $this->layout='/main2';
-        }elseif(Permiso::requerirRol('gestor')){
-            $this->layout='/main3';
-        }
-        $searchModel = new PagoSearch();
-        $dataProvider = $searchModel->nocheck();
-        //echo '<pre>';var_dump($dataProvider);echo '</pre>';die();
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-    
 
     /**
      * Displays a single Pago model.
@@ -115,18 +74,6 @@ class PagoController extends Controller
         }
 
         return $this->render('view', [
-            'model' => $this->findModel($id),]
-        );
-    }
-    /**
-     * Displays a single Pago model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView1($id)
-    {
-        return $this->render('view1', [
             'model' => $this->findModel($id),]
         );
     }
@@ -169,36 +116,32 @@ class PagoController extends Controller
            $model->imagenComprobante->saveAs($imagen_dir);
            $model->imagenComprobante=$imagen_dir;
            $model->idEquipo=$equipo->idEquipo;
-           $model->idImporte=$importecarrera->idImporte;   
+           $model->idImporte=$importecarrera->idImporte;
+           
          // echo "<pre>";print_r($model);echo"</pre>";die();
            if($model->save()){
             $idpago = Yii::$app->db->getLastInsertID(); //Obtenemos el ID del ultimo usuario ingresado
-            
+            $pagado=$importecarrera->importe - $model->importePagado;
+              if($importecarrera->importe ==$pagado){
+                $total=0;
+              }elseif($importecarrera->importe > $pagado){
+                $total=1;
+              }
+              //return $this->redirect(['view', 'id' => $model->idPago]);     
+            }
             $model1=new Controlpago;
             $model1->idPago=$idpago;
-            $model1->chequeado=0;
-            $model1->idGestor=1;
+            $model1->idUsuario=$usuario->idUsuario;
             if($model1->save()){
                 //enviamos mail
-                //return $this->redirect(['view', 'id' => $model->idPago]);
-              if($importecarrera->importe == $model->importePagado){
-                $total='pago total';//pago total
-                Yii::$app->session->setFlash('pagoTotal');//enviamos mensaje
-                return $this->redirect(['view1', 'id' => $idpago]);
-               // return $this->refresh();
-              }elseif($importecarrera->importe > $model->importePagado){
-                $total='pago parcial';//pago parcial
-                Yii::$app->session->setFlash('pagoParcial');//enviamos mensaje
-                return $this->redirect(['view1', 'id' => $idpago]);
-               // return $this->refresh();
-              }   
+                return $this->redirect(['view', 'id' => $model->idPago]);   
             }else{
                 //mandamos error
-              // echo "<pre>";print_r($model1->errors);echo"</pre>";die();
-                $error=$model1->errors;
+                echo "<pre>";print_r($model1->errors);echo"</pre>";die();
             }
-          }
         }
+    
+    
         return $this->render('create', [
             'model' => $model,
             'equipo'=> $equipo,//dniCapitan,idEquipo,idTipoCarrera
@@ -213,9 +156,16 @@ class PagoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate1()
-    {
-        if(Permiso::requerirRol('administrador')){
+   /* public function actionCreate1()
+    {/*
+        $usuario=Usuario::findIdentity($_SESSION['__id']);
+        $persona=Persona::findOne(['idUsuario' => $_SESSION['__id']]);
+        if($grupo=Grupo::findOne(['idPersona'=>$persona->idPersona])){
+              $equipo=Equipo::findOne(['idEquipo'=>$grupo->idEquipo]);
+              $tipocarrera=TipoCarrera::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+              $importecarrera=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+        } */ 
+      /*  if(Permiso::requerirRol('administrador')){
                 $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
                 $this->layout='/main3';
@@ -224,13 +174,6 @@ class PagoController extends Controller
         $model = new Pago();
 
         if ($model->load(Yii::$app->request->post())) {
-            $usuario=Usuario::findOne(['dniUsuario'=>$model->dniUsu]);
-            $persona=Persona::findOne(['idUsuario' =>$usuario->idUsuario]);
-            if($grupo=Grupo::findOne(['idPersona'=>$persona->idPersona])){
-                $equipo=Equipo::findOne(['idEquipo'=>$grupo->idEquipo]);
-                $tipocarrera=TipoCarrera::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
-                $importecarrera=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
-            } 
             $model->idPersona=$persona->idPersona;
         
            $model->imagenComprobante = UploadedFile::getInstance($model, 'imagenComprobante');
@@ -244,41 +187,36 @@ class PagoController extends Controller
          // echo "<pre>";print_r($model);echo"</pre>";die();
            if($model->save()){
             $idpago = Yii::$app->db->getLastInsertID(); //Obtenemos el ID del ultimo usuario ingresado
+            $pagado=$importecarrera->importe - $model->importePagado;
+              if($importecarrera->importe ==$pagado){
+                $total=0;
+              }elseif($importecarrera->importe > $pagado){
+                $total=1;
+              }
+              //return $this->redirect(['view', 'id' => $model->idPago]);     
+            }
             $model1=new Controlpago;
             $model1->idPago=$idpago;
-            $model1->chequeado=0;
-            $model1->idGestor=1;
+            $model1->idUsuario=$usuario->idUsuario;
             if($model1->save()){
                 //enviamos mail
-                //return $this->redirect(['view', 'id' => $model->idPago]);
-              if($importecarrera->importe == $model->importePagado){
-                $total='pago total';//pago total
-                Yii::$app->session->setFlash('pagoTotal');//enviamos mensaje
-                return $this->redirect(['view1', 'id' => $idpago]);
-               // return $this->refresh();
-              }elseif($importecarrera->importe > $model->importePagado){
-                $total='pago parcial';//pago parcial
-                Yii::$app->session->setFlash('pagoParcial');//enviamos mensaje
-                return $this->redirect(['view', 'id' => $idpago]);
-               // return $this->refresh();
-              }   
+                return $this->redirect(['view', 'id' => $model->idPago]);   
             }else{
                 //mandamos error
-              // echo "<pre>";print_r($model1->errors);echo"</pre>";die();
-                $error=$model1->errors;
+                echo "<pre>";print_r($model1->errors);echo"</pre>";die();
             }
-          }
         }
     
-        return $this->render('create1', [
+    
+        return $this->render('create', [
             'model' => $model,
-            //'equipo'=> $equipo,//dniCapitan,idEquipo,idTipoCarrera
-           // 'persona'=> $persona,//idPersona
-            //'usuario'=> $usuario,//idUsuario, dniUsuario,mailUsuario
-           // 'tipocarrera'=>$tipocarrera,//descripcionCarrera
-           // 'importecarrera'=>$importecarrera,//importe del tipo de carrera
+            'equipo'=> $equipo,//dniCapitan,idEquipo,idTipoCarrera
+            'persona'=> $persona,//idPersona
+            'usuario'=> $usuario,//idUsuario, dniUsuario,mailUsuario
+            'tipocarrera'=>$tipocarrera,//descripcionCarrera
+            'importecarrera'=>$importecarrera,//importe del tipo de carrera
         ]);
-}
+}*/
 
 
     /**

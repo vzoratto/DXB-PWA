@@ -11,11 +11,10 @@ use Yii;
  * @property int $idPago
  * @property string $fechaPago
  * @property string $fechachequeado
- * @property int $chequeado
- * @property int $idGestor
+ * @property int $idUsuario
  *
  * @property Pago $pago
- * @property Gestores $gestor
+ * @property Usuario $usuario
  */
 class Controlpago extends \yii\db\ActiveRecord
 {
@@ -33,11 +32,11 @@ class Controlpago extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idPago', 'chequeado'], 'required'],
-            [['idPago', 'chequeado', 'idGestor'], 'integer'],
+            [['idPago'], 'required'],
+            [['idPago', 'idUsuario'], 'integer'],
             [['fechaPago', 'fechachequeado'], 'safe'],
             [['idPago'], 'exist', 'skipOnError' => true, 'targetClass' => Pago::className(), 'targetAttribute' => ['idPago' => 'idPago']],
-            [['idGestor'], 'exist', 'skipOnError' => true, 'targetClass' => Gestores::className(), 'targetAttribute' => ['idGestor' => 'idGestor']],
+            [['idUsuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['idUsuario' => 'idUsuario']],
         ];
     }
 
@@ -47,12 +46,11 @@ class Controlpago extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idControlpago' => 'Referencia pago',
+            'idControlpago' => 'Id Controlpago',
             'idPago' => 'Id Pago',
-            'fechaPago' => 'Fecha pago',
-            'fechachequeado' => 'Fecha chequeado',
-            'chequeado' => 'Chequeado',
-            'idGestor' => 'Gestor',
+            'fechaPago' => 'Fecha Pago',
+            'fechachequeado' => 'Fechachequeado',
+            'idUsuario' => 'Id Usuario',
         ];
     }
 
@@ -67,8 +65,15 @@ class Controlpago extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGestor()
+    public function getUsuario()
     {
-        return $this->hasOne(Gestores::className(), ['idGestor' => 'idGestor']);
+        return $this->hasOne(Usuario::className(), ['idUsuario' => 'idUsuario']);
+    }
+
+    public function getDarusuario(){
+        if($fecha=self::find()->where(['fechachequeado'=>'0000-00-00'])->all()){
+         return $fecha;
+        }
+        
     }
 }
