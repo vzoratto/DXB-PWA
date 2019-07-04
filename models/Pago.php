@@ -106,7 +106,6 @@ class Pago extends \yii\db\ActiveRecord
          return $query->suma;
     }
 
-<<<<<<< HEAD
     public function buscaequipo(){
         
         $estadopago=0;//0 para los equipos que no pagaron
@@ -126,7 +125,4 @@ class Pago extends \yii\db\ActiveRecord
         }
         return $estadopago;
     }
-=======
-    
->>>>>>> parent of 874d7b6... Revert "Merge branch 'lili-ultimo'"
 }
