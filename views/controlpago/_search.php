@@ -23,7 +23,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'fechachequeado') ?>
 
-    <?= $form->field($model, 'idUsuario') ?>
+    <?= $form->field($model, 'chequeado') ?>
+
+    <?php // echo $form->field($model, 'idGestor') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

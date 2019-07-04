@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Controlpago */
 
-$this->title = 'Chequear pago referencia: ' . $model->idControlpago;
+$this->title = 'Check: Referencia del pago ' . $model->idPago;
 
 ?>
 <div class="controlpago-update">
@@ -14,7 +14,8 @@ $this->title = 'Chequear pago referencia: ' . $model->idControlpago;
 
     <?= $this->render('_form', [
         'model' => $model,
-
+        'gestor'=>$gestor,//idgestor, nombre gestor
+        'usuario'=>$usuario,//idUsuario, dniUsuario
     ]) ?>
 
 </div>

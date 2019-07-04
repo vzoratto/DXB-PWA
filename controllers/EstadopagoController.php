@@ -5,7 +5,6 @@ namespace app\controllers;
 use Yii;
 use app\models\Estadopago;
 use app\models\EstadopagoSearch;
-use app\models\Permiso;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

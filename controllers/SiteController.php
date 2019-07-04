@@ -192,7 +192,6 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-        $mensaje = null;//Mostrará un mensaje
         $model = new RegistroForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {

@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Pago;
+use yii\db\Query;
 
 /**
  * PagoSearch represents the model behind the search form of `app\models\Pago`.
@@ -18,7 +19,7 @@ class PagoSearch extends Pago
     {
         return [
             [['idPago', 'importePagado', 'idPersona', 'idImporte', 'idEquipo'], 'integer'],
-            [['entidadPago', 'imagenComprobante'], 'safe'],
+            [['entidadPago', 'imagenComprobante','dniUsu','chequeado'], 'safe'],
         ];
     }
 
@@ -40,7 +41,7 @@ class PagoSearch extends Pago
      */
     public function search($params)
     {
-        $query = Pago::find();
+        $query = Pago::find()->joinWith('controlpagos');
 
         // add conditions that should always apply here
 
@@ -60,6 +61,7 @@ class PagoSearch extends Pago
         $query->andFilterWhere([
             'idPago' => $this->idPago,
             'importePagado' => $this->importePagado,
+            'controlpago.chequeado'=> $this->chequeado,
             'idPersona' => $this->idPersona,
             'idImporte' => $this->idImporte,
             'idEquipo' => $this->idEquipo,
@@ -67,7 +69,56 @@ class PagoSearch extends Pago
 
         $query->andFilterWhere(['like', 'entidadPago', $this->entidadPago])
             ->andFilterWhere(['like', 'imagenComprobante', $this->imagenComprobante]);
+          
 
         return $dataProvider;
+    }
+    
+    /**
+     * Consulta a la tabla pago
+     *
+     * @param 
+     *
+     * @return ActiveDataProvider
+     */
+	 public function check(){
+        $query = new Query;
+        $query 
+           ->select(['*'])
+           ->from('pago p')
+           ->join('inner join','controlpago c','c.idPago=p.idPago')
+           ->where('c.chequeado=1') 
+           ->all();
+    
+        $dataProvider = new ActiveDataProvider([
+              'query' => $query,
+        ]);
+
+    return $dataProvider;
+  
+    }
+
+    /**
+     * Consulta a la tabla pago
+     *
+     * @param 
+     *
+     * @return ActiveDataProvider
+     */
+	 public function nocheck(){
+        $query = new Query;
+        $query 
+           ->select(['*'])
+           ->from('pago p')
+           ->join('inner join','controlpago c','c.idPago=p.idPago')
+           ->where('c.chequeado',0) 
+           ->all();
+    
+        $dataProvider = new ActiveDataProvider([
+              'query' => $query,
+        ]);
+
+    return $dataProvider;
+  
     }
 }

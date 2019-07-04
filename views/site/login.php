@@ -20,12 +20,13 @@ $this->title = 'Iniciar Sesion';
                     'fieldConfig' => [
                         'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-12\">{error}</div>",
                         'labelOptions' => ['class' => 'col-lg-1 control-label'],
-                    ],
+                      ],
         ]);
         ?>
-
+        <figure>
         <?= $form->field($model, 'dni')->textInput(['placeholder'=>'Ingresa tu DNI','autofocus' => true, 'class' => 'form-control']) ?>
-
+        <figcaption><strong>DNI: S&oacute;lo n&uacute;meros, sin puntos</strong></figcaption>
+        </figure>
          <?= $form->field($model, 'password',['inputOptions' => ['class' => 'form-control m-0']])
             ->passwordInput(['placeholder'=>'Ingresa tu contraseña'])?>
             <p class="text-center">

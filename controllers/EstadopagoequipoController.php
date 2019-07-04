@@ -3,17 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Estapagopersona;
-use app\models\EstapagopersonaSearch;
-use app\models\Permiso;
+use app\models\Estadopagoequipo;
+use app\models\EstadopagoequipoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * EstapagopersonaController implements the CRUD actions for Estapagopersona model.
+ * EstadopagoequipoController implements the CRUD actions for Estadopagoequipo model.
  */
-class EstapagopersonaController extends Controller
+class EstadopagoequipoController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,7 +30,7 @@ class EstapagopersonaController extends Controller
     }
 
     /**
-     * Lists all Estapagopersona models.
+     * Lists all Estadopagoequipo models.
      * @return mixed
      */
     public function actionIndex()
@@ -41,7 +40,7 @@ class EstapagopersonaController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-        $searchModel = new EstapagopersonaSearch();
+        $searchModel = new EstadopagoequipoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -51,13 +50,13 @@ class EstapagopersonaController extends Controller
     }
 
     /**
-     * Displays a single Estapagopersona model.
+     * Displays a single Estadopagoequipo model.
      * @param integer $idEstadoPago
-     * @param integer $idPago
+     * @param integer $idEquipo
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idEstadoPago, $idPago)
+    public function actionView($idEstadoPago, $idEquipo)
     {
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
@@ -65,12 +64,12 @@ class EstapagopersonaController extends Controller
             $this->layout='/main3';
         }
         return $this->render('view', [
-            'model' => $this->findModel($idEstadoPago, $idPago),
+            'model' => $this->findModel($idEstadoPago, $idEquipo),
         ]);
     }
 
     /**
-     * Creates a new Estapagopersona model.
+     * Creates a new Estadopagoequipo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
@@ -81,10 +80,10 @@ class EstapagopersonaController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-        $model = new Estapagopersona();
+        $model = new Estadopagoequipo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idEstadoPago' => $model->idEstadoPago, 'idPago' => $model->idPago]);
+            return $this->redirect(['view', 'idEstadoPago' => $model->idEstadoPago, 'idEquipo' => $model->idEquipo]);
         }
 
         return $this->render('create', [
@@ -93,24 +92,24 @@ class EstapagopersonaController extends Controller
     }
 
     /**
-     * Updates an existing Estapagopersona model.
+     * Updates an existing Estadopagoequipo model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $idEstadoPago
-     * @param integer $idPago
+     * @param integer $idEquipo
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idEstadoPago, $idPago)
+    public function actionUpdate($idEstadoPago, $idEquipo)
     {
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-        $model = $this->findModel($idEstadoPago, $idPago);
+        $model = $this->findModel($idEstadoPago, $idEquipo);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idEstadoPago' => $model->idEstadoPago, 'idPago' => $model->idPago]);
+            return $this->redirect(['view', 'idEstadoPago' => $model->idEstadoPago, 'idEquipo' => $model->idEquipo]);
         }
 
         return $this->render('update', [
@@ -119,36 +118,36 @@ class EstapagopersonaController extends Controller
     }
 
     /**
-     * Deletes an existing Estapagopersona model.
+     * Deletes an existing Estadopagoequipo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $idEstadoPago
-     * @param integer $idPago
+     * @param integer $idEquipo
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idEstadoPago, $idPago)
+    public function actionDelete($idEstadoPago, $idEquipo)
     {
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-        $this->findModel($idEstadoPago, $idPago)->delete();
+        $this->findModel($idEstadoPago, $idEquipo)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Estapagopersona model based on its primary key value.
+     * Finds the Estadopagoequipo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $idEstadoPago
-     * @param integer $idPago
-     * @return Estapagopersona the loaded model
+     * @param integer $idEquipo
+     * @return Estadopagoequipo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idEstadoPago, $idPago)
+    protected function findModel($idEstadoPago, $idEquipo)
     {
-        if (($model = Estapagopersona::findOne(['idEstadoPago' => $idEstadoPago, 'idPago' => $idPago])) !== null) {
+        if (($model = Estadopagoequipo::findOne(['idEstadoPago' => $idEstadoPago, 'idEquipo' => $idEquipo])) !== null) {
             return $model;
         }
 
