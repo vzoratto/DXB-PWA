@@ -37,6 +37,12 @@ CREATE TABLE `encuesta` (
 
 -- --------------------------------------------------------
 
+CREATE TABLE `estadopago`(
+    `idEstadoPago` INT(8) NOT NULL,
+    `descripcionEstadoPago` VARCHAR(64)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+
+
 --
 -- Estructura de tabla para la tabla `equipo`
 --
@@ -50,30 +56,7 @@ CREATE TABLE `equipo` (
   `deshabilitado` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `estadopago`
---
-
-CREATE TABLE `estadopago` (
-  `idEstadoPago` int(8) NOT NULL,
-  `descripcionEstadoPago` varchar(64) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `estadopagopersona`
---
-
-CREATE TABLE `estadopagopersona` (
-  `idEstadoPago` int(8) NOT NULL,
-  `idPersona` int(8) NOT NULL,
-  `fechaPago` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `fichamedica`
@@ -356,7 +339,40 @@ CREATE TABLE `respuesta_trivia` (
   `idPregunta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+CREATE table  `importeinscripcion` (
+	  `idImporte` int(4) NOT NULL,
+	  `importe` int(7) NOT NULL,
+	  `deshabilitado` tinyint(1) DEFAULT NULL,
+	  `idTipoCarrera` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+CREATE TABLE `pago`(
+    `idPago` INT(8) NOT NULL,
+    `importePagado` INT(7) NOT NULL,
+    `entidadPago` VARCHAR(64) NOT NULL,
+    `imagenComprobante` VARCHAR(255) NOT NULL,
+    `idPersona` INT(8) NOT NULL,
+    `idImporte` INT(4) NOT NULL,
+    `idEquipo` INT(8) DEFAULT NULL 
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+-- --------------------------------------------------------
+CREATE TABLE `controlpago`(
+    `idControlpago` INT(8) NOT NULL,
+    `idPago` INT(8) NOT NULL,
+    `fechaPago` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `fechachequeado` DATE DEFAULT 0,
+    `chequeado` TINYINT(1) NOT NULL,
+    `idGestor` INT(8) NOT NULL DEFAULT 0
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+-- --------------------------------------------------------
+
+CREATE TABLE `estadopagoequipo`(
+    `idEstadoPago` INT(8) NOT NULL,
+    `idEquipo` INT(8) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+-- --------------------------------------------------------
 
 --
 -- Índices para tablas volcadas
@@ -368,6 +384,30 @@ CREATE TABLE `respuesta_trivia` (
 ALTER TABLE `carrerapersona`
   ADD PRIMARY KEY (`idPersona`,`idTipoCarrera`),
   ADD KEY `idTipoCarrera` (`idTipoCarrera`);
+
+ALTER TABLE `importeinscripcion`
+  ADD PRIMARY KEY(`idImporte`),
+	ADD KEY `idTipoCarrera` (`idTipoCarrera`);
+
+ALTER TABLE `pago`
+ADD PRIMARY KEY(`idPago`),
+ADD KEY `idPersona` (`idPersona`),
+ADD KEY `idImporte` (`idImporte`),
+ADD KEY `idEquipo`  (`idEquipo`);
+
+
+ALTER TABLE `controlpago`
+  ADD PRIMARY KEY(`idControlpago`),
+  ADD KEY `idPago` (`idPago`),
+  ADD KEY `idGestor` (`idGestor`);
+
+
+
+ALTER TABLE `estadopagoequipo`
+  ADD PRIMARY KEY(`idEstadoPago`, `idEquipo`),
+  ADD KEY `idEstadoPago` (`idEstadoPago`),
+  ADD KEY `idEquipo` (`idEquipo`);
+
 
 --
 -- Indices de la tabla `encuesta`
@@ -388,12 +428,7 @@ ALTER TABLE `equipo`
 ALTER TABLE `estadopago`
   ADD PRIMARY KEY (`idEstadoPago`);
 
---
--- Indices de la tabla `estadopagopersona`
---
-ALTER TABLE `estadopagopersona`
-  ADD PRIMARY KEY (`idEstadoPago`,`idPersona`),
-  ADD KEY `idPersona` (`idPersona`);
+
 
 --
 -- Indices de la tabla `fichamedica`
@@ -558,6 +593,14 @@ ALTER TABLE `respuesta_trivia`
 ALTER TABLE `encuesta`
   MODIFY `idEncuesta` int(5) NOT NULL AUTO_INCREMENT;
 
+ALTER TABLE `importeinscripcion`
+  MODIFY `idImporte` int(4) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `pago`
+  MODIFY `idPago` INT(8) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `controlpago`
+  MODIFY `idControlpago` INT(8) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `equipo`
 --
@@ -711,12 +754,23 @@ ALTER TABLE `carrerapersona`
 ALTER TABLE `equipo`
   ADD CONSTRAINT `equipo_ibfk_1` FOREIGN KEY (`idTipoCarrera`) REFERENCES `tipocarrera` (`idTipoCarrera`);
 
---
--- Filtros para la tabla `estadopagopersona`
---
-ALTER TABLE `estadopagopersona`
-  ADD CONSTRAINT `estadopagopersona_ibfk_1` FOREIGN KEY (`idEstadoPago`) REFERENCES `estadopago` (`idEstadoPago`),
-  ADD CONSTRAINT `estadopagopersona_ibfk_2` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPersona`);
+
+ALTER TABLE `importeinscripcion`
+  ADD CONSTRAINT `importeinscripcion_ibfk_1` FOREIGN KEY (`idTipoCarrera`) REFERENCES `tipocarrera` (`idTipoCarrera`);
+
+
+ALTER TABLE `pago`
+  ADD CONSTRAINT `pago_ibfk_1` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPErsona`),
+  ADD CONSTRAINT `pago_ibfk_2` FOREIGN KEY (`idImporte`) REFERENCES `importeinscripcion` (`idImporte`),
+  ADD CONSTRAINT `pago_ibfk_3` FOREIGN KEY (`idEquipo`) REFERENCES `equipo` (`idEquipo`);
+
+ALTER TABLE `controlpago`
+  ADD CONSTRAINT `controlpago_ibfk_1` FOREIGN KEY (`idPago`) REFERENCES `pago` (`idPago`),
+  ADD CONSTRAINT `controlpago_ibfk_2` FOREIGN KEY (`idGestor`) REFERENCES `gestores` (`idGestor`);
+
+ALTER TABLE `estadopagoequipo`
+  ADD CONSTRAINT `estadopagoequipo_ibfk_1` FOREIGN KEY (`idEstadoPago`) REFERENCES `estadopago` (`idEstadoPago`),
+  ADD CONSTRAINT `estadopagoequipo_ibfk_2` FOREIGN KEY (`idEquipo`) REFERENCES `equipo` (`idEquipo`);
 
 --
 -- Filtros para la tabla `fichamedica`
