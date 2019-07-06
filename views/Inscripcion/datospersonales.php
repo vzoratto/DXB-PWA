@@ -193,7 +193,7 @@ use kartik\switchinput\SwitchInput;
             <label id="labelSexoDatoPersonal"class="m-0">Sexo *</label>
           </div>
             <!-- campo tipo radioButton, con dos opciones: SI o NO -->
-            <?= $form->field($persona, 'sexoPersona')->radioList(array('F'=>'Femenino','M'=>'Masculino'))->label('')?>
+            <?= $form->field($persona, 'sexoPersona')->radioList(array('F'=>'Femenino','M'=>'Masculino','O'=>'Otro'))->label('')?>
         </div>
 
         <div id="talleRemera" class="col-md-4 col-lg-4 col-sm-4 col-xs-12 db-label">
