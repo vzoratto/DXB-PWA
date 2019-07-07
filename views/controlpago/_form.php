@@ -11,8 +11,10 @@ use yii\widgets\ActiveForm;
 <div class="controlpago-form">
 <br>
     <?php
-      if (!$model->isNewRecord){ 
+      if($model->chequeado !=1){
         echo '<h3>'.Html::encode($gestor->nombreGestor).' cuyo DNI '.Html::encode($usuario->dniUsuario).' chequeará este pago.</h3>'; 
+      }else{
+        echo '<h3>Chequear solo si hubo un error</h3>';
       }
      ?>
      <br>

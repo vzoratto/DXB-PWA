@@ -35,8 +35,12 @@ use yii\widgets\ActiveForm;
 <div class="pago-form">
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
-
-    <?= $form->field($model, 'importePagado')->textInput(['placeholder'=>'Importe pagado']) ?>
+    <figure>
+        <?= $form->field($model, 'importePagado')->textInput(['placeholder'=>'Importe pagado']) ?>
+        <?Php if($saldo != 0):?>
+        <figcaption><strong>Tu saldo a pagar es de $ <?=Html::encode($saldo)?></strong></figcaption>
+        <?Php endif ?>
+    </figure>
 
     <?= $form->field($model, 'entidadPago')->textInput(['placeholder'=>'Entidad de pago','maxlength' => true]) ?>
 

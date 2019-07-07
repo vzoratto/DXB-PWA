@@ -40,8 +40,9 @@ class Pago extends \yii\db\ActiveRecord
     {
         return [
             [['importePagado', 'entidadPago', 'imagenComprobante', 'idPersona', 'idImporte'], 'required'],
-            [['importePagado', 'idPersona', 'idImporte', 'idEquipo','dniUsu','chequeado'], 'integer'],
+            [['importePagado', 'idPersona', 'idImporte', 'idEquipo'], 'integer'],
             [['entidadPago'], 'string', 'max' => 64],
+            [['dniUsu','chequeado'],'safe'],
             [['imagenComprobante'], 'file','extensions' => 'jpg, jpeg, png, bmp, jpe'],
             [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
             [['idImporte'], 'exist', 'skipOnError' => true, 'targetClass' => Importeinscripcion::className(), 'targetAttribute' => ['idImporte' => 'idImporte']],
@@ -49,6 +50,14 @@ class Pago extends \yii\db\ActiveRecord
         ];
     }
 
+    // Este método se invoca después de usarse Pago::find()
+    // Aquí se pueden establecer valores para los atributos virtuales
+    public function afterFind() {
+        parent::afterFind();
+        // Buscamos chequeado en el nuevo atributo virtual
+        $this->chequeado = ($this->controlpagos);
+        $this->dniUsu="{$this->persona->usuario->dniUsuario}";
+    }
     /**
      * {@inheritdoc}
      */
@@ -82,6 +91,13 @@ class Pago extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Persona::className(), ['idPersona' => 'idPersona']);
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPersonausu()
+    {
+        return $this->hasOne(Persona::className(), ['idUsuario' => 'idUsuario'])->viaTable(Usuario::className(),['idUsuario' => 'idUsuario']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -98,16 +114,35 @@ class Pago extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Equipo::className(), ['idEquipo' => 'idEquipo']);
     }
-
+     /**
+      * Suma todos los pagos realizados y chequeados
+     * @return \yii\db\ActiveQuery
+     */
     public function sumaEquipo($idEquipo){
-        $query = (new Query())->select('SUM(importePagado) as suma')
-                              ->from('pago')
-                              ->where(['idEquipo' =>$idEquipo]);
-         return $query->suma;
+        $query = Pago::find()
+              ->select(['SUM(importePagado) as suma'])
+              ->leftjoin('controlpago c','c.idPago=pago.idPago')
+              ->where(['idEquipo'=>$idEquipo ,'c.chequeado'=>1])
+              ->asArray()->one();
+         return $query['suma'];
     }
-
-    public function buscaequipo(){
-        
+    /**
+      * Suma todos los pagos realizados
+     * @return \yii\db\ActiveQuery
+     */
+    public function sumaTotalequipo($idEquipo){
+        $query = Pago::find()
+              ->select(['SUM(importePagado) as suma'])
+              ->leftjoin('controlpago c','c.idPago=pago.idPago')
+              ->where(['idEquipo'=>$idEquipo ])
+              ->asArray()->one();
+         return $query['suma'];
+    }
+     /**
+      * Busca los equipo por condicion del estado pago
+     * @return \yii\db\ActiveQuery
+     */
+    public function buscaequipo(){ 
         $estadopago=0;//0 para los equipos que no pagaron
         if(!Yii::$app->user->isGuest){
         $persona=Persona::findOne(['idUsuario'=>$_SESSION['__id']]);
@@ -115,14 +150,21 @@ class Pago extends \yii\db\ActiveRecord
         if($grupo!=null){
           $estadoequipo=Estadopagoequipo::findOne(['idEquipo'=>$grupo->idEquipo]);
             if($estadoequipo!=null ){
-               if($estadoequipo->idEstadoPago==2){
-                   $estadopago=2; //2 para los equipos con pago parcial
+               if($estadoequipo->idEstadoPago==2){//se consulta el estado pago parcial
+                   $suma=Pago::sumaTotalequipo($grupo->idEquipo);
+                   $pago=Pago::findOne(['idEquipo'=>$grupo->idEquipo]);
+                   $importe=Importeinscripcion::findOne(['idImporte'=>$pago->idImporte]);
+                   if($importe->importe > $suma){
+                        $estadopago=2; //2 para los equipos con pago parcial
+                   }elseif($importe->importe == $suma){
+                       $estadopago=3; //si tiene todo pagado pero falta chequear el 
+                   }                  //ultimo pago parcial
               }else{
                 $estadopago=3;//3 para los equipos pago total o cancelo
-              }
-            }   
+              }               
+            }                 
           }
         }
-        return $estadopago;
+        return $estadopago;//para visualizar en la barra de la pagina
     }
 }

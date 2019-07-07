@@ -107,7 +107,7 @@ class ControlpagoController extends Controller
 
     /**
      * Updates an existing Controlpago model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * chequea el pago realizado por el participante y llena la gabla estado pago.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -121,8 +121,8 @@ class ControlpagoController extends Controller
         }
         $model = $this->findModel($id);
         $estado='';
-        $usuario= Usuario::findIdentity($_SESSION['__id']);
-        $gestor=Gestores::findOne(['idUsuario'=>$_SESSION['__id']]); 
+        $usuario= Usuario::findIdentity($_SESSION['__id']);//objeto usuario
+        $gestor=Gestores::findOne(['idUsuario'=>$_SESSION['__id']]); //objeto gestor
         if ($model->load(Yii::$app->request->post())){
             $model->chequeado=1;// 0 no chequeado, 1 chequeado
             $model->idGestor=$gestor->idGestor;
@@ -132,64 +132,49 @@ class ControlpagoController extends Controller
               if($importe->importe == $pago->importePagado){
                   $estado=1;//pago total
               }else{
-                  $suma=Pago::sumaEquipo($pago->idEquipo);
-                  if($importe->importe == ($suma + $pago->importePagado)){
+                  $suma=Pago::sumaEquipo($pago->idEquipo);//suma los pagos parciales
+                  if($importe->importe == $suma){
                       $estado=3;//pago cancelo
-                  }elseif($importe->importe > ($suma + $pago->importePagado)){
+                  }elseif($importe->importe > $suma){
                       $estado=2;//pago parcial
                   }else{
                       $error=$model->errors;
                   }
               }
+              // actualiza el estado  pago del equipo si existe
               if($model1=Estadopagoequipo::findOne(['idEquipo'=>$pago->idEquipo])){
                   $model1->idEstadoPago=$estado;
               }else{
-                  $model1=new Estadopagoequipo;
+                  $model1=new Estadopagoequipo;//ingresa el estado pago del equipo si no existe
                   $model1->idEstadoPago=$estado;
                   $model1->idEquipo=$pago->idEquipo;
               }
-            if($model1->save()){
+            if($model1->save()){//llena tabla estado pago del equipo
                 $persona=Persona::findOne(['idPersona'=>$pago->idPersona]);
                 $user=Usuario::findOne(['idUsuario'=>$persona->idUsuario]);
                 $dni = urlencode($user->dniUsuario);
-                    $mailUsuario = $user->mailUsuario;
+                    $mailUsuario = $user->mailUsuario;//envia mail de acreditacion del pago chequeado
                     $subject = "Acreditación pago realizado";// Asunto del mail
                     $body = "
                         <div style='width:100%; background:#eee; position:relative; font-family:sans-serif; padding-bottom:40px'>
                                 <div style='position:relative; margin:auto; width:600px; background:white; padding:20px'>
-
                                         <center>
-
-
                                         <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
-
                                         <h2 style='font-weight:100; color:#999'>DESAFIO POR LAS BARDAS</h2>
-
                                         <hr style='border:1px solid #ccc; width:90%'>
                                         <h3 style='font-weight:100; color:#999; padding:0 20px'><strong>Tu pago por $".$pago->importePagado." fue acreditado exitosamente. </strong></h3><br>
                                         <h4 style='font-weight:100; color:#999; padding:0 20px'>Gracias por participar.</h4>
-
                                         <br>
-
                                         <hr style='border:1px solid #ccc; width:90%'>
-
                                         <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-kyzwnDvqRrA/XREB-8qtiJI/AAAAAAAAAkM/CMPVQEjwxDcHXyvMg62yuOt_bpY-SwDLgCLcBGAs/s320/placas%2B4-03.jpg'>
-
-                                        <h5 style='font-weight:100; color:#999'>Este mensaje de correo electrónico se envió a ".$mailUsuario."</h5>
-                                            
+                                        <h5 style='font-weight:100; color:#999'>Este mensaje de correo electrónico se envió a ".$mailUsuario."</h5>                                       
                                         <h5 style='font-weight:100; color:#999'>Te invitamos a que veas nuestras redes sociales.</h5>
-
                                         <a href='#'><img src='https://1.bp.blogspot.com/-BR60W75cIco/XREFTGbPHZI/AAAAAAAAAks/FQUMI8DkynoP69YnYRjGZ1ylnNeYhM5BwCLcBGAs/s320/facebook-logo.png' style='width: 7%'></a>
                                         <a href='#'><img src='https://1.bp.blogspot.com/-xhmzOVdv0xc/XREFTPz-ZyI/AAAAAAAAAk0/y2OOhH7A1fgRSswuqDkcKaRRkPMFkwEEwCLcBGAs/s320/twitter-logo.png' style='width: 7%'></a>
                                         <a href='#'><img src='https://1.bp.blogspot.com/-NKIBF9SSXCU/XREFTOvwjII/AAAAAAAAAkw/cn679IM4LMQvcIMVCsgetU7gTDyM5DhwgCLcBGAs/s320/instagram-logo.png' style='width: 7%'></a>
-		
                                         </center>
-
                                 </div>
-
-                        </div>";
-       
-        				  
+                        </div>";  
                         Yii::$app->mailer->compose()
                         //->setFrom('carreraxbarda@gmail.com')
                         ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
@@ -197,14 +182,14 @@ class ControlpagoController extends Controller
                         ->setSubject($subject)
                         ->setHTMLBody($body)
                         ->send();
-                Yii::$app->session->setFlash('pagoCheck');//enviamos mensaje
+                Yii::$app->session->setFlash('pagoCheck');//enviamos mensaje si chequeo
                 return $this->refresh();
             } 
          }else{
-             Yii::$app->session->setFlash('pagonoCheck');//enviamos mensaje
+             Yii::$app->session->setFlash('pagonoCheck');//enviamos mensaje no chequeo
                 return $this->refresh();
          }
-     }
+     }//renderiza a la vista para chequear el pago
         return $this->render('update', [
             'model' => $model,
             'gestor'=>$gestor,//idgestor, nombre gestor

@@ -15,11 +15,16 @@ $this->title = 'Detalle del pago ingresado';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-    <?php $model1=$model;?>
-        <?= Html::a('Chequear', ['controlpago/view', 'id' => $model->idPago], ['class' => 'btn btn-primary']) ?>
+    <?php 
+        if($controlpago->chequeado==0){
+            echo Html::a('Chequear', ['controlpago/view', 'id' => $model->idPago], ['class' => 'btn btn-success']);
+        }else{
+            echo Html::a('Ver pago chequeado', ['controlpago/view', 'id' => $model->idPago], ['class' => 'btn btn-success']);
+        }
+        ?>
         <?Php      
         if(Permiso::requerirRol('administrador')):
-        echo Html::a('Eliminar pago?', ['delete', 'id' => $model->idPago], [
+        echo Html::a('Eliminar pago???', ['delete', 'id' => $model->idPago], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Esta seguro de querer eliminar este registro???',

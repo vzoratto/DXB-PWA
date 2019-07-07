@@ -118,12 +118,15 @@ class SiteController extends Controller
         $model = new LoginForm();
         $mensaje="";
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            if(Permiso::requerirActivo(0)){// activado=1
+            if(Permiso::requerirActivo(0)){// activado=1,desactivado=0
                 Yii::$app->user->logout();
                 if (Yii::$app->user->isGuest) {
-                $mensaje = "Enviamos un email de verificacion y/o activacion a tu correo, abrelo para activar tu cuenta";
-                return $this->render('correo', ['mensaje' => $mensaje]);
-                // return $this->redirect(site/enviomail)
+                   $mensaje="Tu cuenta no ha sido activada.";
+                   $mensaje.= "Por favor haz clic en el enlace para la verificación y/o activación, abre tu correo para activar tu cuenta";
+                   return $this->render('correo', [
+                      'mensaje' => $mensaje,
+                      'model'=>$model,
+                    ]);
                 }
             }else{
                 if (Permiso::requerirRol('administrador')){
@@ -152,23 +155,7 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-   /* public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }*/
+    
     /**
      * funcion random para claves,long 50 hexa
      */
@@ -192,16 +179,23 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
+        $mensaje='';
         $model = new RegistroForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                     //vaciamos valores
-						   $model->dni = null; $model->password = null; $model->email = null;
+						   $model->dni = ''; $model->password = ''; $model->email = '';
                         Yii::$app->session->setFlash('registroFormSubmitted');
                         return $this->refresh();
                 }else{
-                     $model->dni = null;
-                     Yii::$app->getSession()->setFlash('error', 'DNI ingresado ya existe, comunicate con el administrador.');
+                     $mensaje="Este mensaje es para avisarte que tu DNI ya existe en nuestro registro o fallo el envio del email.";
+                     $mensaje.="Te reenviaremos un email para verificar y activar tu cuenta.";
+                     $mensaje.="De persistir este mensaje por favor comunícate con el administrador.";
+                     $mensaje.="Utiliza nuestro formulario contactos al pie de la página principal.";
+                     return $this->render('correo', [
+                        'model' => $model,
+                        'mensaje'=>$mensaje,
+                     ]);
                 }
             }
         $model->dni = '';
@@ -210,7 +204,63 @@ class SiteController extends Controller
         ]);
     }
 
-
+public function actionEnviomail(){
+    if (!Yii::$app->user->isGuest) {
+        return $this->goHome();
+    }
+    $mensaje='';
+    if (Yii::$app->request->get()) {
+      $d = Html::encode($_GET["1"]);
+      if($user=Usuario::findOne(['dniUsuario'=>$d])){//verificamos que exista el usuario
+        $dni = urlencode($user->dniUsuario);
+        $mailUsuario = $user->mailUsuario;
+        $authkey = urlencode($user->authkey);
+        $subject = "Validar direccion de correo";// Asunto del mail
+        $body = "
+            <div style='width:100%; background:#eee; position:relative; font-family:sans-serif; padding-bottom:40px'>
+                    <div class='col-lg-12 col-xs-6' style='position:relative; margin: auto; max-width: 500px; background:white; padding:20px'>
+                            <center>
+                            <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
+                            <h2 style='font-weight:100; color:black'>DESAFIO POR LAS BARDAS</h2>
+                            <hr style='border:1px solid #ccc; width:90%'>
+                            <h3 style='font-weight:100; color:black; padding:0 20px'><strong>Reenviamos el email para validacion y/o activacion de tu cuenta. </strong></h3><br>
+                            <h4 style='font-weight:100; color:black; padding:0 20px'>Gracias por registrarse en Desafio por Bardas</h4>
+                            <h4 style='font-weight:100; color:black; padding:0 20px'>Para finalizar su registro y poder inscribirse a la carrera, por favor valide su cuenta ingresando al siguiente enlace</h4>
+                            <a href='http://localhost/carrera/web/index.php?r=site/activarcuenta&d=".$dni."&c=".$authkey."' style='text-decoration:none'>
+                            <div style='line-height:60px; background:#ff8f04; width:60%; color:white'>Validar cuenta</div>
+                            </a>
+                            <br>
+                            <hr style='border:1px solid #ccc; width:90%'>
+                            <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-kyzwnDvqRrA/XREB-8qtiJI/AAAAAAAAAkM/CMPVQEjwxDcHXyvMg62yuOt_bpY-SwDLgCLcBGAs/s320/placas%2B4-03.jpg'>
+                            <h5 style='font-weight:100; color:black'>Este mensaje de correo electrónico se envió a ".$mailUsuario."</h5>    
+                            <h5 style='font-weight:100; color:black'>Te invitamos a que veas nuestras redes sociales.</h5>
+                            <a href='https://www.facebook.com/bienestaruncoma/'><img src='https://1.bp.blogspot.com/-BR60W75cIco/XREFTGbPHZI/AAAAAAAAAks/FQUMI8DkynoP69YnYRjGZ1ylnNeYhM5BwCLcBGAs/s320/facebook-logo.png' style='width: 7%'></a>
+                            <a href='https://www.instagram.com/sbucomahue/'><img src='https://1.bp.blogspot.com/-NKIBF9SSXCU/XREFTOvwjII/AAAAAAAAAkw/cn679IM4LMQvcIMVCsgetU7gTDyM5DhwgCLcBGAs/s320/instagram-logo.png' style='width: 7%'></a>
+                            </center>
+                    </div>
+            </div>";   
+            Yii::$app->mailer->compose()
+            //->setFrom('carreraxbarda@gmail.com')
+            ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
+            ->setTo($mailUsuario)
+            ->setSubject($subject)
+            ->setHTMLBody($body)
+            ->send();
+           $mensaje="Reenviamos un email de verificación y/o activación a tu correo, ábrelo para activar tu cuenta";
+           return $this->render('aviso',[
+               'mensaje'=>$mensaje
+               ]);
+        }else{
+            $mensaje="Este mensaje es para avisarte que tu DNI no existe en nuestro registro.";
+            $mensaje.="Por favor ingresa nuevamente al formulario para registrarte.";
+            $mensaje.="De persistir este mensaje, comunícate con el administrador.";
+            $mensaje.="Utiliza nuestro formulario contactos al pie de la página principal.";
+            return $this->render('error', [
+               'mensaje'=>$mensaje,
+            ]);
+        }
+     }
+}
     /**
      * Displays activa cuenta.
      *
@@ -228,7 +278,6 @@ class SiteController extends Controller
             if ($activar->save()){
                         echo "Registro llevado a cabo correctamente. Será redirigido a la página de Desafio por Bardas...";
                         echo "<meta http-equiv='refresh' content='6; ".Url::toRoute("site/login")."'>";
-                            //echo Url::to('site/login');//redirige al login
            } else {
                $mensaje="No se pudo activar la cuenta, comunicate con el administrador";
                return $this->render('error', ['mensaje' => $mensaje]);
