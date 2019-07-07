@@ -113,13 +113,14 @@ class PagoController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-
+        $model= $this->findModel($id);
         return $this->render('view', [
-            'model' => $this->findModel($id),]
-        );
+            'model' => $model,
+            'controlpago'=>Controlpago::findOne(['idPago'=>$model->idPago]),
+        ]);
     }
     /**
-     * Displays a single Pago model.
+     * Vista para elusuario una vez ingresado el pago.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -127,7 +128,7 @@ class PagoController extends Controller
     public function actionView1($id)
     {
         return $this->render('view1', [
-            'model' => $this->findModel($id),]
+            'model' => $this->findModel($id),]//vista para el usuario
         );
     }
 
@@ -146,25 +147,29 @@ class PagoController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-        
+        $saldo='';
+        //obtenemos todos los modelos necearios para registrar el pago
         $usuario=Usuario::findIdentity($_SESSION['__id']);
         $persona=Persona::findOne(['idUsuario' => $_SESSION['__id']]);
         if($grupo=Grupo::findOne(['idPersona'=>$persona->idPersona])){
               $equipo=Equipo::findOne(['idEquipo'=>$grupo->idEquipo]);
+              $suma=Pago::sumaTotalEquipo($grupo->idEquipo);
               $tipocarrera=TipoCarrera::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
               $importecarrera=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
-            
+              $saldo=$importecarrera->importe - $suma;//saldo de lo pagado para control form
         }else{
             return $this->goHome();  
         }
        
+        $guardado=false; //Asignamos false a la variable guardado
+        $transaction = Pago::getDb()->beginTransaction(); // Iniciamos una transaccion
+        try {
         $model = new Pago();
-
         if ($model->load(Yii::$app->request->post())) {
             $model->idPersona=$persona->idPersona;
-        
+        //preparamos el modelo para guarar la imagen del ticket
            $model->imagenComprobante = UploadedFile::getInstance($model, 'imagenComprobante');
-           $imagen_nombre='persona_'.$model->idPersona.'.'.$model->imagenComprobante->extension;
+           $imagen_nombre=rand(0,4000).'pers_'.$model->idPersona.'.'.$model->imagenComprobante->extension;
            $imagen_dir='archivo/pagoinscripcion/'.$imagen_nombre;
            $model->imagenComprobante->saveAs($imagen_dir);
            $model->imagenComprobante=$imagen_dir;
@@ -178,27 +183,25 @@ class PagoController extends Controller
             $model1->idPago=$idpago;
             $model1->chequeado=0;
             $model1->idGestor=1;
-            if($model1->save()){
-                //enviamos mail
-                //return $this->redirect(['view', 'id' => $model->idPago]);
-              if($importecarrera->importe == $model->importePagado){
-                $total='pago total';//pago total
-                Yii::$app->session->setFlash('pagoTotal');//enviamos mensaje
-                return $this->redirect(['view1', 'id' => $idpago]);
-               // return $this->refresh();
-              }elseif($importecarrera->importe > $model->importePagado){
-                $total='pago parcial';//pago parcial
-                Yii::$app->session->setFlash('pagoParcial');//enviamos mensaje
-                return $this->redirect(['view1', 'id' => $idpago]);
-               // return $this->refresh();
-              }   
-            }else{
-                //mandamos error
-              // echo "<pre>";print_r($model1->errors);echo"</pre>";die();
-                $error=$model1->errors;
-            }
-          }
-        }
+            $model1->save();
+
+           }//fin carga tabla pago
+                $transaction->commit();
+                $guardado=true;
+                if ($guardado){ 
+                    if($importecarrera->importe == $model->importePagado){
+                       $total='pago total';//pago total
+                       Yii::$app->session->setFlash('pagoTotal');//enviamos mensaje
+                       return $this->redirect(['view1', 'id' => $idpago]);
+               
+                    }elseif($importecarrera->importe > $model->importePagado){
+                        $total='pago parcial';//pago parcial
+                        Yii::$app->session->setFlash('pagoParcial');//enviamos mensaje
+                        return $this->redirect(['view1', 'id' => $idpago]);
+              
+                    }   
+                }//fin guardado true
+            }//fin verificarion de datos
         return $this->render('create', [
             'model' => $model,
             'equipo'=> $equipo,//dniCapitan,idEquipo,idTipoCarrera
@@ -206,8 +209,16 @@ class PagoController extends Controller
             'usuario'=> $usuario,//idUsuario, dniUsuario,mailUsuario
             'tipocarrera'=>$tipocarrera,//descripcionCarrera
             'importecarrera'=>$importecarrera,//importe del tipo de carrera
-        ]);
-    }
+            'saldo'=>$saldo,//saldo de lo pagado
+            ]);
+        } catch(\Exception $e) {//atrapa el error
+            $guardado=false;
+
+            $transaction->rollBack();
+            throw $e;
+          }
+        }
+
     /**
      * Creates a new Pago model.
      * If creation is successful, the browser will be redirected to the 'view' page.

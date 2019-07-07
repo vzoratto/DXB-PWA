@@ -21,7 +21,8 @@ $this->title = 'Crear Pago';
         'usuario'=> $usuario,//idUsuario, dniUsuario,mailUsuario
         'tipocarrera'=>$tipocarrera,//descripcionCarrera
         'importecarrera'=>$importecarrera,//importe del tipo de carrera
-    ]) ?>
+        'saldo'=>$saldo,//saldo de lo pagado
+   ]) ?>
 </div>
 </div>
 

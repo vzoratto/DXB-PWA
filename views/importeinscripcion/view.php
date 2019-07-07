@@ -17,7 +17,7 @@ $this->title = 'Vista previa del registro';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Actualizar', ['update', 'id' => $model->idImporte], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Actualizar', ['update', 'id' => $model->idImporte], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Eliminar', ['delete', 'id' => $model->idImporte], [
             'class' => 'btn btn-danger',
             'data' => [

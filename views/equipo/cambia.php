@@ -9,13 +9,11 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Cambia capitan';
 
 ?>
-<div class="cover-background contenedor-full full-section" style="background-image:url('assets/img/fondo.jpg');">
-    <div class="box-bd no-label" align="center">
-      <img class="center" src="assets/img/logo-color.png" alt="logo color">
-        <p><?= Html::encode($this->title) ?></p>
+       <h3><?= 'Cambiar capitan de equipo en caso de no asistir al evento'?></h3>
+        <h2><?= Html::encode($this->title) ?></h2>
         <?php
         $form = ActiveForm::begin([
-                    'id' => 'recupass-form',
+                    'id' => 'cambiaCapitan-form',
                     'layout' => 'horizontal',
                     'fieldConfig' => [
                         'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-12\">{error}</div>",
@@ -23,22 +21,26 @@ $this->title = 'Cambia capitan';
                     ],
         ]);
         ?>
-
+         <div class='row no label'>
          <?= $form->field($model, 'dniCapitan')->textInput(['id'=>'cap','placeholder'=>'Ingresa el dni capitan','autofocus' => true, 'class' => 'form-control']) ?>
 
          <?= $form->field($model, 'dniUsuario')->textInput(['id'=>'usu','placeholder'=>'Ingresa el dni corredor','autofocus' => true, 'class' => 'form-control']) ?>
-            
+         </div>  
              
         <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-               <?= Html::submitButton('Cambiar', ['class' => 'btn btn-grande btn-rounded btn-carrera submitbutton width-100', 'name' => 'recupass-button']) ?>
-            </div>
+            
+               <?= Html::submitButton('Cambiar capitan', ['class' => 'btn btn-grande btn-rounded btn-carrera submitbutton width-100', 'name' => 'cambia-button']) ?>
+            
         </div>
 
         <?php ActiveForm::end(); ?>
-        <?php if (Yii::$app->session->hasFlash('registroFormSubmitted')): ?>
+        <?php if (Yii::$app->session->hasFlash('cambiaFormSubmitted')): ?>
         <div class="alert alert-success" align="center">
         Perfecto el corredor con el Dni <?= Html::encode($model->dniUsuario)?> ,ahora es capitan
+        </div>
+        <?php elseif (Yii::$app->session->hasFlash('nocambiaFormSubmitted')): ?>
+        <div class="alert alert-success" align="center">
+         El capitan con el Dni <?= Html::encode($model->dniUsuario)?> ,no existe en el equipo.
         </div>
         <?php endif; ?>
     </div>
@@ -52,11 +54,3 @@ $this->title = 'Cambia capitan';
 
 
 
-<?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
-        <div class="site-error" align="center">
-            <img src="registro/atleta11.gif" style="margin:20px;max-width: 150px;">
-        </div>
-        <div class="alert alert-success" align="center">
-        Perfecto el corredor con el Dni <?= Html::encode($model->dniUsuario)?> ,ahora es capitan
-        </div>
-    <?php endif ?>

@@ -24,14 +24,14 @@ $this->title = 'Chequear pago realizado';
      </p> 
      <p>
     <?Php else:
-            echo Html::a('Chequear pago', ['update', 'id' => $model->idControlpago], ['class' => 'btn btn-primary']);
+            echo Html::a('Chequear pago', ['update', 'id' => $model->idControlpago], ['class' => 'btn btn-success']);
         ?>
     </p>
      <?Php endif ?>
      <p>
      <?Php      
         if(Permiso::requerirRol('administrador')):
-        echo Html::a('Eliminar pago?', ['delete', 'id' => $model->idControlpago], [
+        echo Html::a('Eliminar chequeado??', ['delete', 'id' => $model->idControlpago], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
