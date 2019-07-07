@@ -1,11 +1,6 @@
 <?php
 
 namespace app\models;
-<<<<<<< HEAD
-//estado del equipo
-=======
-
->>>>>>> parent of 874d7b6... Revert "Merge branch 'lili-ultimo'"
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Estadopagoequipo;
