@@ -111,7 +111,7 @@ class Pago extends \yii\db\ActiveRecord
         $estadopago=0;//0 para los equipos que no pagaron
         if(!Yii::$app->user->isGuest){
         $persona=Persona::findOne(['idUsuario'=>$_SESSION['__id']]);
-        $grupo=Grupo::findOne(['idPersona'=>$persona->idPersona]);
+        $grupo=Grupo::findOne(['idPersona'=>$persona['idPersona']]);
         if($grupo!=null){
           $estadoequipo=Estadopagoequipo::findOne(['idEquipo'=>$grupo->idEquipo]);
             if($estadoequipo!=null ){
