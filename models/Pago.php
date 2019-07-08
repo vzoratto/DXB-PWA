@@ -138,33 +138,38 @@ class Pago extends \yii\db\ActiveRecord
               ->asArray()->one();
          return $query['suma'];
     }
-     /**
-      * Busca los equipo por condicion del estado pago
+    /**
+     * Busca los equipo por condicion del estado pago
      * @return \yii\db\ActiveQuery
      */
-    public function buscaequipo(){ 
+    public function buscaequipo(){
         $estadopago=0;//0 para los equipos que no pagaron
         if(!Yii::$app->user->isGuest){
-        $persona=Persona::findOne(['idUsuario'=>$_SESSION['__id']]);
-        $grupo=Grupo::findOne(['idPersona'=>$persona->idPersona]);
-        if($grupo!=null){
-          $estadoequipo=Estadopagoequipo::findOne(['idEquipo'=>$grupo->idEquipo]);
-            if($estadoequipo!=null ){
-               if($estadoequipo->idEstadoPago==2){//se consulta el estado pago parcial
-                   $suma=Pago::sumaTotalequipo($grupo->idEquipo);
-                   $pago=Pago::findOne(['idEquipo'=>$grupo->idEquipo]);
-                   $importe=Importeinscripcion::findOne(['idImporte'=>$pago->idImporte]);
-                   if($importe->importe > $suma){
-                        $estadopago=2; //2 para los equipos con pago parcial
-                   }elseif($importe->importe == $suma){
-                       $estadopago=3; //si tiene todo pagado pero falta chequear el 
-                   }                  //ultimo pago parcial
-              }else{
-                $estadopago=3;//3 para los equipos pago total o cancelo
-              }               
-            }                 
-          }
+            if($persona=Persona::findOne(['idUsuario'=>$_SESSION['__id']])){
+                $grupo=Grupo::findOne(['idPersona'=>$persona->idPersona]);
+                if($grupo!=null){
+                    $estadoequipo=Estadopagoequipo::findOne(['idEquipo'=>$grupo->idEquipo]);
+                    if($estadoequipo!=null ){
+                        if($estadoequipo->idEstadoPago==2){//se consulta el estado pago parcial
+                            $suma=Pago::sumaTotalequipo($grupo->idEquipo);
+                            $pago=Pago::findOne(['idEquipo'=>$grupo->idEquipo]);
+                            $importe=Importeinscripcion::findOne(['idImporte'=>$pago->idImporte]);
+                            if($importe->importe > $suma){
+                                $estadopago=2; //2 para los equipos con pago parcial
+                            }elseif($importe->importe == $suma){
+                                $estadopago=3; //si tiene todo pagado pero falta chequear el
+                            }                  //ultimo pago parcial
+                        }else{
+                            $estadopago=3;//3 para los equipos pago total o cancelo
+                        }
+                    }
+                }
+            }else{
+                $estadopago=3;//3 para el usuario sin inscripcion
+
+            }
         }
         return $estadopago;//para visualizar en la barra de la pagina
     }
+
 }
