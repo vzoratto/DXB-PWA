@@ -108,7 +108,7 @@ use app\models\Usuario;
                                         </center>
                                 </div>
                         </div>";
-                
+
 
                    return Yii::$app->mailer->compose()
                         //->setFrom('carreraxbarda@gmail.com')
