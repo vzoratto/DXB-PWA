@@ -18,7 +18,7 @@ use app\models\EncuestaSearch;
 /**
  * RespuestaopcionController implements the CRUD actions for Respuestaopcion model.
  */
-class RespuestaopcionController extends Controller
+class RespuestaOpcionController extends Controller
 {
     /**
      * dado un idPregunta, devuelve un array con las opciones de respuesta de la misma.
