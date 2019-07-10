@@ -77,7 +77,7 @@ use app\models\Usuario;
                 $user->activado=0;
                 $user->idRol=1;
                 if ($user->save()) {
-                    $host=Yii::$app->request->hostInfo;
+                    $host=Yii::$app->request->hostName;
         
                     $dni = urlencode($user->dniUsuario);
                     $mailUsuario = $user->mailUsuario;
