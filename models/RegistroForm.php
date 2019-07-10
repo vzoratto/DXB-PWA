@@ -93,7 +93,7 @@ use app\models\Usuario;
                                         <h3 style='font-weight:100; color:black; padding:0 20px'><strong>Su registro se completo exitósamente. </strong></h3><br>
                                         <h4 style='font-weight:100; color:black; padding:0 20px'>Gracias por registrarse en Desafio por Bardas</h4>
                                         <h4 style='font-weight:100; color:black; padding:0 20px'>Para finalizar su registro y poder inscribirse a la carrera, por favor valide su cuenta ingresando al siguiente enlace</h4>
-                                        <a href=$host.'/index.php?r=site/activarcuenta&d=".$dni."&c=".$authkey."' style='text-decoration:none'>
+                                        <a href=$host/index.php?r=site/activarcuenta&d=".$dni."&c=".$authkey."' style='text-decoration:none'>
                                         <div style='line-height:60px; background:#ff8f04; width:60%; color:white'>Validar cuenta</div>
                                         </a>
                                         <br>
