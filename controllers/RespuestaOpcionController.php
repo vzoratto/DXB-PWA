@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Respuestaopcion;
-use app\models\RespuestaopcionSearch;
+use app\models\RespuestaOpcion;
+use app\models\RespuestaOpcionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -42,7 +42,7 @@ class RespuestaOpcionController extends Controller
             $model->opRespvalor="";
 
             // Busca las opciones que ya estan cargadas y arma un array con las mismas
-            $opciones=RespuestaopcionSearch::find()->where(['idPregunta'=>$model->idPregunta])->asArray()->all();
+            $opciones=RespuestaOpcionSearch::find()->where(['idPregunta'=>$model->idPregunta])->asArray()->all();
             return $this->render('creaDrop', ['model' => $model, 'opciones'=>$opciones]);
         }
         
@@ -63,7 +63,7 @@ class RespuestaOpcionController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->idRespuestaOpcion="";
             $model->opRespvalor="";
-            $opciones=RespuestaopcionSearch::find()->where(['idPregunta'=>$model->idPregunta])->asArray()->all();
+            $opciones=RespuestaOpcionSearch::find()->where(['idPregunta'=>$model->idPregunta])->asArray()->all();
             return $this->render('creaCheck', ['model' => $model, 'opciones'=>$opciones]);
         }
         
@@ -84,7 +84,7 @@ class RespuestaOpcionController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->idRespuestaOpcion="";
             $model->opRespvalor="";
-            $opciones=Respuestaopcion::find()->where(['idPregunta'=>$model->idPregunta])->asArray()->all();
+            $opciones=RespuestaOpcion::find()->where(['idPregunta'=>$model->idPregunta])->asArray()->all();
             return $this->render('creaRadio', ['model' => $model, 'opciones'=>$opciones]);
         }
         
@@ -176,7 +176,7 @@ class RespuestaOpcionController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-        $searchModel = new RespuestaopcionSearch();
+        $searchModel = new RespuestaOpcionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination=[
             'pageSize'=>15,
@@ -226,7 +226,7 @@ class RespuestaOpcionController extends Controller
         if(isset($_REQUEST['idPregunta'])){
             $idPregunta=$_REQUEST['idPregunta'];
             $pregunta=PreguntaSearch::find()->where(['idPregunta'=>$idPregunta])->one();
-            $opciones=RespuestaopcionSearch::find()->where(['idPregunta'=>$idPregunta])->asArray()->all();
+            $opciones=RespuestaOpcionSearch::find()->where(['idPregunta'=>$idPregunta])->asArray()->all();
             $encuesta = EncuestaSearch::findOne($pregunta->idEncuesta);
             $encTipo=$encuesta->encTipo;
         }else{
@@ -235,7 +235,7 @@ class RespuestaOpcionController extends Controller
             $encTipo=null;
             
         }
-        $model = new Respuestaopcion();
+        $model = new RespuestaOpcion();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect([
@@ -318,7 +318,7 @@ class RespuestaOpcionController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Respuestaopcion::findOne($id)) !== null) {
+        if (($model = RespuestaOpcion::findOne($id)) !== null) {
             return $model;
         }
 
