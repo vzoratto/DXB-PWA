@@ -61,13 +61,13 @@ $config = [
             'password' => 'barda123carrera',
             'port' => '587',
             'encryption' => 'tls',
-            'streamOptions' => [ 
+            /*'streamOptions' => [ 
                 'ssl' => [ 
                     'allow_self_signed' => true,
                     'verify_peer' => false,
                   //  'verify_peer_name' => false,
-                ],
-            ]
+                ],*/
+            
             //01/enero/2001---prefieronodecirlo 587 tls
           ],
         ],
