@@ -58,7 +58,7 @@ use kartik\switchinput\SwitchInput;
                 <div class="row db-label">
                     <div id="opcionesCapitan" style="<?php ($capitan==false)?"display:none":"";?>" aria-label="..." class="col-1">
 
-                        <div id="tipoCarrera" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
+                        <div id="tipoCarrera" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
                             <div>Carrera</div>
                             <!--$form->field($tipoCarrera,'idTipoCarrera')->dropDownList($tipocarreraLista,['readonly'=>true])->label('');-->
                             <?= Html::input('text','tipoCarrera',$tipoCarrera->descripcionCarrera, $option=['class'=>'form-control','disabled'=>true]) ?>
@@ -66,7 +66,7 @@ use kartik\switchinput\SwitchInput;
 
                         </div>
 
-                        <div id="cantidadPeronas" class="col-md-3 col-lg-3 col-sm-4 col-xs-6">
+                        <div id="cantidadPeronas" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
                             <div>Cantidad de corredores</div>
                             <!-- $form->field($equipo,'cantidadPersonas')->dropDownList($cantCorredores,['readonly'=>true])->label('');  -->
                             <?= Html::input('text','cantidadPersonas',$cantCorredores, $option=['class'=>'form-control','disabled'=>true]) ?>
