@@ -558,7 +558,7 @@ a.desc:after {
     border-radius: 30px;
     width: 100%;
     padding: 5px 15px;
-    font-size: smaller;
+    
     border: none;
     background-color: #FFF;
     -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
@@ -4269,7 +4269,7 @@ a.desc:after {
     font-variant: all-petite-caps;
     margin-bottom: 10px;
     /*margin-left: 5px; */
-    font-size: 0.9em;
+    font-size: 1em;
     color: rgba(199, 127, 55, 1);
 }
 

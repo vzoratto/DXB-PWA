@@ -83,28 +83,28 @@ use yii\widgets\MaskedInput;
     <!-- Ingreso de la direccion de la persona -->
     <div id="direccionUsuario">
         <div class="row db-label">
-            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6" id="calleDireccion">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12" id="calleDireccion">
               <label id="calleContacto">Calle *</label>
                 <?= Html::input('text','calle',$datos['calle'], $option=['class'=>'form-control','id'=>'calle','placeholder' => 'Calle']) ?>
                 <div id="msjErrorCalle"></div>
             </div>
-            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2" id="numeroDireccion">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12" id="numeroDireccion">
               <label id="numeroContacto">Número *</label>
                 <?=  Html::input('text','numero', $datos['numero'], $option=['class'=>'form-control', 'id'=> 'numero','placeholder' => 'Numero']) ?>
                 <div id="msjErrorNumero"></div>
             </div>
-            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
               <label>Piso </label>
                 <?= Html::input('text','piso', $datos['piso'], $option=['class'=>'form-control', 'placeholder' => 'Piso']) ?>
             </div>
-            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
               <label>Departamento </label>
                 <?= Html::input('text','departamento', $datos['departamento'], $option=['class'=>'form-control', 'placeholder' => 'Departamento']) ?>
             </div>
 
         </div>
     </div>
-    
+
 </div>
 
 <br>

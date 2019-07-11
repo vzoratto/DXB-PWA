@@ -49,7 +49,7 @@ use yii\widgets\ActiveForm;
 
     </div>
 
-    <div class="row db-label">
+    <div class="row">      
         <div id="evaluacionMedica" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
           <div  class="db-label m-0">
             <label id="evaluacionDatosMedicos" class="m-0">¿Se ha realizado una evaluación médica en el presente año? *</label>
