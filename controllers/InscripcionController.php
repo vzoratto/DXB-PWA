@@ -21,7 +21,7 @@ use app\models\Personaemergencia;
 use app\models\Provincia;
 use yii\helpers\ArrayHelper;
 use app\models\Respuesta;
-use app\models\Respuestaopcion;
+use app\models\RespuestaOpcion;
 use app\models\Equipo;
 use app\models\Grupo;
 use app\models\Tipocarrera;
@@ -457,7 +457,7 @@ class InscripcionController extends Controller
                     if(is_array($valor)){
                         foreach($valor as $unValor){//Si la repuesta es multiple, recorre el array de esa respuesta para guardar cada uno de los valores
                             if(is_numeric($unValor)){//Si la respuesta no es un string, entonces es el id de la opcion de respuesta
-                                $opcion=Respuestaopcion::findOne($unValor);//busca la opcion de respuesta que corresponde
+                                $opcion=RespuestaOpcion::findOne($unValor);//busca la opcion de respuesta que corresponde
                                 $resp['respValor']=$opcion->opRespvalor;
                             }else{//Si la respuesta es un string, entonces guarda directamente la respuesta
                                 $resp['respValor']=$unValor;
@@ -473,7 +473,7 @@ class InscripcionController extends Controller
                         }
                     }else{//Si la respuesta no es multiple, guarda la la respuesta
                         if(is_numeric($valor)){//Si la respuesta no es un string, entonces es el id de la opcion de respuesta
-                            $opcion=Respuestaopcion::findOne($valor);//busca la opcion de respuesta que corresponde
+                            $opcion=RespuestaOpcion::findOne($valor);//busca la opcion de respuesta que corresponde
                             $resp['respValor']=$opcion->opRespvalor;
                         }else{//Si la respuesta es un string, entonces guarda directamente la respuesta
                             $resp['respValor']=$valor;
@@ -502,7 +502,7 @@ class InscripcionController extends Controller
             //Si se realiza el commit, asigna true a la variable guardado
 
             if ($guardado){     // Si la inscripcion es guardada correctamente, se envia un mail de confirmacion 
-
+                $host=Yii::$app->request->hostInfo;
                 // Obtenemos el Objeto usuario para obtener sus dato
                 $objUsuario=Usuario::find()->where(['idUsuario'=>$idUsuario])->one();
                 $objPersona=Persona::find()->where(['idUsuario'=>$idUsuario])->one();
@@ -533,7 +533,7 @@ class InscripcionController extends Controller
                 $body.=
                     "              <h4 style='font-weight:100; color:black; padding:0 20px'>Podes ver los terminos y condiciones que has aceptado en el siguiente enlace:</h4>
 
-                                        <a href='http://localhost/carrera/web/index.php?r=site%2Freglamento' style='text-decoration:none'>
+                                        <a href='$host/index.php?r=site%2Freglamento' style='text-decoration:none'>
 
                                         <div style='line-height:60px; background:#ff8f04; width:60%; color:white'>Reglamento</div>
 
