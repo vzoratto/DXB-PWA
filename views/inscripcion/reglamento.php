@@ -15,7 +15,7 @@ use yii\helpers\Url;
     <div style="width: 100%;height: 100%;margin-left: 10%;">
     <?php 
             echo \lesha724\documentviewer\ViewerJsDocumentViewer::widget([
-            'url' => '../../../web/archivo/Reglamento.pdf', //url на ваш документ или http://example.com/test.odt
+            'url' => '../../../archivo/Reglamento.pdf', //url на ваш документ или http://example.com/test.odt
             'width'=>'80%',
             'height'=>'300px',
             ]);
