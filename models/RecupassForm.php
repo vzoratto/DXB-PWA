@@ -82,6 +82,8 @@ class RecupassForm extends Model
             'dniUsuario' => $this->dni,
         ]);
         if ($user) {
+            //obtenemos el host del servidor para el envio de email
+            $host=Yii::$app->request->hostInfo;
             $pass="XmWq9081";
             $user->claveUsuario=crypt($pass, Yii::$app->params["salt"]);//Encriptamos el password
             if ($user->save()) {
@@ -102,7 +104,7 @@ class RecupassForm extends Model
                                         <h4 style='font-weight:100; color:black; padding:0 20px'>La contraseña es :<strong> ".$pass."</strong></h4>
                                         <h4 style='font-weight:100; color:black; padding:0 20px'>Hace click en el siguiente enlace para finalizar la recuperación de la contraseña.</h4>
 
-                                        <a href='http://localhost/carrera/web/index.php?r=site/cambiapass' style='text-decoration:none'>
+                                        <a href='$host/index.php?r=site/cambiapass' style='text-decoration:none'>
 
                                         <div style='line-height:60px; background:#ff8f04; width:60%; color:white'>Inicio</div>
 
