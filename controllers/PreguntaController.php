@@ -167,7 +167,7 @@ class PreguntaController extends Controller
          if ($model->load(Yii::$app->request->post())) {
                 
                 $model->save();
-                return $this->redirect(['respuestaopcion/define-opcion', 'id' => $model->idPregunta,]);
+                return $this->redirect(['respuesta-opcion/define-opcion', 'id' => $model->idPregunta,]);
             }
             $model->idEncuesta=$id;
             return $this->render('create', [
