@@ -10,9 +10,8 @@ use yii\helpers\Html;
 /* @var $pregunta app\models\Pregunta */
 /* @var $encTipo app\models\Encuesta */
 
-$this->title = 'Crear Opciones de respusta';
-// $this->params['breadcrumbs'][] = ['label' => 'Opciones de respuesta', 'url' => ['index']];
-// $this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Crear Opciones de respuesta';
+
 ?>
 <div class="respuestaopcion-create reglamento-container">
 

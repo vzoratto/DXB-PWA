@@ -34,6 +34,15 @@ class RespuestaOpcionController extends Controller
      */
     public function actionCreaDrop()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+        
         $opciones=null;
         $model = new RespuestaOpcion();
         
@@ -57,6 +66,15 @@ class RespuestaOpcionController extends Controller
      */
     public function actionCreaCheck()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+
         $opciones=null;
         $model = new RespuestaOpcion();
         
@@ -78,6 +96,15 @@ class RespuestaOpcionController extends Controller
      */
     public function actionCreaRadio()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+
         $opciones=null;
         $model = new RespuestaOpcion();
         
@@ -102,6 +129,15 @@ class RespuestaOpcionController extends Controller
      * @return string
      */
     public function actionDefineOpcion(){
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         
         $idPregunta=$_REQUEST['id'];
         $opciones=null;

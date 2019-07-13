@@ -91,7 +91,7 @@ $i=0;
         <?php endforeach?>
         <?php if(!$encuesta==[]):?>
             <!-- Si existe una encuesta publica, se incorpora el id de la misma a los datos del formulario
-            caso contrario no se tiene en cuesta esta línea -->
+            caso contrario no se tiene en cuenta esta línea -->
             <?= $form->field($respuesta, 'idEncuesta')->hiddenInput(['value'=>$encuesta['idEncuesta']])->label(false) ?> 
         <?php endif?>
 

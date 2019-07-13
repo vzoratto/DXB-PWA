@@ -8,14 +8,14 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\export\ExportMenu;
 use yii\widgets\Pjax;
-
+use app\models\EncuestaSearch;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RespuestaOpcionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Opciones de Respuesta';
-// $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="respuestaopcion-index reglamento-container">
 
@@ -26,6 +26,10 @@ $this->title = 'Opciones de Respuesta';
         <!-- En caso de que se haya seleccionado una pregunta, activa la opcion de crear una opcion nueva, caso contrario no se puede -->
         <?php if($pregunta!=null): ?>
             <?= Html::a('Crear Opcion de Respuesta', ['create', 'idPregunta'=>$pregunta->idPregunta], ['class' => 'btn btn-default']) ?>
+            <?php $enc=EncuestaSearch::findOne($pregunta->idEncuesta); ?>
+            <?php if($enc->encTipo=='trivia'): ?>
+                <?= Html::a('Definir respuestas correctas', ['respuesta-trivia/create', 'idPregunta'=>$pregunta->idPregunta ],['class' => 'btn btn-default']) ?>
+            <?php endif ?>
         <?php endif ?>
         <?= Html::a('Encuestas', ['encuesta/index'], ['class' => 'btn btn-default']) ?>
         <?= Html::a('Preguntas', ['pregunta/index'], ['class' => 'btn btn-default']) ?>
