@@ -44,7 +44,7 @@ $encuesta=EncuestaSearch::findOne($idEncuesta);
 	
 	<?php $form = ActiveForm::begin([
 			'method'=>'post',
-			'action'=>Url::toRoute('respuestaopcion/crea-radio'),
+			'action'=>Url::toRoute('respuesta-opcion/crea-radio'),
 	])?>
 		<div class='form-group'>
 			<?= $form->field($model, 'opRespvalor')->textInput(['autofocus'=>true])->label('Opcion: ')?>

@@ -45,7 +45,7 @@ $encuesta=EncuestaSearch::findOne($idEncuesta);
 
 	<?php $form = ActiveForm::begin([
 			'method'=>'post',
-			'action'=>Url::toRoute('respuestaopcion/crea-drop'),
+			'action'=>Url::toRoute('respuesta-opcion/crea-drop'),
 	])?>
 		<div class='form-group'>
 			<?= $form->field($model, 'opRespvalor')->textInput(['autofocus'=>true])->label('Opcion: ')?>

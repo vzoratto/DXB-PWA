@@ -5,7 +5,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Respuestaopcion */
+/* @var $model app\models\RespuestaOpcion */
 /* @var $pregunta app\models\Pregunta */
 
 $this->title = 'Modificar opción de respuesta: ' . $model->opRespvalor;

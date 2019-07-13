@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
-use app\controllers\RespuestaopcionController;
+use app\controllers\RespuestaOpcionController;
 use yii\helpers\ArrayHelper;
 use app\models\RespuestaTriviaSearch;
 
@@ -11,7 +11,7 @@ use app\models\RespuestaTriviaSearch;
 /* @var $model app\models\RespuestaTrivia */
 /* @var $form yii\widgets\ActiveForm */
 
-$opciones=RespuestaopcionController::listaRespuestaOpcion($model->idPregunta);
+$opciones=RespuestaOpcionController::listaRespuestaOpcion($model->idPregunta);
 $opciones=ArrayHelper::map($opciones, 'opRespvalor', 'opRespvalor');//se obtienen las opciones que estan cargadas
 $respuestas=ArrayHelper::map(RespuestaTriviaSearch::findAll(['idPregunta'=>$model->idPregunta]), 'idRespTrivia', 'respTriviaValor');
 
