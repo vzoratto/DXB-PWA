@@ -8,7 +8,7 @@ use app\models\RespuestaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\Respuestaopcion;
+use app\models\RespuestaOpcion;
 use app\models\Resultado;
 use app\models\Pregunta;
 use yii\filters\AccessControl;
@@ -36,7 +36,7 @@ class RespuestaController extends Controller
                 if(is_array($valor)){
                     foreach($valor as $unValor){
                         if(is_numeric($unValor)){
-                            $opcion=Respuestaopcion::findOne($unValor);
+                            $opcion=RespuestaOpcion::findOne($unValor);
                             $resp['respValor']=$opcion->opRespvalor;
                         }else{
                             $resp['respValor']=$unValor;
@@ -51,7 +51,7 @@ class RespuestaController extends Controller
                     }
                 }else{
                     if(is_numeric($valor)){
-                        $opcion=Respuestaopcion::findOne($valor);
+                        $opcion=RespuestaOpcion::findOne($valor);
                         $resp['respValor']=$opcion->opRespvalor;
                     }else{
                         $resp['respValor']=$valor;

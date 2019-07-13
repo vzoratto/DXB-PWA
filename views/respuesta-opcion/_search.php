@@ -5,11 +5,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\RespuestaopcionSearch */
+/* @var $model app\models\RespuestaOpcionSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="respuestaopcion-search">
+<div class="respuestapcion-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],

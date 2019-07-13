@@ -18,7 +18,7 @@ $this->title = 'Respuestas correctas de trivias';
         <?= Html::a('Definir Respuesta Trivia', ['create', 'idPregunta'=>$pregunta['idPregunta']], ['class' => 'btn btn-default']) ?>
         <?= Html::a('Encuestas', ['encuesta/index'], ['class' => 'btn btn-default']) ?>
         <?= Html::a('Preguntas', ['pregunta/index', 'idPregunta'=>$pregunta['idPregunta']], ['class' => 'btn btn-default']) ?>
-        <?= Html::a('Opciones de Respuesta', ['respuestaopcion/index', 'idPregunta'=>$pregunta['idPregunta']], ['class' => 'btn btn-default']) ?>
+        <?= Html::a('Opciones de Respuesta', ['respuesta-opcion/index', 'idPregunta'=>$pregunta['idPregunta']], ['class' => 'btn btn-default']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

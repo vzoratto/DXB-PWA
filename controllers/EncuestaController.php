@@ -14,7 +14,7 @@ use app\models\Respuesta;
 use app\models\Persona;
 use yii\db\Query;
 use yii\base\Exception;
-use app\models\Respuestaopcion;
+use app\models\RespuestaOpcion;
 use app\models\RespuestaSearch;
 use yii\helpers\Url;
 
@@ -59,7 +59,7 @@ class EncuestaController extends Controller
                     if(is_array($valor)){
                         foreach($valor as $unValor){//Si la repuesta es multiple, recorre el array de esa respuesta para guardar cada uno de los valores
                             if(is_numeric($unValor)){//Si la respuesta no es un string, entonces es el id de la opcion de respuesta
-                                $opcion=Respuestaopcion::findOne($unValor);//busca la opcion de respuesta que corresponde
+                                $opcion=RespuestaOpcion::findOne($unValor);//busca la opcion de respuesta que corresponde
                                 $resp['respValor']=$opcion->opRespvalor;
                             }else{//Si la respuesta es un string, entonces guarda directamente la respuesta
                                 $resp['respValor']=$unValor;
@@ -74,7 +74,7 @@ class EncuestaController extends Controller
                         }
                     }else{//Si la respuesta no es multiple, guarda la la respuesta
                         if(is_numeric($valor)){//Si la respuesta no es un string, entonces es el id de la opcion de respuesta
-                            $opcion=Respuestaopcion::findOne($valor);//busca la opcion de respuesta que corresponde
+                            $opcion=RespuestaOpcion::findOne($valor);//busca la opcion de respuesta que corresponde
                             $resp['respValor']=$opcion->opRespvalor;
                         }else{//Si la respuesta es un string, entonces guarda directamente la respuesta
                             $resp['respValor']=$valor;

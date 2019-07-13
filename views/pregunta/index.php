@@ -30,7 +30,7 @@ $this->title = 'Preguntas';
             <?= Html::a('Create Pregunta', ['create','id'=>$encuesta['idEncuesta']], ['class' => 'btn btn-default']) ?>
             <?php endif ?>
             <?= Html::a('Encuestas', ['encuesta/index'], ['class' => 'btn btn-default']) ?>
-            <?= Html::a('Opciones de respuesta', ['respuestaopcion/index'], ['class' => 'btn btn-default']) ?>
+            <?= Html::a('Opciones de respuesta', ['respuesta-opcion/index'], ['class' => 'btn btn-default']) ?>
             <?= Html::a('Respuestas', ['respuesta/index'], ['class' => 'btn btn-default']) ?>
 
             <!-- El siguiente widget permite exportar los datos de la grilla que posee la vista a varios tipos de archivos -->
@@ -110,7 +110,7 @@ $this->title = 'Preguntas';
                             'contentOptions'=>['style'=>'width:120px;'],
                             'value'=>function($model){
                                 return Html::a('Opciones respuesta',
-                                        ['respuestaopcion/index',
+                                        ['respuesta-opcion/index',
                                         'idPregunta'=>$model->idPregunta
                                         ]
                                 );

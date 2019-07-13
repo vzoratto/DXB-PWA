@@ -21,7 +21,7 @@ use app\models\Personaemergencia;
 use app\models\Provincia;
 use yii\helpers\ArrayHelper;
 use app\models\Respuesta;
-use app\models\Respuestaopcion;
+use app\models\RespuestaOpcion;
 use app\models\Equipo;
 use app\models\Grupo;
 use app\models\Tipocarrera;

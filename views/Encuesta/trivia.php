@@ -3,7 +3,7 @@
 // Vista de la trivia publicada para respuesta de la misma
 
 use app\controllers\PreguntaController;
-use app\controllers\RespuestaopcionController;
+use app\controllers\RespuestaOpcionController;
 use app\controllers\EncuestaController;
 use kartik\form\ActiveForm;
 use yii\helpers\Html;
@@ -27,7 +27,7 @@ $i=0;
 
         // Recorre el listado de preguntas de la encuesta activa y arma un array con las opciones de respuesa de cada una
         foreach($pregunta as $unaPregunta){
-            $opciones=RespuestaopcionController::listaRespuestaOpcion($unaPregunta->idPregunta);
+            $opciones=RespuestaOpcionController::listaRespuestaOpcion($unaPregunta->idPregunta);
             $opcion[$i]=$opciones;
             $i++;
         }
