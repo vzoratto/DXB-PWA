@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\RespuestaTriviaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Estadopagoequipos';
+$this->title = 'Respuestas correctas de trivias';
 
 ?>
 <div class="respuesta-trivia-index">
@@ -15,7 +15,10 @@ $this->title = 'Estadopagoequipos';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Respuesta Trivia', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Definir Respuesta Trivia', ['create', 'idPregunta'=>$pregunta['idPregunta']], ['class' => 'btn btn-default']) ?>
+        <?= Html::a('Encuestas', ['encuesta/index'], ['class' => 'btn btn-default']) ?>
+        <?= Html::a('Preguntas', ['pregunta/index', 'idPregunta'=>$pregunta['idPregunta']], ['class' => 'btn btn-default']) ?>
+        <?= Html::a('Opciones de Respuesta', ['respuestaopcion/index', 'idPregunta'=>$pregunta['idPregunta']], ['class' => 'btn btn-default']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,11 +29,16 @@ $this->title = 'Estadopagoequipos';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idRespTrivia',
+            //'idRespTrivia',
+            [
+                'attribute'=>'idPregunta',
+                'label'=>'Pregunta',
+                'value'=>'pregunta.pregDescripcion',
+            ],
             'respTriviaValor',
-            'idPregunta',
+            // 'idPregunta',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{delete}'],
         ],
     ]); ?>
 

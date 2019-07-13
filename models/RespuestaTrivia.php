@@ -10,6 +10,8 @@ use Yii;
  * @property int $idRespTrivia
  * @property string $respTriviaValor
  * @property int $idPregunta
+ * 
+ * @property Pregunta $pregunta
  */
 class RespuestaTrivia extends \yii\db\ActiveRecord
 {
@@ -30,6 +32,7 @@ class RespuestaTrivia extends \yii\db\ActiveRecord
             [['respTriviaValor', 'idPregunta'], 'required'],
             [['idPregunta'], 'integer'],
             [['respTriviaValor'], 'string', 'max' => 250],
+            [['idPregunta'], 'exist', 'skipOnError' => true, 'targetClass' => Pregunta::className(), 'targetAttribute' => ['idPregunta' => 'idPregunta']],
         ];
     }
 
@@ -40,8 +43,15 @@ class RespuestaTrivia extends \yii\db\ActiveRecord
     {
         return [
             'idRespTrivia' => 'Id Resp Trivia',
-            'respTriviaValor' => 'Resp Trivia Valor',
+            'respTriviaValor' => 'Valor de respuesta trivia',
             'idPregunta' => 'Id Pregunta',
         ];
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPregunta()
+    {
+        return $this->hasOne(Pregunta::className(), ['idPregunta' => 'idPregunta']);
     }
 }

@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Permiso;
 use yii\filters\AccessControl;
+use app\models\Pregunta;
 
 /**
  * RespuestaTriviaController implements the CRUD actions for RespuestaTrivia model.
@@ -70,10 +71,19 @@ class RespuestaTriviaController extends Controller
 
         $searchModel = new RespuestaTriviaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $pregunta=null;
 
+        if(isset($_REQUEST['idPregunta'])){ //si recibe un idEncuesta pasa en dataProvider las preguntas solo de esa encuesta
+            $dataProvider->query->andWhere('respuesta_trivia.idPregunta = '.$_REQUEST['idPregunta']);
+            $dataProvider->pagination = [
+                'pageSize' => 10,
+            ];
+            $pregunta=Pregunta::find()->where(['idPregunta'=>$_REQUEST['idPregunta']])->one();
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'pregunta'=>$pregunta,
         ]);
     }
 
@@ -120,16 +130,20 @@ class RespuestaTriviaController extends Controller
         $model = new RespuestaTrivia();
 
         if ($model->load(Yii::$app->request->post())) {
+
             $resp=$model->respTriviaValor;
             $idPregunta=$model->idPregunta;
             //  echo '<br><br><br><br><pre>'; print_r($resp); echo '</pre>';
             foreach($resp as $valor){
-                $laRespuesta=new RespuestaTrivia();
-                $laRespuesta->respTriviaValor=$valor;
-                $laRespuesta->idPregunta=$idPregunta;
-                $laRespuesta->save();
+                if (!$this->existeRespuesta($idPregunta,$valor)) {
+                    
+                    $laRespuesta=new RespuestaTrivia();
+                    $laRespuesta->respTriviaValor=$valor;
+                    $laRespuesta->idPregunta=$idPregunta;
+                    $laRespuesta->save();
+                }
             }
-            return $this->redirect(['respuestaopcion/index', 'idPregunta' => $laRespuesta->idPregunta]);
+            return $this->redirect(['respuesta-trivia/index', 'idPregunta' => $idPregunta]);
         }
 
         $model->idPregunta=$idPregunta;
@@ -185,10 +199,11 @@ class RespuestaTriviaController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-        
-        $this->findModel($id)->delete();
+        $idPregunta=$this->findModel($id)->idPregunta;
 
-        return $this->redirect(['index']);
+        $this->findModel($id)->delete();
+        
+        return $this->redirect(['index', 'idPregunta'=>$idPregunta]);
     }
 
     /**
@@ -205,5 +220,21 @@ class RespuestaTriviaController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Dada una pregunta y una opcion de respuesta nos devuelve verdadero si esta respuesta ya esta cargada como verdadera y falso si no lo esta
+     * @param int $idPregunta
+     * @param string $respTriviaValor
+     * @return boolean
+     */
+    private function existeRespuesta($idPregunta, $respTriviaValor)
+    {
+        $resp=RespuestaTriviaSearch::find()->where(['idPregunta'=>$idPregunta, 'respTriviaValor'=>$respTriviaValor])->asArray()->all();
+        $esta=false;
+        if($resp!=null && $resp!=[]){
+            $esta=true;
+        }
+        return $esta;
     }
 }
