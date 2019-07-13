@@ -49,13 +49,13 @@ $inscrito=$persona->inscrito();
             <?php if (Yii::$app->user->isGuest) {
               // code...
 
-            echo '<a href="'.Url::to(["/site/registro"]).'" class="btn btn-white btn-rounded no-margin-lr">Regístrate</a>';
+            //echo '<a href="'.Url::to(["/site/registro"]).'" class="btn btn-white btn-rounded no-margin-lr">Regístrate</a>';
 
           } else {
             if(!Persona::findOne(['idUsuario' => $_SESSION['__id']])){
               $idRol = $userLogueado->identity->idRol;
               if ($idRol == 1  || $idRol == 4 ){ // Si es gestora o administradora
-                echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-white btn-rounded no-margin-lr">Inscribíte</a>';
+               // echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-white btn-rounded no-margin-lr">Inscribíte</a>';
               }
             }
           }; ?>
@@ -77,7 +77,7 @@ $inscrito=$persona->inscrito();
 
                   <h2 class="mb-15 color-black">"Tu residuo, tu responsabilidad"</h2>
 
-                  <p class="text-justify"> L@s ganador@s no serán quienes lleguen a la meta más rápido, esta carrera implica un dasafío mayor, trabajo en equipo vinculado a destreza física, orientación y conciencia del medio en el cual se practica la actividad.</p>
+                  <p class="text-justify"> L@s ganador@s no serán quienes lleguen a la meta más rápido, esta carrera implica un desafío mayor, trabajo en equipo vinculado a destreza física, orientación y conciencia del medio en el cual se practica la actividad.</p>
 
               </div>
 
@@ -108,11 +108,11 @@ $inscrito=$persona->inscrito();
                       <?php if (Yii::$app->user->isGuest) {
                         // code...
 
-                      echo '<a href="'.Url::to(["/site/registro"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Regístrate</a>';
+                      //echo '<a href="'.Url::to(["/site/registro"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Regístrate</a>';
 
                     } if($inscrito==2) {
 
-                      echo'<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Inscribíte</a>';
+                      //echo'<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Inscribíte</a>';
 
                     }; ?>
 
