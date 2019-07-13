@@ -3,7 +3,7 @@
 // Vista de la encuesta publicada en el proceso de inscripcion
 
 use app\controllers\PreguntaController;
-use app\controllers\RespuestaopcionController;
+use app\controllers\RespuestaOpcionController;
 use app\controllers\EncuestaController;
 
 /* @var $this yii\web\View */
@@ -25,7 +25,7 @@ $i=0;
 
         // Recorre el listado de preguntas de la encuesta activa y arma un array con las opciones de respuesa de cada una
         foreach($pregunta as $unaPregunta){
-            $opciones=RespuestaopcionController::listaRespuestaOpcion($unaPregunta->idPregunta);
+            $opciones=RespuestaOpcionController::listaRespuestaOpcion($unaPregunta->idPregunta);
             $opcion[$i]=$opciones;
             $i++;
         }

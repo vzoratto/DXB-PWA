@@ -9,7 +9,7 @@ use app\models\Respuestaopcion;
 /**
  * RespuestaopcionSearch represents the model behind the search form of `app\models\Respuestaopcion`.
  */
-class RespuestaopcionSearch extends Respuestaopcion
+class RespuestaOpcionSearch extends Respuestaopcion
 {
     /**
      * {@inheritdoc}

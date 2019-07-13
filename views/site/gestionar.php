@@ -33,7 +33,7 @@ $this->title = "Menu administrativo";
 <div class="site-gestionar">
 
         <div class="jumbotron">
-            <img src="../web/assets/img/logo-color.png" alt="logo-color" style="max-width:150px;">
+            <img src="../assets/img/logo-color.png" alt="logo-color" style="max-width:150px;">
             <h1>Bienvenido <?= $nombre->nombreGestor ?></h1>
             <h4><?= "Rol:  " .$rol->descripcionRol ?></h4>
                <p class="lead">Que tengas un buen dia!</p>

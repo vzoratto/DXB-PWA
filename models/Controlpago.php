@@ -48,7 +48,7 @@ class Controlpago extends \yii\db\ActiveRecord
     {
         return [
             'idControlpago' => 'Referencia pago',
-            'idPago' => 'Id Pago',
+            'idPago' => ' Pago',
             'fechaPago' => 'Fecha pago',
             'fechachequeado' => 'Fecha chequeado',
             'chequeado' => 'Chequeado',

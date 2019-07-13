@@ -90,7 +90,7 @@ $wizard_config = [
 		5 => [
 			'title' => 'Encuesta',
 			'icon' => 'glyphicon glyphicon-list-alt',
-			'content' => $this->render('@app/views/Encuesta/encuesta.php',['respuesta'=>$respuesta,'form'=>$form]),
+			'content' => $this->render('@app/views/encuesta/encuesta.php',['respuesta'=>$respuesta,'form'=>$form]),
             'buttons' => [
                 'next' => [
                     'title' => 'Siguiente',

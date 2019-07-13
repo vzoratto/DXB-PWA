@@ -1,4 +1,3 @@
-
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
@@ -6,7 +5,6 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\RegistroForm */
 $this->title = 'Registrate';
-
 ?>
 <section id="registro" style="background-image:url('assets/img/fondo.jpg');" class="cover-background contenedor-full full-section">
   <div class="box-bd no-label" align="center"> 
@@ -21,7 +19,6 @@ $this->title = 'Registrate';
             'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-12\">{error}</div>",
             'labelOptions' => ['class' => 'col-lg-1 control-label'],
         ],
-
     ]); ?>
         <figure>
         <?= $form->field($model, 'dni')->textInput(['placeholder'=>'DNI','autofocus' => true]) ?>
@@ -49,7 +46,6 @@ $this->title = 'Registrate';
 <?php
 //js que controla la visualizacion del pass
 $this->registerJs("$('.toggle-password').click(function() {
-
   $(this).toggleClass('fa-eye fa-eye-slash');
   var input = $($(this).attr('toggle'));
   if (input.attr('type') == 'password') {

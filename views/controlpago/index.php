@@ -37,7 +37,7 @@ $this->title = 'Control pagos';
 
             [
             'class' => 'yii\grid\ActionColumn',
-            'template'=> '{view} {update}',
+            'template'=> ' {update}',
             ],
         ],
     ]); ?>

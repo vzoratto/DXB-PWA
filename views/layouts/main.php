@@ -52,7 +52,9 @@ $estadoequipo=$pago->buscaequipo();
           ['label' => 'Reglamento', 'url' => ['/site/index', '#' => 'reglamento']],
           ['label' => 'Contacto', 'url' => ['/site/index', '#' => 'contacto']],
           ['label' => 'Iniciar Sesión', 'url' => 'index.php?r=site%2Flogin', 'visible' => Yii::$app->user->isGuest],
-          ($estadoequipo==2 || $estadoequipo==0)?['label' => 'Pagar inscripcion', 'url' => 'index.php?r=pago/create', 'visible' => !Yii::$app->user->isGuest]:'',
+          ($inscrito==2)?['label' => 'Inscripcion', 'url' => 'index.php?r=inscripcion/index', 'visible' => !Yii::$app->user->isGuest]:'',
+          ($estadoequipo==2)?['label' => 'Pagar inscripcion', 'url' => 'index.php?r=pago/create', 'visible' => !Yii::$app->user->isGuest]:'', 
+          ($estadoequipo==0)?['label' => 'Pagar inscripcion', 'url' => 'index.php?r=pago/create', 'visible' => !Yii::$app->user->isGuest]:'',
           !Yii::$app->user->isGuest ?(
           ['label' =>"<i class='fa fa-user-circle-o ml-30 ml-sm-0' aria-hidden='true'></i>",'items' => [
             ($inscrito==1)? ['label' => 'Mi perfil', 'url' => 'index.php?r=editar%2Feditar']:'',

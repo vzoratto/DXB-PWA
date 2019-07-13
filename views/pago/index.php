@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\Controlpago;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PagoSearch */
@@ -34,10 +35,14 @@ $this->title = 'Pagos recibidos';
             ],
             ['attribute'=>'chequeado',
              'value'=>function($model){
-                 return ($model->chequeado==0)?'no':'si';
+                 $chequeado=Controlpago::findOne($model);
+                 if(isset($chequeado->chequeado)){
+                    return ($chequeado->chequeado===0)?'no':'si';
+                 }
              },
                'filter'=>array('0'=>'no','1'=>'si'),
             ],
+            'dniUsu',
             ['label'=>'Imagen ticket',
              'attribute'=>'imagenComrobante',
              'format'=>'html',

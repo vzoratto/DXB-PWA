@@ -19,7 +19,7 @@ class RecupassForm extends Model
     public $email;
 
     private $_user = false;
-    
+
     /**
      * @return array the validation rules.
      */
@@ -44,14 +44,14 @@ class RecupassForm extends Model
      * @param array $params the additional name-value pairs given in the rule
      */
     public function validateMail($attribute, $params){
-  
+
       if (!$this->hasErrors()) {
           $user = $this->getUser();
 
           if (!$user || !$user->validateMail($this->email)) {
               $this->addError($attribute, 'Dni o email incorrecto.');
           }
-          
+
       }
   }
 
@@ -65,7 +65,7 @@ class RecupassForm extends Model
       if ($this->_user === false) {
           $this->_user = Usuario::findByUsername($this->dni);
       }
-    
+
       return $this->_user;
   }
 
@@ -82,6 +82,8 @@ class RecupassForm extends Model
             'dniUsuario' => $this->dni,
         ]);
         if ($user) {
+            //obtenemos el host del servidor para el envio de email
+            $host=Yii::$app->request->hostInfo;
             $pass="XmWq9081";
             $user->claveUsuario=crypt($pass, Yii::$app->params["salt"]);//Encriptamos el password
             if ($user->save()) {
@@ -93,7 +95,7 @@ class RecupassForm extends Model
                                         <center>
 
 
-                                        <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
+                                        <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>
 
                                         <h2 style='font-weight:100; color:black'><strong>DESAFIO POR LAS BARDAS</strong></h2>
 
@@ -102,7 +104,7 @@ class RecupassForm extends Model
                                         <h4 style='font-weight:100; color:black; padding:0 20px'>La contraseña es :<strong> ".$pass."</strong></h4>
                                         <h4 style='font-weight:100; color:black; padding:0 20px'>Hace click en el siguiente enlace para finalizar la recuperación de la contraseña.</h4>
 
-                                        <a href='http://localhost/carrera/web/index.php?r=site/cambiapass' style='text-decoration:none'>
+                                        <a href='$host/index.php?r=site/cambiapass' style='text-decoration:none'>
 
                                         <div style='line-height:60px; background:#ff8f04; width:60%; color:white'>Inicio</div>
 
@@ -113,24 +115,18 @@ class RecupassForm extends Model
                                         <hr style='border:1px solid #ccc; width:90%'>
 
                                         <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-iT_-pQzmOPo/XREg3ohXqnI/AAAAAAAAAlg/YGQRUExWZOIfmsHgaeiwb4RK7yZA4MgUACLcBGAs/s320/placas%2B5-02.jpg'>
-                                
+
                                         <h5 style='font-weight:100; color:black'>Te invitamos a que veas nuestras redes sociales.</h5>
 
                                         <a href='https://www.facebook.com/bienestaruncoma/'><img src='https://1.bp.blogspot.com/-BR60W75cIco/XREFTGbPHZI/AAAAAAAAAks/FQUMI8DkynoP69YnYRjGZ1ylnNeYhM5BwCLcBGAs/s320/facebook-logo.png' style='width: 7%'></a>
                                         <a href='https://www.instagram.com/sbucomahue/'><img src='https://1.bp.blogspot.com/-NKIBF9SSXCU/XREFTOvwjII/AAAAAAAAAkw/cn679IM4LMQvcIMVCsgetU7gTDyM5DhwgCLcBGAs/s320/instagram-logo.png' style='width: 7%'></a>
-		
+
                                         </center>
 
                                 </div>
 
                         </div>";
-                     
-             $body = "<h3>Se te envía un código que deberás ingresar como contraseña para loguearte,</h3>";
-             $body .= "<h3>Recuerda, que luego deberás cambiar la contraseña enviada por una personalizada.</h3>";
-             $body .= "<h3>La contraseña es : ".$pass."</h3>";
-             $body .= "<h3>Hace click en el siguiente enlace para finalizar la recuperación de la contraseña.</h3>";
-             $body .= "<a href='http://localhost/carrera/web/index.php?r=site/cambiapass'>Ir para cambiar la contraseña</a>";
-                  
+
               return    Yii::$app->mailer->compose()
                   ->setFrom('carreraxbarda@gmail.com')
                   //->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
@@ -163,4 +159,3 @@ class RecupassForm extends Model
         return $key;
     }
 }
-    

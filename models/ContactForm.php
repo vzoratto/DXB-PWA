@@ -10,22 +10,20 @@ use yii\base\Model;
  */
 class ContactForm extends Model
 {
-    
     public $email;
     public $subject;
     public $body;
     
-
     /**
      * @return array the validation rules.
      */
     public function rules()
     {
         return [
-            // email, subject and body are required
-            [['email', 'subject', 'body'], 'required','message' => 'Campo requerido'],
+            //  email, subject and body are required
+            [['email', 'subject', 'body'], 'required'],
             // email has to be a valid email address
-            ['email', 'email','message' => 'Formato incorrecto'],
+            ['email', 'email'],
             
         ];
     }
@@ -36,7 +34,9 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
-            
+            'email' => 'Tu email',
+            'subject' => 'Asunto',
+            'body' => 'Contenido',
         ];
     }
 
@@ -47,13 +47,11 @@ class ContactForm extends Model
      */
     public function contact($email)
     {
-        $content = "<p>Email: " . $this->email . "</p>";
-        $content .= "<p>Subject: " . $this->subject . "</p>";
-        $content .= "<p>Body: " . $this->body . "</p>";
         if ($this->validate()) {
-            Yii::$app->mailer->compose(["content" => $content])
+            Yii::$app->mailer->compose()
                 ->setTo($email)
-                ->setFrom([$this->email])
+                ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
+                ->setReplyTo($this->email)
                 ->setSubject($this->subject)
                 ->setTextBody($this->body)
                 ->send();

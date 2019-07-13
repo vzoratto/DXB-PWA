@@ -68,7 +68,9 @@ class PagoSearch extends Pago
         ]);
 
         $query->andFilterWhere(['like', 'entidadPago', $this->entidadPago])
-            ->andFilterWhere(['like', 'imagenComprobante', $this->imagenComprobante]);
+            ->andFilterWhere(['like', 'imagenComprobante', $this->imagenComprobante])
+            ->andFilterWhere(['like','controlpago.chequeado', $this->chequeado])
+            ->andFilterWhere(['like', 'persona.usuario.dniUsuario', $this->dniUsu]);
           
 
         return $dataProvider;
@@ -87,7 +89,7 @@ class PagoSearch extends Pago
            ->select(['*'])
            ->from('pago p')
            ->join('inner join','controlpago c','c.idPago=p.idPago')
-           ->where('c.chequeado=1') 
+           ->where(['c.chequeado'=>1]) 
            ->all();
     
         $dataProvider = new ActiveDataProvider([
@@ -111,7 +113,7 @@ class PagoSearch extends Pago
            ->select(['*'])
            ->from('pago p')
            ->join('inner join','controlpago c','c.idPago=p.idPago')
-           ->where('c.chequeado',0) 
+           ->where(['c.chequeado'=>0]) 
            ->all();
     
         $dataProvider = new ActiveDataProvider([

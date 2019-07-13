@@ -68,7 +68,7 @@ class VerencuestaController extends Controller{
             $i++;
         }
 
-        return $this->render('@app/views/Encuesta/vista.php', [
+        return $this->render('@app/views/encuesta/vista.php', [
             'encuesta'=>$encuesta,
             'pregunta'=>$pregunta,
             'opcion'=>$opcion,

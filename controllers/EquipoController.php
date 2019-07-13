@@ -109,7 +109,7 @@ class EquipoController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionCambia()
+    public function actionCambiacap()
     {
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
@@ -120,26 +120,35 @@ class EquipoController extends Controller
        $model=new CambiaCapitanForm;
       
         if ($model->load(Yii::$app->request->post())){ 
-            
-            if($equipo=Equipo::find()->where(['dniCapitan'=>$model->dniCapitan]) !=null){
-                $usuario=Usuario::find()->where(['dniUsuario'=>$equipo->dniCapitan]);
-                $persona=Persona::find()->where(['idUsuario'=>$usuario->idUsuario]);
-              $equipo->dniCapitan=$model->dniUsuario;
+           // echo '<pre>';print_r(Yii::$app->request->post());echo '</pre>';die();
+                $equipo=Equipo::findOne(['dniCapitan'=>$model->dniCapitan]);
+                //echo '<pre>';print_r($equipo);echo '</pre>';die();
+                $usuario=Usuario::findOne(['dniUsuario'=>$equipo->dniCapitan]);
+                $usuario1=Usuario::findOne(['dniUsuario'=>$model->dniUsuario]);
+               // echo '<pre>';print_r($usuario);echo '</pre>';die();
+               
+               // echo '<pre>';print_r($usuario1);echo '</pre>';die();
+                $persona=Persona::findOne(['idUsuario'=>$usuario->idUsuario]);
+                $persona1=Persona::findOne(['idUsuario'=>$usuario1->idUsuario]);
+                $equipo->dniCapitan=$model->dniUsuario;
               if($equipo->save()){
-                  $grupo=Grupo::find()->where(['idPersona'=>$persona->idPersona]);
-                  $grupo->idPersona=$model->idUsuario;
+                  $grupo=Grupo::findOne(['idPersona'=>$persona->idPersona]);
+                  $grupo->idPersona=$persona1->idPersona;
                   if($grupo->save()){
-                      $carreraper=Carrerapersona::find()->where(['idPersona'=>$persona->idPersona]);
-                      $carreraper->idPersona=$model->idUsuario;
+                      $carreraper=Carrerapersona::findOne(['idPersona'=>$persona->idPersona]);
+                      $carreraper->idPersona=$persona1->idPersona;
                       if($carreraper->save()){
-                       return $this->Yii::$app->session->setFlash('contactFormSubmitted');
-
-                        //return $this->refresh();
+                
+                        $this->Yii::$app->session->setFlash('cambiaFormSubmitted');
+                        return $this->refresh();
                       }
-                    }
-              }
-            }
-            return $this->redirect(['index', 'id' => $model->idEquipo]);
+                  }
+               }
+            //}else{
+               // $this->Yii::$app->session->setFlash('nocambiaFormSubmitted');
+               //         return $this->refresh();
+           // }
+           // return $this->redirect(['view', 'id' => $model->idEquipo]);
         }
     
         return $this->render('cambia', [

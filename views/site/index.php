@@ -203,17 +203,18 @@ $inscrito=$persona->inscrito();
 
                 <h3 class="titulo-primario ml-5 mr-5"> Reglamento</h3>
 
-                <p class="subtitulo mt-25 ml-5 mr-5">Pellentesque elementum</p>
-                <p class="ml-5 mr-5">libero sit amet accumsan hendrerit. Duis vitae nulla felis. Duis
-                eu fermentum velit. Etiam quis lectus dui. Nam interdum porta bibendum. Morbi efficitur fermentum nunc. Suspendisse
-                rhoncus ornare lobortis. Mauris et ligula vel nunc efficitur varius nec eu tellus. Morbi quam sapien, viverra
-                ut scelerisque quis, sollicitudin placerat odio.</p>
+                <p class="subtitulo mt-25 ml-5 mr-5">Participantes</p>
+                <p class="ml-5 mr-5">EQUIPOS. Tanto en 8k como en 4km. <br>
+                Conformación de equipos: Se deberá asignar el rol de “capitan” a alguno de los integrantes del equipo, ya sea de dos personas o 4 personas. La inscripción por la web deberá realizarla primero el “capitan” y luego el resto de los miembros que compongan el equipo. El sistema solicitará el DNI del capitán para vincularlos en forma directa con su “capitan”.
+                Para aquellos corredores que no cumplan 18 años a la fecha de la carrera, deberán presentar al momento de la acreditación autorización de padre/madre o tutor para poder participar y copia de la ficha de inscripción firmada por el participante y por el padre.<br><b>Nota Importante</b>: no se permiten corredores menores a 12 años.
+                .</p>
 
-                <p class="subtitulo mt-25 ml-5 mr-5">Pellentesque elementum</p>
-                <p class="ml-5 mr-5">libero sit amet accumsan hendrerit. Duis vitae nulla felis. Duis
-                eu fermentum velit. Etiam quis lectus dui. Nam interdum porta bibendum. Morbi efficitur fermentum nunc. Suspendisse
-                rhoncus ornare lobortis. Mauris et ligula vel nunc efficitur varius nec eu tellus. Morbi quam sapien, viverra
-                ut scelerisque quis, sollicitudin placerat odio.</p>
+                <p class="subtitulo mt-25 ml-5 mr-5">Reglas generales</p>
+                <p class="ml-5 mr-5">Al inscribirse, el participante acepta el presente reglamento y declara:<br><br>
+                a) Saber incluso que habrá lugares a los que no pueda accederse con vehículos, con lo cual la atención inmediata es limitada.<br>
+                b) Conocer las características del terreno y los riesgos posibles de lesiones traumatológicas como torceduras, esguinces, incluso fracturas. Y que por razones de seguridad, la organización priorizará la atención y evacuación de las emergencias y urgencias médicas, considerándose como tales a aquellos casos que puedan evolucionar en riesgo de muerte, pudiendo entonces demandar más tiempo la atención de lesiones como las antes descriptas.<br>
+                c) Eximir a los Organizadores, Municipios, los Propietarios de las tierras por las que pase la carrera y los Patrocinantes de toda responsabilidad por accidentes personales; daños y/o pérdidas de objetos que pudiera ocurrirle antes, durante o después de su participación en la prueba.
+</p>
 
                 <div class="row text-center">
                   <a href="<?php echo Url::to(['/site/reglamento']); ?>" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Reglamento completo</a>
@@ -278,9 +279,9 @@ $inscrito=$persona->inscrito();
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
                 <ul class="list-unstyled list-inline social text-center">
-                  <li class="list-inline-item"><a href="https://www.facebook.com/UNCOActiva/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                  <li class="list-inline-item"><a href="https://www.facebook.com/bienestaruncoma/" target="_blank"><i class="fa fa-facebook"></i></a></li>
                   <li class="list-inline-item"><a href="https://twitter.com/prensaunco" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                  <li class="list-inline-item"><a href="https://www.instagram.com/unco_activa/" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                  <li class="list-inline-item"><a href="https://www.instagram.com/sbucomahue/" target="_blank"><i class="fa fa-instagram"></i></a></li>
                 </ul>
               </div>
             </div>
