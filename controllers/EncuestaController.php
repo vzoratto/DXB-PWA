@@ -17,6 +17,8 @@ use yii\base\Exception;
 use app\models\RespuestaOpcion;
 use app\models\RespuestaSearch;
 use yii\helpers\Url;
+use app\models\RespuestaTriviaSearch;
+use app\models\RespuestaOpcionSearch;
 
 /**
  * EncuestaController implements the CRUD actions for Encuesta model.
@@ -37,72 +39,140 @@ class EncuestaController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-
+        $respuestas=Yii::$app->request->post();
         $persona= Persona::findOne(['idUsuario'=>$_SESSION['__id']]);
         $idPersona=$persona['idPersona'];
 
         $respuesta=new Respuesta();
+        if($respuestas){
+            $transaction=Yii::$app->db->beginTransaction();
+            try{
+                
+                
+                foreach($respuestas as $clave=>$valor){
 
-        $transaction=Yii::$app->db->beginTransaction();
-        try{
-            $respuestas=Yii::$app->request->post();
-            
-            foreach($respuestas as $clave=>$valor){
-
-                if(is_numeric($clave)){//solo toma las valores de clave numerico que son los items que tienen datos de respuesta en el array
-                    $tieneRespuesta=RespuestaSearch::find()->where(['idPregunta'=>$clave,'idPersona'=>$idPersona])->asArray()->all();
-                    if($tieneRespuesta!=null && $tieneRespuesta!=[]){
-                        $mensaje="ya habías contestado esta trivia anteriormente. Muchas gracias.";
-                        $mensaje.="<meta http-equiv='refresh' content='6; ".Url::toRoute("site/index")."'>";
-                        return $this->render('triviacompleta',['mensaje'=>$mensaje]);
-                    }
-                    if(is_array($valor)){
-                        foreach($valor as $unValor){//Si la repuesta es multiple, recorre el array de esa respuesta para guardar cada uno de los valores
-                            if(is_numeric($unValor)){//Si la respuesta no es un string, entonces es el id de la opcion de respuesta
-                                $opcion=RespuestaOpcion::findOne($unValor);//busca la opcion de respuesta que corresponde
+                    if(is_numeric($clave)){//solo toma las valores de clave numerico que son los items que tienen datos de respuesta en el array. Esta $clave es el id de la pregunta
+                        // $tieneRespuesta=RespuestaSearch::find()->where(['idPregunta'=>$clave,'idPersona'=>$idPersona])->asArray()->all();
+                        // if($tieneRespuesta!=null && $tieneRespuesta!=[]){
+                        //     $mensaje="ya habías contestado esta trivia anteriormente. Muchas gracias.";
+                        //     $mensaje.="<meta http-equiv='refresh' content='5; ".Url::toRoute("site/index")."'>";
+                        //     return $this->render('triviacompleta',['mensaje'=>$mensaje]);
+                        // }
+                        if(is_array($valor)){
+                            foreach($valor as $unValor){//Si la repuesta es multiple, recorre el array de esa respuesta para guardar cada uno de los valores
+                                if(is_numeric($unValor)){//Si $unValor no es un string, entonces es el id de la opcion de respuesta
+                                    $opcion=RespuestaOpcion::findOne($unValor);//busca la opcion de respuesta que corresponde
+                                    $resp['respValor']=$opcion->opRespvalor;
+                                }else{//Si la respuesta es un string, entonces guarda directamente la respuesta
+                                    $resp['respValor']=$unValor;
+                                }
+                                $resp['idPregunta']=$clave;
+                                $resp['idPersona']=$idPersona;
+                                $model=new Respuesta();//Genera modelo, asigna valores y guarda
+                                $model->respValor=$resp['respValor'];
+                                $model->idPregunta=$resp['idPregunta'];
+                                $model->idPersona=$resp['idPersona'];
+                                $encuestaGuardada=$model->save();
+                            }
+                        }else{//Si la respuesta no es multiple, guarda la la respuesta
+                            if(is_numeric($valor)){//Si la respuesta no es un string, entonces es el id de la opcion de respuesta
+                                $opcion=RespuestaOpcion::findOne($valor);//busca la opcion de respuesta que corresponde
                                 $resp['respValor']=$opcion->opRespvalor;
                             }else{//Si la respuesta es un string, entonces guarda directamente la respuesta
-                                $resp['respValor']=$unValor;
+                                $resp['respValor']=$valor;
                             }
                             $resp['idPregunta']=$clave;
                             $resp['idPersona']=$idPersona;
+
                             $model=new Respuesta();//Genera modelo, asigna valores y guarda
                             $model->respValor=$resp['respValor'];
                             $model->idPregunta=$resp['idPregunta'];
                             $model->idPersona=$resp['idPersona'];
                             $encuestaGuardada=$model->save();
                         }
-                    }else{//Si la respuesta no es multiple, guarda la la respuesta
-                        if(is_numeric($valor)){//Si la respuesta no es un string, entonces es el id de la opcion de respuesta
-                            $opcion=RespuestaOpcion::findOne($valor);//busca la opcion de respuesta que corresponde
-                            $resp['respValor']=$opcion->opRespvalor;
-                        }else{//Si la respuesta es un string, entonces guarda directamente la respuesta
-                            $resp['respValor']=$valor;
-                        }
-                        $resp['idPregunta']=$clave;
-                        $resp['idPersona']=$idPersona;
-
-                        $model=new Respuesta();//Genera modelo, asigna valores y guarda
-                        $model->respValor=$resp['respValor'];
-                        $model->idPregunta=$resp['idPregunta'];
-                        $model->idPersona=$resp['idPersona'];
-                        $encuestaGuardada=$model->save();
-                    }
-                }    
-            }
-
+                    }    
+                }
             
-            $transaction->commit();
-        }catch(Exception $e){
-            $transaction->rollBack();
+                $transaction->commit();
+                $resultadoTrivia=$this->comparaResultados($respuestas);
+                return $this->render('verResultadoTrivia',['resultadoTrivia'=>$resultadoTrivia]);
 
-            if(!$encuestaGuardada){
-                yii::$app->session->setFlash('error', 'Las respuestas no se pudieron guardar. Por favor, intente nuevamente');
+            }catch(Exception $e){
+                $transaction->rollBack();
+
+                if(!$encuestaGuardada){
+                    yii::$app->session->setFlash('error', 'Las respuestas no se pudieron guardar. Por favor, intente nuevamente');
+                }
             }
         }
+
         return $this->render('trivia', ['respuesta'=>$respuesta]);
     }
 
+    /**
+     * Recibe array de respuestas a las trivias y devuelve array con verdadero o falso segun esten bien respondidas.
+     * @param array $respuestas
+     * @return array
+     */
+    private function comparaResultados($respuestas){
+        $r=[];
+        foreach($respuestas as $clave=>$valor){
+            if (is_numeric($clave)){//Si la clave es numerica entonces es el idPregunta
+                if(is_array($valor)){//toma las respuestas que son multiples
+                    $respUsu=[];
+                    foreach($valor as $key1=>$opcion1){//genera un array de los valores de las respuestas del usuario
+                        $opciones=RespuestaOpcionSearch::findOne($opcion1);
+                        array_push($respUsu, $opciones->opRespvalor);
+                    }
+                   
+                    $respCorrecta=RespuestaTriviaSearch::find()->where(['idPregunta'=>$clave])->asArray()->all();
+                    $respCorre=[];
+                    foreach($respCorrecta as $key=>$opcion){//Genera un array con los valores de las respuestas correctas
+                        array_push($respCorre, $opcion['respTriviaValor']);
+                    }
+                    
+                }else{
+                    $respUsu=[];
+                    
+                    $opciones=RespuestaOpcionSearch::findOne($valor);
+                    array_push($respUsu, $opciones->opRespvalor);
+                  
+                    $respCorrecta=RespuestaTriviaSearch::find()->where(['idPregunta'=>$clave])->asArray()->all();
+                    $respCorre=[];
+                    foreach($respCorrecta as $key=>$opcion){
+                        array_push($respCorre, $opcion['respTriviaValor']);
+                    }
+                }
+                echo '<br><br><br><pre>respondio';print_r($respUsu);echo '</pre>';
+                echo '<pre>respuesta correcta';print_r($respCorre);echo '</pre>';
+
+                if($respUsu==$respCorre){
+                    $array=array($clave=>1);
+                    array_push($r,$array);
+                }else{
+                    $array=array($clave=>0);
+                    array_push($r,$array);
+                }
+
+            }
+        }
+        return $r;
+    }
+
+
+    /**
+     * Recibe las respuestas de una pregunta de trivia y devuelve verdadero si la/las respuestas son correctas
+     * de lo contrario devuelve falso.
+     * @param mixed $respuesta
+     * @return boolean
+     */
+    private function respuestaCorrecta($respuesta){
+        $respCorrecta=RespuestaTriviaSearch::find()->where()->asArray()->all();
+
+        if (is_array($respuesta)){
+            
+        }
+    }
 
     /**
      * Devuelve el elemento Encuesta que este activo para ser publicado
@@ -126,7 +196,7 @@ class EncuestaController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','view','create','update','delete'],
+                'only' => ['index','view','create','update','delete', ],
                 'rules' => [
                     [
                         'actions' => ['index','view','create','update','delete'],
