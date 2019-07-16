@@ -132,9 +132,9 @@ class PagoController extends Controller
         );
     }
 
-    
-    /**
-     * Crea pagos por el usuario dnicapitan.
+   
+/**
+     * Creates a new Pago model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
@@ -164,10 +164,9 @@ class PagoController extends Controller
        
         $guardado=false; //Asignamos false a la variable guardado
         $transaction = Pago::getDb()->beginTransaction(); // Iniciamos una transaccion
+        try {
         $model = new Pago();
         if ($model->load(Yii::$app->request->post())) {
-           try {
-       
             $model->idPersona=$persona->idPersona;
         //preparamos el modelo para guarar la imagen del ticket
            $model->imagenComprobante = UploadedFile::getInstance($model, 'imagenComprobante');
@@ -177,17 +176,15 @@ class PagoController extends Controller
            $model->imagenComprobante=$imagen_dir;
            $model->idEquipo=$equipo->idEquipo;
            $model->idImporte=$importecarrera->idImporte;   
-           if(!$model->save()){
-              throw new Exception('pago error al cargar datos');
-           }
+           if($model->save()){
             $idpago = Yii::$app->db->getLastInsertID(); //Obtenemos el ID del ultimo usuario ingresado
             
             $model1=new Controlpago;
             $model1->idPago=$idpago;
             $model1->chequeado=0;
             $model1->idGestor=1;
-            if(!$model1->save()){
-                throw new Exception('controlpago error al cargar datos');
+            $model1->save();
+
            }//fin carga tabla pago
                 $transaction->commit();
                 $guardado=true;
@@ -203,20 +200,9 @@ class PagoController extends Controller
                         return $this->redirect(['view1', 'id' => $idpago]);
               
                     }   
-                }else{//fin guardado true
-                    $this->refresh();
-                    $this->goHome();//envia a pagina principal
-                }
-      
-        } catch(\Exception $e) {//atrapa el error
-           $error=$e->getMessage();//mensaje de error
-
-            $transaction->rollBack();
-            throw $e;
-          }
-     }//fin verificarion de datos
-        $this->refresh();
-        return $this->render('create', [//renderiza al formulario pago
+                }//fin guardado true
+            }else{//fin verificarion de datos
+        return $this->render('create', [
             'model' => $model,
             'equipo'=> $equipo,//dniCapitan,idEquipo,idTipoCarrera
             'persona'=> $persona,//idPersona
@@ -226,7 +212,13 @@ class PagoController extends Controller
             'saldo'=>$saldo,//saldo de lo pagado
             ]);
         }
+        } catch(\Exception $e) {//atrapa el error
+            $guardado=false;
 
+            $transaction->rollBack();
+            throw $e;
+          }
+        }
     /**
      * Crea pagos desde la pagina de gestores.
      * If creation is successful, the browser will be redirected to the 'view' page.
