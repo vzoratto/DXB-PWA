@@ -41,7 +41,8 @@ class PagoSearch extends Pago
      */
     public function search($params)
     {
-        $query = Pago::find()->joinWith('controlpagos');
+        $query = Pago::find()->joinWith('controlpagos')
+                             ->joinWith('persona.usuario');
 
         // add conditions that should always apply here
 
@@ -69,8 +70,8 @@ class PagoSearch extends Pago
 
         $query->andFilterWhere(['like', 'entidadPago', $this->entidadPago])
             ->andFilterWhere(['like', 'imagenComprobante', $this->imagenComprobante])
-            ->andFilterWhere(['like','controlpago.chequeado', $this->chequeado])
-            ->andFilterWhere(['like', 'persona.usuario.dniUsuario', $this->dniUsu]);
+           // ->andFilterWhere(['like','controlpago.chequeado', $this->chequeado])
+            ->andFilterWhere(['like', 'usuario.dniUsuario', $this->dniUsu]);
           
 
         return $dataProvider;

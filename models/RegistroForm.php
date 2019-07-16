@@ -21,11 +21,12 @@ use app\models\Usuario;
             return [
             [['dni', 'email', 'password','repite_password'], 'trim'],
             [['dni', 'email', 'password','repite_password'], 'required', 'message' => 'Campo requerido'],
-            ['dni', 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mi­nimo y maximo 8 caracteres'],
-            ['dni', 'match', 'pattern' => "/^[0-9]+$/", 'message' => 'Solo se aceptan numeros'],
+            ['dni', 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mínimo y máximo 8 caracteres'],
+            ['dni', 'match', 'pattern' => "/^[0-9]+$/", 'message' => 'Sólo se aceptan números'],
             ['dni','validateDni'],
-            ['email', 'email', 'message' => 'Formato no valido'],
-            ['password', 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mi­nimo y maximo 8 caracteres'],
+            ['email', 'email', 'message' => 'Formato no válido'],
+            ['password', 'match', 'pattern' => "/^.{8,16}$/", 'message' => 'Mínimo 8 y máximo 16 caracteres'],
+            ['password','match','pattern'=> "/^[a-zA-Z0-9.]+$/", 'message'=>'Sólo letras y números'],
             ['repite_password', 'compare', 'compareAttribute' => 'password', 'message' => 'Los passwords no coinciden'],
             ];
         }
@@ -68,7 +69,7 @@ use app\models\Usuario;
         public function signup()
         {
             
-            if ($this->validate()) {
+            if ($this->validate()) { 
                 $user = new Usuario();
                 $user->dniUsuario = $this->dni;
                 $user->mailUsuario = $this->email;
@@ -78,7 +79,6 @@ use app\models\Usuario;
                 $user->idRol=1;
                 if ($user->save()) {
                     $host=Yii::$app->request->hostInfo;
-        
                     $dni = urlencode($user->dniUsuario);
                     $mailUsuario = $user->mailUsuario;
                     $authkey = urlencode($user->authkey);
