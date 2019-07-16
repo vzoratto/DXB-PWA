@@ -13,8 +13,6 @@ use yii\widgets\ActiveForm;
     <?php
       if($model->chequeado !=1){
         echo '<h3>'.Html::encode($gestor->nombreGestor).' cuyo DNI '.Html::encode($usuario->dniUsuario).' chequeará este pago.</h3>'; 
-      }else{
-        echo '<h3>Chequear solo si hubo un error</h3>';
       }
      ?>
      <br>
@@ -23,7 +21,12 @@ use yii\widgets\ActiveForm;
 
     <!--<?= $form->field($model, 'idPago')->textInput() ?>-->
 
-    <?= $form->field($model, 'fechaPago')->textInput(['placeholder'=>'Formato aaaa-mm-dd']) ?>
+    <?php
+      if (!$model->isNewRecord)
+         echo $form->field($model, 'fechaPago')->textInput(['readonly'=> true]);
+      else
+		 echo $form->field($model, 'fechaPago')->textInput(['placeholder'=>'Formato aaaa-mm-dd']); 
+	  ?>
 
     <!--<?= $form->field($model, 'fechachequeado')->textInput() ?>-->
     <?php
@@ -37,8 +40,10 @@ use yii\widgets\ActiveForm;
     <?php
       if ($model->isNewRecord) 
              echo Html::submitButton('Ingresar', ['class' => 'btn btn-success']);
-      else	 
-		     echo Html::submitButton('Chequear', ['class' => 'btn btn-success']);
+      else	
+             if($model->chequeado !=1){		  
+		         echo Html::submitButton('Chequear', ['class' => 'btn btn-success']);
+			       }  
 	  ?>
     </div>
     <?php ActiveForm::end(); ?>

@@ -19,6 +19,11 @@ use Yii;
  */
 class Controlpago extends \yii\db\ActiveRecord
 {
+    public $dniUsu;
+    public $imagenComprobante;
+    public $nombre;
+    public $equipo;
+    public $tipocarrera;
     /**
      * {@inheritdoc}
      */
@@ -51,8 +56,14 @@ class Controlpago extends \yii\db\ActiveRecord
             'idPago' => ' Pago',
             'fechaPago' => 'Fecha pago',
             'fechachequeado' => 'Fecha chequeado',
+            'dniUsu'=>'Dni corredor',
+			'imagenComprobante'=>'Imagen ticket',
+			'nombre'=>'Nombre corredor',
             'chequeado' => 'Chequeado',
             'idGestor' => 'Gestor',
+            'equipo'=>'Equipo',
+            'tipocarrera'=>'Tipo Carrera',
+
         ];
     }
 

@@ -190,12 +190,12 @@
             "version": "v12.4.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jackocnr/intl-tel-input.git",
+                "url": "git@github.com:Bluefieldscom/intl-tel-input.git",
                 "reference": "2afde58af3d7db953ba505946a5aac3c3176ed0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jackocnr/intl-tel-input/zipball/2afde58af3d7db953ba505946a5aac3c3176ed0b",
+                "url": "https://api.github.com/repos/Bluefieldscom/intl-tel-input/zipball/2afde58af3d7db953ba505946a5aac3c3176ed0b",
                 "reference": "2afde58af3d7db953ba505946a5aac3c3176ed0b",
                 "shasum": null
             },
@@ -308,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/buttflattery/yii2-formwizard.git",
-                "reference": "a3992fa0f1a782a5f2c12ea260d8e2279be72a12"
+                "reference": "87c1b5fd15f12a48ae61310e49885e7cb1373d24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buttflattery/yii2-formwizard/zipball/a3992fa0f1a782a5f2c12ea260d8e2279be72a12",
-                "reference": "a3992fa0f1a782a5f2c12ea260d8e2279be72a12",
+                "url": "https://api.github.com/repos/buttflattery/yii2-formwizard/zipball/87c1b5fd15f12a48ae61310e49885e7cb1373d24",
+                "reference": "87c1b5fd15f12a48ae61310e49885e7cb1373d24",
                 "shasum": ""
             },
             "require": {
@@ -336,7 +336,7 @@
                 }
             ],
             "description": "A yii2 widget for form wizard, to create a multistep form.",
-            "time": "2019-05-19T20:37:42+00:00"
+            "time": "2019-07-10T17:34:46+00:00"
         },
         {
             "name": "cebe/markdown",
@@ -998,12 +998,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-checkbox-x.git",
-                "reference": "eedd6593bb9092bf209e0ddbb634cf10f0e6f3b8"
+                "reference": "702f4cdbdd10b969ec5cbc4d2ba7c0c677df9a17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-checkbox-x/zipball/eedd6593bb9092bf209e0ddbb634cf10f0e6f3b8",
-                "reference": "eedd6593bb9092bf209e0ddbb634cf10f0e6f3b8",
+                "url": "https://api.github.com/repos/kartik-v/yii2-checkbox-x/zipball/702f4cdbdd10b969ec5cbc4d2ba7c0c677df9a17",
+                "reference": "702f4cdbdd10b969ec5cbc4d2ba7c0c677df9a17",
                 "shasum": ""
             },
             "require": {
@@ -1043,7 +1043,7 @@
                 "state",
                 "three"
             ],
-            "time": "2019-05-25T07:12:16+00:00"
+            "time": "2019-07-03T08:00:52+00:00"
         },
         {
             "name": "kartik-v/yii2-dialog",
@@ -2299,16 +2299,16 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "1.7.0",
+            "version": "1.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "84e09df79855ed3da84e2eab6850eb7741d8cbda"
+                "reference": "0c1346a1956347590b7db09533966307d20cb7cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/84e09df79855ed3da84e2eab6850eb7741d8cbda",
-                "reference": "84e09df79855ed3da84e2eab6850eb7741d8cbda",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/0c1346a1956347590b7db09533966307d20cb7cc",
+                "reference": "0c1346a1956347590b7db09533966307d20cb7cc",
                 "shasum": ""
             },
             "require": {
@@ -2389,7 +2389,7 @@
                 "xls",
                 "xlsx"
             ],
-            "time": "2019-05-26T02:50:36+00:00"
+            "time": "2019-07-08T21:21:25+00:00"
         },
         {
             "name": "psr/log",
@@ -2877,16 +2877,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.21",
+            "version": "2.0.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "7e4622252c5f272373e1339a47d331e4a55e9591"
+                "reference": "417299927ed14adcd51c69a9d75311c5fc33d227"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/7e4622252c5f272373e1339a47d331e4a55e9591",
-                "reference": "7e4622252c5f272373e1339a47d331e4a55e9591",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/417299927ed14adcd51c69a9d75311c5fc33d227",
+                "reference": "417299927ed14adcd51c69a9d75311c5fc33d227",
                 "shasum": ""
             },
             "require": {
@@ -2973,7 +2973,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2019-06-18T14:25:08+00:00"
+            "time": "2019-07-02T20:28:40+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -3608,33 +3608,37 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.5.2",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "9f83dded91781a01c63574e387eaa769be769115"
+                "reference": "239400de7a173fe9901b9ac7c06497751f00727a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/9f83dded91781a01c63574e387eaa769be769115",
-                "reference": "9f83dded91781a01c63574e387eaa769be769115",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/239400de7a173fe9901b9ac7c06497751f00727a",
+                "reference": "239400de7a173fe9901b9ac7c06497751f00727a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0",
                 "psr/http-message": "~1.0",
-                "ralouphie/getallheaders": "^2.0.5"
+                "ralouphie/getallheaders": "^2.0.5 || ^3.0.0"
             },
             "provide": {
                 "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
+                "ext-zlib": "*",
                 "phpunit/phpunit": "~4.8.36 || ^5.7.27 || ^6.5.8"
+            },
+            "suggest": {
+                "zendframework/zend-httphandlerrunner": "Emit PSR-7 responses"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5-dev"
+                    "dev-master": "1.6-dev"
                 }
             },
             "autoload": {
@@ -3671,7 +3675,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2018-12-04T20:46:45+00:00"
+            "time": "2019-07-01T23:21:34+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -4522,24 +4526,24 @@
         },
         {
             "name": "ralouphie/getallheaders",
-            "version": "2.0.5",
+            "version": "3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ralouphie/getallheaders.git",
-                "reference": "5601c8a83fbba7ef674a7369456d12f1e0d0eafa"
+                "reference": "120b605dfeb996808c31b6477290a714d356e822"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ralouphie/getallheaders/zipball/5601c8a83fbba7ef674a7369456d12f1e0d0eafa",
-                "reference": "5601c8a83fbba7ef674a7369456d12f1e0d0eafa",
+                "url": "https://api.github.com/repos/ralouphie/getallheaders/zipball/120b605dfeb996808c31b6477290a714d356e822",
+                "reference": "120b605dfeb996808c31b6477290a714d356e822",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3"
+                "php": ">=5.6"
             },
             "require-dev": {
-                "phpunit/phpunit": "~3.7.0",
-                "satooshi/php-coveralls": ">=1.0"
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^5 || ^6.5"
             },
             "type": "library",
             "autoload": {
@@ -4558,7 +4562,7 @@
                 }
             ],
             "description": "A polyfill for getallheaders.",
-            "time": "2016-02-11T07:05:27+00:00"
+            "time": "2019-03-08T08:55:37+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

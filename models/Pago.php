@@ -42,38 +42,47 @@ class Pago extends \yii\db\ActiveRecord
             [['importePagado', 'entidadPago', 'imagenComprobante', 'idPersona', 'idImporte'], 'required'],
             [['importePagado', 'idPersona', 'idImporte', 'idEquipo'], 'integer'],
             [['entidadPago'], 'string', 'max' => 64],
-            [['dniUsu','chequeado'],'safe'],
-            [['imagenComprobante'], 'file','extensions' => 'jpg, jpeg, png, bmp, jpe'],
+            [['imagenComprobante'], 'file',
+                'maxSize' => 10 * 1024 * 1024, //10MB
+                'tooBig' => 'El tamaño máximo permitido es 10MB', //Error
+                'minSize' => 10, //10 Bytes
+                'tooSmall' => 'El tamaño mínimo permitido son 10 BYTES', //Error
+                'extensions' => 'jpg, jpeg, png, bmp, jpe',
+                'wrongExtension' => 'El archivo {file} no contiene una extensión permitida {extensions}', //Error
+            ],
+           // [['imagenComprobante'], 'file','extensions' => 'jpg, jpeg, png, bmp, jpe'],
             [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
             [['idImporte'], 'exist', 'skipOnError' => true, 'targetClass' => Importeinscripcion::className(), 'targetAttribute' => ['idImporte' => 'idImporte']],
             [['idEquipo'], 'exist', 'skipOnError' => true, 'targetClass' => Equipo::className(), 'targetAttribute' => ['idEquipo' => 'idEquipo']],
+           //lo verificamos como dao seguro
+           [['dniUsu','chequeado'],'safe'],
         ];
     }
 
-    // Este método se invoca después de usarse Pago::find()
-    // Aquí se pueden establecer valores para los atributos virtuales
-    public function afterFind() {
-        parent::afterFind();
-        // Buscamos chequeado en el nuevo atributo virtual
-        $this->chequeado = ($this->controlpagos);
-        $this->dniUsu="{$this->persona->usuario->dniUsuario}";
-    }
+    
     /**
      * {@inheritdoc}
      */
     public function attributeLabels()
     {
         return [
-            'idPago' => 'Id Pago',
+            'idPago' => 'Referencia pago',
             'dniUsu'=> 'DNI participante',
             'importePagado' => 'Importe Pagado',
             'entidadPago' => 'Entidad Pago',
             'chequeado'=>'Chequeado',
             'imagenComprobante' => 'Imagen Comprobante',
-            'idPersona' => 'Persona',
+            'idPersona' => 'Nombre corredor',
             'idImporte' => 'Importe',
             'idEquipo' => 'Equipo',
         ];
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPago()
+    {
+        return $this->hasOne(Pago::className(), ['idPago' => 'idPago']);
     }
 
     /**
@@ -171,5 +180,6 @@ class Pago extends \yii\db\ActiveRecord
         }
         return $estadopago;//para visualizar en la barra de la pagina
     }
+
 
 }
