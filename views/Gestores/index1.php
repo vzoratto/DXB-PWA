@@ -15,7 +15,7 @@ if($rol=='admin'){
     $this->title = 'Gestor';
 }   
 ?>
-<div class="gestores-index1">
+<div class="gestores-index1 reglamento-container">
 <h4>Permisos otorgados para el rol <?= Html::encode($this->title) ?></h4>
 
     <h3><?= Html::encode($this->title) ?></h3>

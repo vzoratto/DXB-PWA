@@ -12,7 +12,7 @@ use app\models\Usuario;
 $this->title = 'Corredor';
 
 ?>
-<div class="persona-index">
+<div class="persona-index reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
    <h3><?= Html::encode($mensaje) ?></h3>
@@ -35,13 +35,16 @@ $this->title = 'Corredor';
             //'nacionalidadPersona',
             //'telefonoPersona',
             //'mailPersona',
-            [ 'label'=>'DNI',
-                'attribute' => 'idUsuario',
+            [ 'label'=>'DNI corredor',
+                'attribute' => 'dniUsuario',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => 'Selecciona DNI...'
+                ],
                  'value' => function($model) {
                      return ($model->usuario->dniUsuario);
                  },
-                'filter' => ArrayHelper::map(Usuario::find()->asArray()->all(), 'idUsuario', 'dniUsuario'),
-                
+                 
                ],
                  //'idPersonaDireccion',
             //'idFichaMedica',

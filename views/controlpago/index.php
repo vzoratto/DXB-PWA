@@ -26,7 +26,11 @@ $this->title = 'Control pagos';
             'attribute'=>'idPago',
             'hAlign' => 'center',
             ],
-			['attribute'=>'nombre',
+            ['attribute'=>'nombre',
+            'filterInputOptions' => [
+                'class'       => 'form-control',
+                'placeholder' => 'Selecciona nombre...'
+            ],
 			  'value'=>function($model){
 				  return($model->pago->persona->nombreCompleto);
 			     }
@@ -34,6 +38,10 @@ $this->title = 'Control pagos';
 			['label' => 'DNI',
              'attribute' => 'dniUsu',
              'hAlign' => 'center',
+             'filterInputOptions' => [
+                'class'       => 'form-control',
+                'placeholder' => 'Selecciona DNI...'
+            ],
              'value' => function($model) {
                     return ($model->pago->persona->usuario->dniUsuario);
                 },

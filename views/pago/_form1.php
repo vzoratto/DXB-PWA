@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 //formulario para que el gestor de alta pagos--------------------------------
 ?>
 
-<div class="pago-form">
+<div class="pago-form reglamento-container">
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php

@@ -10,7 +10,7 @@ $this->title = 'Detalle del pago ingresado';
 
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="pago-view">
+<div class="pago-view reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

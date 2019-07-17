@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="controlpago-form">
+<div class="controlpago-form reglamento-container">
 <br>
     <?php
       if($model->chequeado !=1){
@@ -49,7 +49,7 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
     <?php if (Yii::$app->session->hasFlash('pagoCheck')): ?>
           <div class="alert alert-success" align="center">
-             Check realizado, se envió un mail al participante por la acreditación de pago :)
+             Check realizado, se envió un mail al corredor por la acreditación de pago :)
           </div>
     <?php elseif(Yii::$app->session->hasFlash('pagonoCheck')): ?>
             <div class="alert alert-success" align="center">

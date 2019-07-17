@@ -9,7 +9,7 @@ use yii\widgets\MaskedInput;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="usuario-form">
+<div class="usuario-form reglamento-container">
 
     <?php $form = ActiveForm::begin(); ?>
 

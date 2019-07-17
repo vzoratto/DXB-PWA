@@ -10,7 +10,7 @@ $this->title ='Administrativo: '. $model->nombreGestor;
 
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="gestores-view">
+<div class="gestores-view reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
