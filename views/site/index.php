@@ -49,13 +49,13 @@ $inscrito=$persona->inscrito();
             <?php if (Yii::$app->user->isGuest) {
               // code...
 
-            //echo '<a href="'.Url::to(["/site/registro"]).'" class="btn btn-white btn-rounded no-margin-lr">Regístrate</a>';
+            echo '<a href="'.Url::to(["/site/registro"]).'" class="btn btn-white btn-rounded no-margin-lr">Regístrate</a>';
 
           } else {
             if(!Persona::findOne(['idUsuario' => $_SESSION['__id']])){
               $idRol = $userLogueado->identity->idRol;
               if ($idRol == 1  || $idRol == 4 ){ // Si es gestora o administradora
-               // echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-white btn-rounded no-margin-lr">Inscribíte</a>';
+                echo '<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-white btn-rounded no-margin-lr">Inscribíte</a>';
               }
             }
           }; ?>
@@ -108,11 +108,11 @@ $inscrito=$persona->inscrito();
                       <?php if (Yii::$app->user->isGuest) {
                         // code...
 
-                      //echo '<a href="'.Url::to(["/site/registro"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Regístrate</a>';
+                      echo '<a href="'.Url::to(["/site/registro"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Regístrate</a>';
 
                     } if($inscrito==2) {
 
-                      //echo'<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Inscribíte</a>';
+                      echo'<a href="'.Url::to(["/inscripcion"]).'" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Inscribíte</a>';
 
                     }; ?>
 
