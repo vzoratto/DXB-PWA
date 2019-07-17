@@ -12,7 +12,7 @@ use app\models\Rol;
 
 $this->title = 'Usuarios';
 ?>
-<div class="usuario-index">
+<div class="usuario-index reglamento-container">
 
     <div class="row mtb-20">
 

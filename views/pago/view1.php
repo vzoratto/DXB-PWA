@@ -12,7 +12,7 @@ $this->title = 'Detalle del pago ingresado';
 
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="pago-view">
+<div class="pago-view reglamento-container">
 <div class="cover-background contenedor-full full-section" style="background-image:url('assets/img/fondo.jpg');">
     <div class="box-bd1 no-label" align="center">
       <img class="center" src="assets/img/logo-color.png" alt="logo color">

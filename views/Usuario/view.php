@@ -10,7 +10,7 @@ $this->title = 'Usuario: '.$model->idUsuario;
 
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="usuario-view">
+<div class="usuario-view reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -18,7 +18,7 @@ $this->title = 'Usuario: '.$model->idUsuario;
     <?php
           $descRol=Usuario::findIdentity($_SESSION['__id']);
            if($descRol->idRol==2){
-              echo  Html::a('Actualizar', ['update', 'id' => $model->idUsuario], ['class' => 'btn btn-primary']); 
+              echo  Html::a('Actualizar', ['update', 'id' => $model->idUsuario], ['class' => 'btn btn-success']); 
               echo  Html::a('Eliminar', ['delete', 'id' => $model->idUsuario], [
                 'class' => 'btn btn-danger',
                 'data' => [

@@ -13,7 +13,7 @@ use app\models\Rol;
 $this->title = 'Listado administrador/gestor';
 
 ?>
-<div class="gestores-index">
+<div class="gestores-index reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

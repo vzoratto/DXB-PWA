@@ -36,6 +36,10 @@ $this->title = 'Pagos recibidos';
            ],
            
            ['attribute'=>'idPersona',
+           'filterInputOptions' => [
+            'class'       => 'form-control',
+            'placeholder' => 'Selecciona nombre...'
+            ],
            'value'=>function($model){
                return ($model->persona->nombreCompleto);
 
@@ -63,6 +67,10 @@ $this->title = 'Pagos recibidos';
            [   'label' => 'DNI',
                'attribute' => 'dniUsu',
                'hAlign' => 'center',
+               'filterInputOptions' => [
+                'class'       => 'form-control',
+                'placeholder' => 'Selecciona DNI...'
+                ],
                'value' => function($model) {
                    return ($model->persona->usuario->dniUsuario);
                },

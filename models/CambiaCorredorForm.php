@@ -11,9 +11,9 @@ use yii\base\Model;
  * @property User|null $user This property is read-only.
  *
  */
-class CambiaCapitanForm extends Model
+class CambiaCorredorForm extends Model
 {
-    public $dniCapitan;
+    public $dniCorredor;
     public $dniUsuario;
     
     private $_user=false;
@@ -25,10 +25,10 @@ class CambiaCapitanForm extends Model
     {
         return [
             // username and password are both required
-			[['dniCapitan', 'dniUsuario'], 'required', 'message' => 'Campo requerido'],
-            [['dniCapitan', 'dniUsuario'],'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mi­nimo y maximo 8 caracteres'],
-            [['dniCapitan',' dniUsuario'],'match', 'pattern' => "/^[0-9]+$/", 'message' => 'Solo se aceptan numeros'],
-            ['dniCapitan','validateDnic'],
+			[['dniCorredor', 'dniUsuario'], 'required', 'message' => 'Campo requerido'],
+            [['dniCorredor', 'dniUsuario'],'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mi­nimo y maximo 8 caracteres'],
+            [['dniCorredor',' dniUsuario'],'match', 'pattern' => "/^[0-9]+$/", 'message' => 'Solo se aceptan numeros'],
+            ['dniCorredor','validateDnic'],
             ['dniUsuario','validateDni'],
           ];
     }
@@ -43,7 +43,7 @@ class CambiaCapitanForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUserc();
             if ($user==null) {
-                $this->addError($attribute, 'DNI capitan ingresado no existe.');
+                $this->addError($attribute, 'DNI corredor ingresado no existe.');
             }   
         }
     }
@@ -55,7 +55,7 @@ class CambiaCapitanForm extends Model
     public function getUserc()
     {
         if ($this->_user === false) {
-            $this->_user = Equipo::find()->where(['dniCapitan'=>$this->dniCapitan])->One();
+            $this->_user = Usuario::find()->where(['dniUsuario'=>$this->dniCorredor])->One();
         }
         return $this->_user;
     }

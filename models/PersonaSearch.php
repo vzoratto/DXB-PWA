@@ -18,7 +18,7 @@ class PersonaSearch extends Persona
     {
         return [
             [['idPersona', 'idTalleRemera', 'idUsuario', 'idPersonaDireccion', 'idFichaMedica', 'idResultado', 'donador', 'deshabilitado'], 'integer'],
-            [['nombrePersona', 'apellidoPersona', 'fechaNacPersona', 'sexoPersona', 'nacionalidadPersona', 'telefonoPersona', 'mailPersona', 'fechaInscPersona','idPersonaDireccion','tipoCarrera'], 'safe'],
+            [['nombrePersona', 'apellidoPersona', 'fechaNacPersona', 'sexoPersona', 'nacionalidadPersona', 'telefonoPersona', 'mailPersona', 'fechaInscPersona','idPersonaDireccion','tipoCarrera','dniUsuario'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class PersonaSearch extends Persona
      */
     public function search($params)
     {
-        $query = Persona::find();
+        $query = Persona::find()->joinWith('usuario');
 
         // add conditions that should always apply here
 
@@ -61,7 +61,7 @@ class PersonaSearch extends Persona
             'idPersona' => $this->idPersona,
             'idTalleRemera' => $this->idTalleRemera,
             'fechaNacPersona' => $this->fechaNacPersona,
-            'idUsuario' => $this->idUsuario,
+            //'idUsuario' => $this->idUsuario,
             'idPersonaDireccion' => $this->idPersonaDireccion,
             'idFichaMedica' => $this->idFichaMedica,
             'fechaInscPersona' => $this->fechaInscPersona,
@@ -79,7 +79,7 @@ class PersonaSearch extends Persona
             ->andFilterWhere(['like', 'personadireccion.direccionUsuario', $this->idPersonaDireccion])
             ->andFilterWhere(['like', 'personaemergencia.telefonoPersonaEmergencia', $this->idPersonaEmergencia])
             ->andFilterWhere(['like', 'telefonoPersona', $this->telefonoPersona])
-			
+            ->andFilterWhere(['like', 'dniUsuario', $this->dniUsuario])
 			->andFilterWhere(['like', 'tipoCarrera', $this->tipoCarrera]);
 
         return $dataProvider;

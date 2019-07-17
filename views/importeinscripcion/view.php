@@ -12,7 +12,7 @@ $this->title = 'Vista previa del registro';
 
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="importeinscripcion-view">
+<div class="importeinscripcion-view reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use Yii\db\Query;
+use yii\helpers\ArrayHelper;
 use app\models\Listadeespera;
 
 /**
@@ -43,6 +44,7 @@ use app\models\Listadeespera;
  */
 class Persona extends \yii\db\ActiveRecord
 {
+    public $dniUsuario;
     /**
      * {@inheritdoc}
      */
@@ -103,6 +105,7 @@ class Persona extends \yii\db\ActiveRecord
             'telefonoPersona' => 'Telefono',
             'mailPersona' => 'Mail',
             'idUsuario' => 'Id Usuario',
+            'dniUsuario'=>'DNI corredor',
             'idPersonaDireccion' => 'Direccion',
             'idFichaMedica' => 'Ficha Medica',
             'fechaInscPersona' => 'Fecha Inscripcion',
@@ -214,6 +217,10 @@ class Persona extends \yii\db\ActiveRecord
     public function getTalleRemera()
     {
         return $this->hasOne(Talleremera::className(), ['idTalleRemera' => 'idTalleRemera']);
+    }
+    public function getTalle(){
+        $dropciones=Talleremera::find()->asArray()->all();
+        return ArrayHelper::map($dropciones,'idTalleRemera','talleRemera');
     }
     
     public function getListadeespera()

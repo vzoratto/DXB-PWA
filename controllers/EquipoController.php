@@ -10,7 +10,10 @@ use app\models\Usuario;
 use app\models\Persona;
 use app\models\Grupo;
 use app\models\CambiaCapitanForm;
+use app\models\CambiaCorredorForm;
 use app\models\Permiso;
+use app\models\Estadopagoequipo;
+use app\models\Tipocarrera;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -104,8 +107,82 @@ class EquipoController extends Controller
 
     /**
      * Updates an existing Equipo model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * Valida datos del form cambia capitan.
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionValidacap()
+    {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+       $model=new CambiaCapitanForm;
+        if ($model->load(Yii::$app->request->post())){ 
+               if($equipo=Equipo::findOne(['dniCapitan'=>$model->dniCapitan])){//verifica que exista el dni capitan
+                   if($estadopago=Estadopagoequipo::findOne(['idEquipo'=>$equipo->idEquipo])){//verifica el pago del equipo
+                       //verifica capitan del equipo
+                       $usuario=Usuario::findOne(['dniUsuario'=>$equipo->dniCapitan]);
+                       $persona=Persona::findOne(['idUsuario'=>$usuario->idUsuario]);
+                       $carreraper=Carrerapersona::findOne(['idPersona'=>$persona->idPersona]);
+                       $grupo=Grupo::findOne(['idPersona'=>$persona->idPersona]);
+                       $tipocarrera=Tipocarrera::findOne(['idTipoCarrera'=>$carreraper->idTipoCarrera]);
+                      //verifica el usuario reemplazante
+                       if($usuario1=Usuario::findOne(['dniUsuario'=>$model->dniUsuario])){
+                             if($persona1=Persona::findOne(['idUsuario'=>$usuario1->idUsuario])){
+                                 if($grupo1=Grupo::findOne(['idPersona'=>$persona1->idPersona])){
+                                     $equipo1=Equipo::findOne(['idEquipo'=>$grupo1->idEquipo]);       
+                                    return $this->render('verifica',[//renderiza si  existe en un grupo
+                                             'usuario'=>$usuario,
+                                             'equipo'=>$equipo,
+                                             'persona'=>$persona,
+                                             'carreraper'=>$carreraper,
+                                             'grupo'=>$grupo,
+                                             'tipocarrera'=>$tipocarrera,
+                                             'usuario1'=>$usuario1,
+                                             'persona1'=>$persona1,
+                                             'grupo1'=>$grupo1,
+                                             'equipo1'=>$equipo1,
+                                       ]);
+                                 }else{
+                                    return $this->render('verifica',[//renderiza si no existe en un grupo
+                                        'usuario'=>$usuario,
+                                        'equipo'=>$equipo,
+                                        'persona'=>$persona,
+                                        'carreraper'=>$carreraper,
+                                        'grupo'=>$grupo,
+                                        'tipocarrera'=>$tipocarrera,
+                                        'usuario1'=>$usuario1,
+                                        'persona1'=>$persona1,
+                                        'grupo1'=>null,
+                                        'equipo1'=>null,
+                                    ]);
+                                 }
+                             }else{
+                                Yii::$app->session->setFlash('per1FormSubmitted');
+                                return $this->refresh();//no tiene inscripcion usuario
+                             }
+                       }else{
+                           Yii::$app->session->setFlash('usu1FormSubmitted');
+                           return $this->refresh();//no existe el usuario
+                       }
+                   }else{
+                       Yii::$app->session->setFlash('estadoFormSubmitted');
+                       return $this->refresh();//no pago la inscripcion
+                   }
+                }else{
+                      Yii::$app->session->setFlash('capFormSubmitted');
+                      return $this->refresh();//no existe el capitan
+                }
+        }
+        return $this->render('cambia', [//renderiza al formulario
+            'model' => $model,  
+        ]);
+    }
+    /**
+     * Updates an existing Equipo model.
+     * Cambia capitan con los datos verificados de actionValidacap.
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -116,47 +193,167 @@ class EquipoController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-       // $model = $this->findModel($id);
-       $model=new CambiaCapitanForm;
-      
-        if ($model->load(Yii::$app->request->post())){ 
-           // echo '<pre>';print_r(Yii::$app->request->post());echo '</pre>';die();
-                $equipo=Equipo::findOne(['dniCapitan'=>$model->dniCapitan]);
-                //echo '<pre>';print_r($equipo);echo '</pre>';die();
-                $usuario=Usuario::findOne(['dniUsuario'=>$equipo->dniCapitan]);
-                $usuario1=Usuario::findOne(['dniUsuario'=>$model->dniUsuario]);
-               // echo '<pre>';print_r($usuario);echo '</pre>';die();
-               
-               // echo '<pre>';print_r($usuario1);echo '</pre>';die();
-                $persona=Persona::findOne(['idUsuario'=>$usuario->idUsuario]);
-                $persona1=Persona::findOne(['idUsuario'=>$usuario1->idUsuario]);
-                $equipo->dniCapitan=$model->dniUsuario;
-              if($equipo->save()){
-                  $grupo=Grupo::findOne(['idPersona'=>$persona->idPersona]);
-                  $grupo->idPersona=$persona1->idPersona;
-                  if($grupo->save()){
-                      $carreraper=Carrerapersona::findOne(['idPersona'=>$persona->idPersona]);
-                      $carreraper->idPersona=$persona1->idPersona;
-                      if($carreraper->save()){
+        $mensaje="";
+              if($model=Yii::$app->request->get()){ 
+               $capitan = $model['1'];
+               $idPercap=$model['2'];
+               $participante = $model['3'];
+               $idPerusu=$model['4'];
                 
-                        $this->Yii::$app->session->setFlash('cambiaFormSubmitted');
-                        return $this->refresh();
-                      }
-                  }
-               }
-            //}else{
-               // $this->Yii::$app->session->setFlash('nocambiaFormSubmitted');
-               //         return $this->refresh();
-           // }
-           // return $this->redirect(['view', 'id' => $model->idEquipo]);
+                  $grupo=Grupo::findOne(['idPersona'=>$idPercap]);
+                  $grupo->idPersona=$idPerusu;
+                  $grupo->save();//salva el cambio del capitan en grupo
+                  
+                  $carreraper=Carrerapersona::findOne(['idPersona'=>$idPercap]);
+                  $carreraper->idPersona=$idPerusu;
+                  $carreraper->save();//salva el cambio del capitan en carrerapersona
+                  
+                  $equipo=Equipo::findOne(['dniCapitan'=>$capitan]);
+                  $equipo->dniCapitan=$participante;
+                  $equipo->save();
+                  $mensaje="Perfecto, se realizó el cambio de capitán";//salva cambio capitan
+                   
+              return $this->render('aviso',[
+                  'capitan'=>$capitan,
+                  'participante'=>$participante,
+                  'equipo'=>$equipo,
+                  'mensaje'=>$mensaje,
+              ]);
+                }else{
+                    $mensaje="No se pudo realizar el cambio";
+                   
+                    return $this->render('aviso',[
+                        'capitan'=>$capitan,
+                        'participante'=>$participante,
+                        'equipo'=>$equipo,
+                        'mensaje'=>$mensaje,
+                    ]);
+         }    
+    }
+/**
+     * Updates an existing Equipo model.
+     * Valida datos del form cambia corredor.
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionValidacorredor()
+    {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
         }
-    
-        return $this->render('cambia', [
-            'model' => $model,
-            
+       $model=new CambiaCorredorForm;
+        if ($model->load(Yii::$app->request->post())){
+            //verifica corredor del equipo 
+               if($usuario=Usuario::findOne(['dniUsuario'=>$model->dniCorredor])){
+               $persona=Persona::findOne(['idUsuario'=>$usuario->idUsuario]);
+               $grupo=Grupo::findOne(['idPersona'=>$persona->idPersona]);
+               $equipo=Equipo::findOne(['idEquipo'=>$grupo->idEquipo]);//verifica que exista el idEquipo
+                   if($estadopago=Estadopagoequipo::findOne(['idEquipo'=>$equipo->idEquipo])){//verifica el pago del equipo 
+                       $carreraper=Carrerapersona::findOne(['idPersona'=>$persona->idPersona]); 
+                       $tipocarrera=Tipocarrera::findOne(['idTipoCarrera'=>$carreraper->idTipoCarrera]);
+                      //verifica el usuario reemplazante
+                       if($usuario1=Usuario::findOne(['dniUsuario'=>$model->dniUsuario])){
+                             if($persona1=Persona::findOne(['idUsuario'=>$usuario1->idUsuario])){
+                                 if($grupo1=Grupo::findOne(['idPersona'=>$persona1->idPersona])){
+                                     $equipo1=Equipo::findOne(['idEquipo'=>$grupo1->idEquipo]);       
+                                    return $this->render('verificacorredor',[//renderiza si  existe en un grupo
+                                             'usuario'=>$usuario,
+                                             'equipo'=>$equipo,
+                                             'persona'=>$persona,
+                                             'carreraper'=>$carreraper,
+                                             'grupo'=>$grupo,
+                                             'tipocarrera'=>$tipocarrera,
+                                             'usuario1'=>$usuario1,
+                                             'persona1'=>$persona1,
+                                             'grupo1'=>$grupo1,
+                                             'equipo1'=>$equipo1,
+                                       ]);
+                                 }else{
+                                    return $this->render('verificacorredor',[//renderiza si no existe en un grupo
+                                        'usuario'=>$usuario,
+                                        'equipo'=>$equipo,
+                                        'persona'=>$persona,
+                                        'carreraper'=>$carreraper,
+                                        'grupo'=>$grupo,
+                                        'tipocarrera'=>$tipocarrera,
+                                        'usuario1'=>$usuario1,
+                                        'persona1'=>$persona1,
+                                        'grupo1'=>null,
+                                        'equipo1'=>null,
+                                    ]);
+                                 }
+                             }else{
+                                Yii::$app->session->setFlash('per1FormSubmitted');
+                                return $this->refresh();//no tiene inscripcion usuario
+                             }
+                       }else{
+                           Yii::$app->session->setFlash('usu1FormSubmitted');
+                           return $this->refresh();//no existe el usuario
+                       }
+                   }else{
+                       Yii::$app->session->setFlash('estadoFormSubmitted');
+                       return $this->refresh();//no pago la inscripcion
+                   }
+                }else{
+                      Yii::$app->session->setFlash('corredorFormSubmitted');
+                      return $this->refresh();//no existe el corredor 
+                }
+        }
+        return $this->render('cambiacorredor', [//renderiza al formulario
+            'model' => $model,  
         ]);
     }
-
+    /**
+     * Updates an existing Equipo model.
+     * Cambia corredor con los datos verificados de actionValidacorredor.
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionCambiacorredor()
+    {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+        $mensaje="";
+              if($model=Yii::$app->request->get()){ 
+               $corredor = $model['1'];//dniUsuario corredor
+               $idPercorredor=$model['2'];//idPersona corredor
+               $participante = $model['3'];//dniUsuario participante reemplazo
+               $idPerusu=$model['4'];//idPersona participante reemplazo
+                
+                  $grupo=Grupo::findOne(['idPersona'=>$idPercorredor]);
+                  $grupo->idPersona=$idPerusu;
+                  $grupo->save();//salva el cambio del capitan en grupo
+                  
+                  $carreraper=Carrerapersona::findOne(['idPersona'=>$idPercorredor]);
+                  $carreraper->idPersona=$idPerusu;
+                  $carreraper->save();//salva el cambio del capitan en carrerapersona
+                  
+                  $equipo=Equipo::findOne(['idEquipo'=>$grupo->idEquipo]);
+                  
+                  $mensaje="Perfecto, se realizó el cambio del corredor";//salva cambio capitan
+                   
+                   return $this->render('avisocorredor',[//renderiza aviso del cambio
+                      'corredor'=>$corredor,
+                      'participante'=>$participante,
+                      'equipo'=>$equipo,
+                      'mensaje'=>$mensaje,
+                     ]);
+                }else{
+                    $mensaje="No se pudo realizar el cambio";
+                   
+                    return $this->render('avisocorredor',[
+                        'corredor'=>$corredor,
+                        'participante'=>$participante,
+                        'equipo'=>$equipo,
+                        'mensaje'=>$mensaje,
+                    ]);
+                }//fin control get    
+    }
     /**
      * Deletes an existing Equipo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
