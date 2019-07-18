@@ -25,6 +25,7 @@ class Pago extends \yii\db\ActiveRecord
 {
     public $dniUsu;
     public $chequeado;
+    public $nombre;
     /**
      * {@inheritdoc}
      */
@@ -73,6 +74,7 @@ class Pago extends \yii\db\ActiveRecord
             'chequeado'=>'Chequeado',
             'imagenComprobante' => 'Imagen Comprobante',
             'idPersona' => 'Nombre corredor',
+            'nombre'=>'Nombre corredor',
             'idImporte' => 'Importe',
             'idEquipo' => 'Equipo',
         ];

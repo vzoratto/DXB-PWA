@@ -28,29 +28,42 @@ $this->title = 'Pagos recibidos';
                 return $model->idPago;
             }
            ],
-           ['attribute'=>'importePagado',
-           'hAlign' => 'center',
-           ],
-           ['attribute'=>'entidadPago',
-           'hAlign' => 'center',
-           ],
-           
-           ['attribute'=>'idPersona',
-           'filterInputOptions' => [
-            'class'       => 'form-control',
-            'placeholder' => 'Selecciona nombre...'
-            ],
-           'value'=>function($model){
-               return ($model->persona->nombreCompleto);
-
-               }
-           ],
            ['label'=>'Equipo',
             'attribute'=>'idEquipo',
             'hAlign' => 'center',
+            'filterInputOptions' => [
+                'class'       => 'form-control',
+                'placeholder' => 'Elije equipo...'
+                ],
             'value'=>function($model){
                return ($model->equipo->nombreEquipo);
              }
+           ],  
+           ['attribute'=>'nombre',
+           'filterInputOptions' => [
+            'class'       => 'form-control',
+            'placeholder' => 'Elije nombre...'
+            ],
+           'value'=>function($model){
+               return ($model->persona->nombreCompleto);
+               }
+           ],
+           [   'label' => 'DNI',
+           'attribute' => 'dniUsu',
+           'hAlign' => 'center',
+           'filterInputOptions' => [
+            'class'       => 'form-control',
+            'placeholder' => 'Elije DNI...'
+            ],
+           'value' => function($model) {
+               return ($model->persona->usuario->dniUsuario);
+              },
+          ],
+          ['attribute'=>'entidadPago',
+           'hAlign' => 'center',
+           ],
+          ['attribute'=>'importePagado',
+           'hAlign' => 'center',
            ],
            ['attribute'=>'chequeado',
             'hAlign' => 'center',
@@ -62,19 +75,6 @@ $this->title = 'Pagos recibidos';
             return $print;
             },
               'filter'=>array("0"=>"no","1"=>"si"),
-           ],
-          
-           [   'label' => 'DNI',
-               'attribute' => 'dniUsu',
-               'hAlign' => 'center',
-               'filterInputOptions' => [
-                'class'       => 'form-control',
-                'placeholder' => 'Selecciona DNI...'
-                ],
-               'value' => function($model) {
-                   return ($model->persona->usuario->dniUsuario);
-               },
-               
            ],
            ['label'=>'Imagen ticket',
             'attribute'=>'imagenComrobante',

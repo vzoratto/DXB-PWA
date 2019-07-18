@@ -19,7 +19,7 @@ class PagoSearch extends Pago
     {
         return [
             [['idPago', 'importePagado', 'idPersona', 'idImporte', 'idEquipo'], 'integer'],
-            [['entidadPago', 'imagenComprobante','dniUsu','chequeado'], 'safe'],
+            [['entidadPago', 'imagenComprobante','dniUsu','chequeado','nombre'], 'safe'],
         ];
     }
 
@@ -70,7 +70,7 @@ class PagoSearch extends Pago
 
         $query->andFilterWhere(['like', 'entidadPago', $this->entidadPago])
             ->andFilterWhere(['like', 'imagenComprobante', $this->imagenComprobante])
-           // ->andFilterWhere(['like','controlpago.chequeado', $this->chequeado])
+            ->andFilterWhere(['like','CONCAT(apellidoPersona, " ", nombrePersona)', $this->nombre])
             ->andFilterWhere(['like', 'usuario.dniUsuario', $this->dniUsu]);
           
 
