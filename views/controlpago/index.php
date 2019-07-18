@@ -26,6 +26,17 @@ $this->title = 'Control pagos';
             'attribute'=>'idPago',
             'hAlign' => 'center',
             ],
+            ['label'=>'Equipo',
+             'attribute'=>'equipo',
+             'filterInputOptions' => [
+                'class'       => 'form-control',
+                'placeholder' => 'Selecciona equipo...'
+            ],
+             'hAlign'=>'center',
+             'value'=>function($model){
+                  return ($model->pago->equipo->nombreEquipo);
+                 }
+            ],
             ['attribute'=>'nombre',
             'filterInputOptions' => [
                 'class'       => 'form-control',
@@ -46,13 +57,6 @@ $this->title = 'Control pagos';
                     return ($model->pago->persona->usuario->dniUsuario);
                 },
 				
-            ],
-            ['label'=>'Equipo',
-             'attribute'=>'equipo',
-             'hAlign'=>'center',
-             'value'=>function($model){
-                  return ($model->pago->equipo->nombreEquipo);
-                 }
             ],
             ['label'=>'Tipo Carrera',
              'attribute'=>'tipocarrera',

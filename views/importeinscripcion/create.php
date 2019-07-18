@@ -9,7 +9,7 @@ $this->title = 'Crear importe inscripción';
 
 ?>
 <div class="importeinscripcion-create">
-<h3><?= 'Ingreso de nuevos valores para los distintos tipos de carrera' ?></h3>
+<h3><?= 'Ingreso de nuevos importes para los distintos tipos de carrera' ?></h3>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
