@@ -15,7 +15,7 @@ use app\models\Persona;
 /**
  * Carrerapersonasearch represents the model behind the search form of `app\models\Carrerapersona`.
  */
-class Carrerapersonasearch extends Carrerapersona {
+class CarreraPersonaSearch extends Carrerapersona {
 
     /**
      * {@inheritdoc}
@@ -94,8 +94,8 @@ class Carrerapersonasearch extends Carrerapersona {
         $query->andFilterWhere(['like', 'nombrePersona', $this->nombrePersona]);
         $query->andFilterWhere(['like', 'sexoPersona', $this->sexoPersona]);
         $query->andFilterWhere(['like', 'usuario.dniUsuario', $this->dniUsuario]);
-        $query->andFilterWhere(['like', 'talleRemera.talleRemera', $this->talleRemera]);
-        $query->andFilterWhere(['like', 'tipoCarrera.idTipoCarrera', $this->categoria]);
+        $query->andFilterWhere(['like', 'talleremera.talleRemera', $this->talleRemera]);
+        $query->andFilterWhere(['like', 'tipocarrera.idTipoCarrera', $this->categoria]);
         $query->andFilterWhere(['like', 'equipo.nombreEquipo', $this->nombreEquipo]);
         $query->andFilterWhere(['like', 'equipo.dniCapitan', $this->dniCapitan]);
         $query->andFilterWhere(['like', 'CONCAT(apellidoPersona, " ", nombrePersona)', $this->nombre_completo]);
