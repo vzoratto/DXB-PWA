@@ -143,6 +143,11 @@ class PagoController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect(["site/login"]); 
         }
+        if($usuario=Usuario::findOne(['idUsuario'=>$_SESSION['__id']])){
+            if(!Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario])){
+                    return $this->goHome();
+                } 
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
@@ -240,6 +245,9 @@ class PagoController extends Controller
      */
     public function actionCreate1()
     {
+        if(Persona::findOne(['idUsuario'=>$_SESSION['__id']])){
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
                 $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
