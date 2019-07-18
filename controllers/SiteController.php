@@ -375,4 +375,9 @@ public function actionEnviomail(){
         
             return $this->render('reglamento');
     }
+
+    public function actionInfo(){
+            echo phpinfo();
+
+    }
 }
