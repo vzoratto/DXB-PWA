@@ -76,7 +76,7 @@ class ListadeesperaSearch extends Listadeespera
         ]);
         $query->andFilterWhere(['like', 'CONCAT(apellidoPersona, " ", nombrePersona)', $this->nombre_completo]);
         $query->andFilterWhere(['like', 'equipo.nombreEquipo', $this->nombreEquipo]);
-        $query->andFilterWhere(['like', 'tipoCarrera.idTipoCarrera', $this->categoria]);
+        $query->andFilterWhere(['like', 'tipocarrera.idTipoCarrera', $this->categoria]);
         $query->andFilterWhere(['like', 'equipo.dniCapitan', $this->dniCapitan]);
         $query->andFilterWhere(['like', 'usuario.dniUsuario', $this->dniUsuario]);
 
