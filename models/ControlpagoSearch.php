@@ -66,7 +66,7 @@ class ControlpagoSearch extends Controlpago
             'chequeado' => $this->chequeado,
             'idGestor' => $this->idGestor,
         ]);
-        $query->andFilterWhere(['like', 'persona.nombreCompleto', $this->nombre]) 
+        $query->andFilterWhere(['like', 'CONCAT(persona.nombrePersona," ",persona.apellidoPersona)', $this->nombre]) 
 		      ->andFilterWhere(['like', 'imagenComprobante', $this->imagenComprobante])
               ->andFilterWhere(['like', 'usuario.dniUsuario', $this->dniUsu])
               ->andFilterWhere(['like', 'equipo.nombreEquipo', $this->equipo])

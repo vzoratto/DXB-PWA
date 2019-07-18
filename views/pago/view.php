@@ -40,19 +40,19 @@ $this->title = 'Detalle del pago ingresado';
             ['label'=>'Referencia pago',
             'attribute'=>'idPago',
             ],
-            'importePagado',
-            'entidadPago',
-            ['attribute'=>'idPersona',
-            'value'=>function($model){
-                return ($model->persona->nombreCompleto);
-                },
-            ],
             ['label'=>'Nombre de Equipo',
             'attribute'=>'idEquipo',
             'value'=>function($model){
                 return($model->equipo->nombreEquipo);
                },
            ],
+            ['attribute'=>'idPersona',
+            'value'=>function($model){
+                return ($model->persona->nombreCompleto);
+                },
+            ],
+           'importePagado',
+            'entidadPago',
            ['label'=>'Costo inscripcion',
             'attribute'=>'idImporte',
             'value'=>function($model){
@@ -60,7 +60,7 @@ $this->title = 'Detalle del pago ingresado';
                 },
             ],
         'imagenComprobante:image',
-    ],
+       ],
     ]) ?>
 
 </div>
