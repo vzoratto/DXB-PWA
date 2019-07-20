@@ -143,8 +143,8 @@ class EncuestaController extends Controller
                         array_push($respCorre, $opcion['respTriviaValor']);
                     }
                 }
-                echo '<br><br><br><pre>respondio';print_r($respUsu);echo '</pre>';
-                echo '<pre>respuesta correcta';print_r($respCorre);echo '</pre>';
+                // echo '<br><br><br><pre>respondio';print_r($respUsu);echo '</pre>';
+                // echo '<pre>respuesta correcta';print_r($respCorre);echo '</pre>';
 
                 if($respUsu==$respCorre){
                     $array=array($clave=>1);
@@ -159,20 +159,6 @@ class EncuestaController extends Controller
         return $r;
     }
 
-
-    /**
-     * Recibe las respuestas de una pregunta de trivia y devuelve verdadero si la/las respuestas son correctas
-     * de lo contrario devuelve falso.
-     * @param mixed $respuesta
-     * @return boolean
-     */
-    private function respuestaCorrecta($respuesta){
-        $respCorrecta=RespuestaTriviaSearch::find()->where()->asArray()->all();
-
-        if (is_array($respuesta)){
-            
-        }
-    }
 
     /**
      * Devuelve el elemento Encuesta que este activo para ser publicado

@@ -237,4 +237,14 @@ class RespuestaTriviaController extends Controller
         }
         return $esta;
     }
+
+    /**
+     * Dado el id de una pregunta, retorna las respuestas correctas de la misma
+     * @param int $idPregunta
+     * @return array
+     */
+    public static function getRespCorrectas($idPregunta){
+        $resp=RespuestaTriviaSearch::find()->where(['idPregunta'=>$idPregunta])->asArray()->all();
+        return $resp;
+    }
 }
