@@ -5,7 +5,8 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Controlpago;
-
+use app\models\Pago;
+use app\models\Persona;
 /**
  * ControlpagoSearch represents the model behind the search form of `app\models\Controlpago`.
  */
@@ -18,7 +19,7 @@ class ControlpagoSearch extends Controlpago
     {
         return [
             [['idControlpago', 'idPago', 'chequeado', 'idGestor'], 'integer'],
-            [['fechaPago', 'fechachequeado'], 'safe'],
+            [['fechaPago', 'fechachequeado','imagenComprobante','dniUsu','nombre','equipo','tipocarrera'], 'safe'],
         ];
     }
 
@@ -40,8 +41,8 @@ class ControlpagoSearch extends Controlpago
      */
     public function search($params)
     {
-        $query = Controlpago::find();
-
+        $query = Controlpago::find()->joinWith('pago.persona.usuario')
+                                    ->joinWith('pago.equipo.tipoCarrera');
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -65,6 +66,11 @@ class ControlpagoSearch extends Controlpago
             'chequeado' => $this->chequeado,
             'idGestor' => $this->idGestor,
         ]);
+        $query->andFilterWhere(['like', 'CONCAT(persona.nombrePersona," ",persona.apellidoPersona)', $this->nombre]) 
+		      ->andFilterWhere(['like', 'imagenComprobante', $this->imagenComprobante])
+              ->andFilterWhere(['like', 'usuario.dniUsuario', $this->dniUsu])
+              ->andFilterWhere(['like', 'equipo.nombreEquipo', $this->equipo])
+              ->andFilterWhere(['like', 'tipocarrera.descripcionCarrera', $this->tipocarrera]);
 
         return $dataProvider;
     }

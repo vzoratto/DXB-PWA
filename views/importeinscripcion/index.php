@@ -12,7 +12,7 @@ use app\models\Tipocarrera;
 $this->title = 'Importe de la inscripción';
 
 ?>
-<div class="importeinscripcion-index">
+<div class="importeinscripcion-index reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

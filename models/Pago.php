@@ -25,6 +25,7 @@ class Pago extends \yii\db\ActiveRecord
 {
     public $dniUsu;
     public $chequeado;
+    public $nombre;
     /**
      * {@inheritdoc}
      */
@@ -42,38 +43,48 @@ class Pago extends \yii\db\ActiveRecord
             [['importePagado', 'entidadPago', 'imagenComprobante', 'idPersona', 'idImporte'], 'required'],
             [['importePagado', 'idPersona', 'idImporte', 'idEquipo'], 'integer'],
             [['entidadPago'], 'string', 'max' => 64],
-            [['dniUsu','chequeado'],'safe'],
-            [['imagenComprobante'], 'file','extensions' => 'jpg, jpeg, png, bmp, jpe'],
+            [['imagenComprobante'], 'file',
+                'maxSize' => 10 * 1024 * 1024, //10MB
+                'tooBig' => 'El tamaño máximo permitido es 10MB', //Error
+                'minSize' => 10, //10 Bytes
+                'tooSmall' => 'El tamaño mínimo permitido son 10 BYTES', //Error
+                'extensions' => 'jpg, jpeg, png, bmp, jpe',
+                'wrongExtension' => 'El archivo {file} no contiene una extensión permitida {extensions}', //Error
+            ],
+           // [['imagenComprobante'], 'file','extensions' => 'jpg, jpeg, png, bmp, jpe'],
             [['idPersona'], 'exist', 'skipOnError' => true, 'targetClass' => Persona::className(), 'targetAttribute' => ['idPersona' => 'idPersona']],
             [['idImporte'], 'exist', 'skipOnError' => true, 'targetClass' => Importeinscripcion::className(), 'targetAttribute' => ['idImporte' => 'idImporte']],
             [['idEquipo'], 'exist', 'skipOnError' => true, 'targetClass' => Equipo::className(), 'targetAttribute' => ['idEquipo' => 'idEquipo']],
+           //lo verificamos como dao seguro
+           [['dniUsu','chequeado'],'safe'],
         ];
     }
 
-    // Este método se invoca después de usarse Pago::find()
-    // Aquí se pueden establecer valores para los atributos virtuales
-    public function afterFind() {
-        parent::afterFind();
-        // Buscamos chequeado en el nuevo atributo virtual
-        $this->chequeado = ($this->controlpagos);
-        $this->dniUsu="{$this->persona->usuario->dniUsuario}";
-    }
+    
     /**
      * {@inheritdoc}
      */
     public function attributeLabels()
     {
         return [
-            'idPago' => 'Id Pago',
+            'idPago' => 'Referencia pago',
             'dniUsu'=> 'DNI participante',
             'importePagado' => 'Importe Pagado',
             'entidadPago' => 'Entidad Pago',
             'chequeado'=>'Chequeado',
             'imagenComprobante' => 'Imagen Comprobante',
-            'idPersona' => 'Persona',
+            'idPersona' => 'Nombre corredor',
+            'nombre'=>'Nombre corredor',
             'idImporte' => 'Importe',
             'idEquipo' => 'Equipo',
         ];
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPago()
+    {
+        return $this->hasOne(Pago::className(), ['idPago' => 'idPago']);
     }
 
     /**
@@ -139,21 +150,63 @@ class Pago extends \yii\db\ActiveRecord
          return $query['suma'];
     }
     /**
-     * Busca los equipo por condicion del estado pago
+     * Busca los equipo por condicion del estado pago todos los corredores
+     * @return \yii\db\ActiveQuery
+     */
+    public function buscaequipo1(){
+        $suma='';
+        $estadopago=0;//0 para los equipos que no pagaron
+        if(!Yii::$app->user->isGuest){
+            $persona=Persona::findOne(['idUsuario'=>$_SESSION['__id']]);
+            if($persona != null ){
+                $grupo=Grupo::findOne(['idPersona'=>$persona->idPersona]);
+                if($grupo!=null){
+                    $suma=Pago::sumaTotalequipo($grupo->idEquipo);
+                    if($suma==''){
+                         $suma=0;
+                    }
+                    $equipo=Equipo::findOne(['idEquipo'=>$grupo->idEquipo]);
+                    $importe=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+                    $estadoequipo=Estadopagoequipo::findOne(['idEquipo'=>$grupo->idEquipo]);
+                    if($estadoequipo!=NULL ){
+                        if($estadoequipo->idEstadoPago==2){//se consulta el estado pago parcial
+                            if($importe->importe > $suma){
+                                $estadopago=2; //2 para los equipos con pago 
+                            }elseif($importe->importe == $suma){
+                                $estadopago=3; //si tiene todo pagado pero falta chequear el
+                            }                  //ultimo pago parcial
+                        }else{
+                            $estadopago=3;//3 para los equipos pago total o cancelo
+                        }
+                    }else{
+                        if($importe->importe == $suma){//cuando pago todo sin check
+                            $estadopago=3;
+                        }
+                    }
+                }//si no pertenece a un grupo lista de espera??
+            }else{
+                $estadopago=3;//3 para el usuario sin inscripcion
+            }
+        }
+        return $estadopago;//para visualizar o no en la barra de la pagina
+    }
+/**
+     * Busca los equipo por condicion del estado pago solo dniCapitan
      * @return \yii\db\ActiveQuery
      */
     public function buscaequipo(){
+        //estadopago=3 no se ve el link
         $estadopago=0;//0 para los equipos que no pagaron
         if(!Yii::$app->user->isGuest){
             if($persona=Persona::findOne(['idUsuario'=>$_SESSION['__id']])){
-                $grupo=Grupo::findOne(['idPersona'=>$persona->idPersona]);
-                if($grupo!=null){
-                    $estadoequipo=Estadopagoequipo::findOne(['idEquipo'=>$grupo->idEquipo]);
+                $usuario=Usuario::findOne(['idUsuario'=>$persona->idUsuario]);
+                $equipo=Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario]);//par que el pago lo realice el capitan
+                if($equipo!=null){
+                    $suma=Pago::sumaTotalequipo($equipo->idEquipo);
+                    $importe=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+                    $estadoequipo=Estadopagoequipo::findOne(['idEquipo'=>$equipo->idEquipo]);
                     if($estadoequipo!=null ){
                         if($estadoequipo->idEstadoPago==2){//se consulta el estado pago parcial
-                            $suma=Pago::sumaTotalequipo($grupo->idEquipo);
-                            $pago=Pago::findOne(['idEquipo'=>$grupo->idEquipo]);
-                            $importe=Importeinscripcion::findOne(['idImporte'=>$pago->idImporte]);
                             if($importe->importe > $suma){
                                 $estadopago=2; //2 para los equipos con pago parcial
                             }elseif($importe->importe == $suma){
@@ -162,14 +215,19 @@ class Pago extends \yii\db\ActiveRecord
                         }else{
                             $estadopago=3;//3 para los equipos pago total o cancelo
                         }
+                    }else{
+                        if($importe->importe == $suma){//cuando pago todo sin check
+                            $estadopago=3;
+                        }
                     }
+                }else{
+                    $estadopago=3;//para el corredor que no es capitan
                 }
             }else{
                 $estadopago=3;//3 para el usuario sin inscripcion
-
             }
         }
-        return $estadopago;//para visualizar en la barra de la pagina
+        return $estadopago;//para visualizar o no en la barra de la pagina
     }
 
 }

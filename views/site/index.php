@@ -77,7 +77,7 @@ $inscrito=$persona->inscrito();
 
                   <h2 class="mb-15 color-black">"Tu residuo, tu responsabilidad"</h2>
 
-                  <p class="text-justify"> L@s ganador@s no serán quienes lleguen a la meta más rápido, esta carrera implica un dasafío mayor, trabajo en equipo vinculado a destreza física, orientación y conciencia del medio en el cual se practica la actividad.</p>
+                  <p class="text-justify"> L@s ganador@s no serán quienes lleguen a la meta más rápido, esta carrera implica un desafío mayor, trabajo en equipo vinculado a destreza física, orientación y conciencia del medio en el cual se practica la actividad.</p>
 
               </div>
 

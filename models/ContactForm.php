@@ -21,9 +21,9 @@ class ContactForm extends Model
     {
         return [
             //  email, subject and body are required
-            [['email', 'subject', 'body'], 'required'],
+            [['email', 'subject', 'body'], 'required','message'=>'Campos requeridos'],
             // email has to be a valid email address
-            ['email', 'email'],
+            ['email', 'email', 'message' => 'Formato no válido'],
             
         ];
     }

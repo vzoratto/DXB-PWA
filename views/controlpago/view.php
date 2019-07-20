@@ -10,10 +10,9 @@ $this->title = 'Chequear pago realizado';
 
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="controlpago-view">
+<div class="controlpago-view reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
     
     <p>
     <?php 

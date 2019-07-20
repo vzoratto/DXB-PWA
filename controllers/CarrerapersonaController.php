@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Carrerapersona;
-use app\models\Carrerapersonasearch;
+use app\models\CarreraPersonaSearch;
 use app\models\Persona;
 use app\models\Permiso;
 use yii\web\Controller;
@@ -42,7 +42,7 @@ class CarrerapersonaController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-        $searchModel = new Carrerapersonasearch();
+        $searchModel = new CarreraPersonaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $persona = new \app\models\Persona();
 		
@@ -56,7 +56,7 @@ class CarrerapersonaController extends Controller
 	public function actionKit()
     {
         $this->layout='/main3';
-        $searchModel = new Carrerapersonasearch();
+        $searchModel = new CarreraPersonaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $persona = new \app\models\Persona();
 		
@@ -186,8 +186,6 @@ class CarrerapersonaController extends Controller
     {
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
-        }elseif(Permiso::requerirRol('gestor')){
-            $this->layout='/main3';
         }
         $this->findModel($idTipoCarrera, $idPersona)->delete();
 

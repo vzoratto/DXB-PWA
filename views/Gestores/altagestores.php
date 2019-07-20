@@ -17,7 +17,7 @@ if($rol=='admin'){
     $this->title = 'Crear permisos gestor';
 }
 ?>
-<div class="gestores-altagestores">
+<div class="gestores-altagestores reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -8,13 +8,11 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="controlpago-form">
+<div class="controlpago-form reglamento-container">
 <br>
     <?php
       if($model->chequeado !=1){
         echo '<h3>'.Html::encode($gestor->nombreGestor).' cuyo DNI '.Html::encode($usuario->dniUsuario).' chequeará este pago.</h3>'; 
-      }else{
-        echo '<h3>Chequear solo si hubo un error</h3>';
       }
      ?>
      <br>
@@ -23,7 +21,12 @@ use yii\widgets\ActiveForm;
 
     <!--<?= $form->field($model, 'idPago')->textInput() ?>-->
 
-    <?= $form->field($model, 'fechaPago')->textInput(['placeholder'=>'Formato aaaa-mm-dd']) ?>
+    <?php
+      if (!$model->isNewRecord)
+         echo $form->field($model, 'fechaPago')->textInput(['readonly'=> true]);
+      else
+		 echo $form->field($model, 'fechaPago')->textInput(['placeholder'=>'Formato aaaa-mm-dd']); 
+	  ?>
 
     <!--<?= $form->field($model, 'fechachequeado')->textInput() ?>-->
     <?php
@@ -37,14 +40,16 @@ use yii\widgets\ActiveForm;
     <?php
       if ($model->isNewRecord) 
              echo Html::submitButton('Ingresar', ['class' => 'btn btn-success']);
-      else	 
-		     echo Html::submitButton('Chequear', ['class' => 'btn btn-success']);
+      else	
+             if($model->chequeado !=1){		  
+		         echo Html::submitButton('Chequear', ['class' => 'btn btn-success']);
+			       }  
 	  ?>
     </div>
     <?php ActiveForm::end(); ?>
     <?php if (Yii::$app->session->hasFlash('pagoCheck')): ?>
           <div class="alert alert-success" align="center">
-             Check realizado, se envió un mail al participante por la acreditación de pago :)
+             Check realizado, se envió un mail al corredor por la acreditación de pago :)
           </div>
     <?php elseif(Yii::$app->session->hasFlash('pagonoCheck')): ?>
             <div class="alert alert-success" align="center">

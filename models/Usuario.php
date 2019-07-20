@@ -114,6 +114,12 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
 		     ->where(["dniUsuario" => $dni])->one();
 		    
     }
+    public function getCorredor($dni)
+    {
+        return self::find()
+		     ->where(["dniUsuario" => $dni])->one();
+		    
+    }
 
     public function getElusuario($d,$c){
         return self::find()

@@ -74,6 +74,11 @@ AppAsset::register($this);
                 ['label' => 'Importe inscripcion', 'url' => ['/importeinscripcion/index']],
                 ],
               ],
+              ['label' => 'Reemplazos','items' => [
+                ['label' => 'Cambia capitán', 'url' => ['/equipo/validacap']],
+                ['label' => 'Cambia corredor', 'url' => ['/equipo/validacorredor']],
+                ],
+              ],
             Yii::$app->user->isGuest ? (
                 ''
             ) : (
