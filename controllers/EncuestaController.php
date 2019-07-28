@@ -52,12 +52,12 @@ class EncuestaController extends Controller
                 foreach($respuestas as $clave=>$valor){
 
                     if(is_numeric($clave)){//solo toma las valores de clave numerico que son los items que tienen datos de respuesta en el array. Esta $clave es el id de la pregunta
-                        // $tieneRespuesta=RespuestaSearch::find()->where(['idPregunta'=>$clave,'idPersona'=>$idPersona])->asArray()->all();
-                        // if($tieneRespuesta!=null && $tieneRespuesta!=[]){
-                        //     $mensaje="ya habías contestado esta trivia anteriormente. Muchas gracias.";
-                        //     $mensaje.="<meta http-equiv='refresh' content='5; ".Url::toRoute("site/index")."'>";
-                        //     return $this->render('triviacompleta',['mensaje'=>$mensaje]);
-                        // }
+                            $tieneRespuesta=RespuestaSearch::find()->where(['idPregunta'=>$clave,'idPersona'=>$idPersona])->asArray()->all();
+                            if($tieneRespuesta!=null && $tieneRespuesta!=[]){
+                                $mensaje="ya habías contestado esta trivia anteriormente. Muchas gracias.";
+                                $mensaje.="<meta http-equiv='refresh' content='5; ".Url::toRoute("site/index")."'>";
+                                return $this->render('triviacompleta',['mensaje'=>$mensaje]);
+                            }
                         if(is_array($valor)){
                             foreach($valor as $unValor){//Si la repuesta es multiple, recorre el array de esa respuesta para guardar cada uno de los valores
                                 if(is_numeric($unValor)){//Si $unValor no es un string, entonces es el id de la opcion de respuesta

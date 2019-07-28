@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Respuestatipo;
-use app\models\RespuestatipoSearch;
+use app\models\RespuestaTipo;
+use app\models\RespuestaTipoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -13,9 +13,9 @@ use yii\filters\AccessControl;
 use app\models\Permiso;
 
 /**
- * RespuestatipoController implements the CRUD actions for Respuestatipo model.
+ * RespuestaTipoController implements the CRUD actions for RespuestaTipo model.
  */
-class RespuestatipoController extends Controller
+class RespuestaTipoController extends Controller
 {
 
     public static function listarTipos($encTipo=null) {
@@ -70,12 +70,12 @@ class RespuestatipoController extends Controller
     }
 
     /**
-     * Lists all Respuestatipo models.
+     * Lists all RespuestaTipo models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new RespuestatipoSearch();
+        $searchModel = new RespuestaTipoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -85,7 +85,7 @@ class RespuestatipoController extends Controller
     }
 
     /**
-     * Displays a single Respuestatipo model.
+     * Displays a single RespuestaTipo model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -98,13 +98,13 @@ class RespuestatipoController extends Controller
     }
 
     /**
-     * Creates a new Respuestatipo model.
+     * Creates a new RespuestaTipo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Respuestatipo();
+        $model = new RespuestaTipo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idRespTipo]);
@@ -116,7 +116,7 @@ class RespuestatipoController extends Controller
     }
 
     /**
-     * Updates an existing Respuestatipo model.
+     * Updates an existing RespuestaTipo model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -136,7 +136,7 @@ class RespuestatipoController extends Controller
     }
 
     /**
-     * Deletes an existing Respuestatipo model.
+     * Deletes an existing RespuestaTipo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -150,15 +150,15 @@ class RespuestatipoController extends Controller
     }
 
     /**
-     * Finds the Respuestatipo model based on its primary key value.
+     * Finds the RespuestaTipo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Respuestatipo the loaded model
+     * @return RespuestaTipo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Respuestatipo::findOne($id)) !== null) {
+        if (($model = RespuestaTipo::findOne($id)) !== null) {
             return $model;
         }
 
