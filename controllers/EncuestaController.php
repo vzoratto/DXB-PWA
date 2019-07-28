@@ -53,6 +53,7 @@ class EncuestaController extends Controller
 
                     if(is_numeric($clave)){//solo toma las valores de clave numerico que son los items que tienen datos de respuesta en el array. Esta $clave es el id de la pregunta
                             $tieneRespuesta=RespuestaSearch::find()->where(['idPregunta'=>$clave,'idPersona'=>$idPersona])->asArray()->all();
+                            //echo '<pre>';print_r($tieneRespuesta);echo'</pre>';
                             if($tieneRespuesta!=null && $tieneRespuesta!=[]){
                                 $mensaje="ya habías contestado esta trivia anteriormente. Muchas gracias.";
                                 $mensaje.="<meta http-equiv='refresh' content='5; ".Url::toRoute("site/index")."'>";
