@@ -1,6 +1,7 @@
 <?php
 // Renderiza la vista de las opciones de checkbox de las encuestas
 
+
 use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
@@ -28,4 +29,9 @@ use yii\helpers\ArrayHelper;
 <!-- Se da forma al array de datos de opciones -->
 <?php $r=ArrayHelper::map($resp, 'idRespuestaOpcion', 'opRespvalor') ?>
 
-<?= $form->field($respuesta, 'respValor')->checkboxList($r,['separator' => '<br>', 'name'=>$valor['idPregunta']])->label(false); ?>
+
+<?php if(isset($esTrivia)): ?>
+<?= $form->field($respuesta, 'respValor')->checkboxList($r,['name'=>$valor['idPregunta']])->label(false); ?>
+<?php else: ?>
+<?= $form->field($respuesta, 'respValor')->checkboxList($r,['separator' => '<br>','name'=>$valor['idPregunta']])->label(false); ?>
+<?php endif ?>

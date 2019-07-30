@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Respuestaopcion;
+use app\models\RespuestaOpcion;
 
 /**
  * RespuestaopcionSearch represents the model behind the search form of `app\models\Respuestaopcion`.
  */
-class RespuestaOpcionSearch extends Respuestaopcion
+class RespuestaOpcionSearch extends RespuestaOpcion
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class RespuestaOpcionSearch extends Respuestaopcion
      */
     public function search($params)
     {
-        $query = Respuestaopcion::find();
+        $query = RespuestaOpcion::find();
         $query->joinWith(['pregunta']);
         // add conditions that should always apply here
 

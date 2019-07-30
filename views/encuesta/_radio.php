@@ -30,4 +30,8 @@ use yii\helpers\ArrayHelper;
 
 <?php $r=ArrayHelper::map($resp, 'idRespuestaOpcion', 'opRespvalor') ?>
 
-<?= $form->field($respuesta, 'respValor')->radioList( $r,['separator' => '<br>', 'name'=>$valor['idPregunta']] )->label(false);?>
+<?php if(isset($esTrivia)): ?>
+    <?= $form->field($respuesta, 'respValor')->radioList( $r,['name'=>$valor['idPregunta']] )->label(false);?>
+<?php else: ?>
+    <?= $form->field($respuesta, 'respValor')->radioList( $r,['separator' => '<br>', 'name'=>$valor['idPregunta']] )->label(false);?>
+<?php endif ?>

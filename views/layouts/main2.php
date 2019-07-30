@@ -62,7 +62,7 @@ AppAsset::register($this);
                   ],
                 ],
               ['label' => 'Encuesta','items' => [
-                ['label' => 'Crear Encuesta', 'url' => ['/encuesta/index']],
+                ['label' => 'Gestión Encuesta/trivia', 'url' => ['/encuesta/index']],
                 ['label' => 'Resultados Encuesta', 'url' => ['/respuesta/index']],
 
 			    ],

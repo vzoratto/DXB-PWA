@@ -12,7 +12,7 @@ use Yii;
  *
  * @property Pregunta[] $preguntas
  */
-class Respuestatipo extends \yii\db\ActiveRecord
+class RespuestaTipo extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}

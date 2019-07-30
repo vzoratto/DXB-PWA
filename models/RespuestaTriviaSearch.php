@@ -17,8 +17,8 @@ class RespuestaTriviaSearch extends RespuestaTrivia
     public function rules()
     {
         return [
-            [['idRespTrivia', 'idPregunta'], 'integer'],
-            [['respTriviaValor'], 'safe'],
+            [['idRespTrivia'], 'integer'],
+            [['respTriviaValor', 'idPregunta'], 'safe'],
         ];
     }
 
@@ -41,6 +41,7 @@ class RespuestaTriviaSearch extends RespuestaTrivia
     public function search($params)
     {
         $query = RespuestaTrivia::find();
+        $query->joinWith(['pregunta']);
 
         // add conditions that should always apply here
 
@@ -59,10 +60,11 @@ class RespuestaTriviaSearch extends RespuestaTrivia
         // grid filtering conditions
         $query->andFilterWhere([
             'idRespTrivia' => $this->idRespTrivia,
-            'idPregunta' => $this->idPregunta,
+            // 'idPregunta' => $this->idPregunta,
         ]);
 
-        $query->andFilterWhere(['like', 'respTriviaValor', $this->respTriviaValor]);
+        $query->andFilterWhere(['like', 'respTriviaValor', $this->respTriviaValor])
+                ->andFilterWhere(['like', 'pregunta.pregDescripcion', $this->idPregunta]);
 
         return $dataProvider;
     }

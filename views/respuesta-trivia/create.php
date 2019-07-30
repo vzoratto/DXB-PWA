@@ -1,18 +1,20 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\PreguntaSearch;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RespuestaTrivia */
 
 $this->title = 'Definir Respuesta Correcta';
-// $this->params['breadcrumbs'][] = ['label' => 'Respuesta Trivias', 'url' => ['index']];
-// $this->params['breadcrumbs'][] = $this->title;
+$pregunta=PreguntaSearch::findOne($model->idPregunta);
 ?>
 <div class=" reglamento-container">
 <div class="respuesta-trivia-create">
+    
 
-    <h4><?= Html::encode($this->title) ?></h4>
+    <h3><?= Html::encode($this->title) ?></h3>
+    <h4>Pregunta: <?= Html::encode($pregunta->pregDescripcion) ?></h4>
 
     <?= $this->render('_form', [
         'model' => $model,

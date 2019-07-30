@@ -111,6 +111,15 @@ class PreguntaController extends Controller
             ];
             $encuesta=Encuesta::find()->where(['idEncuesta'=>$_REQUEST['idEncuesta']])->one();
         }
+        if(isset($_REQUEST['idPregunta'])){ //si recibe un idEncuesta pasa en dataProvider las preguntas solo de esa encuesta
+            $dataProvider->query->andWhere('pregunta.idPregunta = '.$_REQUEST['idPregunta']);
+            $dataProvider->pagination = [
+                'pageSize' => 10,
+            ];
+            $idEncuesta=PreguntaSearch::findOne($_REQUEST['idPregunta'])->idEncuesta;
+
+            $encuesta=Encuesta::find()->where(['idEncuesta'=>$idEncuesta])->one();
+        }
         
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -158,7 +167,7 @@ class PreguntaController extends Controller
          if ($model->load(Yii::$app->request->post())) {
                 
                 $model->save();
-                return $this->redirect(['respuestaopcion/define-opcion', 'id' => $model->idPregunta,]);
+                return $this->redirect(['respuesta-opcion/define-opcion', 'id' => $model->idPregunta,]);
             }
             $model->idEncuesta=$id;
             return $this->render('create', [

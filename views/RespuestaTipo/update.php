@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Respuestatipo */
+/* @var $model app\models\RespuestaTipo */
 
 $this->title = 'Actualizar tipos de respuesta: ' . $model->idRespTipo;
 // $this->params['breadcrumbs'][] = ['label' => 'Tipos de Respuesta', 'url' => ['index']];

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Respuestatipo */
+/* @var $model app\models\RespuestaTipo */
 
 $this->title = $model->idRespTipo;
 $this->params['breadcrumbs'][] = ['label' => 'Tipos de respuesta', 'url' => ['index']];
