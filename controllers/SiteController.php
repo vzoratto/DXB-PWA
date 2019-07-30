@@ -216,6 +216,7 @@ public function actionEnviomail(){
         $mailUsuario = $user->mailUsuario;
         $authkey = urlencode($user->authkey);
         $subject = "Validar direccion de correo";// Asunto del mail
+        $host=Yii::$app->request->hostInfo;
         $body = "
             <div style='width:100%; background:#eee; position:relative; font-family:sans-serif; padding-bottom:40px'>
                     <div class='col-lg-12 col-xs-6' style='position:relative; margin: auto; max-width: 500px; background:white; padding:20px'>
@@ -226,7 +227,7 @@ public function actionEnviomail(){
                             <h3 style='font-weight:100; color:black; padding:0 20px'><strong>Reenviamos el email para validacion y/o activacion de tu cuenta. </strong></h3><br>
                             <h4 style='font-weight:100; color:black; padding:0 20px'>Gracias por registrarse en Desafio por Bardas</h4>
                             <h4 style='font-weight:100; color:black; padding:0 20px'>Para finalizar su registro y poder inscribirse a la carrera, por favor valide su cuenta ingresando al siguiente enlace</h4>
-                            <a href='http://localhost/carrera/web/index.php?r=site/activarcuenta&d=".$dni."&c=".$authkey."' style='text-decoration:none'>
+                            <a href='$host/index.php?r=site/activarcuenta&d=".$dni."&c=".$authkey."' style='text-decoration:none'>
                             <div style='line-height:60px; background:#ff8f04; width:60%; color:white'>Validar cuenta</div>
                             </a>
                             <br>

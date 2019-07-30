@@ -446,6 +446,7 @@ class InvitadoController extends Controller
                 $nombrePersona = $objPersona->nombrePersona;
                 $apellidoPersona = $objPersona->apellidoPersona;
                 $mailUsuario = $objUsuario->mailUsuario;
+                $host=Yii::$app->request->hostInfo;
 
                 //mail de confirmacion de inscripcion
                 $subject = "Inscripcion y reglamento"; // Asunto del mail
@@ -471,7 +472,7 @@ class InvitadoController extends Controller
 
                 "<h4 style='font-weight:100; color:black; padding:0 20px'>Podes ver los terminos y condiciones que has aceptado en el siguiente enlace:</h4>
 
-                                        <a href='http://localhost/carrera/web/index.php?r=site%2Freglamento' style='text-decoration:none'>
+                                        <a href='$host/index.php?r=site%2Freglamento' style='text-decoration:none'>
 
                                         <div style='line-height:60px; background:#ff8f04; width:60%; color:white'>Reglamento</div>
 
