@@ -135,6 +135,7 @@ class CarrerapersonaController extends Controller
             'model' => $model,'idTipoCarrera'=> $idTipoCarrera
         ]);
     }
+    
 	public function actionUpdatekit($idTipoCarrera, $idPersona)
     { 
         if(Permiso::requerirRol('administrador')){

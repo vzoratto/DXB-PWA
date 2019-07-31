@@ -263,10 +263,10 @@ class GestoresController extends Controller
             //Si se realiza el commit, asigna true a la variable guardado
             $transaction->commit();
             $guardado=true;
-            if ($guardado){     // Si el alta es guardada correctamente, se envia un mail de confirmacion 
+            if ($guardado){     // Si el alta es guardada correctamente
                 return $this->redirect(['index']);
             }else{
-                //$mensaje = "Ha ocurrido un error al llevar a cabo tu inscripcion,vuelve a intentarlo";
+                //$mensaje = "Ha ocurrido un error ";
                 return $this->redirect(['index']);
             }
         } catch(\Exception $e) {

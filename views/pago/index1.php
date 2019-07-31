@@ -24,14 +24,11 @@ $this->title = 'Pagos recibidos';
             ['label'=>'Referencia pago',
             'attribute'=>'idPago',
             'hAlign' => 'center',
-            "filterInputOptions" => ['class'=>'form-control',
-             "disabled" => true
-             ],
             'value'=>function($model){
                 return $model->idPago;
             }
            ],
-           ['label'=>'Nombre equipo',
+           ['label'=>'Equipo',
             'attribute'=>'idEquipo',
             'hAlign' => 'center',
             'filterInputOptions' => [
@@ -42,16 +39,7 @@ $this->title = 'Pagos recibidos';
                return ($model->equipo->nombreEquipo);
              }
            ],  
-           ['attribute'=>'nombre',
-           'filterInputOptions' => [
-            'class'       => 'form-control',
-            'placeholder' => 'Elije nombre...'
-            ],
-           'value'=>function($model){
-               return ($model->persona->nombreCompleto);
-               }
-           ],
-           [   'label' => 'DNI',
+           [   'label' => 'DNI capitán',
            'attribute' => 'dniUsu',
            'hAlign' => 'center',
            'filterInputOptions' => [
@@ -62,36 +50,22 @@ $this->title = 'Pagos recibidos';
                return ($model->persona->usuario->dniUsuario);
               },
           ],
-          ['attribute'=>'entidadPago',
-           'hAlign' => 'center',
-           "filterInputOptions" => ['class'=>'form-control',
-             "disabled" => true
-             ],
-           ],
+          
           ['attribute'=>'importePagado',
            'hAlign' => 'center',
-           "filterInputOptions" => ['class'=>'form-control',
-             "disabled" => true
-             ],
            ],
-           ['attribute'=>'chequeado',
-            'hAlign' => 'center',
-            'value'=>function($model){
-                $print='';
-                foreach($model->controlpagos as $check){ 
-                   $print.=($check->chequeado===0)?"no":"si";
-                }
-            return $print;
-            },
-              'filter'=>(["0"=>"no","1"=>"si"]),
-           ],
-           ['label'=>'Imagen ticket',
-            'attribute'=>'imagenComrobante',
-            'format'=>'html',
-            'value'=>function($model){
-                return yii\bootstrap\Html::img($model->imagenComprobante,['width'=>'50']); 
-            },
-           ],
+          /* [   
+           'attribute' => 'estadoPago',
+           'hAlign' => 'center',
+           'filterInputOptions' => [
+            'class'       => 'form-control',
+            'placeholder' => 'Elije ...'
+            ],
+           'value' => function($model) {
+               return ($model->estadoPago->descripcionEstadoPago);
+              },
+          ],*/
+           
            ['class' => 'yii\grid\ActionColumn',
            'header' => 'Acciones',
                  'contentOptions'=>

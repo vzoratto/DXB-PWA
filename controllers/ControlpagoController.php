@@ -160,7 +160,7 @@ class ControlpagoController extends Controller
                                 <div style='position:relative; margin:auto; width:600px; background:white; padding:20px'>
                                         <center>
                                         <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
-                                        <h2 style='font-weight:100; color:#999'>DESAFIO POR LAS BARDAS</h2>
+                                        <h2 style='font-weight:100; color:#999'>DESAFIO POR BARDAS</h2>
                                         <hr style='border:1px solid #ccc; width:90%'>
                                         <h3 style='font-weight:100; color:#999; padding:0 20px'><strong>Tu pago por $".$pago->importePagado." fue acreditado exitosamente. </strong></h3><br>
                                         <h4 style='font-weight:100; color:#999; padding:0 20px'>Gracias por participar.</h4>

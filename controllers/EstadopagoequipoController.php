@@ -5,6 +5,9 @@ namespace app\controllers;
 use Yii;
 use app\models\Estadopagoequipo;
 use app\models\EstadopagoequipoSearch;
+use app\models\EquipoSearch;
+use app\models\Permiso;
+use app\models\Equipo;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -15,6 +18,7 @@ use yii\filters\VerbFilter;
  */
 class EstadopagoequipoController extends Controller
 {
+     
     /**
      * {@inheritdoc}
      */
@@ -49,7 +53,27 @@ class EstadopagoequipoController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    /**
+     * Lists all Estadopagoequipo models.
+     * @return mixed
+     */
+    public function actionIndex1()
+    {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+        $searchModel = new EquipoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->leftJoin('Estadopagoequipo','Equipo.idEquipo=Estadopagoequipo.idEquipo')->andWhere(['Equipo.deshabilitado' =>0])->andWhere(['Estadopagoequipo.idEquipo' => null]);//Poner condicion al dataprovider para que traiga solo el id solicitado
+        return $this->render('index1', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
+   
     /**
      * Displays a single Estadopagoequipo model.
      * @param integer $idEstadoPago
@@ -130,8 +154,6 @@ class EstadopagoequipoController extends Controller
     {
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
-        }elseif(Permiso::requerirRol('gestor')){
-            $this->layout='/main3';
         }
         $this->findModel($idEstadoPago, $idEquipo)->delete();
 

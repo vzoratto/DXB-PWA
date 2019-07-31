@@ -17,9 +17,13 @@ use app\models\Persona;
  * @property Tipocarrera $tipoCarrera
  * @property Grupo[] $grupos
  * @property Persona[] $personas
+ * @property Estadopagoequipo[] $estadopagoequipo
+ * @property Estadopago[] $
+ * @property Pago[] $pago
  */
 class Equipo extends \yii\db\ActiveRecord
 {
+       public $estadopago;
     /**
      * {@inheritdoc}
      */
@@ -62,7 +66,22 @@ class Equipo extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Tipocarrera::className(), ['idTipoCarrera' => 'idTipoCarrera']);
     }
-
+ /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPagos()
+    {
+        return $this->hasMany(Pago::className(), ['idEquipo' => 'idEquipo']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsuario()
+    {
+        return $this->hasOne(Usuario::className(), ['dniUsuario' => 'dniCapitan']);
+    }
+   
+   
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -70,7 +89,20 @@ class Equipo extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Grupo::className(), ['idEquipo' => 'idEquipo']);
     }
-
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEstadopagoequipo()
+    {
+        return $this->hasMany(Estadopagoequipo::className(), ['idEquipo' => 'idEquipo']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEstadopago()
+    {
+        return $this->hasMany(Estadopago::className(), ['idEstadoPago' => 'idEstadoPago'])->viaTable('estadopagoequipo', ['idEquipo' => 'idEquipo']);
+    }
     /**
      * @return \yii\db\ActiveQuery
      */

@@ -265,7 +265,7 @@ class Persona extends \yii\db\ActiveRecord
         $valido=true;
         $usuarioConEmailIntroducido=Usuario::findOne(['mailUsuario'=>$email]);
         if($usuarioConEmailIntroducido==null){
-            $valido=true;
+            $valido=false;//me parece que aca es false
         }else{
             $valido=true;
         }

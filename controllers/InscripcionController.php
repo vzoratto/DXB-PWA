@@ -521,7 +521,7 @@ class InscripcionController extends Controller
 
                                         <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
 
-                                        <h2 style='font-weight:100; color:black'>DESAFIO POR LAS BARDAS</h2>
+                                        <h2 style='font-weight:100; color:black'>DESAFIO POR BARDAS</h2>
 
                                         <hr style='border:1px solid #ccc; width:90%'>
                         
@@ -529,6 +529,33 @@ class InscripcionController extends Controller
 
                 if ($enListaDeEspera){ // Si esta en lista de espera se cambia una parte del texto
                     $body.="<h3 style='font-weight:100; color:black; padding:0 20px'><strong>Como ya se han completado la cantidad de cupos dispuestos inicialmente, actualmente te encuentras en lista de espera</strong></h3>";
+                }else{
+                    $body.="<h3 style='font-weight:100; color:black; padding:0 20px'><strong>Las inscripciones se podrán abonar por transferencia bancaria o en forma presencial.</strong></h3>
+                            <br>
+                            <h3 style='font-weight:100; color:black; padding:0 20px'><strong>Transferencia bancaria:</strong></h3>
+                            <ul>
+                                <li style='font-weight:100; color:black; padding:0 20px'><strong>Banco Credicoop Cooperativo Limitado</strong></li>
+                                <ul>
+                                   <li style='font-weight:90; color:black; padding:0 20px'><strong>Adherente: Universidad Nacional del Comahue</strong></li>
+                                   <li style='font-weight:90; color:black; padding:0 20px'><strong>Operador: 549505 Roberto Antonio Sepúlveda</strong></li>
+                                   <li style='font-weight:90; color:black; padding:0 20px'><strong>Nro. Cuenta - Cuenta Corriente: $ 191-093-024908/9</strong></li>
+                                   <li style='font-weight:90; color:black; padding:0 20px'><strong>CBU 19100933-55009302490896</strong></li>
+                                </ul>
+                            </ul>
+                            <br>
+                            <h3 style='font-weight:100; color:black; padding:0 20px'><strong>En forma presencial:</strong></h3>
+                            <ul>
+                                <li style='font-weight:100; color:black; padding:0 20px'><strong>ByB Indumentaria Deportiva</strong></li>
+                                <li style='font-weight:100; color:black; padding:0 20px'><strong>Instalaciones Gimnasio Terra:</strong></li>
+                                       <ul>
+                                           <li style='font-weight:90; color:black; padding:0 20px'>Diagonal alvear 45, Neuquen Capital de 17 a 21 hrs.</li>
+                                       </ul>
+                                <li style='font-weight:100; color:black; padding:0 20px'><strong>Polideportivo Beto Monteros:</strong></li>
+                                        <ul>
+                                           <li style='font-weight:90; color:black; padding:0 20px'>Unco, en horario de 8 a 13 hrs.</li>
+                                       </ul>
+                            </ul>
+                            <br>";
                 }
                 $body.=
                     "              <h4 style='font-weight:100; color:black; padding:0 20px'>Podes ver los terminos y condiciones que has aceptado en el siguiente enlace:</h4>

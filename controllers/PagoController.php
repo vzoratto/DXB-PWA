@@ -299,13 +299,11 @@ class PagoController extends Controller
             }
           }
         }
-    
         return $this->render('create1', [
-            'model' => $model,
-            
+            'model' => $model,   
         ]);
-}
-
+    } 
+    
 
     /**
      * Updates an existing Pago model.
@@ -343,8 +341,6 @@ class PagoController extends Controller
     {
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
-        }elseif(Permiso::requerirRol('gestor')){
-            $this->layout='/main3';
         }
         $this->findModel($id)->delete();
 
