@@ -44,7 +44,7 @@ class Pago extends \yii\db\ActiveRecord
             [['importePagado', 'idPersona', 'idImporte', 'idEquipo'], 'integer'],
             [['entidadPago'], 'string', 'max' => 64],
             [['imagenComprobante'], 'file',
-                'maxSize' => 10 * 1024 * 1024, //10MB
+                'maxSize' => 20 * 1024 * 1024, //10MB
                 'tooBig' => 'El tamaño máximo permitido es 10MB', //Error
                 'minSize' => 10, //10 Bytes
                 'tooSmall' => 'El tamaño mínimo permitido son 10 BYTES', //Error
@@ -151,6 +151,7 @@ class Pago extends \yii\db\ActiveRecord
     }
     /**
      * Busca los equipo por condicion del estado pago todos los corredores
+     * para visualizar link pago inscripcion de la barra de navegacion
      * @return \yii\db\ActiveQuery
      */
     public function buscaequipo1(){
@@ -162,9 +163,6 @@ class Pago extends \yii\db\ActiveRecord
                 $grupo=Grupo::findOne(['idPersona'=>$persona->idPersona]);
                 if($grupo!=null){
                     $suma=Pago::sumaTotalequipo($grupo->idEquipo);
-                    if($suma==''){
-                         $suma=0;
-                    }
                     $equipo=Equipo::findOne(['idEquipo'=>$grupo->idEquipo]);
                     $importe=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
                     $estadoequipo=Estadopagoequipo::findOne(['idEquipo'=>$grupo->idEquipo]);
@@ -192,6 +190,7 @@ class Pago extends \yii\db\ActiveRecord
     }
 /**
      * Busca los equipo por condicion del estado pago solo dniCapitan
+     *  para visualizar link pago inscripcion de la barra de navegacion
      * @return \yii\db\ActiveQuery
      */
     public function buscaequipo(){
@@ -200,25 +199,30 @@ class Pago extends \yii\db\ActiveRecord
         if(!Yii::$app->user->isGuest){
             if($persona=Persona::findOne(['idUsuario'=>$_SESSION['__id']])){
                 $usuario=Usuario::findOne(['idUsuario'=>$persona->idUsuario]);
-                $equipo=Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario]);//par que el pago lo realice el capitan
+                $equipo=Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario]);//para que el pago lo realice el capitan
                 if($equipo!=null){
-                    $suma=Pago::sumaTotalequipo($equipo->idEquipo);
-                    $importe=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
-                    $estadoequipo=Estadopagoequipo::findOne(['idEquipo'=>$equipo->idEquipo]);
-                    if($estadoequipo!=null ){
-                        if($estadoequipo->idEstadoPago==2){//se consulta el estado pago parcial
-                            if($importe->importe > $suma){
-                                $estadopago=2; //2 para los equipos con pago parcial
-                            }elseif($importe->importe == $suma){
-                                $estadopago=3; //si tiene todo pagado pero falta chequear el
-                            }                  //ultimo pago parcial
-                        }else{
-                            $estadopago=3;//3 para los equipos pago total o cancelo
+                    $espera=Listadeespera::findOne(['idPersona'=>$persona->idPersona]);
+                    if($espera!=null){
+                       $suma=Pago::sumaTotalequipo($equipo->idEquipo);
+                       $importe=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+                       $estadoequipo=Estadopagoequipo::findOne(['idEquipo'=>$equipo->idEquipo]);
+                       if($estadoequipo!=null ){
+                           if($estadoequipo->idEstadoPago==2){//se consulta el estado pago parcial
+                               if($importe->importe > $suma){
+                                   $estadopago=2; //2 para los equipos con pago parcial
+                               }elseif($importe->importe == $suma){
+                                   $estadopago=3; //si tiene todo pagado pero falta chequear el
+                               }                  //ultimo pago parcial
+                           }else{
+                               $estadopago=3;//3 para los equipos pago total o cancelo
+                           }
+                       }else{
+                           if($importe->importe == $suma){//cuando pago todo sin check
+                               $estadopago=3;
+                           }
                         }
                     }else{
-                        if($importe->importe == $suma){//cuando pago todo sin check
-                            $estadopago=3;
-                        }
+                         $estadopago=3;//para el capitan en lista de espera
                     }
                 }else{
                     $estadopago=3;//para el corredor que no es capitan

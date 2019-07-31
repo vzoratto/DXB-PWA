@@ -17,6 +17,7 @@ class EstadopagoequipoSearch extends Estadopagoequipo
     {
         return [
             [['idEstadoPago', 'idEquipo'], 'integer'],
+            [['dniCapitan','mailUsuario','totalpagado','importe','nombreEquipo','nombrePersona'],'safe'],
         ];
     }
 
@@ -38,12 +39,17 @@ class EstadopagoequipoSearch extends Estadopagoequipo
      */
     public function search($params)
     {
-        $query = Estadopagoequipo::find();
+        $query = Estadopagoequipo::find()->joinWith('equipo.persona')
+                                        ->joinWith('equipo.usuario')
+                                        ->joinWith('equipo.tipoCarrera.importeinscripcion');;
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 10
+            ],
         ]);
 
         $this->load($params);
@@ -59,7 +65,12 @@ class EstadopagoequipoSearch extends Estadopagoequipo
             'idEstadoPago' => $this->idEstadoPago,
             'idEquipo' => $this->idEquipo,
         ]);
-
+        
+        $query->andFilterWhere(['like', 'equipo.dniCapitan', $this->dniCapitan])
+              ->andFilterWhere(['like', 'equipo.usuario.mailUsuario', $this->mailUsuario])
+              ->andFilterWhere(['like', 'persona.CONCAT(nombrePersona." ".apellidoPersona)', $this->nombrePersona])
+              ->andFilterWhere(['like','importeinscripcion.importe', $this->importe])
+              ->andFilterWhere(['like','nombreEquipo', $this->nombreEquipo]);
         return $dataProvider;
     }
 }

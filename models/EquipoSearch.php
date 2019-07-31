@@ -26,7 +26,7 @@ class EquipoSearch extends Equipo
     {
         return [
             [['idEquipo', 'cantidadPersonas', 'idTipoCarrera', 'dniCapitan', 'deshabilitado'], 'integer'],
-            [['nombreEquipo','nombrePersona'], 'safe'],
+            [['nombreEquipo','nombrePersona','estadopago'], 'safe'],
         ];
     }
 
@@ -56,6 +56,9 @@ class EquipoSearch extends Equipo
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 10
+            ],
         ]);
 
         $this->load($params);

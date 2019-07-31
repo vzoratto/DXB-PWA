@@ -1,105 +1,100 @@
 <?php
-
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
-use app\models\Controlpago;
 use kartik\export\ExportMenu;
+use app\models\Pago;
+use app\models\Estadopago;
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\PagoSearch */
+/* @var $searchModel app\models\EstadopagoequipoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Pagos recibidos';
-
+$this->title = 'Estado del pago por equipo';
 ?>
-<div class="pago-index reglamento-container">
+<div class="estadopagoequipo-index reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    
-   
  <!-- La siguiente grilla muestra los datos en pantalla -->
  <?php  
 	
 	$gridColumns=[
-           // ['class' => 'yii\grid\SerialColumn'],
-            ['label'=>'Referencia pago',
-            'attribute'=>'idPago',
-            'hAlign' => 'center',
-            "filterInputOptions" => ['class'=>'form-control',
+            ['class' => 'yii\grid\SerialColumn'],
+           ['label'=>'Referencia equipo',
+             'attribute'=>'idEquipo',
+             'hAlign' => 'center',
+             "filterInputOptions" => ['class'=>'form-control',
              "disabled" => true
              ],
-            'value'=>function($model){
-                return $model->idPago;
-            }
            ],
            ['label'=>'Nombre equipo',
-            'attribute'=>'idEquipo',
+            'attribute'=>'nombreEquipo',
             'hAlign' => 'center',
             'filterInputOptions' => [
                 'class'       => 'form-control',
                 'placeholder' => 'Elije equipo...'
                 ],
-            'value'=>function($model){
-               return ($model->equipo->nombreEquipo);
-             }
            ],  
-           ['attribute'=>'nombre',
-           'filterInputOptions' => [
-            'class'       => 'form-control',
-            'placeholder' => 'Elije nombre...'
-            ],
-           'value'=>function($model){
-               return ($model->persona->nombreCompleto);
-               }
-           ],
-           [   'label' => 'DNI',
-           'attribute' => 'dniUsu',
+           ['label' => 'DNI capitán',
+           'attribute' => 'dniCapitan',
            'hAlign' => 'center',
            'filterInputOptions' => [
             'class'       => 'form-control',
             'placeholder' => 'Elije DNI...'
             ],
-           'value' => function($model) {
-               return ($model->persona->usuario->dniUsuario);
-              },
           ],
-          ['attribute'=>'entidadPago',
+          ['label' => 'Email capitán',
+           'attribute' => 'mailusuario',
            'hAlign' => 'center',
            "filterInputOptions" => ['class'=>'form-control',
-             "disabled" => true
-             ],
-           ],
-          ['attribute'=>'importePagado',
+            "disabled" => true
+            ],
+           'value' => function($model) {
+               return ($model->usuario->mailUsuario);
+              }
+          ],
+          
+          ['label'=>'Estado pago',   
+           'attribute' => 'estadopago',
            'hAlign' => 'center',
            "filterInputOptions" => ['class'=>'form-control',
-             "disabled" => true
-             ],
-           ],
-           ['attribute'=>'chequeado',
+            "disabled" => true
+            ],
+           'value' =>function($model){
+            return   $model='impago'; 
+           } 
+          ],
+          /*['label'=>'Deshabilitado',
+           'attribute'=>'deshabilitado',
+           'hAlign' => 'center',
+           'value'=>function($model){
+               return ($model->deshabilitado==0?"no":"si");
+                }
+           ],*/
+           ['label'=>'Costo inscripcion',
+            'attribute'=>'importe',
             'hAlign' => 'center',
+            "filterInputOptions" => ['class'=>'form-control',
+            "disabled" => true
+            ],
             'value'=>function($model){
                 $print='';
-                foreach($model->controlpagos as $check){ 
-                   $print.=($check->chequeado===0)?"no":"si";
+                foreach($model->tipoCarrera->importeinscripcion as $importe){ 
+                   $print.=$importe->importe;
                 }
             return $print;
-            },
-              'filter'=>(["0"=>"no","1"=>"si"]),
-           ],
-           ['label'=>'Imagen ticket',
-            'attribute'=>'imagenComrobante',
-            'format'=>'html',
-            'value'=>function($model){
-                return yii\bootstrap\Html::img($model->imagenComprobante,['width'=>'50']); 
-            },
+            },   
            ],
            ['class' => 'yii\grid\ActionColumn',
            'header' => 'Acciones',
                  'contentOptions'=>
 				 ['style'=>'width: 10%;'],
-                   'template'=>'{view}{update}',
-           
+                   'template'=>'{view}  {mail}',
+                   'buttons' => [
+                    'mail' => function ($url, $model, $key) {//id1=idEstadoPago, id=idEquipo
+                        return Html::a ( '<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> ', ['equipo/enviomail', 'id' => $model->idEquipo],['title'=>'Envio mail'] );
+                    },
+                ],
 		    	],
-           
+               
            //'idImporte',
     ]; 	
 	
@@ -117,7 +112,7 @@ echo ExportMenu::widget([
         ExportMenu::FORMAT_PDF => [
             'pdfConfig' => [
                 'methods' => [
-                    'SetTitle' => 'Pagos acreditados',
+                    'SetTitle' => 'Estado de los pagos realizados',
                     'SetSubject' => 'Detalle de los pagos ',
                     'SetHeader' => ['Pagos||Generado el: ' . date("r")],
                     'SetFooter' => ['|Page {PAGENO}|'],
@@ -133,7 +128,6 @@ echo ExportMenu::widget([
 	
 	
 ]);
-
 // You can choose to render your own GridView separately
 echo \kartik\grid\
      GridView::widget([
@@ -145,7 +139,7 @@ echo \kartik\grid\
 	],
      ]);
 ?>
-   
+
 
 
 </div>

@@ -14,6 +14,12 @@ use Yii;
  */
 class Estadopagoequipo extends \yii\db\ActiveRecord
 {
+    public $dniCapitan;
+    public $mailUsuario;
+    public $totalpagado;
+    public $importe;
+    public $nombreEquipo;
+    public $nombrePersona;
     /**
      * {@inheritdoc}
      */

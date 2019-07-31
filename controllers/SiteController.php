@@ -37,7 +37,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index,view,create,update,delete','recupass'],
+                'only' => ['index,view,create,update,delete,recupass,cambiapass'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -54,7 +54,7 @@ class SiteController extends Controller
                         }
                     ],
                     [
-                        'actions' => ['index,view,create,logout'],
+                        'actions' => ['index,view,create,logout,gestor'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
@@ -188,7 +188,7 @@ class SiteController extends Controller
                         Yii::$app->session->setFlash('registroFormSubmitted');
                         return $this->refresh();
                 }else{
-                     $mensaje="Este mensaje es para avisarte que tu DNI ya existe en nuestro registro o fallo el envio del email.";
+                    $mensaje="Este mensaje es para avisarte que tu DNI ya existe en nuestro registro o falló el envio del email.";
                      $mensaje.="Te reenviaremos un email para verificar y activar tu cuenta.";
                      $mensaje.="De persistir este mensaje por favor comunícate con el administrador.";
                      $mensaje.="Utiliza nuestro formulario contactos al pie de la página principal.";
@@ -278,7 +278,7 @@ public function actionEnviomail(){
             $activar->authkey = $this->randKey("AxWb98760z", 50);//nueva clave será utilizada para activar el usuario
             if ($activar->save()){
                         echo "Registro llevado a cabo correctamente. Será redirigido a la página de Desafio por Bardas...";
-                        echo "<meta http-equiv='refresh' content='6; ".Url::toRoute("site/login")."'>";
+                        echo "<meta http-equiv='refresh' content='3; ".Url::toRoute("site/login")."'>";
            } else {
                $mensaje="No se pudo activar la cuenta, comunicate con el administrador";
                return $this->render('error', ['mensaje' => $mensaje]);
@@ -288,7 +288,7 @@ public function actionEnviomail(){
              return $this->render('error', ['mensaje' => $mensaje]);
        }
      }else{
-      $mensaje="Ups!! hubo un inconveniente, vuelva a intentarlo, redireccionando ...";
+      $mensaje="Ups!! hubo un inconveniente, vuelva a intentarlo";
       return $this->render('error', ['mensaje' => $mensaje]);
      }
 }

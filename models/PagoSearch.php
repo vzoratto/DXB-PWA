@@ -19,7 +19,7 @@ class PagoSearch extends Pago
     {
         return [
             [['idPago', 'importePagado', 'idPersona', 'idImporte', 'idEquipo'], 'integer'],
-            [['entidadPago', 'imagenComprobante','dniUsu','chequeado','nombre'], 'safe'],
+            [['entidadPago', 'imagenComprobante','dniUsu','chequeado','nombre','nombreEquipo','estadoPago'], 'safe'],
         ];
     }
 
@@ -48,6 +48,9 @@ class PagoSearch extends Pago
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 10
+            ],
         ]);
 
         $this->load($params);
@@ -70,7 +73,7 @@ class PagoSearch extends Pago
 
         $query->andFilterWhere(['like', 'entidadPago', $this->entidadPago])
             ->andFilterWhere(['like', 'imagenComprobante', $this->imagenComprobante])
-            ->andFilterWhere(['like','CONCAT(apellidoPersona, " ", nombrePersona)', $this->nombre])
+            ->andFilterWhere(['like','CONCAT(persona.apellidoPersona, " ", persona.nombrePersona)', $this->nombre])
             ->andFilterWhere(['like', 'usuario.dniUsuario', $this->dniUsu]);
           
 

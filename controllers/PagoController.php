@@ -343,8 +343,6 @@ class PagoController extends Controller
     {
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
-        }elseif(Permiso::requerirRol('gestor')){
-            $this->layout='/main3';
         }
         $this->findModel($id)->delete();
 
