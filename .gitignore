@@ -34,4 +34,4 @@ tests/_support/_generated
 node_modules
 
 #config email
-/config/web.php
+config/web.php
