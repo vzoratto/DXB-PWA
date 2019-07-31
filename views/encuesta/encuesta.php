@@ -33,6 +33,10 @@ $i=0;
 
 <h3> <?= $encuesta['encTitulo']?></h3>
 <h5> <?= $encuesta['encDescripcion']?></h5>
+<div id="error-encuesta" style="display: none">
+    <p style="color: red">DEBES COMPLETAR LA ENCUESTA PARA CONTINUAR</p>
+
+</div>
 <hr>
 <div class="encuesta-form">    
         
