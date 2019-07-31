@@ -89,7 +89,7 @@ c).-Eximir a los Organizadores, Municipios, los Propietarios de las tierras por 
           </p>
 
         <p class="subtitulo mt-25">G) INSCRIPCION</p>
-        <p>Se considera como medio oficial de comunicación e inscripciones la página www.DxB.com.ar y completar los pasos requeridos.
+        <p>Se considera como medio oficial de comunicación e inscripciones la página https://dxb.fi.uncoma.edu.ar/ y completar los pasos requeridos.
 El participante deberá consultar periódicamente el sitio a fin de estar al tanto de novedades y posibles modificaciones en el.
 </p>
 
