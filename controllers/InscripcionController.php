@@ -631,6 +631,53 @@ class InscripcionController extends Controller
         }
         return $existeUsuario;
     }
+    public function actionEstadoinscripcion(){
+        $estado=0;
+        if(!Yii::$app->user->isGuest){
+            $usuario=Usuario::findOne(['idUsuario'=>$_SESSION['__id']]);
+            $persona=Persona::findOne(['idUsuario' => $_SESSION['__id']]);
+
+            $equipo=Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario]);
+
+            $capitan=false;
+            //si es capitan
+            if($equipo!=null){
+                $capitan=true;
+                $tipoCarrera=$equipo->tipoCarrera;
+                $cantCorredores=$equipo->cantidadPersonas;
+
+            }else{
+                //como no es capitan se pone en false
+                $capitan=false;
+                //se accede al grupo de la persona autenticada
+                $grupo=Grupo::findOne(['idPersona'=>$persona->idPersona]);
+                //se accede al modelo del equipo
+                $equipo=$grupo->equipo;
+                $tipoCarrera=$equipo->tipoCarrera;
+                $cantCorredores=$equipo->cantidadPersonas;
+                //accedemos al usuario del capitan
+                $usuarioCapitan=Usuario::findOne(['dniUsuario'=>$equipo->dniCapitan]);
+                $personaCapitan=Persona::findOne(['idUsuario'=>$usuarioCapitan->idUsuario]);
+                $nombreCapitan=$personaCapitan->nombrePersona.' '.$personaCapitan->apellidoPersona;
+            }
+
+
+
+
+        }
+
+        return $this->render('estadoinscripcion/index',[
+            'equipo'=>$equipo,
+            'capitan'=>$capitan,
+            'persona'=>$persona,
+            'tipoCarrera'=>$tipoCarrera,
+            'cantCorredores'=>$cantCorredores
+
+
+        ]);
+
+
+    }
     
     
 }
