@@ -45,6 +45,9 @@ class PagoController extends Controller
      */
     public function actionIndex()
     {
+        if(Persona::findOne(['idUsuario'=>$_SESSION['__id']])){
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
@@ -65,6 +68,9 @@ class PagoController extends Controller
      */
     public function actionIndex1()
     {
+        if(Persona::findOne(['idUsuario'=>$_SESSION['__id']])){
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
@@ -85,6 +91,9 @@ class PagoController extends Controller
      */
     public function actionIndex2()
     {
+        if(Persona::findOne(['idUsuario'=>$_SESSION['__id']])){
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
@@ -108,6 +117,9 @@ class PagoController extends Controller
      */
     public function actionView($id)
     {
+        if(Persona::findOne(['idUsuario'=>$_SESSION['__id']])){
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
@@ -127,6 +139,9 @@ class PagoController extends Controller
      */
     public function actionView1($id)
     {
+        if(Persona::findOne(['idUsuario'=>$_SESSION['__id']])){
+            return $this->goHome();
+        }
         return $this->render('view1', [
             'model' => $this->findModel($id),]//vista para el usuario
         );
@@ -146,7 +161,13 @@ class PagoController extends Controller
         if($usuario=Usuario::findOne(['idUsuario'=>$_SESSION['__id']])){
             if(!Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario])){
                     return $this->goHome();
-                } 
+                }else{
+                  $persona=Persona::findOne(['idUsuario'=>$_SESSION['__id']]);
+                  if(Pago::findOne(['idPersona'=>$persona->idPersona])){
+                    return $this->goHome();
+                  }
+                }
+            
         }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
@@ -316,6 +337,9 @@ class PagoController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(Persona::findOne(['idUsuario'=>$_SESSION['__id']])){
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
@@ -341,6 +365,9 @@ class PagoController extends Controller
      */
     public function actionDelete($id)
     {
+        if(Persona::findOne(['idUsuario'=>$_SESSION['__id']])){
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }
