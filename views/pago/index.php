@@ -96,7 +96,7 @@ $this->title = 'Pagos recibidos';
            'header' => 'Acciones',
                  'contentOptions'=>
 				 ['style'=>'width: 10%;'],
-                   'template'=>'{view}{update}',
+                   'template'=>'{view}',
            
 		    	],
            

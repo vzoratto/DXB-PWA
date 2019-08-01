@@ -67,7 +67,8 @@ $this->title = 'Estado del pago por equipo';
             "disabled" => true
             ],
            'value'=>function($model){
-            return   Pago::sumaTotalequipo($model);
+               $suma="";
+            return   $suma=Pago::sumaTotalequipo($model);
            }
           ],
            ['label'=>'Estado pago',   
@@ -100,7 +101,7 @@ $this->title = 'Estado del pago por equipo';
                    'template'=>'{view}  {mail}',
                    'buttons' => [
                     'mail' => function ($url, $model, $key) {//id1=idEstadoPago, id=idEquipo
-                        return Html::a ( '<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> ', ['equipo/enviomail', 'id1' => $model->idEstadoPago, 'id' => $model->idEquipo],['title'=>'Envio mail'] );
+                        return $model->idEstadoPago==2?Html::a ( '<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> ', ['equipo/enviomail', 'id1' => $model->idEstadoPago, 'id' => $model->idEquipo],['title'=>'Envio mail'] ):"";
                     },
                 ],
 		    	],
@@ -154,4 +155,3 @@ echo \kartik\grid\
 
 
 </div>
-

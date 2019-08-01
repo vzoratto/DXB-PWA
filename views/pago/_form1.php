@@ -25,8 +25,10 @@ use yii\widgets\ActiveForm;
     <!--<?= $form->field($model, 'importe')->textInput() ?>-->
     
     <!--<?= $form->field($model, 'idEquipo')->textInput() ?>-->
-    <?= $form->field($model, 'imagenComprobante')->fileInput() ?>
-
+    <?php
+      if ($model->isNewRecord) 
+         echo $form->field($model, 'imagenComprobante')->fileInput();
+         ?>
     <div class="form-group">
     <?php
       if ($model->isNewRecord) 

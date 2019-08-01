@@ -8,7 +8,7 @@ use app\models\Estadopago;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EstadopagoequipoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$this->title = 'Estado del pago por equipo';
+$this->title = 'Estado del pago: no abonado';
 ?>
 <div class="estadopagoequipo-index reglamento-container">
 

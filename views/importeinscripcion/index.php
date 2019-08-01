@@ -40,7 +40,7 @@ $this->title = 'Importe de la inscripción';
              'value'=>function($model){
                  return ($model->deshabilitado==0)?'no':'si';
              },
-               //'filter'=>array('0'=>'no','1'=>'si'),
+               'filter'=>array('0'=>"no",'1'=>"si"),
             ],
            [
             'class' => 'yii\grid\ActionColumn',

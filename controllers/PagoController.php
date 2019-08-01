@@ -117,9 +117,7 @@ class PagoController extends Controller
      */
     public function actionView($id)
     {
-        if(Persona::findOne(['idUsuario'=>$_SESSION['__id']])){
-            return $this->goHome();
-        }
+        
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
@@ -139,11 +137,8 @@ class PagoController extends Controller
      */
     public function actionView1($id)
     {
-        if(Persona::findOne(['idUsuario'=>$_SESSION['__id']])){
-            return $this->goHome();
-        }
         return $this->render('view1', [
-            'model' => $this->findModel($id),]//vista para el usuario
+            'model' => $this->findModel($id),]//vista para el usuario corredor
         );
     }
 

@@ -18,6 +18,8 @@ $this->title = 'Detalle del pago ingresado';
     <?php 
         if($controlpago->chequeado==0){
             echo Html::a('Chequear', ['controlpago/view', 'id' => $model->idPago], ['class' => 'btn btn-success']);
+            echo Html::a('Actualizar', ['update', 'id' => $model->idPago], ['class' => 'btn btn-success']);
+            
         }else{
             echo Html::a('Ver pago chequeado', ['controlpago/view', 'id' => $model->idPago], ['class' => 'btn btn-success']);
         }
