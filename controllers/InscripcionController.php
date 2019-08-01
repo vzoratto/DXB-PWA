@@ -519,12 +519,12 @@ class InscripcionController extends Controller
                                         <center>
 
 
-                                        <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
+                                        <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>
 
                                         <h2 style='font-weight:100; color:black'>DESAFIO POR LAS BARDAS</h2>
 
                                         <hr style='border:1px solid #ccc; width:90%'>
-                        
+
                                         <h3 style='font-weight:100; color:black; padding:0 20px'><strong>Gracias por inscribirse a la carrera ".$nombrePersona." ".$apellidoPersona." </strong></h3>";
 
                 if ($enListaDeEspera){ // Si esta en lista de espera se cambia una parte del texto
@@ -545,13 +545,19 @@ class InscripcionController extends Controller
 
                                         <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-Xf-qhOCBgSU/XRETQF_AIZI/AAAAAAAAAlM/MIDNs-As2XowGFS9e_7idpVIfefsGe8WACLcBGAs/s320/placas%2B4-01.jpg'>
 
-                                        <h5 style='font-weight:100; color:black'>Este mensaje de correo electrónico se envió a ".$mailUsuario."</h5>
-                                            
+                                        <h3 style='font-weight:100; color:black'>Las inscripciones se podrán abonar por transferencia bancaria o en forma presencial en los siguientes lugares:<br>
+                                                                                  <b>*</b>ByB Indumentaria Deportiva, Instalaciones Gimnasio Terra.<br>
+                                                                                  Diagonal Alvear 45, Neuquén Capital de 17 a 21 hrs.<br>
+                                                                                  <b>*</b>Polideportivo Beto Monteros – Unco. En horario de 8 a 13hs.</h3>
+
+                                        <h2 style='font-weight:100; color:black; padding:0 20px'><strong> Banco Credicop Cooperativo Limitado</strong><br> Adherente: Universidad Nacional del Comahue. <br> Operador: 549505 Roberto Antonio Sepulveda <br> Numero de cuenta - Cuenta corriente: 191-093-024908/9. <br> CBU: 19100933-55009302490896</h2>
+
+
                                         <h5 style='font-weight:100; color:black'>Te invitamos a que veas nuestras redes sociales.</h5>
 
                                         <a href='https://www.facebook.com/bienestaruncoma/'><img src='https://1.bp.blogspot.com/-BR60W75cIco/XREFTGbPHZI/AAAAAAAAAks/FQUMI8DkynoP69YnYRjGZ1ylnNeYhM5BwCLcBGAs/s320/facebook-logo.png' style='width: 7%'></a>
                                         <a href='https://www.instagram.com/sbucomahue/'><img src='https://1.bp.blogspot.com/-NKIBF9SSXCU/XREFTOvwjII/AAAAAAAAAkw/cn679IM4LMQvcIMVCsgetU7gTDyM5DhwgCLcBGAs/s320/instagram-logo.png' style='width: 7%'></a>
-		
+
                                         </center>
 
                                 </div>
