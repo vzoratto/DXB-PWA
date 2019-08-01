@@ -67,8 +67,8 @@ $this->title = 'Estado del pago por equipo';
             "disabled" => true
             ],
            'value'=>function($model){
-               $suma="";
-            return   $suma=Pago::sumaTotalequipo($model);
+            return Pago::sumaEquipo($model->idEquipo);
+               
            }
           ],
            ['label'=>'Estado pago',   

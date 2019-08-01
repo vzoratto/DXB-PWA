@@ -130,6 +130,7 @@ class Pago extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function sumaEquipo($idEquipo){
+        $query="";
         $query = Pago::find()
               ->select(['SUM(importePagado) as suma'])
               ->leftjoin('controlpago c','c.idPago=pago.idPago')
@@ -142,6 +143,7 @@ class Pago extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function sumaTotalequipo($idEquipo){
+        $query=0;
         $query = Pago::find()
               ->select(['SUM(importePagado) as suma'])
               ->leftjoin('controlpago c','c.idPago=pago.idPago')
@@ -195,6 +197,7 @@ class Pago extends \yii\db\ActiveRecord
      */
     public function buscaequipo(){
         //estadopago=3 no se ve el link
+        $suma='';
         $estadopago=0;//0 para los equipos que no pagaron
         if(!Yii::$app->user->isGuest){
             if($persona=Persona::findOne(['idUsuario'=>$_SESSION['__id']])){

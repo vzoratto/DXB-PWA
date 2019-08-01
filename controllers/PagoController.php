@@ -13,6 +13,7 @@ use app\models\Grupo;
 use app\models\Tipocarrera;
 use app\models\Importeinscripcion;
 use app\models\Controlpago;
+use app\models\Estadopagoequipo;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -154,12 +155,17 @@ class PagoController extends Controller
             return $this->redirect(["site/login"]); 
         }
         if($usuario=Usuario::findOne(['idUsuario'=>$_SESSION['__id']])){
-            if(!Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario])){
+            if(!$equipo=Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario])){
                     return $this->goHome();
                 }else{
                   $persona=Persona::findOne(['idUsuario'=>$_SESSION['__id']]);
                   if(Pago::findOne(['idPersona'=>$persona->idPersona])){
-                    return $this->goHome();
+                    $pagos=Pago::sumaTotalEquipo($equipo->idEquipo);
+                    $tipocar=TipoCarrera::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+                    $importecar=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+                        if($importecar->importe==$pagos){
+                          return $this->goHome();
+                      }
                   }
                 }
             
