@@ -198,11 +198,11 @@ class Pago extends \yii\db\ActiveRecord
         $estadopago=0;//0 para los equipos que no pagaron
         if(!Yii::$app->user->isGuest){
             if($persona=Persona::findOne(['idUsuario'=>$_SESSION['__id']])){
-                $usuario=Usuario::findOne(['idUsuario'=>$persona->idUsuario]);
-                $equipo=Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario]);//para que el pago lo realice el capitan
-                if($equipo!=null){
-                    $espera=Listadeespera::findOne(['idPersona'=>$persona->idPersona]);
-                    if($espera!=null){
+                $espera=Listadeespera::findOne(['idPersona'=>$persona->idPersona]);
+                if($espera==null){
+                    $usuario=Usuario::findOne(['idUsuario'=>$persona->idUsuario]);
+                    $equipo=Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario]);//para que el pago lo realice el capitan
+                   if($equipo!=null){
                        $suma=Pago::sumaTotalequipo($equipo->idEquipo);
                        $importe=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
                        $estadoequipo=Estadopagoequipo::findOne(['idEquipo'=>$equipo->idEquipo]);
@@ -221,12 +221,12 @@ class Pago extends \yii\db\ActiveRecord
                                $estadopago=3;
                            }
                         }
-                    }else{
-                         $estadopago=3;//para el capitan en lista de espera
-                    }
-                }else{
-                    $estadopago=3;//para el corredor que no es capitan
-                }
+                  }else{
+                      $estadopago=3;//para el corredor que no es capitan
+                  }
+             }else{
+                   $estadopago=3;//para el capitan en lista de espera
+                 }
             }else{
                 $estadopago=3;//3 para el usuario sin inscripcion
             }
