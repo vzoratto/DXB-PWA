@@ -65,7 +65,7 @@ class EstadopagoequipoController extends Controller
         }
         $searchModel = new EquipoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->leftJoin('Estadopagoequipo','Equipo.idEquipo=Estadopagoequipo.idEquipo')->andWhere(['Equipo.deshabilitado' =>0])->andWhere(['Estadopagoequipo.idEquipo' => null]);//Poner condicion al dataprovider para que traiga solo el id solicitado
+        $dataProvider->query->leftJoin('estadopagoequipo','equipo.idEquipo=estadopagoequipo.idEquipo')->andWhere(['equipo.deshabilitado' =>0])->andWhere(['estadopagoequipo.idEquipo' => null]);//Poner condicion al dataprovider para que traiga solo el id solicitado
         return $this->render('index1', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
