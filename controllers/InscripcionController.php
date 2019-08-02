@@ -58,7 +58,7 @@ class InscripcionController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect(["site/login"]); 
+            return $this->redirect(["site/login"]);
         }
         if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
             return $this->goHome();
@@ -99,7 +99,7 @@ class InscripcionController extends Controller
         if(yii::$app->user->isGuest){
             return $this->goHome();
         }
-         
+
         $userLogueado=Yii::$app->user; // Obtenemos el objeto del usuario logeado
 
         //Renderizamos la página index y le enviamos los modelos necesarios.
@@ -135,22 +135,22 @@ class InscripcionController extends Controller
            $parents = $_POST['depdrop_parents'];
             if ($parents != null) {
                 $idEquipo = $parents[0]; //Obtenemos el ID del equipo
-                
+
                 // Con ese ID, buscamos el id de la carrera a la que está inscripto el equipo
                 $equipo= ArrayHelper::map(\app\models\Equipo::find()->where(['idEquipo' => $idEquipo])->all(),'idEquipo','idTipoCarrera');
                 $idTipoCarrera = $equipo[$idEquipo]; //Obtenemos el ID del tipo de la carrera
                 // A través de este ID, obtenemos la descripción de la carrera.
                 $carrera= ArrayHelper::map(\app\models\Tipocarrera::find()->where(['idTipoCarrera' => $idTipoCarrera])->all(),'idTipoCarrera','descripcionCarrera');
-            
+
                 $out = [
                     ['id' => $idTipoCarrera, 'name' => $carrera[$idTipoCarrera]]
                 ];
-            
-            
+
+
                 return ['output'=>$out, 'selected'=>$idTipoCarrera];
             }
         }
-        return ['output'=>'', 'selected'=>''];  
+        return ['output'=>'', 'selected'=>''];
     }
 
     /**
@@ -166,16 +166,16 @@ class InscripcionController extends Controller
            $parents = $_POST['depdrop_parents'];
             if ($parents != null) {
                 $idEquipo = $parents[0]; //Obtenemos el ID del equipo
-              
+
                 // Con este ID, buscamos cuantas personas pueden ingresar en ese equipo
                 $elEquipo= ArrayHelper::map(\app\models\Equipo::find()->where(['idEquipo' => $idEquipo])->all(),'idEquipo','cantidadPersonas');
 
-            
+
                 $out = [
                     ['id' => $idEquipo, 'name' => $elEquipo[$idEquipo]]
                 ];
-            
-            
+
+
                 return ['output'=>$out, 'selected'=>$idEquipo];
             }
         }
@@ -197,7 +197,7 @@ class InscripcionController extends Controller
             if ($parents != null) {
                 $idEquipo = $parents[0]; //Obtenemos el ID del equipo
 
-                // Buscamos el equipo a través del DNI ingresado                
+                // Buscamos el equipo a través del DNI ingresado
                 $objEquipo = Equipo::find()->where(['idEquipo'=>$idEquipo])->one();
                 $dniCapitan=$objEquipo['dniCapitan'];  //Obtenemos el DNI del capitan del equipo
 
@@ -205,17 +205,17 @@ class InscripcionController extends Controller
                 $objUsuario = Usuario::find()->where(['dniUsuario'=>$dniCapitan])->one();
                 $idUsu = $objUsuario['idUsuario']; //Obtenemos el ID del usuario
 
-                // Con el ID del usuario, obtenemos el objeto Persona, para así obtener su nombre y apellido 
+                // Con el ID del usuario, obtenemos el objeto Persona, para así obtener su nombre y apellido
                 $objPersona = Persona::find()->where(['idUsuario'=>$idUsu])->one();
                 $nombrePersona = $objPersona['nombrePersona'];
                 $apellidoPersona = $objPersona['apellidoPersona'];
                 $nombreCompleto = $nombrePersona . " " . $apellidoPersona; // Concatenamos su nombre y apellido
 
-            
+
                 $out = [
                     ['id' => $idUsu, 'name' => $nombreCompleto]
                 ];
-            
+
                 return ['output'=>$out, 'selected'=>$idUsu];
             }
         }
@@ -265,7 +265,7 @@ class InscripcionController extends Controller
                 } else {
                     $existeUsuario = true;
                 }
-                
+
 
                 if ($usuario->validate() && !($existeUsuario)) {
                     // toda la entrada es válida y no existe un usuario con ese DNI
@@ -274,10 +274,10 @@ class InscripcionController extends Controller
                 } else {
                     // la validación falló: $erroresPersonaDireccion es un array que contienen los mensajes de error
                     $usuario = $usuario->errors;
-                    
+
                 }
 
-            }else{ 
+            }else{
                 // En caso de no ser gestor, obtenemos el ID del usuario corredor que se inscribe normalmente
                 $idUsuario=Yii::$app->user->identity->idUsuario;
             }
@@ -295,12 +295,12 @@ class InscripcionController extends Controller
             if ($personaDireccion->validate()) {
                 // toda la entrada es válida
                 $personaDireccion->save(); //Realiza el llenado de la tabla
-                
+
             } else {
                 // la validación falló: $erroresPersonaDireccion es un array que contienen los mensajes de error
                 $erroresPersonaDireccion = $personaDireccion->errors;
             }
-            
+
             //MODELO FICHA MEDICA
             $modeloFichaMedica=Yii::$app->request->post()['Fichamedica'];
             $fichaMedica=new Fichamedica(); //Instanciamos una variable de la clase Ficha Medica
@@ -371,11 +371,11 @@ class InscripcionController extends Controller
                 // la validación falló: $erroresPersonaEmergencia es un array que contienen los mensajes de error
                 $erroresPersona = $persona->errors;
             }
-         
+
             $idPersona=$persona->idPersona;  // Obtenemos el ID de la persona ingresada
-          
+
             //MODELO EQUIPO
-            if (!Yii::$app->request->post()['swichtCapitan']){ 
+            if (!Yii::$app->request->post()['swichtCapitan']){
                 //Ingresa acá si NO es capitan
                 $modeloEquipo=Yii::$app->request->post()['Equipo']['idEquipo'];
 
@@ -412,12 +412,12 @@ class InscripcionController extends Controller
             }
 
             //MODELO CARRERAPERSONA
-            
+
             $modeloCarreraPersona = Yii::$app->request->post()['Carrerapersona'];
-            
+
             if (!Yii::$app->request->post()['swichtCapitan']){ //Si no es capitan
                 $idEquipo=Yii::$app->request->post()['Equipo']['idEquipo']; //Obtenemos el ID equipo
-                
+
                 $objEquipo = Equipo::find()->where(['idEquipo'=>$idEquipo])->one(); //Obtenemos el obj equipo
                 $idTipoCarrera=$objEquipo['idTipoCarrera']; // Obtenemos el ID del tipo carrera que se inscribió el equipo
             }
@@ -430,7 +430,7 @@ class InscripcionController extends Controller
             $carreraPersona->reglamentoAceptado = $modeloCarreraPersona['reglamentoAceptado'];
             $carreraPersona->retiraKit=0;
             $carreraPersona->save(); //Realiza el llenado de la tabla
-            
+
             $objTipoCarrera = Tipocarrera::find()->where(['idTipoCarrera'=>$idTipoCarrera])->one(); //Obtenemos el obj Tipo carrera
             $cantidadMaximaCorredores = $objTipoCarrera->cantidadMaximaCorredores; // Obtenemos cantidad maxima de corredores de esa carrera
 
@@ -487,7 +487,7 @@ class InscripcionController extends Controller
                         $model->idPersona=$resp['idPersona'];
                         $encuestaGuardada=$model->save();
                     }
-                }    
+                }
             }
             //como la respuesta a la encuesta es lo ultimo que se debe guardar, si esta se guarda correctamente
             //significa que persona se guardo correctamente, por lo tanto hacemos el commit a la base de datos
@@ -501,7 +501,7 @@ class InscripcionController extends Controller
             }
             //Si se realiza el commit, asigna true a la variable guardado
 
-            if ($guardado){     // Si la inscripcion es guardada correctamente, se envia un mail de confirmacion 
+            if ($guardado){     // Si la inscripcion es guardada correctamente, se envia un mail de confirmacion
                 $host=Yii::$app->request->hostInfo;
                 // Obtenemos el Objeto usuario para obtener sus dato
                 $objUsuario=Usuario::find()->where(['idUsuario'=>$idUsuario])->one();
@@ -543,7 +543,7 @@ class InscripcionController extends Controller
 
                                         <hr style='border:1px solid #ccc; width:90%'>
 
-                                        <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-Xf-qhOCBgSU/XRETQF_AIZI/AAAAAAAAAlM/MIDNs-As2XowGFS9e_7idpVIfefsGe8WACLcBGAs/s320/placas%2B4-01.jpg'>
+                                        <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-ZWmNFzB7l40/XURFF_nIAYI/AAAAAAAAAmc/-clxrSodbUkxSaTqVV-F0yECTvuwsBsdACLcBGAs/s320/placas%2B5-01.jpg'>
 
                                         <h3 style='font-weight:100; color:black'>Las inscripciones se podrán abonar por transferencia bancaria o en forma presencial en los siguientes lugares:<br>
                                                                                   <b>*</b>ByB Indumentaria Deportiva, Instalaciones Gimnasio Terra.<br>
@@ -622,17 +622,15 @@ class InscripcionController extends Controller
                 } else {
                     $existeUsuario = 0;
                 }
-                
+
             } else {
                 $existeUsuario = 0;
             }
-           
-          
+
+
         }
         return $existeUsuario;
     }
-    
-    
+
+
 }
-
-

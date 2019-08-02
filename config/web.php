@@ -15,7 +15,7 @@ $config = [
             // your other grid module settings
           ],
         ],
-    
+
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -47,7 +47,7 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        
+
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
         'useFileTransport' => false,
@@ -61,8 +61,8 @@ $config = [
             'password' => '1111',
             'port' => '587',
             'encryption' => 'tls',
-            'streamOptions' => [ 
-                'ssl' => [ 
+            'streamOptions' => [
+                'ssl' => [
                     'allow_self_signed' => true,
                     'verify_peer' => false,
                   //  'verify_peer_name' => false,

@@ -114,7 +114,7 @@ class RecupassForm extends Model
 
                                         <hr style='border:1px solid #ccc; width:90%'>
 
-                                        <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-iT_-pQzmOPo/XREg3ohXqnI/AAAAAAAAAlg/YGQRUExWZOIfmsHgaeiwb4RK7yZA4MgUACLcBGAs/s320/placas%2B5-02.jpg'>
+                                        <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-ojJ0v96Bsp8/XURFFohPZjI/AAAAAAAAAmU/ruKr5bHveAU1lxF-_twwxBQUyytz369QgCLcBGAs/s320/placas%2B5-02.jpg'>
 
                                         <h5 style='font-weight:100; color:black'>Te invitamos a que veas nuestras redes sociales.</h5>
 
