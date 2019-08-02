@@ -39,11 +39,11 @@ INSERT INTO `encuesta` (`idEncuesta`, `encTitulo`, `encDescripcion`, `encTipo`, 
 
 
 INSERT INTO `pregunta` (`idPregunta`, `pregDescripcion`, `idEncuesta`, `idRespTipo`) VALUES
-(1, 'Hace actividad física de forma cotidiana?', 1, 4),
-(2, 'Se realiza exámenes médicos de forma periódica?', 1, 4),
-(3, 'Presenta alguna enfermedad crónica o factor de riesgo cardiovascular? ', 1, 4),
-(4, 'Tuvo alguna vez dolor de pecho,sensación de ahogo o perdida de conocimiento durante la actividad física?', 1, 4),
-(5, 'Presenta algún inconveniente patológico que le dificulte realizar actividad física?', 1, 4);
+(5, 'Hace actividad física de forma cotidiana?', 1, 4),
+(6, 'Se realiza exámenes médicos de forma periódica?', 1, 4),
+(7, 'Presenta alguna enfermedad crónica o factor de riesgo cardiovascular? ', 1, 4),
+(8, 'Tuvo alguna vez dolor de pecho,sensación de ahogo o perdida de conocimiento durante la actividad física?', 1, 4),
+(9, 'Presenta algún inconveniente patológico que le dificulte realizar actividad física?', 1, 4);
 
 
 
@@ -54,16 +54,16 @@ INSERT INTO `pregunta` (`idPregunta`, `pregDescripcion`, `idEncuesta`, `idRespTi
 
 
 INSERT INTO `respuesta_opcion` (`idRespuestaOpcion`, `opRespvalor`, `idPregunta`) VALUES
-(1, 'SI', 1),
-(2, 'NO', 1),
-(3, 'SI', 2),
-(4, 'NO', 2),
-(5, 'SI', 3),
-(6, 'NO', 3),
-(7, 'SI', 4),
-(8, 'NO', 4),
-(9, 'SI', 5),
-(10,'NO', 5);
+(1, 'SI', 5),
+(2, 'NO', 5),
+(3, 'SI', 6),
+(4, 'NO', 6),
+(5, 'SI', 7),
+(6, 'NO', 7),
+(7, 'SI', 8),
+(8, 'NO', 8),
+(9, 'SI', 9),
+(10,'NO', 9);
 
 
 INSERT INTO `estadopago` (`idEstadoPago`, `descripcionEstadoPago`) VALUES
@@ -78,4 +78,4 @@ INSERT INTO `importeinscripcion` (`idImporte`, `importe`, `deshabilitado`, `idTi
 --poblacional para la fecha limite pago
 INSERT INTO `fechacarrera` (`idFechaCarrera`, `fechaCarrera`, `fechaLimiteUno`, `fechaLimiteDos`,`deshabilitado`,`idTipoCarrera`) VALUES
 (1, '2019-09-08','2019-08-29',0,0,1),
-(2, '2019-09-08','2019-08-29',0,0,2)
+(2, '2019-09-08','2019-08-29',0,0,2);
