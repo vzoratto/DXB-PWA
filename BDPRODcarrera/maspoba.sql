@@ -1,7 +1,19 @@
 
 INSERT INTO `usuario` (`idUsuario`,`dniUsuario`,`claveUsuario`,`mailUsuario`,`authkey`,`activado`,`idRol`) VALUES
 (1,14780341,'capXGYjL7lKE.','lilianapaez@gmail.com','1',1,2),
-(2,35178582,'ca5MeixRJe8SM','alexisbascuñan@gmail.com','1',1,3);
+(2,35178582,'ca5MeixRJe8SM','alexisbascuñan@gmail.com','1',1,3),
+(3, 27894458, 'caqVPE9ZitkGw', 'pablo.kogan@gmail.com', 'aerrarcrcraddbredardcarrarrraraarberrcaadaraeearra', 0, 1),
+(4, 37951821, 'caISdp22WPROc', 'carolinamariel14@hotmail.com', '087x8b00WW97xzAx08bb6986xzz89Wx686x997x9686bAWb09b', 1, 1),
+(5, 39881326, 'camnpIIaIHJ1Y', 'danielassf98@gmail.com', 'zbAW607bx7x87zA6bxA609bx8908677b0x8A6zb6x7z96xW7AA', 1, 1),
+(6, 23890156, 'caytdyeWoDNR2', 'clausy2012@hotmail.com', 'AW67A8A67bz86xx0xWAWx9WbA766Ax9W76WbAA8bb88x6Ax8x6', 1, 1),
+(7, 39868898, 'caJY6jFfAJofU', 'Valeria1995elizabeth@gmail.com', 'radrbrrbardcraaradarebraecaaerrrbrararbdreararraab', 0, 1),
+(8, 20917491, 'caMp86DbE.C/s', 'dasemenzato@hotmail.com', 'W877906bWxWb79z8WA7960b9W9W686xz0798zAzA6bW7Wb0bW0', 1, 1),
+(9, 36693318, 'caJ7T2yCWsql2', 'riveromarielandrea@gmail.com', '99986A89W8x7009WW9978zAxA08Wz98A06bWWAWb9A7zzA997A', 1, 1),
+(10, 32199315, 'ca2GEqwF7zCBc', 'francoanalia781@gmail.com', '6079789xWW076WWx9z0Ax8z80x06988W66xWzW79670WA608zx', 1, 1),
+(11, 32610365, 'caQcR0F0n0AJs', 'juanjosetorres333@gmail.com', '0z66x66W687A8b9zz7b8A6Wx667W0WA97960AxWx0Azx0876W7', 1, 1),
+(12, 34514591, 'caCkHa6lffLpI', 'Marirome8907@gmail.com', 'W9zxAW6Az9W0788W087bbz9z7A8b607x90A870bAWbbbAbAz8A', 1, 1),
+(13, 28839771, 'cai0OrNzIAJdc', 'Claumoraga2@gmail.com', '6zbzWA9bb76A7AAxb89WA90b98x69b6zAz70W8AWA97x80A9Wb', 1, 1),
+(14, 33677741, 'ca5pGka3j30SA', 'Krlu_88@live.com', 'A9A7A8WA77zbzb78z69zA78Wx87bA8bzzWz96z8W89zWW07Wx0', 1, 1);
 
 
 
