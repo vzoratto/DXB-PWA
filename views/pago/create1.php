@@ -14,6 +14,7 @@ $this->title = 'Crear Pago';
 
     <?= $this->render('_form1', [
         'model' => $model,
+        'usuario'=>$usuario,
         
     ]) ?>
 </div>

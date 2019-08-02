@@ -55,5 +55,9 @@ use yii\widgets\ActiveForm;
             <div class="alert alert-success" align="center">
              Check no realizado, vuelva a intentarlo :(
             </div>
+   <?php elseif(Yii::$app->session->hasFlash('pagoGrande')): ?>
+            <div class="alert alert-success" align="center">
+             Check no realizado, ingresaste mas dinero que el costo de la inscripcion :(
+            </div>
     <?php endif ?>
 </div>

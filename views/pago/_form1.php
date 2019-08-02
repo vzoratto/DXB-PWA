@@ -13,8 +13,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php
-      if ($model->isNewRecord) 
+      if ($model->isNewRecord)
          echo $form->field($model, 'dniUsu')->textInput();
+      
      ?>
     <?= $form->field($model, 'importePagado')->textInput() ?>
 

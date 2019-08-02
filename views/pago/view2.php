@@ -22,7 +22,7 @@ $this->title = 'Detalle del pago ingresado';
         'model' => $model,
         'attributes' => [
            // 'idPago',
-            //'importePagado',
+            'importePagado',
             'entidadPago',
             
             ['attribute'=>'idPersona',
@@ -57,7 +57,11 @@ $this->title = 'Detalle del pago ingresado';
     ]) ?>
         <?php if (Yii::$app->session->hasFlash('pago')): ?>
           <div class="alert alert-success" align="center">
-             Realizaste la acreditación del pago, recuerda que en 48 horas h&aacute;biles se chequear&aacute; el mismo.
+             Realizaste un pago total, recuerda que en 48 horas h&aacute;biles se te acreditar&aacute; el pago :)
+          </div>
+        <?php elseif(Yii::$app->session->hasFlash('pagoParcial')): ?>
+        <div class="alert alert-success" align="center">
+             Realizaste un pago parcial, recuerda que en 48 horas h&aacute;biles se te acreditar&aacute; el pago :)
           </div>
         <?php endif ?>
     </div>

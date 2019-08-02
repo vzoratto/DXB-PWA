@@ -379,20 +379,18 @@ class PagoController extends Controller
         try {
         $model = new Pago();
         if ($model->load(Yii::$app->request->post())) {
-            $pagado=$suma + $model->importePagado;
-           // echo '<pre>';echo $pagado;echo '</pre>';die();
-           if($importecarrera->importe >= $pagado){
+            
+              $model->importePagado=0;
               $model->idPersona=$persona->idPersona;
              //preparamos el modelo para guarar la imagen del ticket
               $model->imagenComprobante = UploadedFile::getInstance($model, 'imagenComprobante');
                $imagen_nombre=rand(0,4000).'pers_'.$model->idPersona.'.'.$model->imagenComprobante->extension;
              $imagen_dir='archivo/pagoinscripcion/'.$imagen_nombre;
-              //$model->imagenComprobante->saveAs($imagen_dir);
+              $model->imagenComprobante->saveAs($imagen_dir);
               $model->imagenComprobante=$imagen_dir;
               $model->idEquipo=$equipo->idEquipo;
               $model->idImporte=$importecarrera->idImporte;   
                 if($model->save()){
-                   $model->imagenComprobante->saveAs($imagen_dir);
                    $idpago = Yii::$app->db->getLastInsertID(); //Obtenemos el ID del ultimo usuario ingresado
             
                    $model1=new Controlpago;
@@ -402,31 +400,15 @@ class PagoController extends Controller
                    $model1->save();
 
               }//fin carga tabla pago
-           }else{
-               $mensaje="El pago que ibas a efectuar es superior al costo de la inscripción. ";
-               return $this->render('aviso',[
-                   'persona' => $persona,
-                   'importecarrera'=>$importecarrera,
-                   'usuario'=>$usuario,
-                   'suma'=>$suma,
-                   'mensaje'=>$mensaje,
-                ]);
-           }  
+           
                   $transaction->commit();
                   $guardado=true;
                   if ($guardado){ 
-                    if($importecarrera->importe == $model->importePagado){
-                       $total='pago total';//pago total
-                       Yii::$app->session->setFlash('pagoTotal');//enviamos mensaje
+                    
+                       Yii::$app->session->setFlash('pago');//enviamos mensaje
                        return $this->redirect(['view1', 'id' => $idpago]);
-               
-                    }elseif($importecarrera->importe > $model->importePagado){
-                        $total='pago parcial';//pago parcial
-                        Yii::$app->session->setFlash('pagoParcial');//enviamos mensaje
-                        return $this->redirect(['view1', 'id' => $idpago]);
-              
-                    }   
-                }//fin guardado true
+                    
+                  }//fin guardado true
             }else{//fin verificarion de datos
                 return $this->render('create', [
                   'model' => $model,
@@ -464,9 +446,11 @@ class PagoController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
+        
         $model = $this->findModel($id);
-
+  
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
             return $this->redirect(['view', 'id' => $model->idPago]);
         }
 

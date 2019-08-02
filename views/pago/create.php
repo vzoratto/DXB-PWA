@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Pago */
 //crea un pago el participante-----------------------------------------------------
-$this->title = 'Crear Pago';
+$this->title = 'Acreditar Pago';
 
 ?>
 <div class="pago-create">

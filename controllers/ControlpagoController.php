@@ -12,6 +12,7 @@ use app\models\Importeinscripcion;
 use app\models\Pago;
 use app\models\Estadopagoequipo;
 use app\models\Persona;
+use app\models\Equipo;
 use yii\web\IdentityInterface;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -126,21 +127,34 @@ class ControlpagoController extends Controller
         if ($model->load(Yii::$app->request->post())){
             $model->chequeado=1;// 0 no chequeado, 1 chequeado
             $model->idGestor=$gestor->idGestor;
+            $pago=Pago::findOne(['idPago'=>$model->idPago]);
+            $equipo=Equipo::findOne(['idEquipo'=>$pago->idEquipo]);
+            $importe=Importeinscripcion::findOne(['idImporte'=>$pago->idImporte]);
+            $costo=$importe->importe * $equipo->cantidadPersonas;
+            //echo '<pre>';echo $costo;echo $pago->importePagado;echo '</pre>';die();
+            if($costo == $pago->importePagado){
+                $estado=1;//pago total
+            }elseif($costo > $pago->importePagado){
+                   // echo '<pre>';echo $costo;echo $pago->importePagado;echo '</pre>';die();
+                    $estado=2;
+            }elseif($costo < $pago->importePagado){
+                    Yii::$app->session->setFlash('pagoGrande');//enviamos mensaje si ingreso mas dinero
+                    return $this->refresh();
+            }else{
+                    $suma=Pago::sumaEquipo($pago->idEquipo);//suma los pagos parciales
+                   // echo '<pre>';echo $suma;echo '</pre>';die();
+                    if($costo == $suma){
+                         $estado=3;//pago cancelo
+                    }elseif($costo > $suma){
+                         $estado=2;//pago parcial
+                    }else{
+                        Yii::$app->session->setFlash('pagoGrande');//enviamos mensaje si ingreso mas dinero
+                        return $this->refresh();
+                    }
+                 
+            }
           if($model->save()) {
-              $pago=Pago::findOne(['idPago'=>$model->idPago]);
-              $importe=Importeinscripcion::findOne(['idImporte'=>$pago->idImporte]);
-              if($importe->importe == $pago->importePagado){
-                  $estado=1;//pago total
-              }else{
-                  $suma=Pago::sumaEquipo($pago->idEquipo);//suma los pagos parciales
-                  if($importe->importe == $suma){
-                      $estado=3;//pago cancelo
-                  }elseif($importe->importe > $suma){
-                      $estado=2;//pago parcial
-                  }else{
-                      $error=$model->errors;
-                  }
-              }
+             
               // actualiza el estado  pago del equipo si existe
               if($model1=Estadopagoequipo::findOne(['idEquipo'=>$pago->idEquipo])){
                   $model1->idEstadoPago=$estado;
