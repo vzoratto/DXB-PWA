@@ -23367,11 +23367,11 @@ CREATE TABLE `pregunta` (
 --
 
 INSERT INTO `pregunta` (`idPregunta`, `pregDescripcion`, `idEncuesta`, `idRespTipo`) VALUES
-(5, 'Hace actividad física de forma cotidiana?', 1, 4),
-(6, 'Se realiza exámenes médicos de forma periódica?', 1, 4),
-(7, 'Presenta alguna enfermedad crónica o factor de riesgo cardiovascular? ', 1, 4),
-(8, 'Tuvo alguna vez dolor de pecho,sensación de ahogo o perdida de conocimiento durante la actividad física?', 1, 4),
-(9, 'Presenta algún inconveniente patológico que le dificulte realizar actividad física?', 1, 4);
+(1, 'Hace actividad física de forma cotidiana?', 1, 4),
+(2, 'Se realiza exámenes médicos de forma periódica?', 1, 4),
+(3, 'Presenta alguna enfermedad crónica o factor de riesgo cardiovascular? ', 1, 4),
+(4, 'Tuvo alguna vez dolor de pecho,sensación de ahogo o perdida de conocimiento durante la actividad física?', 1, 4),
+(5, 'Presenta algún inconveniente patológico que le dificulte realizar actividad física?', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -23445,16 +23445,16 @@ CREATE TABLE `respuesta_opcion` (
 --
 
 INSERT INTO `respuesta_opcion` (`idRespuestaOpcion`, `opRespvalor`, `idPregunta`) VALUES
-(1, 'SI', 5),
-(2, 'NO', 5),
-(3, 'SI', 6),
-(4, 'NO', 6),
-(5, 'SI', 7),
-(6, 'NO', 7),
-(7, 'SI', 8),
-(8, 'NO', 8),
-(9, 'SI', 9),
-(10, 'NO', 9);
+(1, 'NO', 1),
+(2, 'SI', 1),
+(3, 'NO', 2),
+(4, 'SI', 2),
+(5, 'NO', 3),
+(6, 'SI', 3),
+(7, 'NO', 4),
+(8, 'SI', 4),
+(9, 'NO', 5),
+(10,'SI', 5);
 
 -- --------------------------------------------------------
 
