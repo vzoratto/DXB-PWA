@@ -639,6 +639,7 @@ class InscripcionController extends Controller
             $persona=Persona::findOne(['idUsuario' => $_SESSION['__id']]);
 
             $equipo=Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario]);
+            //$personaCapitan=null;
             $nombreCapitan=null;
 
             $capitan=false;
@@ -647,6 +648,10 @@ class InscripcionController extends Controller
                 $capitan=true;
                 $tipoCarrera=$equipo->tipoCarrera;
                 $cantCorredores=$equipo->cantidadPersonas;
+                $usuarioCapitan=Usuario::findOne(['dniUsuario'=>$equipo->dniCapitan]);
+                //si el usuario logueado es capitan se guarda la en la varlable $personaCapitan el modelo persona
+                //para asi poder usar sus datos
+                $personaCapitan=$persona;
 
             }else{
                 //como no es capitan se pone en false
@@ -677,7 +682,8 @@ class InscripcionController extends Controller
             'tipoCarrera'=>$tipoCarrera,
             'cantCorredores'=>$cantCorredores,
             'estadoPago'=>$estadoPago,
-            'nombreCapitan'=>$nombreCapitan
+            'nombreCapitan'=>$nombreCapitan,
+            'personaCapitan'=>$personaCapitan
 
 
 

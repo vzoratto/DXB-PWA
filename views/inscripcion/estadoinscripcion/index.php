@@ -99,12 +99,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
         if($capitan==true){
             ?>
-            <p>Sos <strong>CAPITÁN</strong> del equipo <?php  echo $equipo['idEquipo'];?>
+            <p>Sos <strong><?php echo ($personaCapitan->sexoPersona=='F') ? 'CAPITANA':'CAPITÁN';?></strong> del equipo <?php  echo $equipo['idEquipo'];?>
             </p>
         <?php
         }else{
             ?>
-            <strong>El capitán del equipo es <?php echo strtoupper( $nombreCapitan);?> </strong>
+            <strong><?php echo ($personaCapitan->sexoPersona=='F') ? 'La capitana':'El capitán';?> del equipo es <?php echo strtoupper( $nombreCapitan);?> </strong>
             <br>
             <br>
 
