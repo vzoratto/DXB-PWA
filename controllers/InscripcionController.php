@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Estadopagoequipo;
 use app\models\Estadopagopersona;
 use app\models\Talleremera;
 use Yii;
@@ -638,6 +639,7 @@ class InscripcionController extends Controller
             $persona=Persona::findOne(['idUsuario' => $_SESSION['__id']]);
 
             $equipo=Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario]);
+            $nombreCapitan=null;
 
             $capitan=false;
             //si es capitan
@@ -660,9 +662,11 @@ class InscripcionController extends Controller
                 $personaCapitan=Persona::findOne(['idUsuario'=>$usuarioCapitan->idUsuario]);
                 $nombreCapitan=$personaCapitan->nombrePersona.' '.$personaCapitan->apellidoPersona;
             }
+            //$equipoGrupo=Equipo::find()->where(['idEquipo'=>$equipo->idEquipo])->one();
 
-
-
+            //estado de pago del equipo
+            $estadoPago=Estadopagoequipo::find()->where(['idEquipo'=>$equipo->idEquipo])->one();
+            //si es nulo significa que no pago o no fue chequeado el pago
 
         }
 
@@ -671,7 +675,10 @@ class InscripcionController extends Controller
             'capitan'=>$capitan,
             'persona'=>$persona,
             'tipoCarrera'=>$tipoCarrera,
-            'cantCorredores'=>$cantCorredores
+            'cantCorredores'=>$cantCorredores,
+            'estadoPago'=>$estadoPago,
+            'nombreCapitan'=>$nombreCapitan
+
 
 
         ]);
