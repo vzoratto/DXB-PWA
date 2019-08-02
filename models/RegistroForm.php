@@ -88,7 +88,7 @@ use app\models\Usuario;
                                 <div class='col-lg-12 col-xs-6' style='position:relative; margin: auto; max-width: 500px; background:white; padding:20px'>
                                         <center>
                                         <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
-                                        <h2 style='font-weight:100; color:black'>DESAFIO POR LAS BARDAS</h2>
+                                        <h2 style='font-weight:100; color:black'>DESAFIO POR BARDAS</h2>
                                         <hr style='border:1px solid #ccc; width:90%'>
                                         <h3 style='font-weight:100; color:black; padding:0 20px'><strong>Su registro se completo exitósamente. </strong></h3><br>
                                         <h4 style='font-weight:100; color:black; padding:0 20px'>Gracias por registrarse en Desafio por Bardas</h4>

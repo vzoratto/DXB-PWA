@@ -14,8 +14,20 @@ $this->title = 'Estado del pago: no abonado';
 
     <h1><?= Html::encode($this->title) ?></h1>
  <!-- La siguiente grilla muestra los datos en pantalla -->
- <?php  
-	
+ <?php 
+  foreach($fechas as $fecha){
+    if($fecha->idTipoCarrera==1){
+      $date1 = new DateTime($fecha->fechaLimiteUno);
+      $date2 = new DateTime("now");
+      $diff = $date1->diff($date2);
+       $diff1=$diff->days;
+     }elseif($fecha->idTipoCarrera==2){
+          $date1 = new DateTime($fecha->fechaLimiteUno);
+          $date2 = new DateTime("now");
+          $diff = $date1->diff($date2);
+          $diff2=$diff->days;
+      }
+    }
 	$gridColumns=[
             ['class' => 'yii\grid\SerialColumn'],
            ['label'=>'Referencia equipo',
@@ -51,7 +63,17 @@ $this->title = 'Estado del pago: no abonado';
                return ($model->usuario->mailUsuario);
               }
           ],
-          
+          ['label'=>'$ Pagado',
+            'attribute'=>'idEquipo',
+           'hAlign' => 'center',
+           "filterInputOptions" => ['class'=>'form-control',
+            "disabled" => true
+            ],
+           'value'=>function($model){
+            return $suma=Pago::sumaEquipo($model->idEquipo)==0?"0":"";
+               
+           }
+          ],
           ['label'=>'Estado pago',   
            'attribute' => 'estadopago',
            'hAlign' => 'center',
@@ -83,17 +105,29 @@ $this->title = 'Estado del pago: no abonado';
             return $print;
             },   
            ],
-           ['class' => 'yii\grid\ActionColumn',
-           'header' => 'Acciones',
-                 'contentOptions'=>
-				 ['style'=>'width: 10%;'],
-                   'template'=>'{view}  {mail}',
-                   'buttons' => [
-                    'mail' => function ($url, $model, $key) {//id1=idEstadoPago, id=idEquipo
-                        return Html::a ( '<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> ', ['equipo/enviomail', 'id' => $model->idEquipo],['title'=>'Envio mail'] );
-                    },
-                ],
-		    	],
+           ['label'=>'Más detalles',
+            'attribute'=>'',
+           'format'=>'raw',
+           'hAlign' => 'center',
+           'contentOptions'=>['style'=>'width:100px;'],
+           'value'=>function($model){
+               return Html::a('<span class = " glyphicon glyphicon-eye-open"></span>', 
+                          [ 'estadopagoequipo/view1',
+                           'idEquipo'=>$model->idEquipo]);
+               }
+           ],
+           ['label'=>'Enviar email',
+            'attribute'=>'',
+           'format'=>'raw',
+           'hAlign' => 'center',
+           'contentOptions'=>['style'=>'width:100px;'],
+           'value'=>function($model){
+               return Html::a('<span class = " glyphicon glyphicon-envelope"></span>', 
+                          [ 'estadopagoequipo/enviamail',
+                           'idEquipo'=>$model->idEquipo]);
+               }
+           ],
+           
                
            //'idImporte',
     ]; 	
@@ -133,6 +167,7 @@ echo \kartik\grid\
      GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
+    'rowOptions'=>$diff1<=10 && $diff2<=10?['class'=>'danger']:['class'=>'success'],  
 	'columns' => $gridColumns,
 	'options' => [
 		'class' => 'table-responsive',

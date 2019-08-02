@@ -97,7 +97,7 @@ class RecupassForm extends Model
 
                                         <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>
 
-                                        <h2 style='font-weight:100; color:black'><strong>DESAFIO POR LAS BARDAS</strong></h2>
+                                        <h2 style='font-weight:100; color:black'><strong>DESAFIO POR BARDAS</strong></h2>
 
                                         <hr style='border:1px solid #ccc; width:90%'>
                                         <h3 style='font-weight:100; color:black; padding:0 20px'>Se te envía un código que deberás ingresar como contraseña para loguearte. <br> Recuerda, que luego deberás cambiar la contraseña enviada por una personalizada.</h3><br>

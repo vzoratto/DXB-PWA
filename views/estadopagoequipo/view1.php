@@ -16,14 +16,14 @@ $this->title = "Referencia equipo ".$model->idEquipo;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Envío email', ['enviamail','id1' => $model->idEstadoPago, 'id' => $model->idEquipo], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Envía email', ['enviamail','id' => $model->idEquipo], ['class' => 'btn btn-success']) ?>
         <?Php 
         //id1=idEstadoPago, id=idEquipo     
         if(Permiso::requerirRol('administrador')):
-        echo Html::a('Eliminar estado pago???', ['delete', 'idEstadoPago' => $model->idEstadoPago, 'idEquipo' => $model->idEquipo], [
+        echo Html::a('Desvincular equipo???', ['delete1', 'idEquipo' => $model->idEquipo], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Esta seguro de querer eliminar este registro???',
+                //'confirm' => 'El equipo se desvincula de la carrera???',
                 'method' => 'post',
             ],
         ]); ?>
@@ -35,48 +35,50 @@ $this->title = "Referencia equipo ".$model->idEquipo;
         'attributes' => [
            // 'idEstadoPago',
             //'idEquipo',
-           
            ['label'=>'Nombre del equipo',
             'attribute'=>'nombreEquipo',
             'value'=>function($model){
-               return ($model->equipo->nombreEquipo);
+               return ($model->nombreEquipo);
              }
            ],
            ['label' => 'DNI capitán',
            'attribute' => 'dniCapitan',
            'value' => function($model) {
-               return ($model->equipo->dniCapitan);
+               return ($model->dniCapitan);
               },
           ],
           ['label' => 'Email capitán',
            'attribute' => 'mailusuario',
            'value' => function($model) {
-               return ($model->equipo->usuario->mailUsuario);
+               return ($model->usuario->mailUsuario);
               }
           ],
           ['label'=>'Importe Pagado',
-              'attribute'=>'idEquipo',
+            'attribute'=>'idEquipo',
            'value'=>function($model){
-            return   Pago::sumaEquipo($model->idEquipo);
+            return   Pago::sumaEquipo($model->idEquipo)==0?"0":"";
            }
           ],
-           ['label'=>'Estado del pago',   
-           'attribute' => 'idEstadoPago',
-           'value' => function($model) {
-               return ($model->estadoPago->descripcionEstadoPago);
-              },
+          ['label'=>'Estado pago',   
+           'attribute' => 'estadopago',
+           'hAlign' => 'center',
+           "filterInputOptions" => ['class'=>'form-control',
+            "disabled" => true
+            ],
+           'value' =>function($model){
+            return   $model='impago'; 
+           } 
           ],
            ['label'=>'Costo inscripción',
             'attribute'=>'importe',
             'value'=>function($model){
                 $print='';
-                foreach($model->equipo->tipoCarrera->importeinscripcion as $importe){ 
+                foreach($model->tipoCarrera->importeinscripcion as $importe){ 
                    $print.=$importe->importe;
                 }
             return $print;
             },   
-           ],
-           
+           ], 
         ],
     ]) ?>
        <table class="table table-bordered table-striped  detail-view">
@@ -85,12 +87,11 @@ $this->title = "Referencia equipo ".$model->idEquipo;
                 <th>DNI </th>
                 <th>Email </th>
              </tr>
-             <?php foreach($model->equipo->persona as $pers) :?>
+             <?php foreach($model->persona as $pers) :?>
                 <tr>
                    <td><?= $pers->nombrePersona." ".$pers->apellidoPersona ?></td>
                    <td><?= $pers->usuario->dniUsuario ?></td>
                    <td><?= $pers->mailPersona ?></td>
-            
                 </tr>
              <?php endforeach; ?>
        </table> 

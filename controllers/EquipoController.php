@@ -200,15 +200,15 @@ class EquipoController extends Controller
                $participante = $model['3'];
                $idPerusu=$model['4'];
                 
-                  $grupo=Grupo::findOne(['idPersona'=>$idPercap]);
+                  $grupo=Grupo::findOne(['idPersona'=>$idPercap]);//aca se borra
                   $grupo->idPersona=$idPerusu;
                   $grupo->save();//salva el cambio del capitan en grupo
                   
-                  $carreraper=Carrerapersona::findOne(['idPersona'=>$idPercap]);
+                  $carreraper=Carrerapersona::findOne(['idPersona'=>$idPercap]);//aca se borra
                   $carreraper->idPersona=$idPerusu;
                   $carreraper->save();//salva el cambio del capitan en carrerapersona
                   
-                  $equipo=Equipo::findOne(['dniCapitan'=>$capitan]);
+                  $equipo=Equipo::findOne(['dniCapitan'=>$capitan]);//aca se cambia
                   $equipo->dniCapitan=$participante;
                   $equipo->save();
                   $mensaje="Perfecto, se realizó el cambio de capitán";//salva cambio capitan
@@ -363,9 +363,29 @@ class EquipoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        //$this->findModel($id)->delete();
+        $equipo = Equipo::findOne($id);
+        $tipocarrera=Tipocarrera::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+        $grupo=Grupo::find()->Select('idPersona')->where(['idEquipo'=>$equipo->idEquipo])->all();
+       echo '<pre>'; print_r($grupo);echo '</pre>';die();
+        foreach($grupo as $persona){
+            $grupocopia=new Grupocopia;
+            $grupocopia->idEquipo=$persona->idEquipo;
+            $grupocopia->idPersona=$persona->idPersona;
+            $grupocopia->save();//copia grupo
+            $grup=Grupo::findOne($persona->idEquipo,$persona->idPersona)->delete();
+            $carreracopia=new Carreracopia;
+            $carreracopia->idTipoCarrera=$tipocarrera->idTipocarrera;
+            $carreracopia->idPersona=$persona->idPersona;
+            $carreracopia->save();//copia carrera persona
+            $carr=Carrerapersona::findOne($tipocarrera->idTipocarrera,$persona->idPersona)->delete();
+            $persona->deshabilitado=1;//deshabilita persona
+            $persona->save();
+            $equipo->deshabilitado=1;//deshabilita equipo
+            $equipo->save();
+        }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['estadopagoequipo/index1']);
     }
 
     /**

@@ -10,16 +10,34 @@ use app\models\Estadopago;
 /* @var $searchModel app\models\EstadopagoequipoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Estado del pago por equipo';
-
+ $this->title = 'Estado del pago por equipo';
+  
+	 foreach($fechas as $fecha){
+        if($fecha->idTipoCarrera==1){
+          $date1 = new DateTime($fecha->fechaLimiteUno);
+          $date2 = new DateTime("now");
+          $diff = $date1->diff($date2);
+           $diff1=$diff->days;
+         }elseif($fecha->idTipoCarrera==2){
+              $date1 = new DateTime($fecha->fechaLimiteUno);
+              $date2 = new DateTime("now");
+              $diff = $date1->diff($date2);
+              $diff2=$diff->days;
+             
+          }
+        }
 ?>
 <div class="estadopagoequipo-index reglamento-container">
 
+      <?Php   if($diff1<=10 && $diff2<=10):?>  
+          <div  class="alert alert-danger" style='color:red'> 
+            <h4><?= Html::encode("Es la fecha límite, hay que enviarle un email a los capitanes de los equipos que no terminaron de abonaron la inscripción") ?></h4>
+          </div>   
+   <?Php endif ?>
     <h1><?= Html::encode($this->title) ?></h1>
- <!-- La siguiente grilla muestra los datos en pantalla -->
- <?php  
-	
-	$gridColumns=[
+ <!-- La siguiente grilla muestra los datos en pantalla --> 
+   <?php     
+	  $gridColumns=[
             ['class' => 'yii\grid\SerialColumn'],
            ['label'=>'Referencia equipo',
              'attribute'=>'idEquipo',
@@ -94,33 +112,41 @@ $this->title = 'Estado del pago por equipo';
             return $print;
             },   
            ],
+           ['label'=>'Enviar email',
+            'attribute'=>'',
+           'format'=>'raw',
+           'hAlign' => 'center',
+           'contentOptions'=>['style'=>'width:100px;'],
+           'value'=>function($model){
+               return $model->idEstadoPago==2?Html::a('<span class = " glyphicon glyphicon-envelope"></span>', 
+                          [ 'estadopagoequipo/enviamail',
+                          'idEstadoPago'=>$model->idEstadoPago,
+                           'idEquipo'=>$model->idEquipo]):'';
+               }
+           ],
            ['class' => 'yii\grid\ActionColumn',
-           'header' => 'Acciones',
+           'header' => 'Acción',
                  'contentOptions'=>
 				 ['style'=>'width: 10%;'],
-                   'template'=>'{view}  {mail}',
-                   'buttons' => [
-                    'mail' => function ($url, $model, $key) {//id1=idEstadoPago, id=idEquipo
-                        return $model->idEstadoPago==2?Html::a ( '<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> ', ['equipo/enviomail', 'id1' => $model->idEstadoPago, 'id' => $model->idEquipo],['title'=>'Envio mail'] ):"";
-                    },
-                ],
+                   'template'=>'{view}',
+                   
 		    	],
                
            //'idImporte',
-    ]; 	
+      ]; 	
 	
-	// Renders a export dropdown menu
-echo ExportMenu::widget([
-    'dataProvider' => $dataProvider,
-    'columns' => $gridColumns,
-	'filename'=>'DesafioBardas',
-	'target' => ExportMenu::TARGET_SELF,
+	  // Renders a export dropdown menu
+      echo ExportMenu::widget([
+       'dataProvider' => $dataProvider,
+       'columns' => $gridColumns,
+	   'filename'=>'DesafioBardas',
+	   'target' => ExportMenu::TARGET_SELF,
 	
-	'exportConfig' => [
-        ExportMenu::FORMAT_HTML => false,
-        ExportMenu::FORMAT_TEXT => false,
-		ExportMenu::FORMAT_EXCEL => false,
-        ExportMenu::FORMAT_PDF => [
+	   'exportConfig' => [
+          ExportMenu::FORMAT_HTML => false,
+          ExportMenu::FORMAT_TEXT => false,
+		  ExportMenu::FORMAT_EXCEL => false,
+          ExportMenu::FORMAT_PDF => [
             'pdfConfig' => [
                 'methods' => [
                     'SetTitle' => 'Estado de los pagos realizados',
@@ -131,27 +157,24 @@ echo ExportMenu::widget([
             ]
         ],
 		
-    ],
-	'dropdownOptions' => [
+      ],
+	    'dropdownOptions' => [
         'label' => 'Exportar',
         'class' => 'btn btn-secondary'
-    ]
+        ]
 	
 	
-]);
+      ]);
 
-// You can choose to render your own GridView separately
-echo \kartik\grid\
-     GridView::widget([
-    'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
-	'columns' => $gridColumns,
-	'options' => [
+       // You can choose to render your own GridView separately
+      echo \kartik\grid\
+       GridView::widget([
+      'dataProvider' => $dataProvider,
+      'filterModel' => $searchModel,
+      'columns' => $gridColumns, 
+	  'options' => [
 		'class' => 'table-responsive',
-	],
-     ]);
-?>
-   
-
-
+	  ],
+       ]);
+    ?>
 </div>
