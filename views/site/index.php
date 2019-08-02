@@ -40,6 +40,17 @@ $inscrito=$persona->inscrito();
 
         </div>
 
+
+          <?php if (Yii::$app->user->isGuest) {
+            // code...
+          echo '<div class="inicio-sesion">';
+          echo '<a href="'.Url::to(["site/login"]).'" class="">¿Ya tenes usuario? Inicia sesión aquí</a>';
+          echo '</div>';
+        }
+         ?>
+
+
+
         <div class="logo wow fadeIn">
 
           <img src="assets/img/logo-inicio.png" alt="logo inicio">

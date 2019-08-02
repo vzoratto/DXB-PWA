@@ -558,7 +558,7 @@ a.desc:after {
     border-radius: 30px;
     width: 100%;
     padding: 5px 15px;
-    
+
     border: none;
     background-color: #FFF;
     -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
@@ -1929,6 +1929,21 @@ a.desc:after {
     border-color: #6a8a7c;
     color: #5b5b5e;
 }
+.btn-next{
+    background-color: rgba(206, 134, 59, 1);
+    color: white!important;
+    font-weight: 300;
+    transition: all 0.5s ease-in;
+
+}
+
+  .btn-next:hover {
+      background: transparent;
+      border-color: #C58639;
+      color: #5b5b5e!important;
+  }
+
+
 
 .btn.btn-carrera {
     background-color: rgba(106, 138, 124, 1);
@@ -3550,6 +3565,7 @@ a.desc:after {
     white-space: nowrap;
     padding: 0.5em 2em;
     transition: all 0.6s ease-in;
+    border-radius: 20px;
 }
 
 .btn-grande {
@@ -4444,6 +4460,15 @@ a.desc:after {
     padding: 20px;
 }
 
+.inscripcion-container{
+
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 5px black;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
 .has-success .control-label .select2-container--focus {
     color: transparent;
 }
@@ -4455,7 +4480,7 @@ a.desc:after {
 .field-icon {
     float: right;
     margin-left: -25px;
-    margin-top: -50px;
+    margin-top: -42px;
     position: relative;
     right: 10px;
     z-index: 2;
@@ -4508,4 +4533,15 @@ a.desc:after {
 
 .wrap .db-registro {
   background-image: none !important;
+}
+
+.border{
+  border-color: black;
+  border: 1px black;
+}
+
+.inicio-sesion{
+  color:white;
+  text-align: center;
+  display:none;
 }

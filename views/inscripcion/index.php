@@ -29,8 +29,14 @@ $wizard_config = [
 			'icon' => 'glyphicon glyphicon-user',
 			'content' => $this->render('datospersonales',['persona'=>$persona,'usuario'=>$usuario,'form'=>$form,'talleRemera'=>$talleRemera,'listadoTalles'=>$listadoTalles,'equipoLista'=>$equipoLista,'equipo'=>$equipo,'tipoCarrera'=>$tipoCarrera,'tipocarreraLista'=>$tipocarreraLista,'cantCorredores'=>$cantCorredores,'swicht'=>$swicht,'user'=>$user]),
 			'buttons' => [
+
+
                 'next' => [
-					'title' => 'Siguiente',
+        'title' => 'Siguiente',
+        'options' => [
+          'class'=> 'btn btn-next',
+        ]
+
 			 ],
 		],	],
 
@@ -41,6 +47,9 @@ $wizard_config = [
 			'buttons' => [
                 'next' => [
                     'title' => 'Siguiente',
+                    'options' => [
+                      'class'=> 'btn btn-next',
+                    ]
 				],
 				'previous' => [
 					'title' => 'Atras',
@@ -54,6 +63,9 @@ $wizard_config = [
 			'buttons' => [
                 'next' => [
                     'title' => 'Siguiente',
+                    'options' => [
+                      'class'=> 'btn btn-next',
+                    ]
         				],
         				'previous' => [
         					'title' => 'Atras',
@@ -67,6 +79,9 @@ $wizard_config = [
         			'buttons' => [
                         'next' => [
                             'title' => 'Siguiente',
+                            'options' => [
+                              'class'=> 'btn btn-next',
+                            ]
         				],
         				'previous' => [
         					'title' => 'Atras',
@@ -81,6 +96,9 @@ $wizard_config = [
 			'buttons' => [
                 'next' => [
                     'title' => 'Siguiente',
+                    'options' => [
+                      'class'=> 'btn btn-next',
+                    ]
 				],
 				'previous' => [
 					'title' => 'Atras',
@@ -94,6 +112,9 @@ $wizard_config = [
             'buttons' => [
                 'next' => [
                     'title' => 'Siguiente',
+                    'options' => [
+                      'class'=> 'btn btn-next',
+                    ]
                 ],
                 'previous' => [
                     'title' => 'Atras',

@@ -3109,10 +3109,14 @@
       display: none;
     }
     .clock{
-      margin-left: 1em;
+      font-size: 3em;
+      margin: 0px;
+      text-align: center;
     }
     .clocktext {
-      margin-left: 4.5em;
+      font-size: 1em;
+      margin: 1.5em 0 0 1.5em;
+      text-align: center;
     }
     .sub-auspicia {
       margin-top: 0px;
@@ -3120,6 +3124,8 @@
     #inicio .logo img {
       padding-top: 35%;
       width: 65%;
+      position: relative;
+      z-index: 0;
     }
     .container > .navbar-collapse {
       background-color: #FFF;
@@ -4939,4 +4945,31 @@
   .wizard li.active:after {
     display: none;
   }
+}
+
+/* boton inicio sesion */
+@media (max-width: 575px){
+
+.inicio-sesion {
+  display: block;
+  position:absolute;
+  top:60px;
+ }
+
+.inicio-sesion {
+  text-decoration: none;
+  display:block;
+  width: 90%;
+  margin: auto;
+  z-index: 1;
+  position: relative;
+  border-style:solid;
+  background-color: white;
+  border-radius: 20px;
+  }
+a{
+  text-decoration: none;
+
+}
+
 }

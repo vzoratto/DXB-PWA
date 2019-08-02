@@ -47,7 +47,8 @@ use kartik\switchinput\SwitchInput;
         </div>
     </div>
 
-
+    <div class="inscripcion-container">
+      <label>Datos capitan</label>
     <div class="row db-label">
         <div id="opcionesCapitan" style="display:none" aria-label="..." class="col-1">
 
@@ -75,7 +76,7 @@ use kartik\switchinput\SwitchInput;
         </div>
     </div>
 
-    <div class="row db-label">
+    <div class="row db-label ">
     <div id="opcionesNoSoyCapitan" style="display:block" aria-label="..." class="col-1">
 
         <div id="dniCapitan" class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
@@ -153,12 +154,13 @@ use kartik\switchinput\SwitchInput;
         </div>
 
         <?php /*
-       
+
         */?>
 
     </div>
 
     </div>
+  </div>
     <div class="row db-label">
 
         <div id="dniUsuario" class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
@@ -183,7 +185,7 @@ use kartik\switchinput\SwitchInput;
         <!-- utilizacion de un widget de kartik llamado DatePicker, permite escoger
         una fecha desde un calendario permitiendo tambien seleccionar años o meses
         con una mayor facilidad -->
-        
+
             <?=  $form->field($persona, 'fechaNacPersona')->textInput(['class'=>'datepicker form-control input-db','id'=>'datepicker', 'placeholder'=>'Fecha de nacimiento']) ?>
 
         </div>

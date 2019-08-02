@@ -125,22 +125,22 @@ class InvitadoController extends Controller
            $parents = $_POST['depdrop_parents'];
             if ($parents != null) {
                 $idEquipo = $parents[0]; //Obtenemos el ID del equipo
-                
+
                 // Con ese ID, buscamos el id de la carrera a la que está inscripto el equipo
                 $equipo= ArrayHelper::map(\app\models\Equipo::find()->where(['idEquipo' => $idEquipo])->all(),'idEquipo','idTipoCarrera');
                 $idTipoCarrera = $equipo[$idEquipo]; //Obtenemos el ID del tipo de la carrera
                 // A través de este ID, obtenemos la descripción de la carrera.
                 $carrera= ArrayHelper::map(\app\models\Tipocarrera::find()->where(['idTipoCarrera' => $idTipoCarrera])->all(),'idTipoCarrera','descripcionCarrera');
-            
+
                 $out = [
                     ['id' => $idTipoCarrera, 'name' => $carrera[$idTipoCarrera]]
                 ];
-            
-            
+
+
                 return ['output'=>$out, 'selected'=>$idTipoCarrera];
             }
         }
-        return ['output'=>'', 'selected'=>''];  
+        return ['output'=>'', 'selected'=>''];
     }
 
     /**
@@ -156,16 +156,16 @@ class InvitadoController extends Controller
            $parents = $_POST['depdrop_parents'];
             if ($parents != null) {
                 $idEquipo = $parents[0]; //Obtenemos el ID del equipo
-              
+
                 // Con este ID, buscamos cuantas personas pueden ingresar en ese equipo
                 $elEquipo= ArrayHelper::map(\app\models\Equipo::find()->where(['idEquipo' => $idEquipo])->all(),'idEquipo','cantidadPersonas');
 
-            
+
                 $out = [
                     ['id' => $idEquipo, 'name' => $elEquipo[$idEquipo]]
                 ];
-            
-            
+
+
                 return ['output'=>$out, 'selected'=>$idEquipo];
             }
         }
@@ -174,7 +174,7 @@ class InvitadoController extends Controller
     }
 
 
-    
+
     /**
      * Mostramos el nombre y apellido del capitan del equipo creado por el DNI ingresado
      * @return array
@@ -189,7 +189,7 @@ class InvitadoController extends Controller
             if ($parents != null) {
                 $idEquipo = $parents[0]; //Obtenemos el ID del equipo
 
-                // Buscamos el equipo a través del DNI ingresado                
+                // Buscamos el equipo a través del DNI ingresado
                 $objEquipo = Equipo::find()->where(['idEquipo'=>$idEquipo])->one();
                 $dniCapitan=$objEquipo['dniCapitan'];  //Obtenemos el DNI del capitan del equipo
 
@@ -197,17 +197,17 @@ class InvitadoController extends Controller
                 $objUsuario = Usuario::find()->where(['dniUsuario'=>$dniCapitan])->one();
                 $idUsu = $objUsuario['idUsuario']; //Obtenemos el ID del usuario
 
-                // Con el ID del usuario, obtenemos el objeto Persona, para así obtener su nombre y apellido 
+                // Con el ID del usuario, obtenemos el objeto Persona, para así obtener su nombre y apellido
                 $objPersona = Persona::find()->where(['idUsuario'=>$idUsu])->one();
                 $nombrePersona = $objPersona['nombrePersona'];
                 $apellidoPersona = $objPersona['apellidoPersona'];
                 $nombreCompleto = $nombrePersona . " " . $apellidoPersona; // Concatenamos su nombre y apellido
 
-            
+
                 $out = [
                     ['id' => $idUsu, 'name' => $nombreCompleto]
                 ];
-            
+
                 return ['output'=>$out, 'selected'=>$idUsu];
             }
         }
@@ -232,7 +232,7 @@ class InvitadoController extends Controller
             $modeloUsuario=Yii::$app->request->post()['Usuario'];
             $dniUsuario = $modeloUsuario['dniUsuario'];
             $idRol = $userLogueado->identity->idRol; // Obtenemos el ID rol del usuario logeado
-           
+
             $modeloPersona=Yii::$app->request->post()['Persona'];
             $mailUsuario = $modeloPersona['mailPersona'];
             $usuario = new Usuario(); // Instanciamos una variable de la clase Usuario y le asignamos los valores
@@ -251,31 +251,31 @@ class InvitadoController extends Controller
             $objUsuario = Usuario::find()->where(['dniUsuario'=>$dniUsuario])->One();
             if ($objUsuario == null) { // Es decir, no existe el usuario con ese DNI en la BD
                 $existeUsuario = false;
-                
+
             } else {
                 $existeUsuario = true;
                 echo "ja";
             }
 
             if ($usuario->validate() && !($existeUsuario)) {
-                
+
                 // toda la entrada es válida y no existe un usuario con ese DNI
                 $usuario->save(); //Realiza el llenado de la tabla
                 $idUsuario = Yii::$app->db->getLastInsertID(); //Obtenemos el ID del ultimo usuario ingresado
-                
+
             } else {
                 // la validación falló: $erroresPersonaDireccion es un array que contienen los mensajes de error
                 $usuario = $usuario->errors;
-                
+
             }
-            
+
             //MODELO LOCALIDAD
             $modeloLocalidad=Yii::$app->request->post()['Localidad'];
 
             //MODELO PERSONA DIRECCION
             // Concatenamos todos los campos relacionados con la Direccion de la persona
             $direccion=Yii::$app->request->post()['calle'].' '.Yii::$app->request->post()['numero'].' '.Yii::$app->request->post()['piso'].' '.Yii::$app->request->post()['departamento'];
-            $personaDireccion=new Personadireccion(); // Instanciamos una variable de la clase Persona Direccion 
+            $personaDireccion=new Personadireccion(); // Instanciamos una variable de la clase Persona Direccion
             // y le asignamos los valores
 
             $personaDireccion->idLocalidad=$modeloLocalidad['idLocalidad'];
@@ -287,7 +287,7 @@ class InvitadoController extends Controller
                 // la validación falló: $erroresPersonaDireccion es un array que contienen los mensajes de error
                 $erroresPersonaDireccion = $personaDireccion->errors;
             }
-            
+
             //MODELO FICHA MEDICA
             $modeloFichaMedica=Yii::$app->request->post()['Fichamedica'];
             $fichaMedica=new Fichamedica(); //Instanciamos una variable de la clase Ficha Medica
@@ -359,11 +359,11 @@ class InvitadoController extends Controller
                 // la validación falló: $erroresPersonaEmergencia es un array que contienen los mensajes de error
                 $erroresPersona = $persona->errors;
             }
-            
+
             $idPersona=$persona->idPersona;  // Obtenemos el ID de la persona ingresada
-          
+
             //MODELO EQUIPO
-            if (!Yii::$app->request->post()['swichtCapitan']){ 
+            if (!Yii::$app->request->post()['swichtCapitan']){
                 //Ingresa acá si NO es capitan
                 $modeloEquipo=Yii::$app->request->post()['Equipo']['idEquipo'];
                 $grupo=new Grupo(); //Instanciamos una variable de la clase Grupo
@@ -374,11 +374,11 @@ class InvitadoController extends Controller
 
             }else{
                 // Acá ingresa SI es capitan
-                $grupo=new Grupo(); 
-                $equipo=new Equipo(); 
+                $grupo=new Grupo();
+                $equipo=new Equipo();
                 // Instanciamos una variable de las clases Grupo y Equipo
                 // Asignamos los valores
-                
+
                 $cantidadPersonas=Yii::$app->request->post()['Equipo']['cantidadPersonas'];
                 $idTipoCarrera=Yii::$app->request->post()['Tipocarrera']['idTipoCarrera'];
                 $parametricaCantidadPersonas = ArrayHelper::map(\app\models\Parametros::find()->where(['idParametros' => $cantidadPersonas])->all(),'idParametros','cantidadCorredores');
@@ -386,7 +386,7 @@ class InvitadoController extends Controller
                 $equipo->cantidadPersonas=$parametricaCantidadPersonas[$cantidadPersonas];
                 // La carrera seleccionada
                 $equipo->idTipoCarrera=$idTipoCarrera;
-                
+
                 $equipo->dniCapitan=Yii::$app->request->post()['Usuario']['dniUsuario'];
                 $equipo->deshabilitado=0;
                 //El DNI del capitan
@@ -397,17 +397,17 @@ class InvitadoController extends Controller
                 $grupo->idEquipo=$idDbEquipo;
                 $grupo->idPersona=$idPersona;
                 $grupo->save(); //Realiza el llenado de la tabla
-               
+
             }
 
             // Instanciamos una variable de la clase Carrera Persona
-            
-            $carreraPersona = new Carrerapersona(); 
-            
+
+            $carreraPersona = new Carrerapersona();
+
             if (!Yii::$app->request->post()['swichtCapitan']){ //Si no es capitan, obtenemos el id del tipo carrera. Si lo es, ya tenemos el valor mas arriba
                 $idEquipo=Yii::$app->request->post()['Equipo']['idEquipo'];
                 $objEquipo = Equipo::find()->where(['idEquipo'=>$idEquipo])->one();
-                $idTipoCarrera=$objEquipo['idTipoCarrera'];  
+                $idTipoCarrera=$objEquipo['idTipoCarrera'];
             }
 
             // Asignamos los valores
@@ -416,7 +416,7 @@ class InvitadoController extends Controller
             $carreraPersona->reglamentoAceptado = 1; //Acepta el reglamento obligatoriamente
             $carreraPersona->retiraKit=0;
             $carreraPersona->save(); //Realiza el llenado de la tabla
-            
+
             $objTipoCarrera = Tipocarrera::find()->where(['idTipoCarrera'=>$idTipoCarrera])->one(); //Obtenemos el obj Tipo carrera
             $cantidadMaximaCorredores = $objTipoCarrera->cantidadMaximaCorredores; // Obtenemos cantidad maxima de corredores de esa carrera
 
@@ -426,7 +426,7 @@ class InvitadoController extends Controller
             ->andWhere(['carrerapersona.idTipocarrera'=>$idTipoCarrera])
             ->count();
             // Este count siempre da +1, por el nuevo llenado de la tabla pero que no se confirma hasta que no se hace el commit
-            
+
             $enListaDeEspera = false; // Por defecto, no está en lista de espera. Si lo está, abajo se setea en true
             if ($cantidadInscriptos>$cantidadMaximaCorredores){
                  $listaDeEspera = new Listadeespera();
@@ -435,10 +435,10 @@ class InvitadoController extends Controller
                  $enListaDeEspera = true;
             }
 
-           
+
             $transaction->commit();
             $guardado=true;
-            if ($guardado){     // Si la inscripcion es guardada correctamente, se envia un mail de confirmacion 
+            if ($guardado){     // Si la inscripcion es guardada correctamente, se envia un mail de confirmacion
 
                 // Obtenemos el Objeto usuario para obtener sus dato
                 $objUsuario=Usuario::find()->where(['idUsuario'=>$idUsuario])->one();
@@ -458,12 +458,12 @@ class InvitadoController extends Controller
                                         <center>
 
 
-                                        <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
+                                        <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>
 
                                         <h2 style='font-weight:100; color:black'>DESAFIO POR LAS BARDAS</h2>
 
                                         <hr style='border:1px solid #ccc; width:90%'>
-                        
+
                                         <h3 style='font-weight:100; color:black; padding:0 20px'><strong>Gracias por inscribirse a la carrera ".$nombrePersona." ".$apellidoPersona." </strong></h3>";
 
                 if ($enListaDeEspera){ // Si esta en lista de espera se cambia una parte del texto
@@ -482,15 +482,15 @@ class InvitadoController extends Controller
 
                                         <hr style='border:1px solid #ccc; width:90%'>
 
-                                        <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-Xf-qhOCBgSU/XRETQF_AIZI/AAAAAAAAAlM/MIDNs-As2XowGFS9e_7idpVIfefsGe8WACLcBGAs/s320/placas%2B4-01.jpg'>
+                                        <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-ZWmNFzB7l40/XURFF_nIAYI/AAAAAAAAAmc/-clxrSodbUkxSaTqVV-F0yECTvuwsBsdACLcBGAs/s320/placas%2B5-01.jpg'>
 
                                         <h5 style='font-weight:100; color:black'>Este mensaje de correo electrónico se envió a ".$mailUsuario."</h5>
-                                            
+
                                         <h5 style='font-weight:100; color:black'>Te invitamos a que veas nuestras redes sociales.</h5>
 
                                         <a href='https://www.facebook.com/bienestaruncoma/'><img src='https://1.bp.blogspot.com/-BR60W75cIco/XREFTGbPHZI/AAAAAAAAAks/FQUMI8DkynoP69YnYRjGZ1ylnNeYhM5BwCLcBGAs/s320/facebook-logo.png' style='width: 7%'></a>
                                         <a href='https://www.instagram.com/sbucomahue/'><img src='https://1.bp.blogspot.com/-NKIBF9SSXCU/XREFTOvwjII/AAAAAAAAAkw/cn679IM4LMQvcIMVCsgetU7gTDyM5DhwgCLcBGAs/s320/instagram-logo.png' style='width: 7%'></a>
-		
+
                                         </center>
 
                                 </div>
@@ -515,7 +515,7 @@ class InvitadoController extends Controller
                 } else {
                     return Yii::$app->response->redirect(['site/index','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
                 }
-                
+
             }else{
                 $mensaje = "Ha ocurrido un error al llevar a cabo tu inscripcion,vuelve a intentarlo";
                 if ($idRol == 3) { // Si es gestora, implica que va a inscribir a algun corredor que no pudo inscribirse y que no tiene Usuario.
@@ -543,5 +543,5 @@ class InvitadoController extends Controller
 
 
     }
-    
+
 }
