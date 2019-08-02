@@ -26,6 +26,7 @@ class Pago extends \yii\db\ActiveRecord
     public $dniUsu;
     public $chequeado;
     public $nombre;
+    public $importegrupo;
     /**
      * {@inheritdoc}
      */

@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
           <?= 'Carrera '.Html::encode($tipocarrera->descripcionCarrera) ?>
        </div>
        <div style='font-family: "Roboto", sans-serif;font-size: 14px;color:#6A8A7C;'>
-          <?= 'Costo de inscripcion $'.Html::encode($importecarrera->importe) ?>
+          <?= 'Costo de inscripcion $'.Html::encode($importe) ?>
        </div>
        <br><br>
 <div class="pago-form">

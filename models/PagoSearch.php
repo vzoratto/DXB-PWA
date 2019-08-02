@@ -42,7 +42,8 @@ class PagoSearch extends Pago
     public function search($params)
     {
         $query = Pago::find()->joinWith('controlpagos')
-                             ->joinWith('persona.usuario');
+                             ->joinWith('persona.usuario')
+                             ->joinWith('equipo');
 
         // add conditions that should always apply here
 

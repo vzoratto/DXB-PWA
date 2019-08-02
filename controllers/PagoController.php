@@ -149,7 +149,7 @@ class PagoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate2()//para crear pagos por importe inscripcion por equipo
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(["site/login"]); 
@@ -265,7 +265,7 @@ class PagoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate1()
+    public function actionCreate1()//para crear pagos por el gestor
     {
         if(Persona::findOne(['idUsuario'=>$_SESSION['__id']])){
             return $this->goHome();
@@ -327,7 +327,125 @@ class PagoController extends Controller
             
         ]);
 }
+/**
+     * Creates a new Pago model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()//para crear pagos por importe inscripcion por persona
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if($usuario=Usuario::findOne(['idUsuario'=>$_SESSION['__id']])){
+            if(!$equipo=Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario])){
+                    return $this->goHome();
+                }else{
+                  $persona=Persona::findOne(['idUsuario'=>$_SESSION['__id']]);
+                  if(Pago::findOne(['idPersona'=>$persona->idPersona])){
+                    $pagos=Pago::sumaTotalEquipo($equipo->idEquipo);
+                    $tipocar=TipoCarrera::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+                    $importecar=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+                        if($importecar->importe==$pagos){
+                          return $this->goHome();
+                      }
+                  }
+                }
+            
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+        $saldo='';$mensaje='';
+        $suma=0;$pagado=0;
+        //obtenemos todos los modelos necearios para registrar el pago
+        $usuario=Usuario::findIdentity($_SESSION['__id']);
+        $persona=Persona::findOne(['idUsuario' => $_SESSION['__id']]);
+        if($grupo=Grupo::findOne(['idPersona'=>$persona->idPersona])){
+              $equipo=Equipo::findOne(['idEquipo'=>$grupo->idEquipo]);
+              $suma=Pago::sumaTotalEquipo($grupo->idEquipo);
+              $tipocarrera=TipoCarrera::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+              $importecarrera=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+              $importe=$importecarrera->importe * $equipo->cantidadPersonas;//importe individual por cantidad de personas del equipo
+              $saldo=$importe - $suma;//saldo de lo pagado para control form
+            }else{
+            return $this->goHome();  
+        }
+       
+        $guardado=false; //Asignamos false a la variable guardado
+        $transaction = Pago::getDb()->beginTransaction(); // Iniciamos una transaccion
+        try {
+        $model = new Pago();
+        if ($model->load(Yii::$app->request->post())) {
+            $pagado=$suma + $model->importePagado;
+           // echo '<pre>';echo $pagado;echo '</pre>';die();
+           if($importecarrera->importe >= $pagado){
+              $model->idPersona=$persona->idPersona;
+             //preparamos el modelo para guarar la imagen del ticket
+              $model->imagenComprobante = UploadedFile::getInstance($model, 'imagenComprobante');
+               $imagen_nombre=rand(0,4000).'pers_'.$model->idPersona.'.'.$model->imagenComprobante->extension;
+             $imagen_dir='archivo/pagoinscripcion/'.$imagen_nombre;
+              //$model->imagenComprobante->saveAs($imagen_dir);
+              $model->imagenComprobante=$imagen_dir;
+              $model->idEquipo=$equipo->idEquipo;
+              $model->idImporte=$importecarrera->idImporte;   
+                if($model->save()){
+                   $model->imagenComprobante->saveAs($imagen_dir);
+                   $idpago = Yii::$app->db->getLastInsertID(); //Obtenemos el ID del ultimo usuario ingresado
+            
+                   $model1=new Controlpago;
+                   $model1->idPago=$idpago;
+                   $model1->chequeado=0;
+                   $model1->idGestor=1;
+                   $model1->save();
 
+              }//fin carga tabla pago
+           }else{
+               $mensaje="El pago que ibas a efectuar es superior al costo de la inscripción. ";
+               return $this->render('aviso',[
+                   'persona' => $persona,
+                   'importecarrera'=>$importecarrera,
+                   'usuario'=>$usuario,
+                   'suma'=>$suma,
+                   'mensaje'=>$mensaje,
+                ]);
+           }  
+                  $transaction->commit();
+                  $guardado=true;
+                  if ($guardado){ 
+                    if($importecarrera->importe == $model->importePagado){
+                       $total='pago total';//pago total
+                       Yii::$app->session->setFlash('pagoTotal');//enviamos mensaje
+                       return $this->redirect(['view1', 'id' => $idpago]);
+               
+                    }elseif($importecarrera->importe > $model->importePagado){
+                        $total='pago parcial';//pago parcial
+                        Yii::$app->session->setFlash('pagoParcial');//enviamos mensaje
+                        return $this->redirect(['view1', 'id' => $idpago]);
+              
+                    }   
+                }//fin guardado true
+            }else{//fin verificarion de datos
+                return $this->render('create', [
+                  'model' => $model,
+                  'equipo'=> $equipo,//dniCapitan,idEquipo,idTipoCarrera
+                  'persona'=> $persona,//idPersona
+                  'usuario'=> $usuario,//idUsuario, dniUsuario,mailUsuario
+                  'tipocarrera'=>$tipocarrera,//descripcionCarrera
+                  'importe'=>$importe,//importe del tipo de carrera
+                  //'importecarrera'=>$importecarrera,//importe del tipo de carrera
+                  'saldo'=>$saldo,//saldo de lo pagado
+                 ]);
+           }
+        } catch(\Exception $e) {//atrapa el error
+            $guardado=false;
+
+            $transaction->rollBack();
+            throw $e;
+          }
+        }
 
     /**
      * Updates an existing Pago model.

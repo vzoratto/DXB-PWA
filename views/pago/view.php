@@ -58,7 +58,10 @@ $this->title = 'Detalle del pago ingresado';
            ['label'=>'Costo inscripcion',
             'attribute'=>'idImporte',
             'value'=>function($model){
-                return ($model->importe->importe);
+                $importe=$model->importe->importe;
+                $cantpers=$model->equipo->cantidadPersonas;
+                return $costo=$importe * $cantpers;
+                //return ($model->importe->importe);
                 },
             ],
         'imagenComprobante:image',

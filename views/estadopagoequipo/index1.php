@@ -100,7 +100,10 @@ $this->title = 'Estado del pago: no abonado';
             'value'=>function($model){
                 $print='';
                 foreach($model->tipoCarrera->importeinscripcion as $importe){ 
-                   $print.=$importe->importe;
+                  $cant=$model->cantidadPersonas;
+                  $costo=$importe->importe * $cant;
+                   $print.=$costo;//para importe indcripcion por persona
+                   //$print.=$importe->importe;//para importe incripcion por equipo
                 }
             return $print;
             },   
@@ -124,7 +127,8 @@ $this->title = 'Estado del pago: no abonado';
            'value'=>function($model){
                return Html::a('<span class = " glyphicon glyphicon-envelope"></span>', 
                           [ 'estadopagoequipo/enviamail',
-                           'idEquipo'=>$model->idEquipo]);
+                          'id1'=>"",
+                           'id'=>$model->idEquipo]);
                }
            ],
            
