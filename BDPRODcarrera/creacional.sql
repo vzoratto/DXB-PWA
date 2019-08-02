@@ -374,6 +374,37 @@ CREATE TABLE `estadopagoequipo`(
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 -- --------------------------------------------------------
 
+-- nuevas tablas lili para el limite de pago
+CREATE table  `fechacarrera`(
+	   idFechaCarrera int(8) NOT NULL AUTO_INCREMENT,
+	   fechaCarrera date NOT NULL,
+	   fechaLimiteUno date Default null,
+	   fechaLimiteDos date Default null,
+	  `deshabilitado` tinyint(1) DEFAULT NULL,
+	  `idTipoCarrera` int(8) NOT NULL ,
+	  PRIMARY KEY (idFechaCarrera),
+	  FOREIGN KEY (`idTipoCarrera`) REFERENCES tipocarrera (`idTipoCarrera`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `carrerapersonacopia` (
+  `idTipoCarrera` int(2) NOT NULL,
+  `idPersona` int(8) NOT NULL,
+  `reglamentoAceptado` tinyint(1) DEFAULT NULL,
+  `retiraKit` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (idTipoCarrera,idPersona),
+  FOREIGN KEY (idTipoCarrera) REFERENCES tipocarrera(idTipoCarrera),
+  FOREIGN KEY (idPersona) REFERENCES persona(idPersona)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `grupocopia` (
+  `idEquipo` int(4) NOT NULL,
+  `idPersona` int(8) NOT NULL,
+  PRIMARY KEY (idEquipo,idPersona),
+  FOREIGN KEY (idEquipo) REFERENCES equipo(idEquipo),
+  FOREIGN KEY (idPersona) REFERENCES persona(idPersona)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 --
 -- Índices para tablas volcadas
 --

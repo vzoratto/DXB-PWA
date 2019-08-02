@@ -63,3 +63,7 @@ INSERT INTO `importeinscripcion` (`idImporte`, `importe`, `deshabilitado`, `idTi
 (1, 300, NULL, 1),
 (2, 300, NULL, 2);
 
+--poblacional para la fecha limite pago
+INSERT INTO `fechacarrera` (`idFechaCarrera`, `fechaCarrera`, `fechaLimiteUno`, `fechaLimiteDos`,`deshabilitado`,`idTipoCarrera`) VALUES
+(1, '2019-09-08','2019-08-29',0,0,1),
+(2, '2019-09-08','2019-08-29',0,0,2)
