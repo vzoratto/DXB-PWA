@@ -134,18 +134,16 @@ class ControlpagoController extends Controller
             //echo '<pre>';echo $costo;echo $pago->importePagado;echo '</pre>';die();
             if($costo == $pago->importePagado){
                 $estado=1;//pago total
-            }elseif($costo > $pago->importePagado){
-                   // echo '<pre>';echo $costo;echo $pago->importePagado;echo '</pre>';die();
-                    $estado=2;
             }elseif($costo < $pago->importePagado){
                     Yii::$app->session->setFlash('pagoGrande');//enviamos mensaje si ingreso mas dinero
                     return $this->refresh();
             }else{
-                    $suma=Pago::sumaEquipo($pago->idEquipo);//suma los pagos parciales
+                    $suma=Pago::sumaEquipo($pago->idEquipo);//suma los pagos parciales chequeados
+                    $sumapago=$suma + $pago->importePagado;
                    // echo '<pre>';echo $suma;echo '</pre>';die();
-                    if($costo == $suma){
+                    if($costo == $sumapago){
                          $estado=3;//pago cancelo
-                    }elseif($costo > $suma){
+                    }elseif($costo > $sumapago){
                          $estado=2;//pago parcial
                     }else{
                         Yii::$app->session->setFlash('pagoGrande');//enviamos mensaje si ingreso mas dinero
@@ -153,7 +151,7 @@ class ControlpagoController extends Controller
                     }
                  
             }
-          if($model->save()) {
+           if($model->save()) {//chequea el pago en controlpago
              
               // actualiza el estado  pago del equipo si existe
               if($model1=Estadopagoequipo::findOne(['idEquipo'=>$pago->idEquipo])){
@@ -163,7 +161,7 @@ class ControlpagoController extends Controller
                   $model1->idEstadoPago=$estado;
                   $model1->idEquipo=$pago->idEquipo;
               }
-            if($model1->save()){//llena tabla estado pago del equipo
+             if($model1->save()){//llena tabla estado pago del equipo
                 $persona=Persona::findOne(['idPersona'=>$pago->idPersona]);
                 $user=Usuario::findOne(['idUsuario'=>$persona->idUsuario]);
                 $dni = urlencode($user->dniUsuario);
