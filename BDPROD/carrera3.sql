@@ -23464,7 +23464,7 @@ INSERT INTO `respuesta_opcion` (`idRespuestaOpcion`, `opRespvalor`, `idPregunta`
 
 CREATE TABLE `respuesta_tipo` (
   `idRespTipo` int(4) NOT NULL,
-  `respTipoDescripcion` varchar(15) CHARACTER SET latin1 NOT NULL
+  `respTipoDescripcion` varchar(50) CHARACTER SET latin1 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
