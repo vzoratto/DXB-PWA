@@ -109,6 +109,16 @@ class Equipo extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Persona::className(), ['idPersona' => 'idPersona'])->viaTable('grupo', ['idEquipo' => 'idEquipo']);
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+     public function listaCap(){
+        $lista= ArrayHelper::map(\app\models\Equipo::find()
+              ->select('idEquipo,dniCapitan,')
+              ->all(),'idEquipo','dniCapitan');
 
+        return $lista;
+
+     }
 
 }

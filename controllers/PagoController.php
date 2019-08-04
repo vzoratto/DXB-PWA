@@ -321,12 +321,13 @@ class PagoController extends Controller
             }
           }
         }
-    
+        $lista=Equipo::listaCap();
+
         return $this->render('create1', [
             'model' => $model,
-            
+            'lista'=>$lista,
         ]);
-}
+  }
 /**
      * Creates a new Pago model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -340,18 +341,18 @@ class PagoController extends Controller
         if($usuario=Usuario::findOne(['idUsuario'=>$_SESSION['__id']])){
             if(!$equipo=Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario])){
                     return $this->goHome();
-                }else{
+            }else{
                   $persona=Persona::findOne(['idUsuario'=>$_SESSION['__id']]);
                   if(Pago::findOne(['idPersona'=>$persona->idPersona])){
                     $pagos=Pago::sumaTotalEquipo($equipo->idEquipo);
                     $tipocar=TipoCarrera::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
                     $importecar=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
-                        if($importecar->importe==$pagos){
+                    $costo=$importecar->importe * $equipo->cantidadPersonas;
+                        if($costo==$pagos){
                           return $this->goHome();
                       }
                   }
-                }
-            
+             }
         }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
@@ -373,7 +374,6 @@ class PagoController extends Controller
             }else{
             return $this->goHome();  
         }
-       
         $guardado=false; //Asignamos false a la variable guardado
         $transaction = Pago::getDb()->beginTransaction(); // Iniciamos una transaccion
         try {
@@ -410,6 +410,13 @@ class PagoController extends Controller
                     
                   }//fin guardado true
             }else{//fin verificarion de datos
+                $check=1;
+                if($pago=Pago::findOne(['idEquipo'=>$equipo->idEquipo])){
+                      if($control=Controlpago::findOne(['idPago'=>$pago->idPago,'chequeado'=>0])){
+                          $check=$control->chequeado;
+                      }
+                }
+                //echo '<pre>';echo $check;echo'</pre>';die();
                 return $this->render('create', [
                   'model' => $model,
                   'equipo'=> $equipo,//dniCapitan,idEquipo,idTipoCarrera
@@ -419,11 +426,10 @@ class PagoController extends Controller
                   'importe'=>$importe,//importe del tipo de carrera
                   //'importecarrera'=>$importecarrera,//importe del tipo de carrera
                   'saldo'=>$saldo,//saldo de lo pagado
+                  'check'=>$check,
                  ]);
            }
         } catch(\Exception $e) {//atrapa el error
-            $guardado=false;
-
             $transaction->rollBack();
             throw $e;
           }

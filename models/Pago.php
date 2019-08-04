@@ -209,19 +209,20 @@ class Pago extends \yii\db\ActiveRecord
                    if($equipo!=null){
                        $suma=Pago::sumaTotalequipo($equipo->idEquipo);
                        $importe=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+                       $costo=$importe->importe * $equipo->cantidadPersonas;
                        $estadoequipo=Estadopagoequipo::findOne(['idEquipo'=>$equipo->idEquipo]);
                        if($estadoequipo!=null ){
                            if($estadoequipo->idEstadoPago==2){//se consulta el estado pago parcial
-                               if($importe->importe > $suma){
+                               if($costo > $suma){
                                    $estadopago=2; //2 para los equipos con pago parcial
-                               }elseif($importe->importe == $suma){
+                               }elseif($costo == $suma){
                                    $estadopago=3; //si tiene todo pagado pero falta chequear el
                                }                  //ultimo pago parcial
                            }else{
                                $estadopago=3;//3 para los equipos pago total o cancelo
                            }
                        }else{
-                           if($importe->importe == $suma){//cuando pago todo sin check
+                           if($costo == $suma){//cuando pago todo sin check
                                $estadopago=3;
                            }
                         }
