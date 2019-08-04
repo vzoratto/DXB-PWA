@@ -22,81 +22,119 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
         <?php
+                //si carrepersona es null significa que fue dado de baja
+                if($carreraPersona==null){
+                    ?>
+                    <p>
+                        Al dia de la fecha, el estado de tu inscripcion es en: <strong style="color:#e34400">DADO DE BAJA</strong>
+                        estas <strong style="color:#e34400">INHABILITAD/A</strong> para participar de la carrera si deseas participar comunicate con la organización
+
+
+                    </p>
+
+                <?php
+
+
+                //si esta habilitado primero verifica que no este en lista de espera
+                }else{
+                    if($listaEspera){
+                        ?>
+                        <p>
+                            Al dia de la fecha, el estado de tu inscripcion es en: <strong style="color:#e34400">LISTA DE ESPERA</strong>
+
+
+                        </p>
+
+                        <?php
+                    }
+
+                //si no esta en lista de espera, ya se puede verificar si pago o no
                 //si no se encuentar el pago significa que no pago o no fue chequeado
-               if($estadoPago==null){
-                   ?>
-                   <p>
-                       Al dia de la fecha, el estado de tu inscripcion es <strong style="color:#e34400">IMPAGO</strong> o todavía no fue chequeado
-                       te recordamos que el capitán del equipo es el encargado de subir el comprobante del  pago.
+                elseif($estadoPago==null){
+                    ?>
+                        <p>
+                            Al dia de la fecha, el estado de tu inscripcion es <strong style="color:#e34400">IMPAGO</strong> o todavía no fue chequeado
+                            te recordamos que el capitán del equipo es el encargado de subir el comprobante del  pago.
 
-                   </p>
+                        </p>
 
 
-                   <p>
-                       Las inscripciones se podrán abonar por transferencia bancaria o en forma presencial en los siguientes lugares:
 
-                   </p>
-                   <p>
-                       *ByB Indumentaria Deportiva, Instalaciones Gimnasio Terra.
-                       Diagonal Alvear 45, Neuquén Capital de 17 a 21 hrs.
-                   </p>
-                   <p>*Polideportivo Beto Monteros – Unco. En horario de 8 a 13hs.</p>
-                   <p>
-                       Banco Credicop Cooperativo Limitado
-                       Adherente: Universidad Nacional del Comahue.
-                       Operador: 549505 Roberto Antonio Sepulveda
-                       Numero de cuenta - Cuenta corriente: 191-093-024908/9.
-                       CBU: 19100933-55009302490896</p>
-                   <?php
+                        <?php
+                        if($capitan==true){
+                            ?>
+                            <p>
+                                Las inscripciones se podrán abonar por transferencia bancaria o en forma presencial en los siguientes lugares:
+
+                            </p>
+                            <p>
+                                *ByB Indumentaria Deportiva, Instalaciones Gimnasio Terra.
+                                Diagonal Alvear 45, Neuquén Capital de 17 a 21 hrs.
+                            </p>
+                            <p>*Polideportivo Beto Monteros – Unco. En horario de 8 a 13hs.</p>
+                            <p>
+                                Banco Credicop Cooperativo Limitado
+                                Adherente: Universidad Nacional del Comahue.
+                                Operador: 549505 Roberto Antonio Sepulveda
+                                Numero de cuenta - Cuenta corriente: 191-093-024908/9.
+                                CBU: 19100933-55009302490896</p>
+                            <p>Para subir comprobante de pago haz click en el siguiente <a href="index.php?r=pago/create">ENLACE</a> </p>
+                            <?php
+                        }
+                        ?>
+
+
+
+
+
+                    <?php
+                    //si el pago es completo(se abono y chequeo la totalidad del costo de inscripciion)
+                    //o si el pago es cancelo(significa que el usuario hizo pagos parciales hasta saldar la deuda)
+                }elseif ($estadoPago->idEstadoPago==1 || $estadoPago->idEstadoPago==3){
+                    ?>
+                    <p>
+                        Al dia de la fecha, el estado de pago de tu inscripción es <strong style="color:#2d6e18">PAGO COMPLETO</strong>
+                        estas <strong style="color:#2d6e18">HABILITADO/A</strong> para participar de la carrera
+
+                    </p>
+                    <?php
+                    //si el usuario hizo un pago parcial y todavia no termina de saldar la deuda
+                }elseif ($estadoPago->idEstadoPago==2){
+                    ?>
+                    <p>
+                        Al dia de la fecha, el estado de pago de tu inscripción es <strong style="color:#ff8000">PAGO PARCIAL</strong>
+
+
+                    </p>
+                    <?php
                     if($capitan==true){
                         ?>
-                        <p>Para subir comprobante de pago haz click en el siguiente <a href="index.php?r=pago/create">ENLACE</a> </p>
-                   <?php
+                        <p>Para completar el pago  haz click en el siguiente <a href="index.php?r=pago/create">ENLACE</a> </p>
+                        <?php
                     }
-                   ?>
+
+                    ?>
+
+
+
+                    <?php
+                }
 
 
 
 
 
-              <?php
-                   //si el pago es completo(se abono y chequeo la totalidad del costo de inscripciion)
-                   //o si el pago es cancelo(significa que el usuario hizo pagos parciales hasta saldar la deuda)
-               }elseif ($estadoPago->idEstadoPago==1 || $estadoPago->idEstadoPago==3){
-                   ?>
-                   <p>
-                       Al dia de la fecha, el estado de pago de tu inscripción es <strong style="color:#2d6e18">PAGO COMPLETO</strong>
-                       estas habilitado para participar de la carrera
-
-                   </p>
-              <?php
-                   //si el usuario hizo un pago parcial y todavia no termina de saldar la deuda
-               }elseif ($estadoPago->idEstadoPago==2){
-                   ?>
-                   <p>
-                       Al dia de la fecha, el estado de pago de tu inscripción es <strong style="color:#ff8000">PAGO PARCIAL</strong>
-
-
-                   </p>
-                   <?php
-                   if($capitan==true){
-                      ?>
-                       <p>Para completar el pago  haz click en el siguiente <a href="index.php?r=pago/create">ENLACE</a> </p>
-                  <?php
-                   }
-
-                   ?>
+                      //termina el else de carrerapersona
+                }
 
 
 
-            <?php
-               }
-              ?>
-
+        ?>
 
 
 
         <?php
+        //empieza otro php
         if($capitan==true){
             ?>
             <p>Sos <strong><?php echo ($personaCapitan->sexoPersona=='F') ? 'CAPITANA':'CAPITÁN';?></strong> del equipo <?php  echo $equipo['idEquipo'];?>

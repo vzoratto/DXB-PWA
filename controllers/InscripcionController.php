@@ -529,10 +529,9 @@ class InscripcionController extends Controller
                                         <h3 style='font-weight:100; color:black; padding:0 20px'><strong>Gracias por inscribirse a la carrera ".$nombrePersona." ".$apellidoPersona." </strong></h3>";
 
                 if ($enListaDeEspera){ // Si esta en lista de espera se cambia una parte del texto
-                    $body.="<h3 style='font-weight:100; color:black; padding:0 20px'><strong>Como ya se han completado la cantidad de cupos dispuestos inicialmente, actualmente te encuentras en lista de espera</strong></h3>";
-                }
-                $body.=
-                    "              <h4 style='font-weight:100; color:black; padding:0 20px'>Podes ver los terminos y condiciones que has aceptado en el siguiente enlace:</h4>
+                    $body.="<h3 style='font-weight:100; color:black; padding:0 20px'><strong>Como ya se han completado la cantidad de cupos dispuestos inicialmente, actualmente te encuentras en lista de espera</strong></h3>
+
+                    <h4 style='font-weight:100; color:black; padding:0 20px'>Podes ver los terminos y condiciones que has aceptado en el siguiente enlace:</h4>
 
                                         <a href='$host/index.php?r=site%2Freglamento' style='text-decoration:none'>
 
@@ -546,13 +545,39 @@ class InscripcionController extends Controller
 
                                         <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-ZWmNFzB7l40/XURFF_nIAYI/AAAAAAAAAmc/-clxrSodbUkxSaTqVV-F0yECTvuwsBsdACLcBGAs/s320/placas%2B5-01.jpg'>
 
-                                        <h3 style='font-weight:100; color:black'>Las inscripciones se podrán abonar por transferencia bancaria o en forma presencial en los siguientes lugares:<br>
+                                        <h5 style='font-weight:100; color:black'>Te invitamos a que veas nuestras redes sociales.</h5>
+
+                                        <a href='https://www.facebook.com/bienestaruncoma/'><img src='https://1.bp.blogspot.com/-BR60W75cIco/XREFTGbPHZI/AAAAAAAAAks/FQUMI8DkynoP69YnYRjGZ1ylnNeYhM5BwCLcBGAs/s320/facebook-logo.png' style='width: 7%'></a>
+                                        <a href='https://www.instagram.com/sbucomahue/'><img src='https://1.bp.blogspot.com/-NKIBF9SSXCU/XREFTOvwjII/AAAAAAAAAkw/cn679IM4LMQvcIMVCsgetU7gTDyM5DhwgCLcBGAs/s320/instagram-logo.png' style='width: 7%'></a>
+
+                                        </center>
+
+                                </div>
+
+                        </div>";
+                }
+                else{
+                    $body.=
+                        "<h3 style='font-weight:100; color:black'>Las inscripciones se podrán abonar por transferencia bancaria o en forma presencial en los siguientes lugares:<br>
                                                                                   <b>*</b>ByB Indumentaria Deportiva, Instalaciones Gimnasio Terra.<br>
                                                                                   Diagonal Alvear 45, Neuquén Capital de 17 a 21 hrs.<br>
                                                                                   <b>*</b>Polideportivo Beto Monteros – Unco. En horario de 8 a 13hs.</h3>
 
                                         <h2 style='font-weight:100; color:black; padding:0 20px'><strong> Banco Credicop Cooperativo Limitado</strong><br> Adherente: Universidad Nacional del Comahue. <br> Operador: 549505 Roberto Antonio Sepulveda <br> Numero de cuenta - Cuenta corriente: 191-093-024908/9. <br> CBU: 19100933-55009302490896</h2>
 
+                                        <h4 style='font-weight:100; color:black; padding:0 20px'>Podes ver los terminos y condiciones que has aceptado en el siguiente enlace:</h4>
+
+                                        <a href='$host/index.php?r=site%2Freglamento' style='text-decoration:none'>
+
+                                        <div style='line-height:60px; background:#ff8f04; width:60%; color:white'>Reglamento</div>
+
+                                        </a>
+
+                                        <br>
+
+                                        <hr style='border:1px solid #ccc; width:90%'>
+
+                                        <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-ZWmNFzB7l40/XURFF_nIAYI/AAAAAAAAAmc/-clxrSodbUkxSaTqVV-F0yECTvuwsBsdACLcBGAs/s320/placas%2B5-01.jpg'>
 
                                         <h5 style='font-weight:100; color:black'>Te invitamos a que veas nuestras redes sociales.</h5>
 
@@ -564,6 +589,7 @@ class InscripcionController extends Controller
                                 </div>
 
                         </div>";
+                }
 
 
                 Yii::$app->mailer->compose()
@@ -674,6 +700,12 @@ class InscripcionController extends Controller
             //si es nulo significa que no pago o no fue chequeado el pago
 
         }
+        //si esta en lista de espera
+        $listaEspera=Listadeespera::find()->where(['idPersona'=>$persona->idPersona])->one();
+
+        //si esta en carrera persona significa que esta ocupando cupo
+        //si no esta significa que esta dado de baja
+        $carreraPersona=Carrerapersona::find()->where(['idPersona'=>$persona->idPersona])->one();
 
         return $this->render('estadoinscripcion/index',[
             'equipo'=>$equipo,
@@ -683,7 +715,9 @@ class InscripcionController extends Controller
             'cantCorredores'=>$cantCorredores,
             'estadoPago'=>$estadoPago,
             'nombreCapitan'=>$nombreCapitan,
-            'personaCapitan'=>$personaCapitan
+            'personaCapitan'=>$personaCapitan,
+            'listaEspera'=>$listaEspera,
+            'carreraPersona'=>$carreraPersona
 
 
 
