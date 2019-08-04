@@ -40,7 +40,8 @@ class AppAsset extends AssetBundle
         'js/controlSegundoStep.js',
         'js/controlTercerStep.js',
         'js/controlCuartoStep.js',
-        'js/controlQuintoStep.js'
+        'js/controlQuintoStep.js',
+        'js/justificacionSIencuesta.js'
 
     ];
     public $depends = [
