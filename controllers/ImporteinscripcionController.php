@@ -6,6 +6,7 @@ use Yii;
 use app\models\Importeinscripcion;
 use app\models\ImporteinscripcionSearch;
 use app\models\Permiso;
+use app\models\Persona;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

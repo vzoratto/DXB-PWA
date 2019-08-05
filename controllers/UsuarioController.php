@@ -6,6 +6,7 @@ use Yii;
 use app\models\Usuario;
 use app\models\UsuarioSearch;
 use app\models\Permiso;
+use app\models\Persona;
 use yii\web\Controller;
 use yii\web\IdentityInterface;
 use yii\web\NotFoundHttpException;

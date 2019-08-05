@@ -7,6 +7,7 @@ use app\models\Gestores;
 use app\models\GestoresSearch;
 use app\models\Usuario;
 use yii\web\Controller;
+use app\models\Persona;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\Query;

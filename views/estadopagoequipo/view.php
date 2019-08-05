@@ -69,9 +69,7 @@ $this->title = "Referencia equipo ".$model->idEquipo;
           ['label'=>'Debe pagar',
             'attribute'=>'importe',
             'hAlign' => 'center',
-            "filterInputOptions" => ['class'=>'form-control',
-            "disabled" => true
-            ],
+            "contentOptions" =>["style"=>"color:red;"],
             'value'=>function($model){
                 $print='';
                 foreach($model->equipo->tipoCarrera->importeinscripcion as $importe){ 

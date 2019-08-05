@@ -101,7 +101,7 @@ use app\models\Estadopago;
           ['label'=>'Debe pagar',
             'attribute'=>'importe',
             'hAlign' => 'center',
-            'options' => [ 'style' => 'background-color:#FF0000',' color: #FF0000'],
+            "contentOptions" =>["style"=>"color:red;"],  
             "filterInputOptions" => ['class'=>'form-control',
             "disabled" => true
             ],
