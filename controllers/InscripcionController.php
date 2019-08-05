@@ -724,30 +724,34 @@ class InscripcionController extends Controller
             //estado de pago del equipo
             $estadoPago=Estadopagoequipo::find()->where(['idEquipo'=>$equipo->idEquipo])->one();
             //si es nulo significa que no pago o no fue chequeado el pago
+            //si esta en lista de espera
+            $listaEspera=Listadeespera::find()->where(['idPersona'=>$persona->idPersona])->one();
+
+            //si esta en carrera persona significa que esta ocupando cupo
+            //si no esta significa que esta dado de baja
+            $carreraPersona=Carrerapersona::find()->where(['idPersona'=>$persona->idPersona])->one();
+
+            return $this->render('estadoinscripcion/index',[
+                'equipo'=>$equipo,
+                'capitan'=>$capitan,
+                'persona'=>$persona,
+                'tipoCarrera'=>$tipoCarrera,
+                'cantCorredores'=>$cantCorredores,
+                'estadoPago'=>$estadoPago,
+                'nombreCapitan'=>$nombreCapitan,
+                'personaCapitan'=>$personaCapitan,
+                'listaEspera'=>$listaEspera,
+                'carreraPersona'=>$carreraPersona
+
+
+
+            ]);
+
+        }else{
+            return Yii::$app->response->redirect(['site/login'])->send();
 
         }
-        //si esta en lista de espera
-        $listaEspera=Listadeespera::find()->where(['idPersona'=>$persona->idPersona])->one();
 
-        //si esta en carrera persona significa que esta ocupando cupo
-        //si no esta significa que esta dado de baja
-        $carreraPersona=Carrerapersona::find()->where(['idPersona'=>$persona->idPersona])->one();
-
-        return $this->render('estadoinscripcion/index',[
-            'equipo'=>$equipo,
-            'capitan'=>$capitan,
-            'persona'=>$persona,
-            'tipoCarrera'=>$tipoCarrera,
-            'cantCorredores'=>$cantCorredores,
-            'estadoPago'=>$estadoPago,
-            'nombreCapitan'=>$nombreCapitan,
-            'personaCapitan'=>$personaCapitan,
-            'listaEspera'=>$listaEspera,
-            'carreraPersona'=>$carreraPersona
-
-
-
-        ]);
 
 
     }
