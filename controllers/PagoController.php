@@ -379,14 +379,14 @@ class PagoController extends Controller
               $importecarrera=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
               $importe=$importecarrera->importe * $equipo->cantidadPersonas;//importe individual por cantidad de personas del equipo
               $saldo=$importe - $suma;//saldo de lo pagado para control form
-            }else{
+         }else{
             return $this->goHome();  
         }
         $guardado=false; //Asignamos false a la variable guardado
         $transaction = Pago::getDb()->beginTransaction(); // Iniciamos una transaccion
         try {
         $model = new Pago();
-        if ($model->load(Yii::$app->request->post())) {
+          if ($model->load(Yii::$app->request->post())) {
             
               $model->importePagado=0;
               $model->idPersona=$persona->idPersona;
@@ -418,12 +418,14 @@ class PagoController extends Controller
                   }//fin guardado true
             }else{//fin verificarion de datos
                 $check=1;
-                if($pago=Pago::findOne(['idEquipo'=>$equipo->idEquipo])){
+                if($pagos=Pago::findAll(['idEquipo'=>$equipo->idEquipo])){
+                   foreach($pagos as $pago){
                       if($control=Controlpago::findOne(['idPago'=>$pago->idPago,'chequeado'=>0])){
                           $check=$control->chequeado;
                       }
+                   }
                 }
-                
+              
                 return $this->render('create', [
                   'model' => $model,
                   'equipo'=> $equipo,//dniCapitan,idEquipo,idTipoCarrera
