@@ -23604,8 +23604,9 @@ INSERT INTO `usuario` (`idUsuario`, `dniUsuario`, `claveUsuario`, `mailUsuario`,
 (11, 32610365, 'caQcR0F0n0AJs', 'juanjosetorres333@gmail.com', '0z66x66W687A8b9zz7b8A6Wx667W0WA97960AxWx0Azx0876W7', 1, 1),
 (12, 34514591, 'caCkHa6lffLpI', 'Marirome8907@gmail.com', 'W9zxAW6Az9W0788W087bbz9z7A8b607x90A870bAWbbbAbAz8A', 1, 1),
 (13, 28839771, 'cai0OrNzIAJdc', 'Claumoraga2@gmail.com', '6zbzWA9bb76A7AAxb89WA90b98x69b6zAz70W8AWA97x80A9Wb', 1, 1),
-(14, 33677741, 'ca5pGka3j30SA', 'Krlu_88@live.com', 'A9A7A8WA77zbzb78z69zA78Wx87bA8bzzWz96z8W89zWW07Wx0', 1, 1);
-
+(14, 33677741, 'ca5pGka3j30SA', 'Krlu_88@live.com', 'A9A7A8WA77zbzb78z69zA78Wx87bA8bzzWz96z8W89zWW07Wx0', 1, 1),
+(15, 40899321, 'caXFm3eQvQlOk', 'Agux_tre_agux@hotmail.com.ar', '0A76xz8x9bWWW87W08zb6z0b0zWWbzxA66W7xx078z7bA6Ax60', 1, 1),
+(16, 36955410, 'caYUrQHSI3mj.', 'Guadalupeerubio@gmail.com', 'A696707W0878096W8A7bWxz78x7Ab0W6x76AAbA6AWb90876z6', 1, 1);
 -- --------------------------------------------------------
 
 --
