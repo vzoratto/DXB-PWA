@@ -291,7 +291,7 @@ class PagoController extends Controller
             $model->idPersona=$persona->idPersona;
            
            $model->imagenComprobante = UploadedFile::getInstance($model, 'imagenComprobante');
-           $imagen_nombre='persona_'.$model->idPersona.'.'.$model->imagenComprobante->extension;
+           $imagen_nombre=rand(0,4000).'pers_'.$model->idPersona.'.'.$model->imagenComprobante->extension;
            $imagen_dir='archivo/pagoinscripcion/'.$imagen_nombre;
            $model->imagenComprobante->saveAs($imagen_dir);
            $model->imagenComprobante=$imagen_dir;
@@ -397,8 +397,7 @@ class PagoController extends Controller
               $model->imagenComprobante->saveAs($imagen_dir);
               $model->imagenComprobante=$imagen_dir;
               $model->idEquipo=$equipo->idEquipo;
-              $model->idImporte=$importecarrera->idImporte; 
-             // echo '<pre>';print_r($model);echo'</pre>';die();  
+              $model->idImporte=$importecarrera->idImporte;   
                 if($model->save()){
                    $idpago = Yii::$app->db->getLastInsertID(); //Obtenemos el ID del ultimo usuario ingresado
             
@@ -407,7 +406,7 @@ class PagoController extends Controller
                    $model1->chequeado=0;
                    $model1->idGestor=1;
                    $model1->save();
-              }//fin carga tabla pago
+             }//fin carga tabla pago
            
                   $transaction->commit();
                   $guardado=true;
@@ -424,7 +423,7 @@ class PagoController extends Controller
                           $check=$control->chequeado;
                       }
                 }
-                //echo '<pre>';echo $check;echo'</pre>';die();
+                
                 return $this->render('create', [
                   'model' => $model,
                   'equipo'=> $equipo,//dniCapitan,idEquipo,idTipoCarrera

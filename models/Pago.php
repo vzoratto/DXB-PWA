@@ -57,7 +57,7 @@ class Pago extends \yii\db\ActiveRecord
             [['idImporte'], 'exist', 'skipOnError' => true, 'targetClass' => Importeinscripcion::className(), 'targetAttribute' => ['idImporte' => 'idImporte']],
             [['idEquipo'], 'exist', 'skipOnError' => true, 'targetClass' => Equipo::className(), 'targetAttribute' => ['idEquipo' => 'idEquipo']],
            //lo verificamos como dao seguro
-           ['dniUsu','required','message'=>'DNI capitan no puede estar vacío'],
+           
            [['dniUsu','chequeado'],'safe'],
         ];
     }

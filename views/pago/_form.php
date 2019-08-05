@@ -7,6 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\Pago */
 /* @var $form yii\widgets\ActiveForm */
 //formulario para que el participante realice el pago-----------------------------
+$valor=0;
 ?>
 <?php
        if($usuario->dniUsuario == $equipo->dniCapitan):?>
@@ -42,6 +43,7 @@ use yii\widgets\ActiveForm;
 <div class="pago-form">
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+   
 
     <?= $form->field($model, 'entidadPago')->textInput(['placeholder'=>'Entidad de pago','maxlength' => true]) ?>
 
