@@ -145,6 +145,9 @@ CREATE TABLE `fechacarrera` (
   `idTipoCarrera` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO `fechacarrera` (`idFechaCarrera`, `fechaCarrera`, `fechaLimiteUno`, `fechaLimiteDos`,`deshabilitado`,`idTipoCarrera`) VALUES
+(1, '2019-09-08','2019-08-29',0,0,1),
+(2, '2019-09-08','2019-08-29',0,0,2);
 -- --------------------------------------------------------
 
 --
