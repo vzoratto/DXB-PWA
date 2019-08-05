@@ -264,18 +264,17 @@ class EstadopagoequipoController extends Controller
                 $grupocopia->idEquipo=$persona->idEquipo;
                 $grupocopia->idPersona=$persona->idPersona;
                 $grupocopia->save();//copia grupo
-                $grup=Grupo::findOne($persona->idEquipo,$persona->idPersona)->delete();
+                Grupo::findOne($persona->idEquipo,$persona->idPersona)->delete();
                 $carreracopia=new Carreracopia;
                 $carreracopia->idTipoCarrera=$tipocarrera->idTipocarrera;
                 $carreracopia->idPersona=$persona->idPersona;
                 $carreracopia->save();//copia carrera persona
-                $carr=Carrerapersona::findOne($tipocarrera->idTipocarrera,$persona->idPersona)->delete();
+                Carrerapersona::findOne($tipocarrera->idTipocarrera,$persona->idPersona)->delete();
                 //$persona->deshabilitado=1;//deshabilita persona
                // $persona->save();
-                $equipo->deshabilitado=1;//deshabilita equipo
-                $equipo->save();
             }
-    
+            $equipo->deshabilitado=1;//deshabilita equipo
+            $equipo->save();
             return $this->redirect(['index1']);
         
     }

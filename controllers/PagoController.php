@@ -423,8 +423,8 @@ class PagoController extends Controller
                       if($control=Controlpago::findOne(['idPago'=>$pago->idPago,'chequeado'=>0])){
                           $check=$control->chequeado;
                       }
-                   }
-                }
+                   }  //control boton form pago para pagos no chequeados
+                }    //de este forma se controla la carga de imagenes superfluas
               
                 return $this->render('create', [
                   'model' => $model,
