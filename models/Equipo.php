@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use app\models\Persona;
 
 /**
@@ -120,5 +121,15 @@ class Equipo extends \yii\db\ActiveRecord
         return $lista;
 
      }
-
+ /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function listaUsu(){
+     $lista= ArrayHelper::map(\app\models\Equipo::find()
+        ->select('(grupo.idEquipo) as grupo,equipo.cantidadPersonas,equipo.dniCapitan,')
+        ->innerJoin('grupo','equipo.idEquipo=grupo.idEquipo')
+        ->groupBy(['equipo.idEquipo'])
+        ->all(),'idEquipo','dniCapitan');
+        return $lista;
+    }
 }

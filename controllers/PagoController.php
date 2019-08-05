@@ -279,15 +279,17 @@ class PagoController extends Controller
         $model = new Pago();
 
         if ($model->load(Yii::$app->request->post())) {
-            $usuario=Usuario::findOne(['dniUsuario'=>$model->dniUsu]);
-            $persona=Persona::findOne(['idUsuario' =>$usuario->idUsuario]);
+           
+           $usuario=Usuario::findOne(['idUsuario'=>$model->dniUsu]);
+           $persona=Persona::findOne(['idUsuario' =>$usuario->idUsuario]);
             if($grupo=Grupo::findOne(['idPersona'=>$persona->idPersona])){
                 $equipo=Equipo::findOne(['idEquipo'=>$grupo->idEquipo]);
                 $tipocarrera=TipoCarrera::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
                 $importecarrera=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+                $costo=$importecarrera->importe * $equipo->cantidadPersonas;
             } 
             $model->idPersona=$persona->idPersona;
-        
+           
            $model->imagenComprobante = UploadedFile::getInstance($model, 'imagenComprobante');
            $imagen_nombre='persona_'.$model->idPersona.'.'.$model->imagenComprobante->extension;
            $imagen_dir='archivo/pagoinscripcion/'.$imagen_nombre;
@@ -295,7 +297,7 @@ class PagoController extends Controller
            $model->imagenComprobante=$imagen_dir;
            $model->idEquipo=$equipo->idEquipo;
            $model->idImporte=$importecarrera->idImporte;
-           
+
            if($model->save()){
             $idpago = Yii::$app->db->getLastInsertID(); //Obtenemos el ID del ultimo usuario ingresado
             $model1=new Controlpago;
@@ -304,12 +306,12 @@ class PagoController extends Controller
             $model1->idGestor=1;
             if($model1->save()){
                
-              if($importecarrera->importe == $model->importePagado){
+              if($costo == $model->importePagado){
                 $total='pago total';//pago total
                 Yii::$app->session->setFlash('pagoTotal');//enviamos mensaje
                 return $this->redirect(['view1', 'id' => $idpago]);
               
-              }elseif($importecarrera->importe > $model->importePagado){
+              }elseif($costo > $model->importePagado){
                 $total='pago parcial';//pago parcial
                 Yii::$app->session->setFlash('pagoParcial');//enviamos mensaje
                 return $this->redirect(['view', 'id' => $idpago]);
@@ -321,14 +323,20 @@ class PagoController extends Controller
             }
           }
         }
-        $lista=Equipo::listaCap();
-
+        $lista=Usuario::getLosUsuarios();
+       // echo '<pre>';print_r($lista);echo '</pre>';die();
+        $usuario=new Usuario();
+        $equipo=new Equipo();
+        $persona=new Persona();
         return $this->render('create1', [
             'model' => $model,
             'lista'=>$lista,
+           'usuario'=>$usuario,
+            'equipo'=>$equipo,
+            'persona'=>$persona,
         ]);
   }
-/**
+   /**
      * Creates a new Pago model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -389,7 +397,8 @@ class PagoController extends Controller
               $model->imagenComprobante->saveAs($imagen_dir);
               $model->imagenComprobante=$imagen_dir;
               $model->idEquipo=$equipo->idEquipo;
-              $model->idImporte=$importecarrera->idImporte;   
+              $model->idImporte=$importecarrera->idImporte; 
+             // echo '<pre>';print_r($model);echo'</pre>';die();  
                 if($model->save()){
                    $idpago = Yii::$app->db->getLastInsertID(); //Obtenemos el ID del ultimo usuario ingresado
             
@@ -398,7 +407,6 @@ class PagoController extends Controller
                    $model1->chequeado=0;
                    $model1->idGestor=1;
                    $model1->save();
-
               }//fin carga tabla pago
            
                   $transaction->commit();
@@ -499,5 +507,102 @@ class PagoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionNombrecorredor(){
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+           $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $dniUsu = $parents[0]; //Obtenemos el ID del equipo
+ 
+                // A través del DNI usuario, buscamos su objeto Usuario
+                $objUsuario = Usuario::find()->where(['idUsuario'=>$dniUsu])->one();
+                $idUsu = $objUsuario['idUsuario']; //Obtenemos el ID del usuario
+                // Con el ID del usuario, obtenemos el objeto Persona, para así obtener su nombre y apellido 
+                $objPersona = Persona::find()->where(['idUsuario'=>$idUsu])->one();
+                $nombrePersona = $objPersona['nombrePersona'];
+                $apellidoPersona = $objPersona['apellidoPersona'];
+                $nombreCompleto = $nombrePersona . " " . $apellidoPersona; // Concatenamos su nombre y apellido
+
+                $out = [
+                    ['id' => $idUsu, 'name' => $nombreCompleto]
+                ];
+            
+                return ['output'=>$out, 'selected'=>$idUsu];
+            }
+        }
+        return ['output'=>'', 'selected'=>''];
+    }
+
+    public function actionDnicapitan(){
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+           $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $dniUsu = $parents[0]; //Obtenemos el ID del equipo
+ 
+                // A través del DNI usuario, buscamos su objeto Usuario
+                $objUsuario = Usuario::find()->where(['idUsuario'=>$dniUsu])->one();
+                $idUsu = $objUsuario['idUsuario']; //Obtenemos el ID del usuario
+                 // Con el ID del usuario, obtenemos el objeto Persona, para así obtener su nombre y apellido 
+                 $objPersona = Persona::find()->where(['idUsuario'=>$idUsu])->one();
+
+               // A través del DNI usuario, buscamos su objeto grupo
+               $objGrupo = Grupo::find()->where(['idPersona'=>$objPersona->idPersona])->one();
+               $idEquipo = $objGrupo['idEquipo']; //Obtenemos el ID del grupo
+                // A través del DNI usuario, buscamos su objeto equipo
+                $objEquipo = Equipo::find()->where(['idEquipo'=>$idEquipo])->one();
+                $dniCap = $objEquipo['dniCapitan']; //Obtenemos el dni del equipo
+                
+                $out = [
+                    ['id' => $idUsu, 'name' => $dniCap]
+                ];
+            
+                return ['output'=>$out, 'selected'=>$idUsu];
+            }
+        }
+        return ['output'=>'', 'selected'=>''];
+    }
+
+    public function actionNombrecapitan(){
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+           $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $dniUsu = $parents[0]; //Obtenemos el ID del equipo
+ 
+                // A través del DNI usuario, buscamos su objeto Usuario
+                $objUsuario = Usuario::find()->where(['idUsuario'=>$dniUsu])->one();
+                $idUsu = $objUsuario['idUsuario']; //Obtenemos el ID del usuario
+                 // Con el ID del usuario, obtenemos el objeto Persona, para así obtener su nombre y apellido 
+                 $objPersona = Persona::find()->where(['idUsuario'=>$idUsu])->one();
+
+               // A través del DNI usuario, buscamos su objeto grupo
+               $objGrupo = Grupo::find()->where(['idPersona'=>$objPersona->idPersona])->one();
+               $idEquipo = $objGrupo['idEquipo']; //Obtenemos el ID del grupo
+                // A través del DNI usuario, buscamos su objeto equipo
+                $objEquipo = Equipo::find()->where(['idEquipo'=>$idEquipo])->one();
+                $dniCap = $objEquipo['dniCapitan']; //Obtenemos el dni del equipo
+                 // A través del DNI usuario, buscamos su objeto Usuario capitan
+                 $objUsuario = Usuario::find()->where(['dniUsuario'=>$dniCap])->one();
+                 $idUsuper = $objUsuario['idUsuario']; //Obtenemos el ID del usuario
+                // Con el ID del usuario, obtenemos el objeto Persona, para así obtener su nombre y apellido 
+                $objPersona = Persona::find()->where(['idUsuario'=>$idUsuper])->one();
+                $nombrePersona = $objPersona['nombrePersona'];
+                $apellidoPersona = $objPersona['apellidoPersona'];
+                $nombreCompleto = $nombrePersona . " " . $apellidoPersona; // Concatenamos su nombre y apellido
+
+                $out = [
+                    ['id' => $idUsu, 'name' => $nombreCompleto]
+                ];
+             
+                return ['output'=>$out, 'selected'=>$idUsu];
+            }
+        }
+       return ['output'=>'', 'selected'=>''];
     }
 }

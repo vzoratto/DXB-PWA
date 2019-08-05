@@ -46,7 +46,7 @@ class Pago extends \yii\db\ActiveRecord
             [['entidadPago'], 'string', 'max' => 64],
             [['imagenComprobante'], 'file',
                 'maxSize' => 20 * 1024 * 1024, //10MB
-                'tooBig' => 'El tamaño máximo permitido es 10MB', //Error
+                'tooBig' => 'El tamaño máximo permitido es 20MB', //Error
                 'minSize' => 10, //10 Bytes
                 'tooSmall' => 'El tamaño mínimo permitido son 10 BYTES', //Error
                 'extensions' => 'jpg, jpeg, png, bmp, jpe',
@@ -57,6 +57,7 @@ class Pago extends \yii\db\ActiveRecord
             [['idImporte'], 'exist', 'skipOnError' => true, 'targetClass' => Importeinscripcion::className(), 'targetAttribute' => ['idImporte' => 'idImporte']],
             [['idEquipo'], 'exist', 'skipOnError' => true, 'targetClass' => Equipo::className(), 'targetAttribute' => ['idEquipo' => 'idEquipo']],
            //lo verificamos como dao seguro
+           ['dniUsu','required','message'=>'DNI capitan no puede estar vacío'],
            [['dniUsu','chequeado'],'safe'],
         ];
     }

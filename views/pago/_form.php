@@ -59,7 +59,7 @@ use yii\widgets\ActiveForm;
              echo Html::submitButton('Acreditar pago', ['class' => 'btn btn-success']);
            }else{
             echo " <div class='alert alert-info' style='font-family: 'Roboto', sans-serif;font-size: 14px;color:#6A8A7C;'>";
-            echo 'Cuando se realice el checking de los pagos acreditados, podrás realizar otra acreditación.<p style="color:red;">Por favor no extravíes el ticket !!</p>';
+            echo 'Cuando se realice el checking de los pagos acreditados, podrás realizar otra acreditación.<p style="color:red;">Por favor no extravíes el comprobante !!</p>';
             echo "</div>";
            }
       }else	{ 
