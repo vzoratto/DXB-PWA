@@ -44,11 +44,11 @@ $i=0;
         pasando en cada caso las opciones de respuesta, id de la pregunta, instancia del modelo Formulario,
         instancia del modelo Respuesta y la pregunta -->
         <?php foreach($pregunta as $valor):?>
-        <div class=" col-xs-12 col-sm-6">
+        <div class=" col-xs-12 col-sm-12">
 
             <div class="form-group ">
-                <h3> <?php $idPregunta=$valor['idPregunta']; ?></h3>
-                <h3> <?= $valor['pregDescripcion']; ?></h3>
+                <h4> <?php $idPregunta=$valor['idPregunta']; ?></h4>
+                <h4> <?= $idPregunta.'-'.$valor['pregDescripcion']; ?></h4>
 
                 <?php if($valor['idRespTipo']==1){
                         echo $this->render('_texto',[

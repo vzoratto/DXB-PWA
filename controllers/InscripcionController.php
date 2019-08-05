@@ -476,6 +476,27 @@ class InscripcionController extends Controller
                         if(is_numeric($valor)){//Si la respuesta no es un string, entonces es el id de la opcion de respuesta
                             $opcion=RespuestaOpcion::findOne($valor);//busca la opcion de respuesta que corresponde
                             $resp['respValor']=$opcion->opRespvalor;
+                            if(isset($_POST['justificacion1']) && $clave==1 && $valor==2){
+                                $resp['respValor']=$opcion->opRespvalor.'-'.$_POST['justificacion1'];
+                                //echo $resp['respValor'];
+                                //die();
+
+
+                            }
+                            if(isset($_POST['justificacion3']) && $clave==3 && $valor==6){
+                                $resp['respValor']=$opcion->opRespvalor.'-'.$_POST['justificacion3'];
+                                //echo $resp['respValor'];
+                                //die();
+
+
+                            }
+                            if(isset($_POST['justificacion5']) && $clave==5 && $valor==10){
+                                $resp['respValor']=$opcion->opRespvalor.'-'.$_POST['justificacion5'];
+                                //echo $resp['respValor'];
+                                //die();
+
+
+                            }
                         }else{//Si la respuesta es un string, entonces guarda directamente la respuesta
                             $resp['respValor']=$valor;
                         }
