@@ -38,7 +38,7 @@ use app\models\Estadopago;
  <!-- La siguiente grilla muestra los datos en pantalla --> 
    <?php     
 	  $gridColumns=[
-            ['class' => 'yii\grid\SerialColumn'],
+           // ['class' => 'yii\grid\SerialColumn'],
            ['label'=>'Referencia equipo',
              'attribute'=>'idEquipo',
              'hAlign' => 'center',
@@ -98,6 +98,26 @@ use app\models\Estadopago;
             'filter' => Html::activeDropDownList($searchModel, 'idEstadoPago', ArrayHelper::map(Estadopago::find()->asArray()->all(), 'idEstadoPago', 'descripcionEstadoPago'),
              ['class'=>'form-control','prompt' => 'Elije.....................']),
           ],
+          ['label'=>'Debe pagar',
+            'attribute'=>'importe',
+            'hAlign' => 'center',
+            'options' => [ 'style' => 'background-color:#FF0000',' color: #FF0000'],
+            "filterInputOptions" => ['class'=>'form-control',
+            "disabled" => true
+            ],
+            'value'=>function($model){
+                $print='';
+                foreach($model->equipo->tipoCarrera->importeinscripcion as $importe){ 
+                  $suma=Pago::sumaEquipo($model->equipo->idEquipo);
+                  $cant=$model->equipo->cantidadPersonas;
+                  $cantper=$importe->importe * $cant;
+                  $costo=$cantper -$suma;
+                   $print.=$costo;//para importe indcripcion por persona
+                   //$print.=$importe->importe;//para importe incripcion por equipo
+                }
+            return $print;
+            },   
+           ],
            ['label'=>'Costo inscripcion',
             'attribute'=>'importe',
             'hAlign' => 'center',
@@ -121,10 +141,12 @@ use app\models\Estadopago;
            'hAlign' => 'center',
            'contentOptions'=>['style'=>'width:100px;'],
            'value'=>function($model){
-               return $model->idEstadoPago==2?Html::a('<span class = " glyphicon glyphicon-envelope"></span>', 
-                          [ 'estadopagoequipo/enviamail',
+                  if($model->idEstadoPago==2){
+                     return  Html::a('<span class = " glyphicon glyphicon-envelope"></span>', 
+                          [ 'estadopagoequipo/view',
                           'idEstadoPago'=>$model->idEstadoPago,
-                           'idEquipo'=>$model->idEquipo]):'';
+                           'idEquipo'=>$model->idEquipo]);
+                  }
                }
            ],
            ['class' => 'yii\grid\ActionColumn',

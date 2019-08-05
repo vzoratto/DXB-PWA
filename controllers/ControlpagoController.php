@@ -44,6 +44,12 @@ class ControlpagoController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
@@ -124,21 +130,28 @@ class ControlpagoController extends Controller
         $estado='';
         $usuario= Usuario::findIdentity($_SESSION['__id']);//objeto usuario
         $gestor=Gestores::findOne(['idUsuario'=>$_SESSION['__id']]); //objeto gestor
-        if ($model->load(Yii::$app->request->post())){
+        $guardado=false; //Asignamos false a la variable guardado
+        $transaction = Yii::$app->getDb()->beginTransaction(); // Iniciamos una transaccion
+        try{
+         if ($model->load(Yii::$app->request->post())){
             $model->chequeado=1;// 0 no chequeado, 1 chequeado
             $model->idGestor=$gestor->idGestor;
             $pago=Pago::findOne(['idPago'=>$model->idPago]);
             $equipo=Equipo::findOne(['idEquipo'=>$pago->idEquipo]);
             $importe=Importeinscripcion::findOne(['idImporte'=>$pago->idImporte]);
             $costo=$importe->importe * $equipo->cantidadPersonas;
+            $suma=Pago::sumaEquipo($pago->idEquipo);//suma los pagos parciales chequeados
+            $sumademas=$suma + $pago->importePagado;//suma los pagos parciales chequeados mas el importe pagado
             //echo '<pre>';echo $costo;echo $pago->importePagado;echo '</pre>';die();
-            if($costo == $pago->importePagado){
+            if($costo < $sumademas){
+                Yii::$app->session->setFlash('pagoGrande');//enviamos mensaje si ingreso mas dinero
+                return $this->refresh();
+            }elseif($costo == $pago->importePagado){
                 $estado=1;//pago total
             }elseif($costo < $pago->importePagado){
                     Yii::$app->session->setFlash('pagoGrande');//enviamos mensaje si ingreso mas dinero
                     return $this->refresh();
             }else{
-                    $suma=Pago::sumaEquipo($pago->idEquipo);//suma los pagos parciales chequeados
                     $sumapago=$suma + $pago->importePagado;
                    // echo '<pre>';echo $suma;echo '</pre>';die();
                     if($costo == $sumapago){
@@ -152,7 +165,7 @@ class ControlpagoController extends Controller
                  
             }
            if($model->save()) {//chequea el pago en controlpago
-             
+             $guardado=true;
               // actualiza el estado  pago del equipo si existe
               if($model1=Estadopagoequipo::findOne(['idEquipo'=>$pago->idEquipo])){
                   $model1->idEstadoPago=$estado;
@@ -161,10 +174,20 @@ class ControlpagoController extends Controller
                   $model1->idEstadoPago=$estado;
                   $model1->idEquipo=$pago->idEquipo;
               }
-             if($model1->save()){//llena tabla estado pago del equipo
-                $persona=Persona::findOne(['idPersona'=>$pago->idPersona]);
-                $user=Usuario::findOne(['idUsuario'=>$persona->idUsuario]);
-                $dni = urlencode($user->dniUsuario);
+              if($model1->save()){//llena tabla estado pago del equipo
+                $guardado=true;
+              }else{
+                 $guardado=false;
+              }
+            }else{
+                Yii::$app->session->setFlash('pagonoCheck');//enviamos mensaje no chequeo
+                   return $this->refresh();
+            }   
+            if($guardado){
+                $transaction->commit();
+                  $persona=Persona::findOne(['idPersona'=>$pago->idPersona]);
+                  $user=Usuario::findOne(['idUsuario'=>$persona->idUsuario]);
+                  $dni = urlencode($user->dniUsuario);
                     $mailUsuario = $user->mailUsuario;//envia mail de acreditacion del pago chequeado
                     $subject = "Acreditación pago realizado";// Asunto del mail
                     $body = "
@@ -196,17 +219,24 @@ class ControlpagoController extends Controller
                         ->send();
                 Yii::$app->session->setFlash('pagoCheck');//enviamos mensaje si chequeo
                 return $this->refresh();
+            }else{
+                $guardado=false;
+                $transaction->rollBack();
             } 
-         }else{
-             Yii::$app->session->setFlash('pagonoCheck');//enviamos mensaje no chequeo
-                return $this->refresh();
-         }
-     }//renderiza a la vista para chequear el pago
+         
+      }else{//renderiza a la vista para chequear el pago
         return $this->render('update', [
             'model' => $model,
             'gestor'=>$gestor,//idgestor, nombre gestor
             'usuario'=>$usuario,//idUauadio, dniUsuario
         ]);
+      }
+      }catch(\Exception $e) {
+        $guardado=false;
+
+        $transaction->rollBack();
+        throw $e;
+      }
     }
 
     /**

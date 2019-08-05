@@ -66,6 +66,25 @@ $this->title = "Referencia equipo ".$model->idEquipo;
                return ($model->estadoPago->descripcionEstadoPago);
               },
           ],
+          ['label'=>'Debe pagar',
+            'attribute'=>'importe',
+            'hAlign' => 'center',
+            "filterInputOptions" => ['class'=>'form-control',
+            "disabled" => true
+            ],
+            'value'=>function($model){
+                $print='';
+                foreach($model->equipo->tipoCarrera->importeinscripcion as $importe){ 
+                  $suma=Pago::sumaEquipo($model->equipo->idEquipo);
+                  $cant=$model->equipo->cantidadPersonas;
+                  $cantper=$importe->importe * $cant;
+                  $costo=$cantper -$suma;
+                   $print.=$costo;//para importe indcripcion por persona
+                   //$print.=$importe->importe;//para importe incripcion por equipo
+                }
+            return $print;
+            },   
+           ],
            ['label'=>'Costo inscripción',
             'attribute'=>'importe',
             'value'=>function($model){

@@ -17,7 +17,7 @@ class EstadopagoequipoSearch extends Estadopagoequipo
     {
         return [
             [['idEstadoPago', 'idEquipo'], 'integer'],
-            [['dniCapitan','mailUsuario','totalpagado','importe','nombreEquipo','nombrePersona'],'safe'],
+            [['dniCapitan','mailUsuario','totalpagado','importe','nombreEquipo','nombrePersona','debe'],'safe'],
         ];
     }
 
@@ -70,6 +70,7 @@ class EstadopagoequipoSearch extends Estadopagoequipo
               ->andFilterWhere(['like', 'equipo.usuario.mailUsuario', $this->mailUsuario])
               ->andFilterWhere(['like', 'persona.CONCAT(nombrePersona." ".apellidoPersona)', $this->nombrePersona])
               ->andFilterWhere(['like','importeinscripcion.importe', $this->importe])
+             // ->andFilterWhere(['like','importeinscripcion.importe', $this->debe])
               ->andFilterWhere(['like','nombreEquipo', $this->nombreEquipo]);
         return $dataProvider;
     }

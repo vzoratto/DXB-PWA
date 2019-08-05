@@ -20,6 +20,7 @@ class Estadopagoequipo extends \yii\db\ActiveRecord
     public $importe;
     public $nombreEquipo;
     public $nombrePersona;
+    public $debe;
     /**
      * {@inheritdoc}
      */

@@ -119,18 +119,7 @@ $this->title = 'Estado del pago: no abonado';
                            'idEquipo'=>$model->idEquipo]);
                }
            ],
-           ['label'=>'Enviar email',
-            'attribute'=>'',
-           'format'=>'raw',
-           'hAlign' => 'center',
-           'contentOptions'=>['style'=>'width:100px;'],
-           'value'=>function($model){
-               return Html::a('<span class = " glyphicon glyphicon-envelope"></span>', 
-                          [ 'estadopagoequipo/enviamail',
-                          'id1'=>"",
-                           'id'=>$model->idEquipo]);
-               }
-           ],
+          
            
                
            //'idImporte',

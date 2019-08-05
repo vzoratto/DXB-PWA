@@ -68,6 +68,12 @@ class EstadopagoequipoController extends Controller
      */
     public function actionIndex1()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
@@ -184,8 +190,9 @@ class EstadopagoequipoController extends Controller
             $dni = urlencode($user->dniUsuario);
             $mailUsuario = $user->mailUsuario;
             $nombre=$persona->nombrePersona." ".$persona->apellidoPersona;
-            $subject = "Cancelar el pago de la inscripción";// Asunto del mail
-            $host=Yii::$app->request->hostInfo;
+           // echo '<pre>';echo $nombre;echo'</pre>';die();
+            $subject = "Pago de la inscripción";// Asunto del mail
+            //$host=Yii::$app->request->hostInfo;
             $body = "
                 <div style='width:100%; background:#eee; position:relative; font-family:sans-serif; padding-bottom:40px'>
                         <div class='col-lg-12 col-xs-6' style='position:relative; margin: auto; max-width: 500px; background:white; padding:20px'>
@@ -198,12 +205,12 @@ class EstadopagoequipoController extends Controller
                          $suma=Pago::sumaTotalequipo($equipo->idEquipo);
                          $importe=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
                          $resto=$importe->importe - $suma;
-                         $body.="<h4> style='font-weight:100; color:black; padding:0 20px'>El motivo del presente mail, es para solicitarte tengas a bien cancelar el pago de la inscripción. </h4>
+                         $body.="<h4 style='font-weight:100; color:black; padding:0 20px;'>El motivo del presente mail, es para solicitarte tengas a bien cancelar el pago de la inscripción. </h4>
                                 <h4 style='font-weight:100; color:black; padding:0 20px'>Por favor acercate a los puntos donde puedes abonar el saldo de $".$resto."</h4>
                                 <h4 style='font-weight:100; color:black; padding:0 20px'>Sin otro particular, te recordamos que la carrera se efectuará el día 08/09/2019.</h4>";
                                 
                       }else{          
-                       $body.="<h4> style='font-weight:100; color:black; padding:0 20px'>El motivo del presente mail, es para informarte que tu equipo ha sido desafectado del evento Desafío por bardas por falta del cumplimiento del pago de la inscripción. </h4>
+                       $body.="<h4 style='font-weight:100; color:black; padding:0 20px'>El motivo del presente mail, es para informarte que tu equipo ha sido desafectado del evento Desafío por bardas por falta del cumplimiento del pago de la inscripción. </h4>
                                 <h4 style='font-weight:100; color:black; padding:0 20px'>Por cualquier consulta o dudas con respecto a esta situación, por favor comunicate con el administrador</h4>
                                 <h4 style='font-weight:100; color:black; padding:0 20px'>Sin otro particular, te saludamos atte.</h4>";
                       }
@@ -225,16 +232,14 @@ class EstadopagoequipoController extends Controller
                 ->setSubject($subject)
                 ->setHTMLBody($body)
                 ->send();
-                      return [ 'confirm' => 'El mail fue enviado correctamente.',
-                             ];
-                             Yii::$app->session->setFlash('pagoCheck');//enviamos mensaje si chequeo
+                      
+                             Yii::$app->session->setFlash('email');//enviamos mensaje si mando mail
                              return $this->refresh();
                       
             }else{
-                $mensaje="Este mensaje es para avisarte que tu DNI no existe en nuestro registro.";
-                return $this->render('error', [
-                   'mensaje'=>$mensaje,
-                ]);
+                Yii::$app->session->setFlash('nousu');//enviamos mensaje si chequeo
+                             return $this->refresh();
+                
             }
          }
     }

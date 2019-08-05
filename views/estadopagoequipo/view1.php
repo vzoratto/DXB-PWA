@@ -19,7 +19,7 @@ $this->title = "Referencia equipo ".$model->idEquipo;
         <?= Html::a('Envía email', ['enviamail','id1'=>"",'id' => $model->idEquipo], ['class' => 'btn btn-success']) ?>
         <?Php 
         //id1=idEstadoPago, id=idEquipo     
-        if(Permiso::requerirRol('administrador')):
+       // if(Permiso::requerirRol('administrador')):
         echo Html::a('Desvincular equipo???', ['delete1', 'idEquipo' => $model->idEquipo], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -27,7 +27,7 @@ $this->title = "Referencia equipo ".$model->idEquipo;
                 'method' => 'post',
             ],
         ]); ?>
-        <?Php endif ?>
+        <?Php //endif ?>
     </p>
 
     <?= DetailView::widget([
@@ -100,4 +100,13 @@ $this->title = "Referencia equipo ".$model->idEquipo;
        </table> 
 
 </div>
+<?php if(Yii::$app->session->hasFlash('email')): ?>
+            <div class="alert alert-success" align="center">
+             El email fue enviado sin problemas :)
+            </div>
+<?php elseif(Yii::$app->session->hasFlash('nousu')): ?>
+            <div class="alert alert-success" align="center">
+             Hubo un problema, parece que el usuario no existe :(
+            </div>
+    <?php endif ?>
   
