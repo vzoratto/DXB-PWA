@@ -1,11 +1,11 @@
 $(document).ready(function(){
 
     $( 'input[name="1"]:radio' ).change(function () {
-        console.log('click pregunta 1');
+        //console.log('click pregunta 1');
         //alert(this.value);
         //si en la primera pregunta selecciona "SI"
         if(this.value==2){
-            console.log('toco 2');
+            //console.log('toco 2');
             var input1='<br id="salto1"> <label class="label1" id="label1">Cual</label><input style="width: 50%" id="justificacion1" type="text" class="justificacion1 form-control input-sm" name="justificacion1">';
             //si selecciona SI se agrega el input para que justifique su respuesta
             var pregunta1=$('div[name="1"]').append(input1);
@@ -20,7 +20,7 @@ $(document).ready(function(){
 
     });
     $( 'input[name="3"]:radio' ).change(function () {
-        console.log('click pregunta 3');
+        //console.log('click pregunta 3');
         //alert(this.value);
         //si en la primera pregunta selecciona "SI"
         //el valor 6 es SI
@@ -47,7 +47,7 @@ $(document).ready(function(){
         //si en la primera pregunta selecciona "SI"
         //el valor 10 es SI
         if(this.value==10){
-            console.log('toco 2');
+            //console.log('toco 2');
             var input5='<br id="salto5"> <label class="label5" id="label5">Cual</label><input style="width: 50%" id="justificacion5" type="text" class="justificacion5 form-control input-sm" name="justificacion5">';
             //si selecciona SI se agrega el input para que justifique su respuesta
             var pregunta5=$('div[name="5"]').append(input5);
