@@ -165,8 +165,6 @@ class PersonaController extends Controller
                    ]);
         
       } catch(\Exception $e) {
-          $borrado=false;
-
           $transaction->rollBack();
           throw $e;
       }

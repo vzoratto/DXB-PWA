@@ -19,7 +19,7 @@ class PagoSearch extends Pago
     {
         return [
             [['idPago', 'importePagado', 'idPersona', 'idImporte', 'idEquipo'], 'integer'],
-            [['entidadPago', 'imagenComprobante','dniUsu','chequeado','nombre'], 'safe'],
+            [['entidadPago', 'imagenComprobante','dniUsu','chequeado','nombre','nombreEquipo','estadoPago'], 'safe'],
         ];
     }
 
@@ -42,12 +42,16 @@ class PagoSearch extends Pago
     public function search($params)
     {
         $query = Pago::find()->joinWith('controlpagos')
-                             ->joinWith('persona.usuario');
+                             ->joinWith('persona.usuario')
+                             ->joinWith('equipo');
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 10
+            ],
         ]);
 
         $this->load($params);
@@ -70,7 +74,7 @@ class PagoSearch extends Pago
 
         $query->andFilterWhere(['like', 'entidadPago', $this->entidadPago])
             ->andFilterWhere(['like', 'imagenComprobante', $this->imagenComprobante])
-            ->andFilterWhere(['like','CONCAT(apellidoPersona, " ", nombrePersona)', $this->nombre])
+            ->andFilterWhere(['like','CONCAT(persona.apellidoPersona, " ", persona.nombrePersona)', $this->nombre])
             ->andFilterWhere(['like', 'usuario.dniUsuario', $this->dniUsu]);
           
 

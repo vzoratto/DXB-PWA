@@ -76,4 +76,12 @@ class Tipocarrera extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Equipo::className(), ['idTipoCarrera' => 'idTipoCarrera']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getImporteinscripcion()
+    {
+        return $this->hasMany(Importeinscripcion::className(), ['idTipoCarrera' => 'idTipoCarrera']);
+    }
 }

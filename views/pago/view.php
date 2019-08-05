@@ -18,6 +18,8 @@ $this->title = 'Detalle del pago ingresado';
     <?php 
         if($controlpago->chequeado==0){
             echo Html::a('Chequear', ['controlpago/view', 'id' => $model->idPago], ['class' => 'btn btn-success']);
+            echo Html::a('Actualizar', ['update', 'id' => $model->idPago], ['class' => 'btn btn-success']);
+            
         }else{
             echo Html::a('Ver pago chequeado', ['controlpago/view', 'id' => $model->idPago], ['class' => 'btn btn-success']);
         }
@@ -56,7 +58,10 @@ $this->title = 'Detalle del pago ingresado';
            ['label'=>'Costo inscripcion',
             'attribute'=>'idImporte',
             'value'=>function($model){
-                return ($model->importe->importe);
+                $importe=$model->importe->importe;
+                $cantpers=$model->equipo->cantidadPersonas;
+                return $costo=$importe * $cantpers;
+                //return ($model->importe->importe);
                 },
             ],
         'imagenComprobante:image',

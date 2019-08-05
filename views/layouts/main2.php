@@ -39,6 +39,7 @@ AppAsset::register($this);
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
+        'encodeLabels' => false,
         'items' => [
 
             ['label' => 'Listados ABM','items' => [
@@ -62,7 +63,7 @@ AppAsset::register($this);
                   ],
                 ],
               ['label' => 'Encuesta','items' => [
-                ['label' => 'Gestión Encuesta/trivia', 'url' => ['/encuesta/index']],
+                ['label' => 'Crear Encuesta', 'url' => ['/encuesta/index']],
                 ['label' => 'Resultados Encuesta', 'url' => ['/respuesta/index']],
 
 			    ],
@@ -71,6 +72,8 @@ AppAsset::register($this);
                 ['label' => 'Pagos ver todos', 'url' => ['/pago/index']],
                 ['label' => 'Ingresar un pago', 'url' => ['/pago/create1']],
                 ['label' => 'Control de pagos', 'url' => ['/controlpago/index']],
+                ['label' => 'Estado del pago', 'url' => ['/estadopagoequipo/index']],
+                ['label' => 'Pagos no abonados', 'url' => ['/estadopagoequipo/index1']],
                 ['label' => 'Importe inscripcion', 'url' => ['/importeinscripcion/index']],
                 ],
               ],
@@ -79,18 +82,13 @@ AppAsset::register($this);
                 ['label' => 'Cambia corredor', 'url' => ['/equipo/validacorredor']],
                 ],
               ],
-            Yii::$app->user->isGuest ? (
-                ''
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->dniUsuario . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm().
-                 '</li>'
-            )
+            
+            !Yii::$app->user->isGuest ?(
+                ['label' =>"<i class='glyphicon glyphicon-user ml-30 ml-sm-0' aria-hidden='true'></i>",'items' => [
+                  ['label' => 'Cambiar contraseña', 'url' => 'index.php?r=site/cambiapass'],
+                  ['label' => 'Cerrar sesión', 'url' => 'index.php?r=site%2Flogout', 'linkOptions' => ['data-method' => 'post']],
+                ],
+             ]):'',
         ],
     ]);
     NavBar::end();

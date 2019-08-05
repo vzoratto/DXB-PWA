@@ -106,7 +106,13 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
           $dropciones=Rol::find()->asArray()->all();
           return ArrayHelper::map($dropciones,'idRol','descripcionRol');
       }
+      public function getLosusuarios(){
+        $lista= ArrayHelper::map(\app\models\Usuario::find()
+              ->select('idUsuario,dniUsuario,')
+              ->all(),'idUsuario','dniUsuario');
 
+        return $lista;
+    }
     
     public function getUsuario($dni)
     {

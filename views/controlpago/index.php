@@ -25,6 +25,9 @@ $this->title = 'Control pagos';
            ['label'=>'Referencia pago',
             'attribute'=>'idPago',
             'hAlign' => 'center',
+            "filterInputOptions" => ['class'=>'form-control',
+            "disabled" => true
+            ],
             ],
             ['label'=>'Equipo',
              'attribute'=>'equipo',
@@ -60,18 +63,27 @@ $this->title = 'Control pagos';
             ],
             ['label'=>'Tipo Carrera',
              'attribute'=>'tipocarrera',
-             'hAlign'=>'center',
+             'hAlign' => 'center',
+            "filterInputOptions" => ['class'=>'form-control',
+            "disabled" => true
+            ],
              'value'=>function($model){
                   return ($model->pago->equipo->tipoCarrera->descripcionCarrera);
                  }
             ],
             [ 'attribute' => 'fechaPago',
-              'hAlign' => 'center',
+            'hAlign' => 'center',
+            "filterInputOptions" => ['class'=>'form-control',
+            "disabled" => true
+            ],
                 'format' => ['date', 'php:Y-m-d'],
 
             ],          
             [ 'attribute' => 'fechachequeado',
-              'hAlign' => 'center',
+            'hAlign' => 'center',
+            "filterInputOptions" => ['class'=>'form-control',
+            "disabled" => true
+            ],
               'value'=>function($model){
                   if($model->fechachequeado=='0000-00-00'){
                       return "";

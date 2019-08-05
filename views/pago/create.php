@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Pago */
 //crea un pago el participante-----------------------------------------------------
-$this->title = 'Crear Pago';
+$this->title = 'Acreditar Pago';
 
 ?>
 <div class="pago-create">
@@ -20,8 +20,10 @@ $this->title = 'Crear Pago';
         'persona'=> $persona,//idPersona
         'usuario'=> $usuario,//idUsuario, dniUsuario,mailUsuario
         'tipocarrera'=>$tipocarrera,//descripcionCarrera
-        'importecarrera'=>$importecarrera,//importe del tipo de carrera
+        'importe'=>$importe,//importe del tipo de carrera por el numero de persona
+        //'importecarrera'=>$importecarrera,//importe del tipo de carrera por equipo
         'saldo'=>$saldo,//saldo de lo pagado
+        'check'=>$check,
    ]) ?>
 </div>
 </div>

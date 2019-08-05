@@ -24,11 +24,14 @@ $this->title = 'Pagos recibidos';
             ['label'=>'Referencia pago',
             'attribute'=>'idPago',
             'hAlign' => 'center',
+            "filterInputOptions" => ['class'=>'form-control',
+             "disabled" => true
+             ],
             'value'=>function($model){
                 return $model->idPago;
             }
            ],
-           ['label'=>'Equipo',
+           ['label'=>'Nombre equipo',
             'attribute'=>'idEquipo',
             'hAlign' => 'center',
             'filterInputOptions' => [
@@ -61,9 +64,15 @@ $this->title = 'Pagos recibidos';
           ],
           ['attribute'=>'entidadPago',
            'hAlign' => 'center',
+           "filterInputOptions" => ['class'=>'form-control',
+             "disabled" => true
+             ],
            ],
           ['attribute'=>'importePagado',
            'hAlign' => 'center',
+           "filterInputOptions" => ['class'=>'form-control',
+             "disabled" => true
+             ],
            ],
            ['attribute'=>'chequeado',
             'hAlign' => 'center',
@@ -74,7 +83,7 @@ $this->title = 'Pagos recibidos';
                 }
             return $print;
             },
-              'filter'=>array("0"=>"no","1"=>"si"),
+              'filter'=>(["0"=>"no","1"=>"si"]),
            ],
            ['label'=>'Imagen ticket',
             'attribute'=>'imagenComrobante',
@@ -87,7 +96,7 @@ $this->title = 'Pagos recibidos';
            'header' => 'Acciones',
                  'contentOptions'=>
 				 ['style'=>'width: 10%;'],
-                   'template'=>'{view}{update}',
+                   'template'=>'{view}',
            
 		    	],
            

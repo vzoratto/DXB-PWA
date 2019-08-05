@@ -7,11 +7,12 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\Pago */
 /* @var $form yii\widgets\ActiveForm */
 //formulario para que el participante realice el pago-----------------------------
+$valor=0;
 ?>
 <?php
        if($usuario->dniUsuario == $equipo->dniCapitan):?>
        <div style='font-family: "Roboto", sans-serif;font-size: 14px;color:#6A8A7C;'>
-       <?Php echo 'Eres capitan del equipo '.Html::encode($equipo->nombreEquipo);?>
+       <?Php echo 'Sos capitán del equipo '.Html::encode($equipo->nombreEquipo);?>
         </div>
         <div style='font-family: "Roboto", sans-serif;font-size: 14px;color:#6A8A7C;'> 
         <?Php echo 'DNI '.Html::encode($equipo->dniCapitan);?>
@@ -29,18 +30,20 @@ use yii\widgets\ActiveForm;
           <?= 'Carrera '.Html::encode($tipocarrera->descripcionCarrera) ?>
        </div>
        <div style='font-family: "Roboto", sans-serif;font-size: 14px;color:#6A8A7C;'>
-          <?= 'Costo de inscripcion $'.Html::encode($importecarrera->importe) ?>
+          <?= 'Tu equipo tiene '.Html::encode($equipo->cantidadPersonas).' integrantes' ?>
+       </div>
+       <div style='font-family: "Roboto", sans-serif;font-size: 14px;color:#6A8A7C;'>
+          <?= 'Costo de inscripcion $'.Html::encode($importe) ?>
+       </div>
+       <br>
+       <div style='font-family: "Roboto", sans-serif;font-size: 14px;color:#6A8A7C;'>
+       <strong>Tu saldo a pagar es de $ <?=Html::encode($saldo)?></strong>
        </div>
        <br><br>
 <div class="pago-form">
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
-    <figure>
-        <?= $form->field($model, 'importePagado')->textInput(['placeholder'=>'Importe a pagar']) ?>
-        <?Php if($saldo != 0):?>
-        <figcaption><strong>Tu saldo a pagar es de $ <?=Html::encode($saldo)?></strong></figcaption>
-        <?Php endif ?>
-    </figure>
+   
 
     <?= $form->field($model, 'entidadPago')->textInput(['placeholder'=>'Entidad de pago','maxlength' => true]) ?>
 
@@ -53,10 +56,17 @@ use yii\widgets\ActiveForm;
    
     <div class="form-group">
     <?php
-      if ($model->isNewRecord) 
+      if ($model->isNewRecord){
+           if($check != 0){
              echo Html::submitButton('Acreditar pago', ['class' => 'btn btn-success']);
-      else	 
-	      echo Html::submitButton('Actualizar', ['class' => 'btn btn-success']);
+           }else{
+            echo " <div class='alert alert-info' style='font-family: 'Roboto', sans-serif;font-size: 14px;color:#6A8A7C;'>";
+            echo 'Cuando se realice el checking de los pagos acreditados, podrás realizar otra acreditación.<p style="color:red;">Por favor no extravíes el comprobante !!</p>';
+            echo "</div>";
+           }
+      }else	{ 
+         echo Html::submitButton('Actualizar', ['class' => 'btn btn-success']);
+      }
 	  ?>
     </div>
 

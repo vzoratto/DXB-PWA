@@ -12,6 +12,7 @@ use app\models\Importeinscripcion;
 use app\models\Pago;
 use app\models\Estadopagoequipo;
 use app\models\Persona;
+use app\models\Equipo;
 use yii\web\IdentityInterface;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -126,21 +127,32 @@ class ControlpagoController extends Controller
         if ($model->load(Yii::$app->request->post())){
             $model->chequeado=1;// 0 no chequeado, 1 chequeado
             $model->idGestor=$gestor->idGestor;
-          if($model->save()) {
-              $pago=Pago::findOne(['idPago'=>$model->idPago]);
-              $importe=Importeinscripcion::findOne(['idImporte'=>$pago->idImporte]);
-              if($importe->importe == $pago->importePagado){
-                  $estado=1;//pago total
-              }else{
-                  $suma=Pago::sumaEquipo($pago->idEquipo);//suma los pagos parciales
-                  if($importe->importe == $suma){
-                      $estado=3;//pago cancelo
-                  }elseif($importe->importe > $suma){
-                      $estado=2;//pago parcial
-                  }else{
-                      $error=$model->errors;
-                  }
-              }
+            $pago=Pago::findOne(['idPago'=>$model->idPago]);
+            $equipo=Equipo::findOne(['idEquipo'=>$pago->idEquipo]);
+            $importe=Importeinscripcion::findOne(['idImporte'=>$pago->idImporte]);
+            $costo=$importe->importe * $equipo->cantidadPersonas;
+            //echo '<pre>';echo $costo;echo $pago->importePagado;echo '</pre>';die();
+            if($costo == $pago->importePagado){
+                $estado=1;//pago total
+            }elseif($costo < $pago->importePagado){
+                    Yii::$app->session->setFlash('pagoGrande');//enviamos mensaje si ingreso mas dinero
+                    return $this->refresh();
+            }else{
+                    $suma=Pago::sumaEquipo($pago->idEquipo);//suma los pagos parciales chequeados
+                    $sumapago=$suma + $pago->importePagado;
+                   // echo '<pre>';echo $suma;echo '</pre>';die();
+                    if($costo == $sumapago){
+                         $estado=3;//pago cancelo
+                    }elseif($costo > $sumapago){
+                         $estado=2;//pago parcial
+                    }else{
+                        Yii::$app->session->setFlash('pagoGrande');//enviamos mensaje si ingreso mas dinero
+                        return $this->refresh();
+                    }
+                 
+            }
+           if($model->save()) {//chequea el pago en controlpago
+             
               // actualiza el estado  pago del equipo si existe
               if($model1=Estadopagoequipo::findOne(['idEquipo'=>$pago->idEquipo])){
                   $model1->idEstadoPago=$estado;
@@ -149,7 +161,7 @@ class ControlpagoController extends Controller
                   $model1->idEstadoPago=$estado;
                   $model1->idEquipo=$pago->idEquipo;
               }
-            if($model1->save()){//llena tabla estado pago del equipo
+             if($model1->save()){//llena tabla estado pago del equipo
                 $persona=Persona::findOne(['idPersona'=>$pago->idPersona]);
                 $user=Usuario::findOne(['idUsuario'=>$persona->idUsuario]);
                 $dni = urlencode($user->dniUsuario);
@@ -160,7 +172,7 @@ class ControlpagoController extends Controller
                                 <div style='position:relative; margin:auto; width:600px; background:white; padding:20px'>
                                         <center>
                                         <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
-                                        <h2 style='font-weight:100; color:#999'>DESAFIO POR LAS BARDAS</h2>
+                                        <h2 style='font-weight:100; color:#999'>DESAFIO POR BARDAS</h2>
                                         <hr style='border:1px solid #ccc; width:90%'>
                                         <h3 style='font-weight:100; color:#999; padding:0 20px'><strong>Tu pago por $".$pago->importePagado." fue acreditado exitosamente. </strong></h3><br>
                                         <h4 style='font-weight:100; color:#999; padding:0 20px'>Gracias por participar.</h4>

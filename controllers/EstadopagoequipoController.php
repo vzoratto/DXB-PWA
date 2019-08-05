@@ -5,9 +5,20 @@ namespace app\controllers;
 use Yii;
 use app\models\Estadopagoequipo;
 use app\models\EstadopagoequipoSearch;
+use app\models\EquipoSearch;
+use app\models\Permiso;
+use app\models\Equipo;
+use app\models\Fechacarrera;
+use app\models\Grupo;
+use app\models\Tipocarrera;
+use app\models\Usuario;
+use app\models\Importeinscripcion;
+use app\models\Persona;
+use app\models\Pago;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Html;
 //estado del equipo
 
 /**
@@ -41,15 +52,37 @@ class EstadopagoequipoController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
+        $fechas=Fechacarrera::find()->all();
         $searchModel = new EstadopagoequipoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'fechas'=>$fechas,
         ]);
     }
-
+/**
+     * Lists all Estadopagoequipo models.
+     * @return mixed
+     */
+    public function actionIndex1()
+    {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+        $fechas=Fechacarrera::find()->all();
+        $searchModel = new EquipoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->leftJoin('estadopagoequipo','equipo.idEquipo=estadopagoequipo.idEquipo')->andWhere(['equipo.deshabilitado' =>0])->andWhere(['estadopagoequipo.idEquipo' => null]);//Poner condicion al dataprovider para que traiga solo el id solicitado
+        return $this->render('index1', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'fechas'=>$fechas,
+        ]);
+    }
     /**
      * Displays a single Estadopagoequipo model.
      * @param integer $idEstadoPago
@@ -66,6 +99,24 @@ class EstadopagoequipoController extends Controller
         }
         return $this->render('view', [
             'model' => $this->findModel($idEstadoPago, $idEquipo),
+        ]);
+    }
+    /**
+     * Displays a single Estadopagoequipo model.
+     * @param integer $idEquipo
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView1($idEstadoPago="",$idEquipo)
+    {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+        $model = Equipo::findOne(['idEquipo' => $idEquipo]);
+        return $this->render('view1', [
+            'model' => $model
         ]);
     }
 
@@ -117,7 +168,76 @@ class EstadopagoequipoController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionEnviamail(){
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+        
+        $mensaje='';
+        if (Yii::$app->request->get()) {
+          $idEstadoPago = Html::encode($_GET["id1"]);
+          $idEquipo = Html::encode($_GET["id"]);
+          $equipo=Equipo::findOne(['idEquipo'=>$idEquipo]);
 
+          if($user=Usuario::findOne(['dniUsuario'=>$equipo->dniCapitan])){//verificamos que exista el usuario
+             $persona=Persona::findOne(['idUsuario'=>$user->idUsuario]);
+            $dni = urlencode($user->dniUsuario);
+            $mailUsuario = $user->mailUsuario;
+            $nombre=$persona->nombrePersona." ".$persona->apellidoPersona;
+            $subject = "Cancelar el pago de la inscripción";// Asunto del mail
+            $host=Yii::$app->request->hostInfo;
+            $body = "
+                <div style='width:100%; background:#eee; position:relative; font-family:sans-serif; padding-bottom:40px'>
+                        <div class='col-lg-12 col-xs-6' style='position:relative; margin: auto; max-width: 500px; background:white; padding:20px'>
+                                <center>
+                                <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
+                                <h2 style='font-weight:100; color:black'>DESAFIO POR BARDAS</h2>
+                                <hr style='border:1px solid #ccc; width:90%'>
+                                <h3 style='font-weight:100; color:black; padding:0 20px'><strong>Estimado ".$nombre." </strong></h3><br>";
+                     if($idEstadoPago!=""){
+                         $suma=Pago::sumaTotalequipo($equipo->idEquipo);
+                         $importe=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+                         $resto=$importe->importe - $suma;
+                         $body.="<h4> style='font-weight:100; color:black; padding:0 20px'>El motivo del presente mail, es para solicitarte tengas a bien cancelar el pago de la inscripción. </h4>
+                                <h4 style='font-weight:100; color:black; padding:0 20px'>Por favor acercate a los puntos donde puedes abonar el saldo de $".$resto."</h4>
+                                <h4 style='font-weight:100; color:black; padding:0 20px'>Sin otro particular, te recordamos que la carrera se efectuará el día 08/09/2019.</h4>";
+                                
+                      }else{          
+                       $body.="<h4> style='font-weight:100; color:black; padding:0 20px'>El motivo del presente mail, es para informarte que tu equipo ha sido desafectado del evento Desafío por bardas por falta del cumplimiento del pago de la inscripción. </h4>
+                                <h4 style='font-weight:100; color:black; padding:0 20px'>Por cualquier consulta o dudas con respecto a esta situación, por favor comunicate con el administrador</h4>
+                                <h4 style='font-weight:100; color:black; padding:0 20px'>Sin otro particular, te saludamos atte.</h4>";
+                      }
+                         
+                    $body.="<br>
+                                <hr style='border:1px solid #ccc; width:90%'>
+                                <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-kyzwnDvqRrA/XREB-8qtiJI/AAAAAAAAAkM/CMPVQEjwxDcHXyvMg62yuOt_bpY-SwDLgCLcBGAs/s320/placas%2B4-03.jpg'>
+                                <h5 style='font-weight:100; color:black'>Este mensaje de correo electrónico se envió a ".$mailUsuario."</h5>    
+                                <h5 style='font-weight:100; color:black'>Te invitamos a que veas nuestras redes sociales.</h5>
+                                <a href='https://www.facebook.com/bienestaruncoma/'><img src='https://1.bp.blogspot.com/-BR60W75cIco/XREFTGbPHZI/AAAAAAAAAks/FQUMI8DkynoP69YnYRjGZ1ylnNeYhM5BwCLcBGAs/s320/facebook-logo.png' style='width: 7%'></a>
+                                <a href='https://www.instagram.com/sbucomahue/'><img src='https://1.bp.blogspot.com/-NKIBF9SSXCU/XREFTOvwjII/AAAAAAAAAkw/cn679IM4LMQvcIMVCsgetU7gTDyM5DhwgCLcBGAs/s320/instagram-logo.png' style='width: 7%'></a>
+                                </center>
+                        </div>
+                </div>";   
+                Yii::$app->mailer->compose()
+                //->setFrom('carreraxbarda@gmail.com')
+                ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
+                ->setTo($mailUsuario)
+                ->setSubject($subject)
+                ->setHTMLBody($body)
+                ->send();
+                      return [ 'confirm' => 'El mail fue enviado correctamente.',
+                             ];
+                             Yii::$app->session->setFlash('pagoCheck');//enviamos mensaje si chequeo
+                             return $this->refresh();
+                      
+            }else{
+                $mensaje="Este mensaje es para avisarte que tu DNI no existe en nuestro registro.";
+                return $this->render('error', [
+                   'mensaje'=>$mensaje,
+                ]);
+            }
+         }
+    }
     /**
      * Deletes an existing Estadopagoequipo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -126,16 +246,57 @@ class EstadopagoequipoController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idEstadoPago, $idEquipo)
+    public function actionDelete1($idEstadoPago="", $idEquipo)
     {
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
-        $this->findModel($idEstadoPago, $idEquipo)->delete();
-
-        return $this->redirect(['index']);
+            $equipo = Equipo::findOne($idEquipo);
+            $tipocarrera=Tipocarrera::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+            echo '<pre>'; print_r($tipocarrera);echo '</pre>';die();
+            $grupo=Grupo::find()->Select('*')->where(['idEquipo'=>$equipo->idEquipo])->all();
+           //echo '<pre>'; print_r($grupo);echo '</pre>';die();
+            foreach($grupo as $persona){
+               // echo '<pre>'; print_r($persona);echo '</pre>';die();
+                $grupocopia=new Grupocopia;
+                $grupocopia->idEquipo=$persona->idEquipo;
+                $grupocopia->idPersona=$persona->idPersona;
+                $grupocopia->save();//copia grupo
+                $grup=Grupo::findOne($persona->idEquipo,$persona->idPersona)->delete();
+                $carreracopia=new Carreracopia;
+                $carreracopia->idTipoCarrera=$tipocarrera->idTipocarrera;
+                $carreracopia->idPersona=$persona->idPersona;
+                $carreracopia->save();//copia carrera persona
+                $carr=Carrerapersona::findOne($tipocarrera->idTipocarrera,$persona->idPersona)->delete();
+                //$persona->deshabilitado=1;//deshabilita persona
+               // $persona->save();
+                $equipo->deshabilitado=1;//deshabilita equipo
+                $equipo->save();
+            }
+    
+            return $this->redirect(['index1']);
+        
+    }
+    /**
+     * Deletes an existing Estadopagoequipo model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $idEstadoPago
+     * @param integer $idEquipo
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($idEstadoPago="", $idEquipo)
+    {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+            $this->findModel($idEstadoPago, $idEquipo)->delete();
+            return $this->redirect(['index']);
+        
     }
 
     /**

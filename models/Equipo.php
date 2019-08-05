@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use app\models\Persona;
 
 /**
@@ -17,9 +18,13 @@ use app\models\Persona;
  * @property Tipocarrera $tipoCarrera
  * @property Grupo[] $grupos
  * @property Persona[] $personas
+ * @property Estadopagoequipo[] $estadopagoequipo
+ * @property Estadopago[] $
+ * @property Pago[] $pago
  */
 class Equipo extends \yii\db\ActiveRecord
 {
+    public $estadopago;
     /**
      * {@inheritdoc}
      */
@@ -62,7 +67,21 @@ class Equipo extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Tipocarrera::className(), ['idTipoCarrera' => 'idTipoCarrera']);
     }
-
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPagos()
+    {
+        return $this->hasMany(Pago::className(), ['idEquipo' => 'idEquipo']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsuario()
+    {
+        return $this->hasOne(Usuario::className(), ['dniUsuario' => 'dniCapitan']);
+    }
+   
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -70,7 +89,20 @@ class Equipo extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Grupo::className(), ['idEquipo' => 'idEquipo']);
     }
-
+/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEstadopagoequipo()
+    {
+        return $this->hasMany(Estadopagoequipo::className(), ['idEquipo' => 'idEquipo']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEstadopago()
+    {
+        return $this->hasMany(Estadopago::className(), ['idEstadoPago' => 'idEstadoPago'])->viaTable('estadopagoequipo', ['idEquipo' => 'idEquipo']);
+    }
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -78,6 +110,26 @@ class Equipo extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Persona::className(), ['idPersona' => 'idPersona'])->viaTable('grupo', ['idEquipo' => 'idEquipo']);
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+     public function listaCap(){
+        $lista= ArrayHelper::map(\app\models\Equipo::find()
+              ->select('idEquipo,dniCapitan,')
+              ->all(),'idEquipo','dniCapitan');
 
+        return $lista;
 
+     }
+ /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function listaUsu(){
+     $lista= ArrayHelper::map(\app\models\Equipo::find()
+        ->select('(grupo.idEquipo) as grupo,equipo.cantidadPersonas,equipo.dniCapitan,')
+        ->innerJoin('grupo','equipo.idEquipo=grupo.idEquipo')
+        ->groupBy(['equipo.idEquipo'])
+        ->all(),'idEquipo','dniCapitan');
+        return $lista;
+    }
 }

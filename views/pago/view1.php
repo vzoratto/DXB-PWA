@@ -22,7 +22,7 @@ $this->title = 'Detalle del pago ingresado';
         'model' => $model,
         'attributes' => [
            // 'idPago',
-            'importePagado',
+            //'importePagado',
             'entidadPago',
             
             ['attribute'=>'idPersona',
@@ -40,8 +40,10 @@ $this->title = 'Detalle del pago ingresado';
            ['label'=>'Costo inscripcion',
             'attribute'=>'idImporte',
             'value'=>function($model){
-                return ($model->importe->importe);
-
+                $importe=$model->importe->importe;
+                $cantpers=$model->equipo->cantidadPersonas;
+                return $costo=$importe * $cantpers;
+                //return ($model->importe->importe);
                 },
             ],
             ['label'=>'Imagen ticket',
@@ -53,13 +55,9 @@ $this->title = 'Detalle del pago ingresado';
            ],
     ],
     ]) ?>
-        <?php if (Yii::$app->session->hasFlash('pagoTotal')): ?>
+        <?php if (Yii::$app->session->hasFlash('pago')): ?>
           <div class="alert alert-success" align="center">
-             Realizaste un pago total, recuerda que en 48 horas h&aacute;biles se te acreditar&aacute; el pago :)
-          </div>
-        <?php elseif(Yii::$app->session->hasFlash('pagoParcial')): ?>
-        <div class="alert alert-success" align="center">
-             Realizaste un pago parcial, recuerda que en 48 horas h&aacute;biles se te acreditar&aacute; el pago :)
+             Realizaste la acreditación del pago, recuerda que en 48 horas h&aacute;biles se chequear&aacute; el mismo.
           </div>
         <?php endif ?>
     </div>
