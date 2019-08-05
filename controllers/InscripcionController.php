@@ -228,6 +228,11 @@ class InscripcionController extends Controller
      * Guarda los datos del formulario en sus correspondientes tablas de la base de datos
      */
     public function actionStore(){
+        $persona=Persona::findOne(['idUsuario' => $_SESSION['__id']]);
+        //si la persona por error toca mas de dos veces el boton para inscribirse primero veririfa que antes no lo haya inscrito
+        if($persona){
+            return Yii::$app->response->redirect(['site/index', 'guardado' => true, 'mensaje' => 'Enviamos un email con su registro de inscripción :)'])->send();
+        }
 
         $guardado=false; //Asignamos false a la variable guardado
         $transaction = Yii::$app->getDb()->beginTransaction(); // Iniciamos una transaccion
