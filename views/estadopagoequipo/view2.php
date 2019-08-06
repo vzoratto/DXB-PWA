@@ -20,8 +20,8 @@ $this->title = "Referencia equipo ".$model->idEquipo;
         <?Php 
         //id1=idEstadoPago, id=idEquipo     
        // if(Permiso::requerirRol('administrador')):
-        echo Html::a('Desvincular equipo???', ['delete1', 'idEquipo' => $model->idEquipo], [
-            'class' => 'btn btn-danger',
+        echo Html::a('Activar equipo???', ['activar', 'idEquipo' => $model->idEquipo], [
+            'class' => 'btn btn-success',
             'data' => [
                 //'confirm' => 'El equipo se desvincula de la carrera???',
                 'method' => 'post',

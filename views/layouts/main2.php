@@ -74,6 +74,7 @@ AppAsset::register($this);
                 ['label' => 'Control de pagos', 'url' => ['/controlpago/index']],
                 ['label' => 'Estado del pago', 'url' => ['/estadopagoequipo/index']],
                 ['label' => 'Pagos no abonados', 'url' => ['/estadopagoequipo/index1']],
+                ['label' => 'Activar equipos', 'url' => ['/estadopagoequipo/index2']],
                 ['label' => 'Importe inscripcion', 'url' => ['/importeinscripcion/index']],
                 ['label' => 'Fechas del evento', 'url' => ['/fechacarrera/index']],
                 ],

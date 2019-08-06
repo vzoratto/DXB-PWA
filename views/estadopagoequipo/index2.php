@@ -8,7 +8,7 @@ use app\models\Estadopago;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EstadopagoequipoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$this->title = 'Estado del pago: no abonado';
+$this->title = 'Activar equipos deshabilitados';
 ?>
 <div class="estadopagoequipo-index reglamento-container">
 
@@ -117,7 +117,7 @@ $this->title = 'Estado del pago: no abonado';
            'contentOptions'=>['style'=>'width:100px;'],
            'value'=>function($model){
                return Html::a('<span class = " glyphicon glyphicon-eye-open"></span>', 
-                          [ 'estadopagoequipo/view1',
+                          [ 'estadopagoequipo/view2',
                            'idEquipo'=>$model->idEquipo]);
                }
            ],
