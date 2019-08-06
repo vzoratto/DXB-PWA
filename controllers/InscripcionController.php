@@ -590,6 +590,8 @@ class InscripcionController extends Controller
                                                                                   <b>*</b>Polideportivo Beto Monteros – Unco. En horario de 8 a 13hs.</h3>
 
                                         <h3 style='font-weight:100; color:black; padding:0 20px'><strong> Banco Credicop Cooperativo Limitado</strong><br> Adherente: Universidad Nacional del Comahue. <br> Operador: 549505 Roberto Antonio Sepulveda <br> Numero de cuenta - Cuenta corriente: 191-093-024908/9. <br> CBU: 19100933-55009302490896</h3>
+                                        <br>
+                                        <h3><strong>ENTREGA DE KITS: El día 7 de Septiembre de 10 a 18 hrs  en el Polideportivo Beto Monteros, UNCo. </strong></h3>
 
                                         <h4 style='font-weight:100; color:black; padding:0 20px'>Podes ver los terminos y condiciones que has aceptado en el siguiente enlace:</h4>
 
