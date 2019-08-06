@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Gestores;
 use Yii;
 use app\models\Carrerapersona;
 use app\models\CarreraPersonaSearch;
@@ -37,6 +38,17 @@ class CarrerapersonaController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]);
+        }
+        $gestor=Gestores::findOne(['idUsuario' => $_SESSION['__id']]);
+
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
+        if($gestor==null){//si el usuario logueado no es gestor//lo redirecciono al home
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
@@ -55,7 +67,22 @@ class CarrerapersonaController extends Controller
     }
 	public function actionKit()
     {
-        $this->layout='/main3';
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]);
+        }
+        $gestor=Gestores::findOne(['idUsuario' => $_SESSION['__id']]);
+
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
+        if($gestor==null){//si el usuario logueado no es gestor//lo redirecciono al home
+            return $this->goHome();
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $searchModel = new CarreraPersonaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $persona = new \app\models\Persona();
