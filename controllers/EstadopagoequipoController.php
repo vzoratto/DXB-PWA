@@ -390,14 +390,15 @@ class EstadopagoequipoController extends Controller
                 $grupocopia->idEquipo=$grupo->idEquipo;
                 $grupocopia->idPersona=$grupo->idPersona;
                 $grupocopia->save();//copia grupo
-                Grupo::findOne($grupo->idEquipo,$grupo->idPersona)->delete();
+                $grup=Grupo::find(['idEquipo'=>$grupo->idEquipo,'idPersona'=>$grupo->idPersona])->One();
+                $grup->delete();
                 $carreracopia=new Carrerapersonacopia;
                 $carreracopia->idTipoCarrera=$equipo->idTipoCarrera;
                 $carreracopia->idPersona=$grupo->idPersona;
                 $carreracopia->reglamentoAceptado=1;
                 $carreracopia->save();//copia carrera persona     
-                Carrerapersona::findOne( $carreracopia->idTipoCarrera,$carreracopia->idPersona)->delete();
-                   
+                $carr=Carrerapersona::find(['idTipoCarrera'=> $carreracopia->idTipoCarrera,'idPersona'=>$carreracopia->idPersona])->One();
+                $carr->detlete();  
             }
             
             $equipo->deshabilitado=1;//deshabilita equipo
@@ -440,13 +441,15 @@ class EstadopagoequipoController extends Controller
                 $grupo->idEquipo=$persona->idEquipo;
                 $grupo->idPersona=$persona->idPersona;
                 $grupo->save();//copia grupo
-                Grupocopia::findOne($persona->idEquipo,$persona->idPersona)->delete();//baja grupocopia
+                $grup=Grupocopia::find(['idEquipo'=>$persona->idEquipo,'idPersona'=>$persona->idPersona])->One();//baja grupocopia
+                $grup->delete();
                 $carrera=new Carrerapersona;
                 $carrera->idTipoCarrera=$equipo->idTipoCarrera;
                 $carrera->idPersona=$persona->idPersona;
                 $carrera->reglamentoAceptado=1;
                 $carrera->save();//copia carrera persona
-                Carrerapersonacopia::findOne($carrera->idTipoCarrera, $carrera->idPersona)->delete();//baja carrerapersonacopia             
+                $carr=Carrerapersonacopia::find(['idTipoCarrera'=>$carrera->idTipoCarrera,'idPersona'=> $carrera->idPersona])->One();//baja carrerapersonacopia             
+                $carr->delete();
             }
             $equipo->deshabilitado=0;//activa equipo
             if($equipo->save()){

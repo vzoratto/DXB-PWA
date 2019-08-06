@@ -23,7 +23,7 @@ $this->title = "Referencia equipo ".$model->idEquipo;
         echo Html::a('Activar equipo???', ['activar', 'idEquipo' => $model->idEquipo], [
             'class' => 'btn btn-success',
             'data' => [
-                'confirm' => 'El equipo se desvincula de la carrera???',
+                'confirm' => 'El equipo se activa al evento???',
                 'method' => 'post',
             ],
         ]); ?>

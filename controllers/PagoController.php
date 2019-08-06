@@ -110,7 +110,7 @@ class PagoController extends Controller
     
 
     /**
-     * Displays a single Pago model.
+     *Vista para el gestor para chequear el pago.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -130,7 +130,7 @@ class PagoController extends Controller
         ]);
     }
     /**
-     * Vista para elusuario una vez ingresado el pago.
+     * Vista para el usuario una vez ingresado el pago.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -141,7 +141,23 @@ class PagoController extends Controller
             'model' => $this->findModel($id),]//vista para el usuario corredor
         );
     }
-
+/**
+     * Vista para el gestor una vez ingresado el pago.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView2($id)
+    {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+        return $this->render('view2', [
+            'model' => $this->findModel($id),]//vista para el usuario corredor
+        );
+    }
    
 /**
      * Creates a new Pago model.
@@ -201,7 +217,7 @@ class PagoController extends Controller
              //preparamos el modelo para guarar la imagen del ticket
               $model->imagenComprobante = UploadedFile::getInstance($model, 'imagenComprobante');
                $imagen_nombre=rand(0,4000).'pers_'.$model->idPersona.'.'.$model->imagenComprobante->extension;
-             $imagen_dir='archivo/pagoinscripcion/'.$imagen_nombre;
+              $imagen_dir='archivo/pagoinscripcion/'.$imagen_nombre;
               $model->imagenComprobante->saveAs($imagen_dir);
               $model->imagenComprobante=$imagen_dir;
               $model->idEquipo=$equipo->idEquipo;
@@ -274,10 +290,12 @@ class PagoController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
                 $this->layout='/main3';
         }
-       
-        $model = new Pago();
+        $guardado=false; //Asignamos false a la variable guardado
+        $transaction = Yii::$app->getDb()->beginTransaction(); // Iniciamos una transaccion
+        try{
+          $model = new Pago();
 
-        if ($model->load(Yii::$app->request->post())) {
+         if ($model->load(Yii::$app->request->post())) {
            
            $usuario=Usuario::findOne(['idUsuario'=>$model->dniUsu]);
            $persona=Persona::findOne(['idUsuario' =>$usuario->idUsuario]);
@@ -304,36 +322,49 @@ class PagoController extends Controller
             $model1->chequeado=0;
             $model1->idGestor=1;
             if($model1->save()){
-               
+                $transaction->commit();
               if($costo == $model->importePagado){
                 $total='pago total';//pago total
                 Yii::$app->session->setFlash('pagoTotal');//enviamos mensaje
-                return $this->redirect(['view1', 'id' => $idpago]);
+                return $this->redirect(['view2', 'id' => $idpago]);
               
               }elseif($costo > $model->importePagado){
                 $total='pago parcial';//pago parcial
                 Yii::$app->session->setFlash('pagoParcial');//enviamos mensaje
-                return $this->redirect(['view', 'id' => $idpago]);
+                return $this->redirect(['view2', 'id' => $idpago]);
                
               }   
             }else{
+                $transaction->rollBack();
                 //mandamos error
-                $error=$model1->errors;
+                Yii::$app->session->setFlash('nopago');//enviamos mensaje
+                return $this->redirect(['view2', 'id' => $idpago]);
             }
+          }else{
+              //mandamos error
+              Yii::$app->session->setFlash('nopago');//enviamos mensaje
+              return $this->redirect(['view', 'id' => $idpago]);
           }
+        }else{
+            $lista=Usuario::getLosUsuarios();
+            // echo '<pre>';print_r($lista);echo '</pre>';die();
+            $usuario=new Usuario();
+            $equipo=new Equipo();
+            $persona=new Persona();
+            return $this->render('create1', [
+                'model' => $model,
+                'lista'=>$lista,
+                'usuario'=>$usuario,
+                'equipo'=>$equipo,
+                'persona'=>$persona,
+            ]);
         }
-        $lista=Usuario::getLosUsuarios();
-       // echo '<pre>';print_r($lista);echo '</pre>';die();
-        $usuario=new Usuario();
-        $equipo=new Equipo();
-        $persona=new Persona();
-        return $this->render('create1', [
-            'model' => $model,
-            'lista'=>$lista,
-           'usuario'=>$usuario,
-            'equipo'=>$equipo,
-            'persona'=>$persona,
-        ]);
+    } catch(\Exception $e) {//atrapa el error
+        $guardado=false;
+
+        $transaction->rollBack();
+        throw $e;
+      }
   }
    /**
      * Creates a new Pago model.
@@ -382,8 +413,8 @@ class PagoController extends Controller
             return $this->goHome();  
         }
         $guardado=false; //Asignamos false a la variable guardado
-        $transaction = Pago::getDb()->beginTransaction(); // Iniciamos una transaccion
-        try {
+        $transaction = Yii::$app->getDb()->beginTransaction(); // Iniciamos una transaccion
+        try{
         $model = new Pago();
           if ($model->load(Yii::$app->request->post())) {
             
@@ -414,6 +445,10 @@ class PagoController extends Controller
                        Yii::$app->session->setFlash('pago');//enviamos mensaje
                        return $this->redirect(['view1', 'id' => $idpago]);
                     
+                  }else{
+                    $transaction->rollBack();
+                    $mensaje="Hubo un inconveniente al ingresar la acreditación del pago, por favor vuelve a intentarlo";//enviamos mensaje
+                    return $this->render('mensaje', ['mensaje' => $mensaje]);
                   }//fin guardado true
             }else{//fin verificarion de datos
                 $check=1;
@@ -436,7 +471,7 @@ class PagoController extends Controller
                   'saldo'=>$saldo,//saldo de lo pagado
                   'check'=>$check,
                  ]);
-           }
+            }
         } catch(\Exception $e) {//atrapa el error
             $transaction->rollBack();
             throw $e;

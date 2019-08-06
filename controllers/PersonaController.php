@@ -11,10 +11,11 @@ use app\models\Usuario;
 use app\models\Personadireccion;
 use app\models\Fichamedica;
 use app\models\Personaemergencia;
+use app\models\Equipo;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\models\Respuesta;
 use app\models\Carrerapersona;
 use app\models\Carrerapersonasearch;
 
@@ -81,7 +82,23 @@ class PersonaController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-
+    /**
+     * Displays a single Persona model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView1($id)
+    {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
     /**
      * Creates a new Persona model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -141,39 +158,46 @@ class PersonaController extends Controller
        // $this->findModel($id)->delete();
        $mensaje='';
        $borrado=false; //Asignamos false a la variable borrado
-       $transaction = Grupo::getDb()->beginTransaction(); // Iniciamos una transaccion
+       $transaction = Yii::$app->getDb()->beginTransaction(); // Iniciamos una transaccion
        
        try {
-       $persona=$this->findModel($id);
-       $grupo=Grupo::find()->where(['idPersona'=>$id])->One();
-       $equipo=$grupo->idEquipo;$per=$grupo->idPersona;
-       $carrera=Carrerapersona::find()->where(['idPersona'=>$id])->One();
-       $tipocarrera=$carrera->idTipoCarrera;
-       //echo '<pre>';print_r($grupo);echo $equipo.' '.$per;echo '</pre>';die();
-       Grupo::findOne($equipo,$per)->delete();
-       Carrerapersona::findOne($tipocarrera,$id)->delete();
-       Persona::findOne($id)->delete();
-       Usuario::findOne($persona->idUsuario)->delete();
-       Personadireccion::findOne($persona->idPersonaDireccion)->delete();
-       Fichamedica::findOne($persona->idFichaMedica)->delete();
-       Personaemergencia::findOne($persona->idPersonaEmergencia)->delete();
-       
-       $transaction->commit();
+          $persona=$this->findModel($id);
+          $usuario=Usuario::find()->where(['idUsuario'=>$persona->idUsuario])->one();
+          $grupo=Grupo::find()->where(['idPersona'=>$id])->One();
+          $carrera=Carrerapersona::find()->where(['idPersona'=>$id])->One();
+          $respuestas=Respuesta::find()->where(['idPersona'=>$id])->all();
+         // echo '<pre>';print_r($carrera);print_r($usuario);print_r($persona);print_r($grupo);print_r($respuestas);echo '</pre>';die();
+          foreach($respuestas as $respuesta){
+              Respuesta::findOne($respuesta->idRespuesta)->delete();
+          }
+          Grupo::findOne($grupo->idEquipo,$grupo->idPersona)->delete();
+         $carrerapersona= Carrerapersona::findOne(['idTipoCarrera'=>$carrera->idTipoCarrera,'idPersona'=>$id]);
+         $carrerapersona->delete();
+          Persona::findOne($id)->delete();
+          Personadireccion::findOne($persona->idPersonaDireccion)->delete();
+          Fichamedica::findOne($persona->idFichaMedica)->delete();
+          Personaemergencia::findOne($persona->idPersonaEmergencia)->delete();
+          if($equipod=Equipo::find()->where(['dniCapitan'=>$usuario->dniUsuario])->One()){
+             $eq=Equipo::findOne(['idEquipo'=>$equipod->idEquipo]);
+             $eq->delete();
+          }
+          Usuario::findOne($persona->idUsuario)->delete();
+          $transaction->commit();
             $borrado=true;
             if(!$borrado){
                 $mensaje="hubo un problema al eliminar este regitro";
              }else{
                 $mensaje="Se ha eliminado el registro sin problemas.";
              }
-               return $this->render('persona/view1',[
+               return $this->render('view1',[
                    'mensaje'=>$mensaje,
                    'persona'=>$persona,
                    ]);
         
-      } catch(\Exception $e) {
+       } catch(\Exception $e) {
           $transaction->rollBack();
           throw $e;
-      }
+       }
     }
 
     /**
