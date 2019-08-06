@@ -56,7 +56,6 @@ class PagoController extends Controller
         }
         $searchModel = new PagoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        //echo '<pre>';var_dump($dataProvider);echo '</pre>';die();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

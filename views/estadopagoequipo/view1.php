@@ -23,7 +23,7 @@ $this->title = "Referencia equipo ".$model->idEquipo;
         echo Html::a('Desvincular equipo???', ['delete1', 'idEquipo' => $model->idEquipo], [
             'class' => 'btn btn-danger',
             'data' => [
-                //'confirm' => 'El equipo se desvincula de la carrera???',
+                'confirm' => 'El equipo se desvincula de la carrera???',
                 'method' => 'post',
             ],
         ]); ?>
