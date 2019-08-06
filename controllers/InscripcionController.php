@@ -231,7 +231,7 @@ class InscripcionController extends Controller
         $persona=Persona::findOne(['idUsuario' => $_SESSION['__id']]);
         //si la persona por error toca mas de dos veces el boton para inscribirse primero veririfa que antes no lo haya inscrito
         if($persona){
-            return Yii::$app->response->redirect(['site/index', 'guardado' => true, 'mensaje' => 'Enviamos un email con su registro de inscripción :)'])->send();
+            return Yii::$app->response->redirect(['site/index', 'guardado' => true, 'mensaje' => 'Enviamos un email con su registro de inscripción.Te recomendamos leer el email completo:)'])->send();
         }
 
         $guardado=false; //Asignamos false a la variable guardado
@@ -584,12 +584,12 @@ class InscripcionController extends Controller
                 }
                 else{
                     $body.=
-                        "<h3 style='font-weight:100; color:black'>Las inscripciones se podrán abonar por transferencia bancaria o en forma presencial en los siguientes lugares:<br>
+                        "<p style='font-weight:100; color:black'>El costo de la inscripción por participante es de $200 (doscientos).</p><p>Para grupos de 2 personas, el importe sera de $400, y para grupos de 4 personas, el importe será de $800. </p><strong>MPORTANTE! Sólo el capitán del equipo podrá subir el comprobante de pago por el sistema de registro.</strong><h3 style='font-weight:100; color:black'>Las inscripciones se podrán abonar por transferencia bancaria o en forma presencial en los siguientes lugares:<br>
                                                                                   <b>*</b>ByB Indumentaria Deportiva, Instalaciones Gimnasio Terra.<br>
                                                                                   Diagonal Alvear 45, Neuquén Capital de 17 a 21 hrs.<br>
                                                                                   <b>*</b>Polideportivo Beto Monteros – Unco. En horario de 8 a 13hs.</h3>
 
-                                        <h2 style='font-weight:100; color:black; padding:0 20px'><strong> Banco Credicop Cooperativo Limitado</strong><br> Adherente: Universidad Nacional del Comahue. <br> Operador: 549505 Roberto Antonio Sepulveda <br> Numero de cuenta - Cuenta corriente: 191-093-024908/9. <br> CBU: 19100933-55009302490896</h2>
+                                        <h3 style='font-weight:100; color:black; padding:0 20px'><strong> Banco Credicop Cooperativo Limitado</strong><br> Adherente: Universidad Nacional del Comahue. <br> Operador: 549505 Roberto Antonio Sepulveda <br> Numero de cuenta - Cuenta corriente: 191-093-024908/9. <br> CBU: 19100933-55009302490896</h3>
 
                                         <h4 style='font-weight:100; color:black; padding:0 20px'>Podes ver los terminos y condiciones que has aceptado en el siguiente enlace:</h4>
 
@@ -628,7 +628,7 @@ class InscripcionController extends Controller
                     ->send();
 
 
-                $mensaje = "Enviamos un email con su registro de inscripcion ";
+                $mensaje = "Enviamos un email con su registro de inscripcion.Te recomendamos leer el email completo";
                 if ($idRol == 3){ // Si es gestora, implica que va a inscribir a algun corredor que no pudo inscribirse y que no tiene Usuario.
                     return Yii::$app->response->redirect(['site/gestor','guardado'=>$guardado,'mensaje'=>$mensaje])->send();
                 } elseif ($idRol==2){
