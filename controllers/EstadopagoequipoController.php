@@ -15,6 +15,9 @@ use app\models\Usuario;
 use app\models\Importeinscripcion;
 use app\models\Persona;
 use app\models\Pago;
+use app\models\Carrerapersonacopia;
+use app\models\Carrerapersona;
+use app\models\Grupocopia;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -89,6 +92,34 @@ class EstadopagoequipoController extends Controller
             'fechas'=>$fechas,
         ]);
     }
+
+    /**
+     * Lists all Estadopagoequipo models.
+     * @return mixed
+     */
+    public function actionIndex2()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+        $fechas=Fechacarrera::find()->all();
+        $searchModel = new EquipoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->leftJoin('estadopagoequipo','equipo.idEquipo=estadopagoequipo.idEquipo')->andWhere(['equipo.deshabilitado' =>1])->andWhere(['estadopagoequipo.idEquipo' => null]);//Poner condicion al dataprovider para que traiga solo el id solicitado
+        return $this->render('index2', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'fechas'=>$fechas,
+        ]);
+    }
     /**
      * Displays a single Estadopagoequipo model.
      * @param integer $idEstadoPago
@@ -122,6 +153,24 @@ class EstadopagoequipoController extends Controller
         }
         $model = Equipo::findOne(['idEquipo' => $idEquipo]);
         return $this->render('view1', [
+            'model' => $model
+        ]);
+    }
+/**
+     * Displays a single Estadopagoequipo model.
+     * @param integer $idEquipo
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView2($idEstadoPago="",$idEquipo)
+    {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+        $model = Equipo::findOne(['idEquipo' => $idEquipo]);
+        return $this->render('view2', [
             'model' => $model
         ]);
     }
@@ -237,7 +286,7 @@ class EstadopagoequipoController extends Controller
                              return $this->refresh();
                       
             }else{
-                Yii::$app->session->setFlash('nousu');//enviamos mensaje si chequeo
+                Yii::$app->session->setFlash('nousu');//enviamos mensaje si no encontro usuario
                              return $this->refresh();
                 
             }
@@ -260,28 +309,91 @@ class EstadopagoequipoController extends Controller
         }
             $equipo = Equipo::findOne($idEquipo);
             $tipocarrera=Tipocarrera::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
-            echo '<pre>'; print_r($tipocarrera);echo '</pre>';die();
+            //echo '<pre>'; print_r($tipocarrera);echo '</pre>';die();
             $grupo=Grupo::find()->Select('*')->where(['idEquipo'=>$equipo->idEquipo])->all();
-           //echo '<pre>'; print_r($grupo);echo '</pre>';die();
+            $guardado=false;
+            $transaction = Yii::$app->getDb()->beginTransaction(); // Iniciamos una transaccion
+        try{
             foreach($grupo as $persona){
-               // echo '<pre>'; print_r($persona);echo '</pre>';die();
                 $grupocopia=new Grupocopia;
                 $grupocopia->idEquipo=$persona->idEquipo;
                 $grupocopia->idPersona=$persona->idPersona;
                 $grupocopia->save();//copia grupo
                 Grupo::findOne($persona->idEquipo,$persona->idPersona)->delete();
-                $carreracopia=new Carreracopia;
-                $carreracopia->idTipoCarrera=$tipocarrera->idTipocarrera;
+                $carreracopia=new Carrerapersonacopia;
+                $carreracopia->idTipoCarrera=$tipocarrera->idTipoCarrera;
                 $carreracopia->idPersona=$persona->idPersona;
+                $carreracopia->reglamentoAceptado=1;
                 $carreracopia->save();//copia carrera persona
-                Carrerapersona::findOne($tipocarrera->idTipocarrera,$persona->idPersona)->delete();
-                //$persona->deshabilitado=1;//deshabilita persona
-               // $persona->save();
+                Carrerapersona::findOne($tipocarrera->idTipoCarrera,$persona->idPersona)->delete();             
             }
             $equipo->deshabilitado=1;//deshabilita equipo
-            $equipo->save();
-            return $this->redirect(['index1']);
-        
+            if($equipo->save()){
+                $guardado=true;
+                $transaction->commit();
+                return $this->redirect(['index1']);
+            }else{
+                $guardado=false;
+                $transaction->rollBack();
+                return $this->redirect(['index1']);
+            }
+        }catch(\Exception $e) {
+            $guardado=false;
+            $transaction->rollBack();
+            throw $e;
+          }
+    }
+
+    /**
+     * Deletes an existing Estadopagoequipo model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $idEstadoPago
+     * @param integer $idEquipo
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionActivar($idEstadoPago="", $idEquipo)
+    {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+            $equipo = Equipo::findOne($idEquipo);
+            $tipocarrera=Tipocarrera::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
+            //echo '<pre>'; print_r($tipocarrera);echo '</pre>';die();
+            $grupo=Grupocopia::find()->Select('*')->where(['idEquipo'=>$equipo->idEquipo])->all();
+            $guardado=false;
+            $transaction = Yii::$app->getDb()->beginTransaction(); // Iniciamos una transaccion
+        try{
+            foreach($grupo as $persona){
+                $grupo=new Grupo;
+                $grupo->idEquipo=$persona->idEquipo;
+                $grupo->idPersona=$persona->idPersona;
+                $grupo->save();//copia grupo
+                Grupocopia::findOne($persona->idEquipo,$persona->idPersona)->delete();
+                $carrera=new Carrerapersona;
+                $carrera->idTipoCarrera=$tipocarrera->idTipoCarrera;
+                $carrera->idPersona=$persona->idPersona;
+                $carrera->reglamentoAceptado=1;
+                $carrera->save();//copia carrera persona
+                Carrerapersonacopia::findOne($tipocarrera->idTipoCarrera,$persona->idPersona)->delete();             
+            }
+            $equipo->deshabilitado=0;//deshabilita equipo
+            if($equipo->save()){
+                $guardado=true;
+                $transaction->commit();
+                return $this->redirect(['index1']);
+            }else{
+                $guardado=false;
+                $transaction->rollBack();
+                return $this->redirect(['index1']);
+            }
+        }catch(\Exception $e) {
+            $guardado=false;
+            $transaction->rollBack();
+            throw $e;
+          }
     }
     /**
      * Deletes an existing Estadopagoequipo model.
