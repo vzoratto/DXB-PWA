@@ -89,11 +89,11 @@ $this->title = "Referencia equipo ".$model->idEquipo;
                 <th>DNI </th>
                 <th>Email </th>
              </tr>
-             <?php foreach($model->persona as $pers) :?>
+             <?php foreach($participantesEquipo as $participante) :?>
                 <tr>
-                   <td><?= $pers->nombrePersona." ".$pers->apellidoPersona ?></td>
-                   <td><?= $pers->usuario->dniUsuario ?></td>
-                   <td><?= $pers->mailPersona ?></td>
+                   <td><?= $participante->persona->nombrePersona." ".$participante->persona->apellidoPersona ?></td>
+                   <td><?= $participante->persona->usuario->dniUsuario ?></td>
+                   <td><?= $participante->persona->mailPersona ?></td>
                 </tr>
              <?php endforeach; ?>
        </table> 

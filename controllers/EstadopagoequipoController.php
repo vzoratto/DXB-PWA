@@ -176,8 +176,13 @@ class EstadopagoequipoController extends Controller
             $this->layout='/main3';
         }
         $model = Equipo::findOne(['idEquipo' => $idEquipo]);
+        //obtiene todos los participantes del equipo en la tabla grupocopia
+        $participantesEquipo=Grupocopia::find()
+            ->where(['idEquipo' => $idEquipo])
+            ->all();
         return $this->render('view2', [
-            'model' => $model
+            'model' => $model,
+            'participantesEquipo'=>$participantesEquipo
         ]);
     }
 
@@ -382,7 +387,9 @@ class EstadopagoequipoController extends Controller
             return $this->goHome();
         }
             $equipo = Equipo::findOne($idEquipo);
-            $grupos=Grupo::find()->Select('*')->where(['idEquipo'=>$equipo->idEquipo])->all();
+            $grupos=Grupo::find()
+            ->where(['idEquipo' => $equipo->idEquipo])
+            ->all();
             $transaction = Yii::$app->getDb()->beginTransaction(); // Iniciamos una transaccion
         try{
             foreach($grupos as $grupo){
@@ -390,15 +397,18 @@ class EstadopagoequipoController extends Controller
                 $grupocopia->idEquipo=$grupo->idEquipo;
                 $grupocopia->idPersona=$grupo->idPersona;
                 $grupocopia->save();//copia grupo
-                $grup=Grupo::find(['idEquipo'=>$grupo->idEquipo,'idPersona'=>$grupo->idPersona])->One();
-                $grup->delete();
+                $grup=Grupo::find()
+                    ->where(['idEquipo' => $equipo->idEquipo])
+                    ->all();;
+                Grupo::deleteAll(['idEquipo' => $equipo->idEquipo]);
                 $carreracopia=new Carrerapersonacopia;
                 $carreracopia->idTipoCarrera=$equipo->idTipoCarrera;
                 $carreracopia->idPersona=$grupo->idPersona;
                 $carreracopia->reglamentoAceptado=1;
-                $carreracopia->save();//copia carrera persona     
-                $carr=Carrerapersona::find(['idTipoCarrera'=> $carreracopia->idTipoCarrera,'idPersona'=>$carreracopia->idPersona])->One();
-                $carr->delete();  
+                $carreracopia->save();//copia carrera persona
+                Carrerapersona::deleteAll(['idPersona' => $carreracopia->idPersona]);
+                //$carr=Carrerapersona::find(['idTipoCarrera'=> $carreracopia->idTipoCarrera,'idPersona'=>$carreracopia->idPersona])->One();
+                //$carr->delete();
             }
             
             $equipo->deshabilitado=1;//deshabilita equipo
@@ -433,7 +443,11 @@ class EstadopagoequipoController extends Controller
             return $this->goHome();
         }
             $equipo = Equipo::findOne($idEquipo);
-            $grupo=Grupocopia::find()->Select('*')->where(['idEquipo'=>$equipo->idEquipo])->all();
+            //$grupo=Grupocopia::find()->Select('*')->where(['idEquipo'=>$equipo->idEquipo])->all();
+            //obtiene todos los participantes del equipo en la tabla grupocopia
+            $grupo=Grupocopia::find()
+                ->where(['idEquipo' => $idEquipo])
+                ->all();
             $transaction = Yii::$app->getDb()->beginTransaction(); // Iniciamos una transaccion
         try{
             foreach($grupo as $persona){
@@ -441,15 +455,18 @@ class EstadopagoequipoController extends Controller
                 $grupo->idEquipo=$persona->idEquipo;
                 $grupo->idPersona=$persona->idPersona;
                 $grupo->save();//copia grupo
-                $grup=Grupocopia::find(['idEquipo'=>$persona->idEquipo,'idPersona'=>$persona->idPersona])->One();//baja grupocopia
-                $grup->delete();
+                //$grup=Grupocopia::find(['idEquipo'=>$persona->idEquipo,'idPersona'=>$persona->idPersona])->One();//baja grupocopia
+                //$grup->delete();
+                //elimino a todos los participantes del equipo, de la tabla grupocopia
+                Grupocopia::deleteAll(['idEquipo' => $equipo->idEquipo]);
                 $carrera=new Carrerapersona;
                 $carrera->idTipoCarrera=$equipo->idTipoCarrera;
                 $carrera->idPersona=$persona->idPersona;
                 $carrera->reglamentoAceptado=1;
                 $carrera->save();//copia carrera persona
-                $carr=Carrerapersonacopia::find(['idTipoCarrera'=>$carrera->idTipoCarrera,'idPersona'=> $carrera->idPersona])->One();//baja carrerapersonacopia             
-                $carr->delete();
+                $carr=Carrerapersonacopia::deleteAll(['idPersona' => $persona->idPersona]);
+                //$carr=Carrerapersonacopia::find(['idTipoCarrera'=>$carrera->idTipoCarrera,'idPersona'=> $carrera->idPersona])->One();//baja carrerapersonacopia
+                //$carr->delete();
             }
             $equipo->deshabilitado=0;//activa equipo
             if($equipo->save()){
