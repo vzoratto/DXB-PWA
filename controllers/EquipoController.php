@@ -205,6 +205,8 @@ class EquipoController extends Controller
             $this->layout='/main3';
         }
         $mensaje="";
+        $transaction = Yii::$app->getDb()->beginTransaction(); // Iniciamos una transaccion
+        try{
               if($model=Yii::$app->request->get()){ 
                $capitan = $model['1'];
                $idPercap=$model['2'];
@@ -212,24 +214,36 @@ class EquipoController extends Controller
                $idPerusu=$model['4'];
                 
                   $grupo=Grupo::findOne(['idPersona'=>$idPercap]);//aca se borra
-                  $grupo->idPersona=$idPerusu;
-                  $grupo->save();//salva el cambio del capitan en grupo
+                  $grup=Grupo::findOne(['idEquipo'=>$grupo->idEquipo,'idPersona'=>$grupo->idPersona]);
+                  $grup->delete();
+                  $grupocopia=new Grupocopia;
+                  $grupocopia=$grupo->idEquipo;
+                  $grupocopia->idPersona=$grupo->idPersona;
+                  $grupocopia->save();//salva el cambio del capitan en grupocopia
                   
                   $carreraper=Carrerapersona::findOne(['idPersona'=>$idPercap]);//aca se borra
-                  $carreraper->idPersona=$idPerusu;
-                  $carreraper->save();//salva el cambio del capitan en carrerapersona
+                  $carr=Carrerapersona::findOne(['idTipoCarrera'=>$carreraper->idTipoCarrera,'idPersona'=>$carreraper->idPersona]);
+                  $carr->delete();
+                  $carreracopia=new Carrerapersonacopia;
+                  $carreracopia->idTipoCarrera=$carreraper->idTipoCarrera;
+                  $carreracopia->idPersona=$carreraper->idPersona;
+                  $carreracopia->save();//salva el cambio del capitan en carrerapersonacopia
                   
                   $equipo=Equipo::findOne(['dniCapitan'=>$capitan]);//aca se cambia
                   $equipo->dniCapitan=$participante;
-                  $equipo->save();
+                  if($equipo->save()){
+                  $transaction->commit();
                   $mensaje="Perfecto, se realizó el cambio de capitán";//salva cambio capitan
-                   
-              return $this->render('aviso',[
-                  'capitan'=>$capitan,
-                  'participante'=>$participante,
-                  'equipo'=>$equipo,
-                  'mensaje'=>$mensaje,
-              ]);
+                  }else{
+                    $transaction->rollBack();
+                    $mensaje="No se pudo realizar el cambio";
+                  }
+                  return $this->render('aviso',[
+                     'capitan'=>$capitan,
+                     'participante'=>$participante,
+                     'equipo'=>$equipo,
+                     'mensaje'=>$mensaje,
+                  ]);
                 }else{
                     $mensaje="No se pudo realizar el cambio";
                    
@@ -239,7 +253,11 @@ class EquipoController extends Controller
                         'equipo'=>$equipo,
                         'mensaje'=>$mensaje,
                     ]);
-         }    
+                } 
+        } catch(\Exception $e) {//atrapa el error
+             $transaction->rollBack();
+             throw $e;
+         }   
     }
 /**
      * Updates an existing Equipo model.

@@ -398,7 +398,7 @@ class EstadopagoequipoController extends Controller
                 $carreracopia->reglamentoAceptado=1;
                 $carreracopia->save();//copia carrera persona     
                 $carr=Carrerapersona::find(['idTipoCarrera'=> $carreracopia->idTipoCarrera,'idPersona'=>$carreracopia->idPersona])->One();
-                $carr->detlete();  
+                $carr->delete();  
             }
             
             $equipo->deshabilitado=1;//deshabilita equipo

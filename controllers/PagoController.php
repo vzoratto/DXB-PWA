@@ -415,8 +415,8 @@ class PagoController extends Controller
         $guardado=false; //Asignamos false a la variable guardado
         $transaction = Yii::$app->getDb()->beginTransaction(); // Iniciamos una transaccion
         try{
-        $model = new Pago();
-          if ($model->load(Yii::$app->request->post())) {
+         $model = new Pago();
+           if ($model->load(Yii::$app->request->post())) {
             
               $model->importePagado=0;
               $model->idPersona=$persona->idPersona;
