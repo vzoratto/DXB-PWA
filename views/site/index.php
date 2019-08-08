@@ -136,13 +136,13 @@ $inscrito=$persona->inscrito();
                     los distintos puestos de hidratación. De esta forma, se reducirán los vasos plásticos que se utilicen en la carrera. Además se indicarán los premios que se entregarán por categoría
                     sin diferenciar en grupos etarios.</p>
                   <h4 class="subtitulo">Categoria Running:</h4>
-                  <p class="ml-2 sm-center">Equipos de cuatro personas:
+                  <p class="ml-2 sm-center"><b>Equipos de cuatro personas:</b></p>
                     <ol>
                       <li>$6000 para el equipo.</li>
                       <li>$4000 para el equipo.</li>
                       <li>$2800 para el equipo.</li>
                     </ol>
-                  <p class="ml-2 sm-center">Equipos de dos personas: </p>
+                  <p class="ml-2 sm-center"><b>Equipos de dos personas: </b></p>
                     <ol>
                       <li>$3000 para el equipo.</li>
                       <li>$2000 para el equipo.</li>
@@ -150,6 +150,12 @@ $inscrito=$persona->inscrito();
                     </ol>
                   <h4 class="subtitulo">Categoria Recreativa:</h4>
                   <p><b>Equipos de cuatro personas: </b> tres primeros puestos. <br> <b>Equipos de dos personas: </b> tres primeros puestos</p>
+                  <h4 style="color:#ea9242; font-size:17px">PREMIOS de Natural Shanti</h4>
+                  <ol>
+                      <li style="font-size: 14px">Dos bolsas con productos de Natural Shanti para cada uno de los participantes del equipo.</li>
+                      <li style="font-size: 14px">Un voucher por un desayuno + un acompañante para cada integrante del equipo.</li>
+                      <li style="font-size: 14px">Una bolsa con productos de Natural Shanti para cada uno de los participantes del equipo.</li>
+                  </ol>
               </div>
           </div>
 
