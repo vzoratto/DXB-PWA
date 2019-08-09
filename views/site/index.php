@@ -165,49 +165,74 @@ $inscrito=$persona->inscrito();
 
         <section id="colaboradores" class="full-section">
 
-        <div class="container">
 
-          <div class="row">
 
-            <div class="col-xs-12 col-md-4 colabora">
+          <div class="row ml-50 mr-50">
 
-              <h4 class="subtitulo mt-ten sub-auspicia sm-center"> Auspicia </h4>
+            <div class="col-xs-12 col-md-3 ">
 
-              <a href="http://neuquen.gov.ar/" target="_blank"> <img class="provincia" src="assets/img/colabora/provincia.png" alt=""> </a>
+              <h4 class="subtitulo  sub-auspicia sm-center"> Sponsor Oficial </h4>
 
-            </div>
-
-            <div class="col-xs-12 col-md-4 colabora">
-
-              <h4 class="subtitulo mt-ten sm-center"> Organiza </h4>
-
-              <a href="https://www.uncoma.edu.ar/" target="_blank"> <img class="width-20" src="assets/img/colabora/rsu.png" alt="Programa de compromiso social universitario"> </a>
-
-              <a href="https://www.uncoactiva.com/" target="_blank"> <img class="width-50" src="assets/img/colabora/unco-activa.png" alt="Unco activa"> </a>
-
-              <a href="https://www.facebook.com/pg/bienestaruncoma" target="_blank"> <img class="width-20" src="assets/img/colabora/bienestar.png" alt="Bien Estar UNCOMA"> </a>
+              <a href="http://neuquen.gov.ar/" target="_blank"> <img class="width-100 height-100" src="assets/img/colabora/sponsor.png" alt=""> </a>
 
             </div>
 
-            <div class="col-xs-12 col-md-4 colabora">
 
-              <h4 class="subtitulo mt-ten sm-center"> Participa </h4>
+            <div class="col-xs-12 col-md-5  ">
 
-                <a href="http://faciasweb.uncoma.edu.ar/" target="_blank"> <img class="largo" src="assets/img/colabora/facias.png" alt="Facultad de ciencias del ambiente y la salud"> </a>
+              <h4 class="subtitulo sm-center"> Colaboradores Oro </h4>
 
-                <a href="http://faiweb.uncoma.edu.ar/" target="_blank"> <img class="redondo" src="assets/img/colabora/fai.png" alt="Facultad de informatica"> </a>
+              <a class="mr-20" href="http://www.epas.gov.ar/" target="_blank"> <img class="mt-10 width-20" src="assets/img/colabora/epas.png" alt="EPAS"> </a>
+
+              <a class="mr-20" href="https://www.bpn.com.ar/" target="_blank"> <img class="mt-10 width-20 " src="assets/img/colabora/bpn.png" alt="BPN"> </a>
+
+              <a class="mr-20" href="https://www.lu5am.com/" target="_blank"> <img class="mt-10 width-15" src="assets/img/colabora/luam.png" alt="Lu5am600"> </a>
+
+              <a href="https://www.lmneuquen.com/" target="_blank"> <img class="mt-10 width-20" src="assets/img/colabora/lmneuquen.png" alt="Lmneuquen"> </a>
+
+
+            </div>
+
+            <div class="col-xs-12 col-md-2 ">
+
+              <h4 class="subtitulo  sm-center"> Colaborador Plata </h4>
+
+                <a class="mr-20" href="https://www.naturalshanti.com.ar/" target="_blank"> <img class="width-25 height-100" src="assets/img/colabora/shanti.png" alt="Natural Shanti"> </a>
+
+                <a href="https://www.uflo.edu.ar/" target="_blank"> <img class="width-30" src="assets/img/colabora/uflo.png" alt="Universidad de Flores"> </a>
+
+            </div>
+
+            <div class="col-xs-12 col-md-2 ">
+
+              <h4 class="subtitulo  sm-center"> Organizadores </h4>
+
+              <a href="https://www.facebook.com/pg/bienestaruncoma" target="_blank"> <img class="mr-10 width-25" src="assets/img/colabora/bienestar.png" alt="Secretaria del Bienestar"> </a>
+
+              <a href="http://faiweb.uncoma.edu.ar/" target="_blank"> <img class="width-35" src="assets/img/colabora/fai.png" alt="Facultad de informatica"> </a>
+
+              <a href="http://faciasweb.uncoma.edu.ar/" target="_blank"> <img class="width-20" src="assets/img/colabora/facias.png" alt="Facultad de ciencias del ambiente y la salud"> </a>
 
             </div>
 
           </div>
 
-        </div>
+
 
 
         </section>
 
+        <section id="mapa" style="background-image:url('assets/img/fondo.jpg');" class="p-0 full-section">
+
+          <div class="container-fluid mb-100">
+
+            <h3 class="titulo-primario ml-10  mr-5"> Mapa del recorrido </h3>
+
+              <img class="width-auto" src="assets/img/mapadxb.jpg" alt="mapa">
+          </div>
+        </section>
         <!-- Seccion imagen/texto-->
-        <section id="reglamento" class=" p-0">
+        <section id="reglamento" class="p-0">
 
         <div class="container-fluid height-100">
 
@@ -231,7 +256,7 @@ $inscrito=$persona->inscrito();
                 a) Saber incluso que habrá lugares a los que no pueda accederse con vehículos, con lo cual la atención inmediata es limitada.<br>
                 b) Conocer las características del terreno y los riesgos posibles de lesiones traumatológicas como torceduras, esguinces, incluso fracturas. Y que por razones de seguridad, la organización priorizará la atención y evacuación de las emergencias y urgencias médicas, considerándose como tales a aquellos casos que puedan evolucionar en riesgo de muerte, pudiendo entonces demandar más tiempo la atención de lesiones como las antes descriptas.<br>
                 c) Eximir a los Organizadores, Municipios, los Propietarios de las tierras por las que pase la carrera y los Patrocinantes de toda responsabilidad por accidentes personales; daños y/o pérdidas de objetos que pudiera ocurrirle antes, durante o después de su participación en la prueba.
-</p>
+                </p>
 
                 <div class="row text-center">
                   <a href="<?php echo Url::to(['/site/reglamento']); ?>" class="btn btn-grande btn-rounded btn-carrera mt-20 mb-80">Reglamento completo</a>
