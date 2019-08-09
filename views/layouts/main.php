@@ -49,6 +49,7 @@ $estadoequipo=$pago->buscaequipo();
           ['label' => 'Inicio', 'url' => ['/site/index', '#' => 'inicio']],
           ['label' => 'Premios', 'url' => ['/site/index', '#' => 'premios']],
           ['label' => 'Colaboradores', 'url' => ['/site/index', '#' => 'colaboradores']],
+          ['label' => 'Recorrido', 'url'=> ['/site/index', '#' => 'mapa']],
           ['label' => 'Reglamento', 'url' => ['/site/index', '#' => 'reglamento']],
           ['label' => 'Contacto', 'url' => ['/site/index', '#' => 'contacto']],
           ['label' => 'Iniciar Sesión', 'url' => 'index.php?r=site%2Flogin', 'visible' => Yii::$app->user->isGuest],
