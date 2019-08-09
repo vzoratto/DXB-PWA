@@ -91,7 +91,7 @@ echo ExportMenu::widget([
         ExportMenu::FORMAT_PDF => [
             'pdfConfig' => [
                 'methods' => [
-                    'SetTitle' => 'Pagos acreditados',
+                    'SetTitle' => 'Pagos recibidos',
                     'SetSubject' => 'Detalle de los pagos ',
                     'SetHeader' => ['Pagos||Generado el: ' . date("r")],
                     'SetFooter' => ['|Page {PAGENO}|'],

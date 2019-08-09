@@ -17,17 +17,16 @@ $this->title = 'Activar equipos deshabilitados';
  <?php 
   foreach($fechas as $fecha){
     if($fecha->idTipoCarrera==1){
-      $date1 = new DateTime($fecha->fechaLimiteUno);
+      $date1 = new DateTime($fecha->fechaCarrera);
       $date2 = new DateTime("now");
-      $diff = $date1->diff($date2);
-       $diff1=$diff->days;
+      $diff1 = $date1->diff($date2)->days;
      }elseif($fecha->idTipoCarrera==2){
-          $date1 = new DateTime($fecha->fechaLimiteUno);
+          $date1 = new DateTime($fecha->fechaCarrera);
           $date2 = new DateTime("now");
-          $diff = $date1->diff($date2);
-          $diff2=$diff->days;
+          $diff2 = $date1->diff($date2)->days;
       }
     }
+    //echo '<pre>';echo $diff2. " ".$diff1;echo '</pre>';die();
 	$gridColumns=[
             ['class' => 'yii\grid\SerialColumn'],
            ['label'=>'Referencia equipo',
@@ -141,7 +140,7 @@ echo ExportMenu::widget([
         ExportMenu::FORMAT_PDF => [
             'pdfConfig' => [
                 'methods' => [
-                    'SetTitle' => 'Estado de los pagos realizados',
+                    'SetTitle' => 'Equipos deshabilitados',
                     'SetSubject' => 'Detalle de los pagos ',
                     'SetHeader' => ['Pagos||Generado el: ' . date("r")],
                     'SetFooter' => ['|Page {PAGENO}|'],

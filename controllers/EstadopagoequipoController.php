@@ -89,7 +89,9 @@ class EstadopagoequipoController extends Controller
         $fechas=Fechacarrera::find()->all();
         $searchModel = new EquipoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->leftJoin('estadopagoequipo','equipo.idEquipo=estadopagoequipo.idEquipo')->andWhere(['equipo.deshabilitado' =>0])->andWhere(['estadopagoequipo.idEquipo' => null]);//Poner condicion al dataprovider para que traiga solo el id solicitado
+        $dataProvider->query->leftJoin('estadopagoequipo','equipo.idEquipo=estadopagoequipo.idEquipo')
+                            ->andWhere(['equipo.deshabilitado' =>0])
+                            ->andWhere(['estadopagoequipo.idEquipo' => null]);//Poner condicion al dataprovider para que traiga los equipos habilitados
         return $this->render('index1', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -119,7 +121,9 @@ class EstadopagoequipoController extends Controller
         $fechas=Fechacarrera::find()->all();
         $searchModel = new EquipoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->leftJoin('estadopagoequipo','equipo.idEquipo=estadopagoequipo.idEquipo')->andWhere(['equipo.deshabilitado' =>1])->andWhere(['estadopagoequipo.idEquipo' => null]);//Poner condicion al dataprovider para que traiga solo el id solicitado
+        $dataProvider->query->leftJoin('estadopagoequipo','equipo.idEquipo=estadopagoequipo.idEquipo')
+                            ->andWhere(['equipo.deshabilitado' =>1])
+                            ->andWhere(['estadopagoequipo.idEquipo' => null]);//Poner condicion al dataprovider para que traiga los equipos deshabilitados
         return $this->render('index2', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -464,7 +468,7 @@ class EstadopagoequipoController extends Controller
                 $carrera->idPersona=$persona->idPersona;
                 $carrera->reglamentoAceptado=1;
                 $carrera->save();//copia carrera persona
-                $carr=Carrerapersonacopia::deleteAll(['idPersona' => $persona->idPersona]);
+                Carrerapersonacopia::deleteAll(['idPersona' => $persona->idPersona]);
                 //$carr=Carrerapersonacopia::find(['idTipoCarrera'=>$carrera->idTipoCarrera,'idPersona'=> $carrera->idPersona])->One();//baja carrerapersonacopia
                 //$carr->delete();
             }

@@ -2,12 +2,14 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use app\models\Tipocarrera;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\FechacarreraSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Fechacarreras';
+$this->title = 'Fechas de carreras';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="fechacarrera-index reglamento-container">
@@ -15,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Fechacarrera', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Fechas de carreras', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,14 +28,28 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idFechaCarrera',
+            //'idFechaCarrera',
             'fechaCarrera',
             'fechaLimiteUno',
             'fechaLimiteDos',
-            'deshabilitado',
-            //'idTipoCarrera',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            ['label'=>'Tipo Carrera',
+              'attribute'=>'idTipoCarrera',
+              'value'=>function($model){
+                  return $model->tipoCarrera->descripcionCarrera;
+              },
+              'filter' => ArrayHelper::map(Tipocarrera::find()->asArray()->all(), 'idTipoCarrera', 'descripcionCarrera'),
+            ],
+            ['attribute'=>'deshabilitado',
+             'value'=>function($model){
+                 return ($model->deshabilitado==0)?'no':'si';
+             },
+               'filter'=>array('0'=>"no",'1'=>"si"),
+            ],
+            
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template'=> '{view} {update}',
+                ],
         ],
     ]); ?>
 

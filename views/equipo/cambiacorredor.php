@@ -24,8 +24,6 @@ $this->title = 'Cambia corredor';
         ?>
          <div class='row no label'>
          <?= $form->field($model, 'dniCorredor')->textInput(['id'=>'cap','placeholder'=>'Ingresa el dni corredor','autofocus' => true, 'class' => 'form-control']) ?>
-
-         <?= $form->field($model, 'dniUsuario')->textInput(['id'=>'usu','placeholder'=>'Ingresa el dni reemplazo','autofocus' => true, 'class' => 'form-control']) ?>
          </div>  
              
         <div class="form-group">
@@ -35,21 +33,18 @@ $this->title = 'Cambia corredor';
         </div>
 
         <?php ActiveForm::end(); ?>
-        <?php if (Yii::$app->session->hasFlash('per1FormSubmitted')): ?>
-        <div class="alert alert-danger" align="center">
-        El usuario DNI <?= Html::encode($model->dniUsuario)?> no esta inscripto.
-        </div>
-        <?php elseif (Yii::$app->session->hasFlash('usu1FormSubmitted')): ?>
-        <div class="alert alert-danger" align="center">
-         El Dni <?= Html::encode($model->dniUsuario)?> usuario no existe.
-        </div>
-        <?php elseif (Yii::$app->session->hasFlash('estadoFormSubmitted')): ?>
+        
+        <?php if (Yii::$app->session->hasFlash('estadoFormSubmitted')): ?>
         <div class="alert alert-danger" align="center">
          El equipo con DNI <?= Html::encode($model->dniCorredor)?> corredor no pago la inscripcion.
         </div>
         <?php elseif (Yii::$app->session->hasFlash('corredorFormSubmitted')): ?>
         <div class="alert alert-danger" align="center">
-        El DNI <?= Html::encode($model->dniCorredor)?> corredor no existe.
+        El DNI <?= Html::encode($model->dniCorredor)?> corredor no pertenece a un equipo.
+        </div>
+        <?php elseif (Yii::$app->session->hasFlash('usuarioFormSubmitted')): ?>
+        <div class="alert alert-danger" align="center">
+        El DNI <?= Html::encode($model->dniCorredor)?> usuario no existe.
         </div>
         <?php endif; ?>
    

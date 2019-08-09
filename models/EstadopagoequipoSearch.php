@@ -17,7 +17,7 @@ class EstadopagoequipoSearch extends Estadopagoequipo
     {
         return [
             [['idEstadoPago', 'idEquipo'], 'integer'],
-            [['dniCapitan','mailUsuario','totalpagado','importe','nombreEquipo','nombrePersona','debe'],'safe'],
+            [['dniCapitan','mailUsuario','totalpagado','importe','nombreEquipo','nombrePersona'],'safe'],
         ];
     }
 
@@ -41,8 +41,8 @@ class EstadopagoequipoSearch extends Estadopagoequipo
     {
         $query = Estadopagoequipo::find()->joinWith('equipo.persona')
                                         ->joinWith('equipo.usuario')
-                                        ->joinWith('equipo.tipoCarrera.importeinscripcion');;
-
+                                        ->joinWith('equipo.tipoCarrera.importeinscripcion');
+                                       
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -70,7 +70,6 @@ class EstadopagoequipoSearch extends Estadopagoequipo
               ->andFilterWhere(['like', 'equipo.usuario.mailUsuario', $this->mailUsuario])
               ->andFilterWhere(['like', 'persona.CONCAT(nombrePersona." ".apellidoPersona)', $this->nombrePersona])
               ->andFilterWhere(['like','importeinscripcion.importe', $this->importe])
-             // ->andFilterWhere(['like','importeinscripcion.importe', $this->debe])
               ->andFilterWhere(['like','nombreEquipo', $this->nombreEquipo]);
         return $dataProvider;
     }

@@ -5,12 +5,16 @@
 /* @var $exception Exception */
 
 use yii\helpers\Html;
+use app\models\Usuario;
+use app\models\Permiso;
 
 if (!empty($mensaje)) {
     $msg = $mensaje;
     
 } else {
     $msg = "No se puede acceder a esta pagina";
+   // $usurio=Usuario::findOne(['idisuario'=>$_SESSION['__id']]);
+
 }
 
 $this->title = "Atencion!";
@@ -26,6 +30,13 @@ $this->title = "Atencion!";
            <div class="alert alert-info">
               <?php echo "Administracion: carreraxbarda@gmail.com";?>
            </div>
+           <?Php if(Permiso::requerirRol('administrador')){
+                    echo Html::a('Volver a admin', ['/site/admin'], ['class'=>'btn btn-chico btn-rounded btn-carrera submitbutton width-100']);         
+          
+                }elseif(Permiso::requerirRol('gestor')){
+                    echo Html::a('Volver a gestor', ['/site/gestor'], ['class'=>'btn btn-chico btn-rounded btn-carrera submitbutton width-100']);
+                }
+                ?>
         </div>   
     </div>
 </section>

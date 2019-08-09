@@ -82,6 +82,7 @@ AppAsset::register($this);
               ['label' => 'Reemplazos','items' => [
                 ['label' => 'Cambia capitán', 'url' => ['/equipo/validacap']],
                 ['label' => 'Cambia corredor', 'url' => ['/equipo/validacorredor']],
+                ['label' => 'Inscripcion', 'url' => ['/inscripcion/index']],
                 ],
               ],
             

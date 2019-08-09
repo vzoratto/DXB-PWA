@@ -63,10 +63,14 @@ $this->title = "Referencia equipo ".$model->idEquipo;
           ['label'=>'Estado pago',   
            'attribute' => 'estadopago',
            'hAlign' => 'center',
-           "contentOptions" =>["style"=>"color:red;"],
+           "contentOptions" =>["style"=>"color:red;font-size:25px;"],
            'value' =>function($model){
-            return   $model='impago'; 
-           } 
+               if(Pago::findOne(['idEquipo'=>$model->idEquipo])){
+                  return   $model='Atencion existe un pago sin chequear!!'; 
+               }else{
+                  return   $model='impago'; 
+               } 
+             }
           ],
            ['label'=>'Costo inscripción',
             'attribute'=>'importe',

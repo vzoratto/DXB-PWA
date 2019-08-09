@@ -5,12 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Fechacarrera */
 
-$this->title = 'Update Fechacarrera: ' . $model->idFechaCarrera;
-$this->params['breadcrumbs'][] = ['label' => 'Fechacarreras', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->idFechaCarrera, 'url' => ['view', 'id' => $model->idFechaCarrera]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Actualizar Fecha carrera: ' . $model->idFechaCarrera;
+
 ?>
-<div class="fechacarrera-update">
+<div class="fechacarrera-update reglamento-conteiner">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -14,6 +14,8 @@ use app\models\CambiaCorredorForm;
 use app\models\Permiso;
 use app\models\Estadopagoequipo;
 use app\models\Tipocarrera;
+use app\models\Grupocopia;
+use app\models\Carrerapersonacopia;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -58,7 +60,7 @@ class EquipoController extends Controller
         
         $searchModel = new EquipoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->query->andWhere(['equipo.deshabilitado' =>0]);//Poner condicion al dataprovider para que traiga los equipos habilitados
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -214,21 +216,18 @@ class EquipoController extends Controller
                $idPerusu=$model['4'];
                 
                   $grupo=Grupo::findOne(['idPersona'=>$idPercap]);//aca se borra
-                  $grup=Grupo::findOne(['idEquipo'=>$grupo->idEquipo,'idPersona'=>$grupo->idPersona]);
-                  $grup->delete();
                   $grupocopia=new Grupocopia;
-                  $grupocopia=$grupo->idEquipo;
+                  $grupocopia->idEquipo=$grupo->idEquipo;
                   $grupocopia->idPersona=$grupo->idPersona;
                   $grupocopia->save();//salva el cambio del capitan en grupocopia
-                  
+                  $grup=Grupo::deleteAll(['idPersona'=>$grupo->idPersona]);
                   $carreraper=Carrerapersona::findOne(['idPersona'=>$idPercap]);//aca se borra
-                  $carr=Carrerapersona::findOne(['idTipoCarrera'=>$carreraper->idTipoCarrera,'idPersona'=>$carreraper->idPersona]);
-                  $carr->delete();
                   $carreracopia=new Carrerapersonacopia;
                   $carreracopia->idTipoCarrera=$carreraper->idTipoCarrera;
                   $carreracopia->idPersona=$carreraper->idPersona;
                   $carreracopia->save();//salva el cambio del capitan en carrerapersonacopia
-                  
+                  Carrerapersona::deleteAll(['idPersona' =>$carreraper->idPersona]);
+
                   $equipo=Equipo::findOne(['dniCapitan'=>$capitan]);//aca se cambia
                   $equipo->dniCapitan=$participante;
                   if($equipo->save()){
@@ -276,17 +275,13 @@ class EquipoController extends Controller
         if ($model->load(Yii::$app->request->post())){
             //verifica corredor del equipo 
                if($usuario=Usuario::findOne(['dniUsuario'=>$model->dniCorredor])){
-               $persona=Persona::findOne(['idUsuario'=>$usuario->idUsuario]);
-               $grupo=Grupo::findOne(['idPersona'=>$persona->idPersona]);
-               $equipo=Equipo::findOne(['idEquipo'=>$grupo->idEquipo]);//verifica que exista el idEquipo
-                   if($estadopago=Estadopagoequipo::findOne(['idEquipo'=>$equipo->idEquipo])){//verifica el pago del equipo 
+                 $persona=Persona::findOne(['idUsuario'=>$usuario->idUsuario]);
+                 if($grupo=Grupo::findOne(['idPersona'=>$persona->idPersona])){
+                    $equipo=Equipo::findOne(['idEquipo'=>$grupo->idEquipo]);//verifica que exista el idEquipo
+                    if($estadopago=Estadopagoequipo::findOne(['idEquipo'=>$equipo->idEquipo])){//verifica el pago del equipo 
                        $carreraper=Carrerapersona::findOne(['idPersona'=>$persona->idPersona]); 
                        $tipocarrera=Tipocarrera::findOne(['idTipoCarrera'=>$carreraper->idTipoCarrera]);
-                      //verifica el usuario reemplazante
-                       if($usuario1=Usuario::findOne(['dniUsuario'=>$model->dniUsuario])){
-                             if($persona1=Persona::findOne(['idUsuario'=>$usuario1->idUsuario])){
-                                 if($grupo1=Grupo::findOne(['idPersona'=>$persona1->idPersona])){
-                                     $equipo1=Equipo::findOne(['idEquipo'=>$grupo1->idEquipo]);       
+                      //verifica el usuario reemplazante    
                                     return $this->render('verificacorredor',[//renderiza si  existe en un grupo
                                              'usuario'=>$usuario,
                                              'equipo'=>$equipo,
@@ -294,41 +289,19 @@ class EquipoController extends Controller
                                              'carreraper'=>$carreraper,
                                              'grupo'=>$grupo,
                                              'tipocarrera'=>$tipocarrera,
-                                             'usuario1'=>$usuario1,
-                                             'persona1'=>$persona1,
-                                             'grupo1'=>$grupo1,
-                                             'equipo1'=>$equipo1,
                                        ]);
-                                 }else{
-                                    return $this->render('verificacorredor',[//renderiza si no existe en un grupo
-                                        'usuario'=>$usuario,
-                                        'equipo'=>$equipo,
-                                        'persona'=>$persona,
-                                        'carreraper'=>$carreraper,
-                                        'grupo'=>$grupo,
-                                        'tipocarrera'=>$tipocarrera,
-                                        'usuario1'=>$usuario1,
-                                        'persona1'=>$persona1,
-                                        'grupo1'=>null,
-                                        'equipo1'=>null,
-                                    ]);
-                                 }
-                             }else{
-                                Yii::$app->session->setFlash('per1FormSubmitted');
-                                return $this->refresh();//no tiene inscripcion usuario
-                             }
-                       }else{
-                           Yii::$app->session->setFlash('usu1FormSubmitted');
-                           return $this->refresh();//no existe el usuario
-                       }
                    }else{
                        Yii::$app->session->setFlash('estadoFormSubmitted');
                        return $this->refresh();//no pago la inscripcion
                    }
-                }else{
-                      Yii::$app->session->setFlash('corredorFormSubmitted');
-                      return $this->refresh();//no existe el corredor 
-                }
+                 }else{
+                    Yii::$app->session->setFlash('corredorFormSubmitted');
+                    return $this->refresh();//no existe el corredor 
+                 }
+               }else{
+                   Yii::$app->session->setFlash('usuarioFormSubmitted');
+                   return $this->refresh();//no existe el usuario 
+               }
         }
         return $this->render('cambiacorredor', [//renderiza al formulario
             'model' => $model,  
@@ -351,34 +324,32 @@ class EquipoController extends Controller
               if($model=Yii::$app->request->get()){ 
                $corredor = $model['1'];//dniUsuario corredor
                $idPercorredor=$model['2'];//idPersona corredor
-               $participante = $model['3'];//dniUsuario participante reemplazo
-               $idPerusu=$model['4'];//idPersona participante reemplazo
-                
+               
                   $grupo=Grupo::findOne(['idPersona'=>$idPercorredor]);
-                  $grupo->idPersona=$idPerusu;
-                  $grupo->save();//salva el cambio del capitan en grupo
-                  
+                  $grupocopia=new GrupoCopia;
+                  $grupocopia->idEquipo=$grupo->idEquipo;
+                  $grupocopia->idPersona=$grupo->idPersona;
+                  $grupocopia->save();//salva el cambio del capitan en grupo
+                  $grupo=Grupo::deleteAll(['idPersona'=>$idPercorredor]);
                   $carreraper=Carrerapersona::findOne(['idPersona'=>$idPercorredor]);
-                  $carreraper->idPersona=$idPerusu;
-                  $carreraper->save();//salva el cambio del capitan en carrerapersona
-                  
-                  $equipo=Equipo::findOne(['idEquipo'=>$grupo->idEquipo]);
-                  
-                  $mensaje="Perfecto, se realizó el cambio del corredor";//salva cambio capitan
+                  $carreracopia=new Carrerapersona;
+                  $carreracopia->idTipoCarrera=$carreraper->idTipocarrera;
+                  $carreracopia->idPersona=$carreraper->idPersona;
+                  $carreracopia->save();//salva el cambio del capitan en carrerapersona
+                  $carreraper=Carrerapersona::deleteAll(['idPersona'=>$idPercorredor]);
+                  $mensaje="Perfecto, se realizó la desafectación del corredor.";//salva cambio capitan
                    
                    return $this->render('avisocorredor',[//renderiza aviso del cambio
                       'corredor'=>$corredor,
-                      'participante'=>$participante,
-                      'equipo'=>$equipo,
+                      'grupocopia'=>$grupocopia,
                       'mensaje'=>$mensaje,
                      ]);
                 }else{
-                    $mensaje="No se pudo realizar el cambio";
+                    $mensaje="No se pudo realizar la desafectación del corredor.";
                    
                     return $this->render('avisocorredor',[
                         'corredor'=>$corredor,
-                        'participante'=>$participante,
-                        'equipo'=>$equipo,
+                        'grupocopia'=>$grupocopia,
                         'mensaje'=>$mensaje,
                     ]);
                 }//fin control get    

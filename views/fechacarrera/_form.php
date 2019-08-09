@@ -12,18 +12,31 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'fechaCarrera')->textInput() ?>
+    <?= $form->field($model, 'fechaCarrera')->textInput(['placeholder'=>'Formato aaaa-mm-dd']) ?>
 
-    <?= $form->field($model, 'fechaLimiteUno')->textInput() ?>
+    <?= $form->field($model, 'fechaLimiteUno')->textInput(['placeholder'=>'Formato aaaa-mm-dd']) ?>
 
-    <?= $form->field($model, 'fechaLimiteDos')->textInput() ?>
+    <?= $form->field($model, 'fechaLimiteDos')->textInput(['placeholder'=>'Formato aaaa-mm-dd']) ?>
 
-    <?= $form->field($model, 'deshabilitado')->textInput() ?>
+    <?= $form->field($model, 'deshabilitado')->dropdownList(['0'=>'no','1'=>'si']) ?>
 
-    <?= $form->field($model, 'idTipoCarrera')->textInput() ?>
+    <?php
+         if ($model->isNewRecord){   
+            echo $form->field($model, 'idTipoCarrera')->dropDownList($model->carreraDescrip, 
+             ['prompt'=>'- Selecciona uno...']);
+          }else{
+	         echo $form->field($model, 'idTipoCarrera')->dropDownList($model->carreraDescrip,
+             ['value' => !empty($model->idTipoCarrera) ? $model->idTipoCarrera :['prompt'=>'Selecciona uno...']]);
+         }
+	    ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <?php
+      if ($model->isNewRecord) 
+             echo Html::submitButton('Ingresar', ['class' => 'btn btn-success']);
+      else	 
+		     echo Html::submitButton('Actualizar', ['class' => 'btn btn-success']);
+	  ?>
     </div>
 
     <?php ActiveForm::end(); ?>

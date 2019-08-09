@@ -24,7 +24,7 @@ $this->title = "Capitán DNI ".$equipo->dniCapitan;
         <li>Nombre capitán: <?= Html::encode($persona->nombrePersona)?> <?= Html::encode($persona->apellidoPersona)?></li>
         <li>Nombre equipo:  <?= Html::encode($equipo->nombreEquipo)?></li>
         <li>Tipo carrera:  <?= Html::encode($tipocarrera->descripcionCarrera)?></li>
-        <li>Cantidad personas: <?= Html::encode($tipocarrera->cantidadMaximaCorredores)?> </li>
+        <li>Cantidad personas: <?= Html::encode($equipo->cantidadPersonas)?> </li>
       </ul>
     </div> 
 <?Php $this->title = "Participante DNI ".$usuario1->dniUsuario; ?>

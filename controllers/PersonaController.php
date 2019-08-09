@@ -168,20 +168,18 @@ class PersonaController extends Controller
           $respuestas=Respuesta::find()->where(['idPersona'=>$id])->all();
          // echo '<pre>';print_r($carrera);print_r($usuario);print_r($persona);print_r($grupo);print_r($respuestas);echo '</pre>';die();
           foreach($respuestas as $respuesta){
-              Respuesta::findOne($respuesta->idRespuesta)->delete();
+              Respuesta::deleteAll($respuesta->idRespuesta);
           }
-          Grupo::findOne($grupo->idEquipo,$grupo->idPersona)->delete();
-         $carrerapersona= Carrerapersona::findOne(['idTipoCarrera'=>$carrera->idTipoCarrera,'idPersona'=>$id]);
-         $carrerapersona->delete();
-          Persona::findOne($id)->delete();
-          Personadireccion::findOne($persona->idPersonaDireccion)->delete();
-          Fichamedica::findOne($persona->idFichaMedica)->delete();
-          Personaemergencia::findOne($persona->idPersonaEmergencia)->delete();
+          Grupo::deleteAll($grupo->idPersona);
+          Carrerapersona::deleteAll(['idPersona' => $id]);
+          Persona::deleteAll($id);
+          Personadireccion::deleteAll($persona->idPersonaDireccion);
+          Fichamedica::deleteAll($persona->idFichaMedica);
+          Personaemergencia::deleteAll($persona->idPersonaEmergencia);
           if($equipod=Equipo::find()->where(['dniCapitan'=>$usuario->dniUsuario])->One()){
-             $eq=Equipo::findOne(['idEquipo'=>$equipod->idEquipo]);
-             $eq->delete();
+             $eq=Equipo::deleteAll(['idEquipo'=>$equipod->idEquipo]);
           }
-          Usuario::findOne($persona->idUsuario)->delete();
+          Usuario::deleteAll($persona->idUsuario);
           $transaction->commit();
             $borrado=true;
             if(!$borrado){
@@ -199,7 +197,60 @@ class PersonaController extends Controller
           throw $e;
        }
     }
-
+/**
+     * Deletes an existing Persona model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete1($id)
+    {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }
+       // $this->findModel($id)->delete();
+       $mensaje='';
+       $borrado=false; //Asignamos false a la variable borrado
+       $transaction = Yii::$app->getDb()->beginTransaction(); // Iniciamos una transaccion
+       
+       try {
+          $persona=$this->findModel($id);
+          $usuario=Usuario::find()->where(['idUsuario'=>$persona->idUsuario])->one();
+          $grupo=Grupo::find()->where(['idPersona'=>$id])->One();
+          $carrera=Carrerapersona::find()->where(['idPersona'=>$id])->One();
+          $respuestas=Respuesta::find()->where(['idPersona'=>$id])->all();
+         // echo '<pre>';print_r($carrera);print_r($usuario);print_r($persona);print_r($grupo);print_r($respuestas);echo '</pre>';die();
+          foreach($respuestas as $respuesta){
+              Respuesta::deleteAll($respuesta->idRespuesta);
+          }
+          Grupo::deleteAll($grupo->idPersona);
+          Carrerapersona::deleteAll(['idPersona' => $id]);
+          Persona::deleteAll($id);
+          Personadireccion::deleteAll($persona->idPersonaDireccion);
+          Fichamedica::deleteAll($persona->idFichaMedica);
+          Personaemergencia::deleteAll($persona->idPersonaEmergencia);
+          if($equipod=Equipo::find()->where(['dniCapitan'=>$usuario->dniUsuario])->One()){
+             $eq=Equipo::deleteAll(['idEquipo'=>$equipod->idEquipo]);
+          }
+         
+          $transaction->commit();
+            $borrado=true;
+            if(!$borrado){
+                $mensaje="hubo un problema al eliminar este regitro";
+             }else{
+                $mensaje="Se ha eliminado el registro sin problemas.";
+             }
+               return $this->render('view1',[
+                   'mensaje'=>$mensaje,
+                   'persona'=>$persona,
+                   ]);
+        
+       } catch(\Exception $e) {
+          $transaction->rollBack();
+          throw $e;
+       }
+    }
     /**
      * Finds the Persona model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
