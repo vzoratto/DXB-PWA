@@ -232,7 +232,7 @@ public function actionEnviomail(){
                             </a>
                             <br>
                             <hr style='border:1px solid #ccc; width:90%'>
-                            <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-kyzwnDvqRrA/XREB-8qtiJI/AAAAAAAAAkM/CMPVQEjwxDcHXyvMg62yuOt_bpY-SwDLgCLcBGAs/s320/placas%2B4-03.jpg'>
+                            <img style='padding:20px; width:60%' src='https://raw.githubusercontent.com/RArielVillalobos/carrera/master/web/assets/img/inscribiste.jpeg'>
                             <h5 style='font-weight:100; color:black'>Este mensaje de correo electrónico se envió a ".$mailUsuario."</h5>    
                             <h5 style='font-weight:100; color:black'>Te invitamos a que veas nuestras redes sociales.</h5>
                             <a href='https://www.facebook.com/bienestaruncoma/'><img src='https://1.bp.blogspot.com/-BR60W75cIco/XREFTGbPHZI/AAAAAAAAAks/FQUMI8DkynoP69YnYRjGZ1ylnNeYhM5BwCLcBGAs/s320/facebook-logo.png' style='width: 7%'></a>

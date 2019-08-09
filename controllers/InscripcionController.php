@@ -569,7 +569,7 @@ class InscripcionController extends Controller
 
                                         <hr style='border:1px solid #ccc; width:90%'>
 
-                                        <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-ZWmNFzB7l40/XURFF_nIAYI/AAAAAAAAAmc/-clxrSodbUkxSaTqVV-F0yECTvuwsBsdACLcBGAs/s320/placas%2B5-01.jpg'>
+                                        <img style='padding:20px; width:60%' src='https://dxb.fi.uncoma.edu.ar/assets/img/sumo.jpeg'>
 
                                         <h5 style='font-weight:100; color:black'>Te invitamos a que veas nuestras redes sociales.</h5>
 
@@ -605,7 +605,7 @@ class InscripcionController extends Controller
 
                                         <hr style='border:1px solid #ccc; width:90%'>
 
-                                        <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-ZWmNFzB7l40/XURFF_nIAYI/AAAAAAAAAmc/-clxrSodbUkxSaTqVV-F0yECTvuwsBsdACLcBGAs/s320/placas%2B5-01.jpg'>
+                                        <img style='padding:20px; width:60%' src='https://dxb.fi.uncoma.edu.ar/assets/img/sumo.jpeg'>
 
                                         <h5 style='font-weight:100; color:black'>Te invitamos a que veas nuestras redes sociales.</h5>
 
