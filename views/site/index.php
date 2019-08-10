@@ -195,7 +195,7 @@ $inscrito=$persona->inscrito();
 
             <div class="col-xs-12 col-md-2 ">
 
-              <h4 class="subtitulo  sm-center"> Colaborador Plata </h4>
+              <h4 class="subtitulo  sm-center"> Colaboradores Plata </h4>
 
                 <a class="mr-20" href="https://www.naturalshanti.com.ar/" target="_blank"> <img class="width-25 height-100" src="assets/img/colabora/shanti.png" alt="Natural Shanti"> </a>
 
