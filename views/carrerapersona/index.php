@@ -56,7 +56,8 @@ $this->title = 'Listado De Participantes ';
                 'value' => function($model) {
                     return ($model->tipoCarrera->descripcionCarrera);
                 },
-			'filter' => ArrayHelper::map(Tipocarrera::find()->asArray()->all(), 'idTipoCarrera', 'descripcionCarrera')
+            'filter' => ArrayHelper::map(Tipocarrera::find()->asArray()->all(), 'idTipoCarrera', 'descripcionCarrera'),
+            'filterInputOptions' => ['prompt' => 'Elije ...', 'class' => 'form-control', 'id' => null]
             ],
 			['label' => 'Equipo',
 			'attribute' => 'nombreEquipo',

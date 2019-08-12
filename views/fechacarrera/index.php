@@ -38,12 +38,14 @@ $this->params['breadcrumbs'][] = $this->title;
                   return $model->tipoCarrera->descripcionCarrera;
               },
               'filter' => ArrayHelper::map(Tipocarrera::find()->asArray()->all(), 'idTipoCarrera', 'descripcionCarrera'),
+              'filterInputOptions' => ['prompt' => 'Elije...', 'class' => 'form-control', 'id' => null]
             ],
             ['attribute'=>'deshabilitado',
              'value'=>function($model){
                  return ($model->deshabilitado==0)?'no':'si';
              },
                'filter'=>array('0'=>"no",'1'=>"si"),
+               'filterInputOptions' => ['prompt' => 'Elije..', 'class' => 'form-control', 'id' => null]
             ],
             
             [
