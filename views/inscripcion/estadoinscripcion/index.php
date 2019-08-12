@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </h2>
         </div>
         <div class="subtitulo text-center">
-            Hola <?php echo $persona->getNombreCompleto();?>
+            Hola <?php echo strtoupper($persona->getNombreCompleto());?>
 
         </div>
         <?php
@@ -52,11 +52,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 //si no se encuentar el pago significa que no pago o no fue chequeado
                 elseif($estadoPago==null){
                     ?>
+
                         <p>
-                            Al dia de la fecha, el estado de tu inscripcion es <strong style="color:#e34400">IMPAGO</strong> o todavía no fue chequeado
+                            Al dia de la fecha, el estado de tu inscripción es <strong style="color:#e34400">IMPAGO</strong> o todavía no fue chequeado
                             te recordamos que el capitán del equipo es el encargado de subir el comprobante del  pago.
 
                         </p>
+                     <strong>Costo de inscripción:</strong>
+                        <p>El costo de la inscripción por participante es de $200 (doscientos).</p>
+
+                        <p>Para grupos de 2 personas, el importe sera de $400, y para grupos de 4 personas, el importe será de $800.</p>
 
 
 

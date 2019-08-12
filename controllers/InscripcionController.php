@@ -548,7 +548,7 @@ class InscripcionController extends Controller
 
                                         <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>
 
-                                        <h2 style='font-weight:100; color:black'>DESAFIO POR LAS BARDAS</h2>
+                                        <h2 style='font-weight:100; color:black'>DESAFIO X BARDAS</h2>
 
                                         <hr style='border:1px solid #ccc; width:90%'>
 

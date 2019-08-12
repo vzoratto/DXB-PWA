@@ -88,9 +88,9 @@ use app\models\Usuario;
                                 <div class='col-lg-12 col-xs-6' style='position:relative; margin: auto; max-width: 500px; background:white; padding:20px'>
                                         <center>
                                         <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>
-                                        <h2 style='font-weight:100; color:black'>DESAFIO POR LAS BARDAS</h2>
+                                        <h2 style='font-weight:100; color:black'>DESAFIO X BARDAS</h2>
                                         <hr style='border:1px solid #ccc; width:90%'>
-                                        <h3 style='font-weight:100; color:black; padding:0 20px'><strong>Su registro se completo exitósamente. </strong></h3><br>
+                                        <h3 style='font-weight:100; color:black; padding:0 20px'><strong>Su registro se completo exitosamente. </strong></h3><br>
                                         <h4 style='font-weight:100; color:black; padding:0 20px'>Gracias por registrarse en Desafio por Bardas</h4>
                                         <h4 style='font-weight:100; color:black; padding:0 20px'>Para finalizar su registro y poder inscribirse a la carrera, por favor valide su cuenta ingresando al siguiente enlace</h4>
                                         <a href='$host/index.php?r=site/activarcuenta&d=$dni&c=$authkey' style='text-decoration:none'>
