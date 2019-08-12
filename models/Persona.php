@@ -294,5 +294,18 @@ class Persona extends \yii\db\ActiveRecord
         return $estado;
     }
 
+    public function estoyEnEspera(){
+        $enEspera=true;
+        $listaEspera=Listadeespera::find()->where(['idPersona'=>$this->idPersona])->one();
+        if($listaEspera==null){
+            $listaEspera=false;
+
+        }else{
+            $listaEspera=true;
+        }
+
+        return $listaEspera;
+    }
+
 	
 }

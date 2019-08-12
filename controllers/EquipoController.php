@@ -65,6 +65,32 @@ class EquipoController extends Controller
         }
         $searchModel = new EquipoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        //$dataProvider->query->andWhere(['equipo.deshabilitado' =>0]);//Poner condicion al dataprovider para que traiga los equipos habilitados
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionHabilitados(){
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]);
+        }
+        $gestor=Gestores::findOne(['idUsuario' => $_SESSION['__id']]);
+
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
+        if($gestor==null){//si el usuario logueado no es gestor//lo redirecciono al home
+            return $this->goHome();
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+        $searchModel = new EquipoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->andWhere(['equipo.deshabilitado' =>0]);//Poner condicion al dataprovider para que traiga los equipos habilitados
         return $this->render('index', [
             'searchModel' => $searchModel,

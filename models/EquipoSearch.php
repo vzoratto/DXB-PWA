@@ -49,8 +49,8 @@ class EquipoSearch extends Equipo
     public function search($params)
     {
         $query = Equipo::find()
-		       ->joinWith(['grupo'])
-               ->joinWith(['grupo.persona']);
+		       ->joinWith(['grupo']);
+               //->joinWith(['grupo.persona']);
 
         // add conditions that should always apply here
 

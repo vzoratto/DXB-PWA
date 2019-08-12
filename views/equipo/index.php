@@ -39,13 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
 		$gridColumns = [
             ['class' => 'yii\grid\SerialColumn'],
 			[   'label' => 'Nombre Equipo',
-                //'class' => ExpandRowColumn::class,
+                'class' => ExpandRowColumn::class,
                 'attribute' => 'nombreEquipo',
 				'value' => function($model) {
                     return ($model->nombreEquipo);
                 },
-                //'column_id' => 'column-info',
-                //'url' => Url::to(['view']),
+                'column_id' => 'column-info',
+                'url' => Url::to(['view']),
             ],
 			['class' => 'yii\grid\ActionColumn',
 			    'header'=>'Cambiar Nombre',
@@ -75,7 +75,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     return ($model->tipoCarrera->descripcionCarrera);
                 },
 			'filter' => ArrayHelper::map(Tipocarrera::find()->asArray()->all(), 'idTipoCarrera', 'descripcionCarrera')
-            ],	
+            ],
+            ['label' => 'Habilitado',
+                'attribute' => 'deshabilitado',
+                'value' => function($model) {
+
+                    return ($model->deshabilitado==0)?"si":"no";
+                },
+                'filter' => array("0"=>"si","1"=>"no")
+            ],
         ];
 
 // Renders a export dropdown menu
