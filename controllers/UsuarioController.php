@@ -6,6 +6,7 @@ use Yii;
 use app\models\Usuario;
 use app\models\UsuarioSearch;
 use app\models\Permiso;
+use app\models\Persona;
 use yii\web\Controller;
 use yii\web\IdentityInterface;
 use yii\web\NotFoundHttpException;
@@ -49,6 +50,12 @@ class UsuarioController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }

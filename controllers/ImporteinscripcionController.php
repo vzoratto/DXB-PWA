@@ -6,6 +6,7 @@ use Yii;
 use app\models\Importeinscripcion;
 use app\models\ImporteinscripcionSearch;
 use app\models\Permiso;
+use app\models\Persona;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,6 +37,12 @@ class ImporteinscripcionController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
@@ -58,6 +65,12 @@ class ImporteinscripcionController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
@@ -75,6 +88,12 @@ class ImporteinscripcionController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
@@ -100,6 +119,12 @@ class ImporteinscripcionController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){
@@ -125,6 +150,12 @@ class ImporteinscripcionController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
         if(Permiso::requerirRol('administrador')){
             $this->layout='/main2';
         }elseif(Permiso::requerirRol('gestor')){

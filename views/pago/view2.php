@@ -7,16 +7,14 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Pago */
-//vista luego de realizar el pago por el participante-------------------------------
+//vista luego de realizar el pago por el gestor-------------------------------
 $this->title = 'Detalle del pago ingresado';
 
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="pago-view reglamento-container">
-<div class="cover-background contenedor-full full-section" style="background-image:url('assets/img/fondo.jpg');">
-    <div class="box-bd1 no-label" align="center">
-      <img class="center" src="assets/img/logo-color.png" alt="logo color">
-    <p><?= Html::encode($this->title) ?></p>
+
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -55,13 +53,17 @@ $this->title = 'Detalle del pago ingresado';
            ],
     ],
     ]) ?>
-        <?php if (Yii::$app->session->hasFlash('pago')): ?>
+        <?php if (Yii::$app->session->hasFlash('pagoTotal')): ?>
           <div class="alert alert-success" align="center">
-             Realizaste un pago total, recuerda que en 48 horas h&aacute;biles se te acreditar&aacute; el pago :)
+             Ingresaste un pago total, recuerda chequear el pago el pago :)
           </div>
         <?php elseif(Yii::$app->session->hasFlash('pagoParcial')): ?>
         <div class="alert alert-success" align="center">
-             Realizaste un pago parcial, recuerda que en 48 horas h&aacute;biles se te acreditar&aacute; el pago :)
+            Ingresaste un pago parcial, recuerda chequear el pago :)
+          </div>
+        <?php else: (Yii::$app->session->hasFlash('nopago')) ?>
+          <div class="alert alert-success" align="center">
+             Hubo un inconveniente, por favor vuelve a intentarlo o comunícate con el administrador :)
           </div>
         <?php endif ?>
     </div>

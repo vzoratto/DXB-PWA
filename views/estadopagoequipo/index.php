@@ -14,18 +14,16 @@ use app\models\Estadopago;
   
 	 foreach($fechas as $fecha){
         if($fecha->idTipoCarrera==1){
-          $date1 = new DateTime($fecha->fechaLimiteUno);
+          $date1 = new DateTime($fecha->fechaCarrera);
           $date2 = new DateTime("now");
-          $diff = $date1->diff($date2);
-           $diff1=$diff->days;
+          $diff1 = $date1->diff($date2)->days;
          }elseif($fecha->idTipoCarrera==2){
-              $date1 = new DateTime($fecha->fechaLimiteUno);
+              $date1 = new DateTime($fecha->fechaCarrera);
               $date2 = new DateTime("now");
-              $diff = $date1->diff($date2);
-              $diff2=$diff->days;
-             
+              $diff2 = $date1->diff($date2)->days;
           }
         }
+        //echo '<pre>';echo $diff2. " ".$diff1;echo '</pre>';die();
 ?>
 <div class="estadopagoequipo-index reglamento-container">
 
@@ -38,7 +36,7 @@ use app\models\Estadopago;
  <!-- La siguiente grilla muestra los datos en pantalla --> 
    <?php     
 	  $gridColumns=[
-            ['class' => 'yii\grid\SerialColumn'],
+           // ['class' => 'yii\grid\SerialColumn'],
            ['label'=>'Referencia equipo',
              'attribute'=>'idEquipo',
              'hAlign' => 'center',
@@ -98,6 +96,29 @@ use app\models\Estadopago;
             'filter' => Html::activeDropDownList($searchModel, 'idEstadoPago', ArrayHelper::map(Estadopago::find()->asArray()->all(), 'idEstadoPago', 'descripcionEstadoPago'),
              ['class'=>'form-control','prompt' => 'Elije.....................']),
           ],
+          ['label'=>'Debe pagar',
+            'attribute'=>'importe',
+            'hAlign' => 'center',
+            "contentOptions" =>["style"=>"color:red;"],  
+            "filterInputOptions" => ['class'=>'form-control',
+            "disabled" => true
+            ],
+            'value'=>function($model){
+                $print='';
+                foreach($model->equipo->tipoCarrera->importeinscripcion as $importe){ 
+                  $suma=Pago::sumaEquipo($model->equipo->idEquipo);
+                  $cant=$model->equipo->cantidadPersonas;
+                  $cantper=$importe->importe * $cant;
+                  $costo=$cantper -$suma;
+                   $print.=$costo;//para importe inscripcion por persona
+                   //$print.=$importe->importe;//para importe incripcion por equipo
+                }
+                if($print==0){
+                   $print="---";
+                }
+            return $print;
+            },   
+           ],
            ['label'=>'Costo inscripcion',
             'attribute'=>'importe',
             'hAlign' => 'center',
@@ -121,10 +142,14 @@ use app\models\Estadopago;
            'hAlign' => 'center',
            'contentOptions'=>['style'=>'width:100px;'],
            'value'=>function($model){
-               return $model->idEstadoPago==2?Html::a('<span class = " glyphicon glyphicon-envelope"></span>', 
-                          [ 'estadopagoequipo/enviamail',
+                  if($model->idEstadoPago==2){
+                     return  Html::a('<span class = " glyphicon glyphicon-envelope"></span>', 
+                          [ 'estadopagoequipo/view',
                           'idEstadoPago'=>$model->idEstadoPago,
-                           'idEquipo'=>$model->idEquipo]):'';
+                           'idEquipo'=>$model->idEquipo]);
+                  }else{
+                    return "";
+                  }
                }
            ],
            ['class' => 'yii\grid\ActionColumn',
@@ -152,7 +177,7 @@ use app\models\Estadopago;
           ExportMenu::FORMAT_PDF => [
             'pdfConfig' => [
                 'methods' => [
-                    'SetTitle' => 'Estado de los pagos realizados',
+                    'SetTitle' => 'Estado del pago por equipo',
                     'SetSubject' => 'Detalle de los pagos ',
                     'SetHeader' => ['Pagos||Generado el: ' . date("r")],
                     'SetFooter' => ['|Page {PAGENO}|'],

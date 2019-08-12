@@ -41,8 +41,8 @@ class EstadopagoequipoSearch extends Estadopagoequipo
     {
         $query = Estadopagoequipo::find()->joinWith('equipo.persona')
                                         ->joinWith('equipo.usuario')
-                                        ->joinWith('equipo.tipoCarrera.importeinscripcion');;
-
+                                        ->joinWith('equipo.tipoCarrera.importeinscripcion');
+                                       
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

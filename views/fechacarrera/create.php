@@ -5,9 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Fechacarrera */
 
-$this->title = 'Create Fechacarrera';
-$this->params['breadcrumbs'][] = ['label' => 'Fechacarreras', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Crear Fechas de carreras';
+
 ?>
 <div class="fechacarrera-create">
 

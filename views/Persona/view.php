@@ -15,14 +15,21 @@ $this->title = "Datos del corredor";
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Actualizar', ['update', 'id' => $model->idPersona], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Eliminar', ['delete', 'id' => $model->idPersona], [
+        <!--<?= Html::a('Actualizar', ['update', 'id' => $model->idPersona], ['class' => 'btn btn-success']) ?>-->
+        <?= Html::a('1-Eliminación completa', ['delete', 'id' => $model->idPersona], [
             'class' => 'btn btn-danger',
             'data' => [
-                //'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ])."==> Solo se eliminará el registro si hubo un error en la inscripción. "?>
+        ])?>
+        <?= Html::a('2-Elimina corredor', ['delete1', 'id' => $model->idPersona], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Are you sure you want to delete this item?',
+                'method' => 'post',
+            ],
+        ])."(1) y (2) Solo se eliminará el registro si hubo un error en la inscripción. "?>
     </p>
 
     <?= DetailView::widget([

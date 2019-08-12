@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "fechacarrera".
  *
@@ -60,5 +60,13 @@ class Fechacarrera extends \yii\db\ActiveRecord
     public function getTipoCarrera()
     {
         return $this->hasOne(Tipocarrera::className(), ['idTipoCarrera' => 'idTipoCarrera']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCarreraDescrip(){
+        $dropciones=TipoCarrera::find()->asArray()->all();
+        return ArrayHelper::map($dropciones,'idTipoCarrera','descripcionCarrera');
     }
 }

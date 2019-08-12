@@ -7,6 +7,7 @@ use app\models\Gestores;
 use app\models\GestoresSearch;
 use app\models\Usuario;
 use yii\web\Controller;
+use app\models\Persona;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\Query;
@@ -38,6 +39,12 @@ class GestoresController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
         $this->layout = '/main2';
         $searchModel = new GestoresSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -56,6 +63,12 @@ class GestoresController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
         $this->layout = '/main2';
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -69,6 +82,12 @@ class GestoresController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
         $this->layout = '/main2';
         $model = new Gestores();
 
@@ -111,6 +130,12 @@ class GestoresController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
         $this->layout = '/main2';
         $this->findModel($id)->delete();
 

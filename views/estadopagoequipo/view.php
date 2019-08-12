@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\Permiso;
+use app\models\Estadopagoequipo;
 use app\models\Pago;
 /* @var $this yii\web\View */
 /* @var $model app\models\Estadopagoequipo */
@@ -16,7 +17,14 @@ $this->title = "Referencia equipo ".$model->idEquipo;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Envío email', ['enviamail','id1' => $model->idEstadoPago, 'id' => $model->idEquipo], ['class' => 'btn btn-success']) ?>
+    <?Php 
+        //id1=idEstadoPago, id=idEquipo     
+        $estado=Estadopagoequipo::findOne(['idEstadoPago'=>$model->idEstadoPago]);
+        if($estado->idEstadoPago == 2):
+             echo Html::a('Envío email', ['enviamail','id1' => $model->idEstadoPago, 'id' => $model->idEquipo], ['class' => 'btn btn-success']);
+          ?>
+        <?Php endif ?>
+       
         <?Php 
         //id1=idEstadoPago, id=idEquipo     
         if(Permiso::requerirRol('administrador')):
@@ -66,6 +74,25 @@ $this->title = "Referencia equipo ".$model->idEquipo;
                return ($model->estadoPago->descripcionEstadoPago);
               },
           ],
+          ['label'=>'Debe pagar',
+            'attribute'=>'importe',
+            'hAlign' => 'center',
+            "contentOptions" =>["style"=>"color:red;"],
+            'value'=>function($model){
+                $print='';
+                foreach($model->equipo->tipoCarrera->importeinscripcion as $importe){ 
+                  $suma=Pago::sumaEquipo($model->equipo->idEquipo);
+                  $cant=$model->equipo->cantidadPersonas;
+                  $cantper=$importe->importe * $cant;
+                  $costo=$cantper -$suma;
+                   $print.=$costo;//para importe indcripcion por persona
+                   //$print.=$importe->importe;//para importe incripcion por equipo
+                } if($print==0){
+                    $print="---";
+                 }
+                 return $print;
+            },   
+           ],
            ['label'=>'Costo inscripción',
             'attribute'=>'importe',
             'value'=>function($model){

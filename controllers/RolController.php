@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Rol;
 use app\models\RolSearch;
+use app\models\Persona;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,6 +36,12 @@ class RolController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]); 
+        }
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
         $searchModel = new RolSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

@@ -16,14 +16,14 @@ $this->title = "Referencia equipo ".$model->idEquipo;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Envía email', ['enviamail','id1'=>"",'id' => $model->idEquipo], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Envía email', ['enviamailactiva','id1'=>"",'id' => $model->idEquipo], ['class' => 'btn btn-success']) ?>
         <?Php 
         //id1=idEstadoPago, id=idEquipo     
        // if(Permiso::requerirRol('administrador')):
-        echo Html::a('Desvincular equipo???', ['delete1', 'idEquipo' => $model->idEquipo], [
-            'class' => 'btn btn-danger',
+        echo Html::a('Activar equipo???', ['activar', 'idEquipo' => $model->idEquipo], [
+            'class' => 'btn btn-success',
             'data' => [
-                'confirm' => 'El equipo se desvincula de la carrera???',
+                'confirm' => 'El equipo se activa al evento???',
                 'method' => 'post',
             ],
         ]); ?>
@@ -63,14 +63,10 @@ $this->title = "Referencia equipo ".$model->idEquipo;
           ['label'=>'Estado pago',   
            'attribute' => 'estadopago',
            'hAlign' => 'center',
-           "contentOptions" =>["style"=>"color:red;font-size:25px;"],
+           "contentOptions" =>["style"=>"color:red;"],
            'value' =>function($model){
-               if(Pago::findOne(['idEquipo'=>$model->idEquipo])){
-                  return   $model='Atencion existe un pago sin chequear!!'; 
-               }else{
-                  return   $model='impago'; 
-               } 
-             }
+            return   $model='impago'; 
+           } 
           ],
            ['label'=>'Costo inscripción',
             'attribute'=>'importe',
@@ -93,11 +89,11 @@ $this->title = "Referencia equipo ".$model->idEquipo;
                 <th>DNI </th>
                 <th>Email </th>
              </tr>
-             <?php foreach($model->persona as $pers) :?>
+             <?php foreach($participantesEquipo as $participante) :?>
                 <tr>
-                   <td><?= $pers->nombrePersona." ".$pers->apellidoPersona ?></td>
-                   <td><?= $pers->usuario->dniUsuario ?></td>
-                   <td><?= $pers->mailPersona ?></td>
+                   <td><?= $participante->persona->nombrePersona." ".$participante->persona->apellidoPersona ?></td>
+                   <td><?= $participante->persona->usuario->dniUsuario ?></td>
+                   <td><?= $participante->persona->mailPersona ?></td>
                 </tr>
              <?php endforeach; ?>
        </table> 

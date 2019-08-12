@@ -8,12 +8,11 @@ use app\models\Estadopago;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EstadopagoequipoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$this->title = 'Estado de pagos no abonados';
+$this->title = 'Activar equipos deshabilitados';
 ?>
 <div class="estadopagoequipo-index reglamento-container">
- 
+
     <h1><?= Html::encode($this->title) ?></h1>
-    <h4><?= Html::encode('Antes de realizar cualquier acción a los equipos, verificar que no existan pagos pendientes para chequear.') ?></h4>
  <!-- La siguiente grilla muestra los datos en pantalla -->
  <?php 
   foreach($fechas as $fecha){
@@ -117,7 +116,7 @@ $this->title = 'Estado de pagos no abonados';
            'contentOptions'=>['style'=>'width:100px;'],
            'value'=>function($model){
                return Html::a('<span class = " glyphicon glyphicon-eye-open"></span>', 
-                          [ 'estadopagoequipo/view1',
+                          [ 'estadopagoequipo/view2',
                            'idEquipo'=>$model->idEquipo]);
                }
            ],
@@ -141,7 +140,7 @@ echo ExportMenu::widget([
         ExportMenu::FORMAT_PDF => [
             'pdfConfig' => [
                 'methods' => [
-                    'SetTitle' => 'Estado de pagos no abonados',
+                    'SetTitle' => 'Equipos deshabilitados',
                     'SetSubject' => 'Detalle de los pagos ',
                     'SetHeader' => ['Pagos||Generado el: ' . date("r")],
                     'SetFooter' => ['|Page {PAGENO}|'],
