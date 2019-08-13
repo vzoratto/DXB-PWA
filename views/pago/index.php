@@ -14,11 +14,11 @@ $this->title = 'Pagos recibidos';
 <div class="pago-index reglamento-container">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    
-   
+
+
  <!-- La siguiente grilla muestra los datos en pantalla -->
- <?php  
-	
+ <?php
+
 	$gridColumns=[
            // ['class' => 'yii\grid\SerialColumn'],
             ['label'=>'Referencia pago',
@@ -41,7 +41,7 @@ $this->title = 'Pagos recibidos';
             'value'=>function($model){
                return ($model->equipo->nombreEquipo);
              }
-           ],  
+           ],
            ['attribute'=>'nombre',
            'filterInputOptions' => [
             'class'       => 'form-control',
@@ -78,7 +78,7 @@ $this->title = 'Pagos recibidos';
             'hAlign' => 'center',
             'value'=>function($model){
                 $print='';
-                foreach($model->controlpagos as $check){ 
+                foreach($model->controlpagos as $check){
                    $print.=($check->chequeado===0)?"no":"si";
                 }
             return $print;
@@ -97,19 +97,19 @@ $this->title = 'Pagos recibidos';
                  'contentOptions'=>
 				 ['style'=>'width: 10%;'],
                    'template'=>'{view}',
-           
+
 		    	],
-           
+
            //'idImporte',
-    ]; 	
-	
+    ];
+
 	// Renders a export dropdown menu
 echo ExportMenu::widget([
     'dataProvider' => $dataProvider,
     'columns' => $gridColumns,
 	'filename'=>'DesafioBardas',
 	'target' => ExportMenu::TARGET_SELF,
-	
+
 	'exportConfig' => [
         ExportMenu::FORMAT_HTML => false,
         ExportMenu::FORMAT_TEXT => false,
@@ -124,14 +124,14 @@ echo ExportMenu::widget([
                     ]
             ]
         ],
-		
+
     ],
 	'dropdownOptions' => [
         'label' => 'Exportar',
         'class' => 'btn btn-secondary'
     ]
-	
-	
+
+
 ]);
 
 // You can choose to render your own GridView separately
@@ -145,7 +145,7 @@ echo \kartik\grid\
 	],
      ]);
 ?>
-   
+
 
 
 </div>

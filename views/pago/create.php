@@ -10,7 +10,7 @@ $this->title = 'Acreditar Pago';
 ?>
 <div class="pago-create">
 <div class="cover-background contenedor-full full-section" style="background-image:url('assets/img/fondo.jpg');">
-    <div class="box-bd1 no-label" align="center">
+    <div class="box-bd1" align="center">
       <img class="center" src="assets/img/logo-color.png" alt="logo color">
       <p><?= Html::encode($this->title) ?></p>
 
