@@ -98,6 +98,7 @@ $this->title = 'Control pagos';
                  return ($model->chequeado==0)?'no':'si';
              },
                'filter'=>array('0'=>'no','1'=>'si'),
+               'filterInputOptions' => ['prompt' => 'Elije ...', 'class' => 'form-control', 'id' => null]
             ],
             //'idGestor',
             

@@ -84,6 +84,7 @@ $this->title = 'Pagos recibidos';
             return $print;
             },
               'filter'=>(["0"=>"no","1"=>"si"]),
+              'filterInputOptions' => ['prompt' => 'Elije...', 'class' => 'form-control', 'id' => null]
            ],
            ['label'=>'Imagen ticket',
             'attribute'=>'imagenComrobante',

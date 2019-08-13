@@ -52,6 +52,7 @@ $this->title = 'Usuarios';
                     return ($model->rol->descripcionRol);
                 },
                 'filter' => ArrayHelper::map(Rol::find()->asArray()->all(), 'idRol', 'descripcionRol'),
+                'filterInputOptions' => ['prompt' => 'Elije ...', 'class' => 'form-control', 'id' => null]
               ],
 
             [
