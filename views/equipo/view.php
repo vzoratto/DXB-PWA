@@ -9,63 +9,59 @@ use yii\widgets\DetailView;
 $this->title = $model->idEquipo;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="equipo-view reglamento-container">
+<div class="row">
 
 <div class="col-lg-5">
-    <?= DetailView::widget([
+    <h4>Información Equipo</h4>
+    <?=
+    DetailView::widget([
         'model' => $model,
-        'attributes' => [
-            //'idEquipo',
-            //'nombreEquipo',
-			['label'=>'Nombre Equipo',
-			   'attribute'=>'nombreEquipo',
-			   'value'=> function($model){
-					   return($model->nombreEquipo);
-				   }
-			],
-			['label'=>'Cantidad de Corredores',
-			   'attribute'=>'cantidadPersonas',
-			   'value'=> function($model){
-					   return($model->cantidadPersonas);
-				   }
-			],
-			
-        ],
-    ]) ?>
+
+    ])
+    ?>
 </div>
 <div class="col-lg-5">
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            //'idEquipo',
-            //'nombreEquipo',
-			['label'=>'Capitan ',
-			   'attribute'=>'nombreEquipo',
-			   'value'=> function($model){
-					   return($model->dniCapitan);
-				   }
-			],
-			['label'=>'corredor',
-			   'attribute'=>'corredor2',
-			   'value'=> function($model){
-					   return($model->grupo->persona->idPersona);
-				   }
-			],
-			['label'=>'corredor',
-			   'attribute'=>'corredor3',
-			   'value'=> function($model){
-					   return($model->dniCapitan);
-				   }
-			],
-			['label'=>'corredor',
-			   'attribute'=>'corredor4',
-			   'value'=> function($model){
-					   return($model->dniCapitan);
-				   }
-			],
-			
-        ],
-    ]) ?>
+
+    <?php
+     $idEquipo=$model->idEquipo;
+     //se accede a todas las personas de equipo
+     $grupoEquipo=\app\models\Grupo::findAll(['idEquipo'=>$idEquipo]);
+     $totalEquipos=count($grupoEquipo);
+    ?>
+    <strong>Integrantes del equipo</strong>
+    <h4><?php echo $totalEquipos.' INTEGRANTES DE '. $model->cantidadPersonas?></h4>
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Nombre y apellido</th>
+                <th>DNI</th>
+                <th>Email</th>
+                <th>En espera</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <?php
+
+                foreach ($grupoEquipo as $persona){
+                    ?>
+                    <tr <?php echo ($persona->persona->estoyEnEspera())?"bgcolor=#f58e33" :'' ?>>
+                        <td><?php echo $persona->persona->NombreCompleto;?></td>
+                        <td><?php echo $persona->persona->usuario->dniUsuario;?></td>
+                        <td><?php echo $persona->persona->mailPersona;?></td>
+                        <td><?php echo ($persona->persona->estoyEnEspera()) ?'EN ESPERA':'NO'?></td>
+                    </tr>
+                <?php
+
+                }
+
+            ?>
+
+        </tbody>
+
+
+
+    </table>
 </div>
 
 </div>
