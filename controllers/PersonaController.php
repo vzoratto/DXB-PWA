@@ -163,34 +163,46 @@ class PersonaController extends Controller
        try {
           $persona=$this->findModel($id);
           $usuario=Usuario::find()->where(['idUsuario'=>$persona->idUsuario])->one();
-          $grupo=Grupo::find()->where(['idPersona'=>$id])->One();
-          $carrera=Carrerapersona::find()->where(['idPersona'=>$id])->One();
-          $respuestas=Respuesta::find()->where(['idPersona'=>$id])->all();
-         // echo '<pre>';print_r($carrera);print_r($usuario);print_r($persona);print_r($grupo);print_r($respuestas);echo '</pre>';die();
-          foreach($respuestas as $respuesta){
-              Respuesta::deleteAll($respuesta->idRespuesta);
+          //se borra la asociacion al equipo
+          Grupo::findOne(['idPersona'=>$id])->delete();
+          //si es capitan borro el equipo
+          if($persona->soyCapitan()){
+              Equipo::findOne(['dniCapitan'=>$persona->usuario->dniUsuario])->delete();
           }
-          Grupo::deleteAll($grupo->idPersona);
-          Carrerapersona::deleteAll(['idPersona' => $id]);
-          Persona::deleteAll($id);
-          Personadireccion::deleteAll($persona->idPersonaDireccion);
-          Fichamedica::deleteAll($persona->idFichaMedica);
-          Personaemergencia::deleteAll($persona->idPersonaEmergencia);
-          if($equipod=Equipo::find()->where(['dniCapitan'=>$usuario->dniUsuario])->One()){
-             $eq=Equipo::deleteAll(['idEquipo'=>$equipod->idEquipo]);
+
+          //se elimina el registro de tablaPersona
+          Carrerapersona::findOne(['idPersona'=>$id])->delete();
+
+          //se elimina la respuestas a la encuesta
+          Respuesta::deleteAll(['idPersona'=>$persona->idPersona]);
+          //se elimina el registro persona para que deje eliminar a fichaMedica,personadirrecion,personaemergencia
+          $persona->delete();
+          //se elimina de la tabla fichaMedica el registro que habia generado el corredor
+          Fichamedica::findOne(['idFichaMedica'=>$persona->idFichaMedica])->delete();
+           //se elimina de la tabla PersonaDireccion el registro que habia generado el corredor
+           Personadireccion::findOne(['idPersonaDireccion'=>$persona->idPersonaDireccion])->delete();
+           //se elimina de la tabla PersonaEmergencia el registro que habia generado el corredor
+           Personaemergencia::findOne(['idPersonaEmergencia'=>$persona->idPersonaEmergencia])->delete();
+           //se elimina el usuario
+           $usu=Usuario::findOne(['idUsuario'=>$persona->idUsuario])->delete();
+           $eliminacionTablas=false;
+           if($usu==1){
+               $eliminacionTablas=true;
+           }else{
+               $eliminacionTablas=false;
+           }
+          if($eliminacionTablas){
+              $transaction->commit();
+              $mensaje="hubo un problema al eliminar este regitro";
+          }else{
+               $transaction->rollBack();
+              $mensaje="Se ha eliminado el registro sin problemas.";
           }
-          Usuario::deleteAll($persona->idUsuario);
-          $transaction->commit();
-            $borrado=true;
-            if(!$borrado){
-                $mensaje="hubo un problema al eliminar este regitro";
-             }else{
-                $mensaje="Se ha eliminado el registro sin problemas.";
-             }
-               return $this->render('view1',[
-                   'mensaje'=>$mensaje,
-                   'persona'=>$persona,
-                   ]);
+
+
+           //Usuario::deleteAll($persona->idUsuario);
+
+           return Yii::$app->response->redirect(['site/admin'])->send();
         
        } catch(\Exception $e) {
           $transaction->rollBack();

@@ -295,7 +295,7 @@ class Persona extends \yii\db\ActiveRecord
     }
 
     public function estoyEnEspera(){
-        $enEspera=true;
+        //$enEspera=true;
         $listaEspera=Listadeespera::find()->where(['idPersona'=>$this->idPersona])->one();
         if($listaEspera==null){
             $listaEspera=false;
@@ -305,6 +305,22 @@ class Persona extends \yii\db\ActiveRecord
         }
 
         return $listaEspera;
+    }
+
+    public function soyCapitan(){
+        $dni=$this->usuario->dniUsuario;
+        $capitan=false;
+        //$equipo=Equipo::find()->where(['dniCapitan'=>$dni])->one();
+        $equipo=Equipo::findOne(['dniCapitan'=>$dni]);
+
+
+        if($equipo){
+            $capitan=true;
+
+        }
+
+
+        return $capitan;
     }
 
 	
