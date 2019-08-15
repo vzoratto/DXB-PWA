@@ -16,7 +16,7 @@ $this->title = "Referencia equipo ".$model->idEquipo;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Envía email', ['enviamail','id1'=>"",'id' => $model->idEquipo], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Envía email', ['enviamail1','id' => $model->idEquipo], ['class' => 'btn btn-success']) ?>
         <?Php 
         //id1=idEstadoPago, id=idEquipo     
        // if(Permiso::requerirRol('administrador')):

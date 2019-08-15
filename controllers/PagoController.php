@@ -56,6 +56,7 @@ class PagoController extends Controller
         }
         $searchModel = new PagoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->orderBy(['nombreEquipo'=>SORT_ASC]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

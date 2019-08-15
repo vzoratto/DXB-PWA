@@ -57,7 +57,10 @@ class ControlpagoController extends Controller
         }
         $searchModel = new ControlpagoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->query->orderBy(['nombreEquipo'=>SORT_ASC]);
+       // $dataProvider->query->leftJoin('estadopagoequipo','equipo.idEquipo=estadopagoequipo.idEquipo')
+                         //   ->andWhere(['equipo.deshabilitado' =>1])
+                         //   ->andWhere(['estadopagoequipo.idEquipo' => null]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -142,6 +145,7 @@ class ControlpagoController extends Controller
             $costo=$importe->importe * $equipo->cantidadPersonas;
             $suma=Pago::sumaEquipo($pago->idEquipo);//suma los pagos parciales chequeados
             $sumademas=$suma + $pago->importePagado;//suma los pagos parciales chequeados mas el importe pagado
+            $resto=$costo - $sumademas;
             //echo '<pre>';echo $costo;echo $pago->importePagado;echo '</pre>';die();
             if($costo < $sumademas){
                 Yii::$app->session->setFlash('pagoGrande');//enviamos mensaje si ingreso mas dinero
@@ -197,7 +201,7 @@ class ControlpagoController extends Controller
                                         <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
                                         <h2 style='font-weight:100; color:#999'>DESAFIO X BARDAS</h2>
                                         <hr style='border:1px solid #ccc; width:90%'>
-                                        <h3 style='font-weight:100; color:#999; padding:0 20px'><strong>Tu pago por $".$pago->importePagado." fue acreditado exitosamente. </strong></h3><br>
+                                        <h3 style='font-weight:100; color:#999; padding:0 20px'><strong>Tu pago por $".$pago->importePagado." fue acreditado exitosamente y tu saldo a abonar es de $".$resto.". </strong></h3><br>
                                         <h4 style='font-weight:100; color:#999; padding:0 20px'>Gracias por participar.</h4>
                                         <br>
                                         <hr style='border:1px solid #ccc; width:90%'>

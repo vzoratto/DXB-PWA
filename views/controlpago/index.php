@@ -37,6 +37,11 @@ $this->title = 'Control pagos';
             ],
              'hAlign'=>'center',
              'value'=>function($model){
+                // $print='';
+                // foreach($model->pago->equipo as $nombre){
+                 //    $print.=$nombre->nombreEquipo;
+                // }
+                // return $print;
                   return ($model->pago->equipo->nombreEquipo);
                  }
             ],

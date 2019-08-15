@@ -19,8 +19,8 @@ $this->title = "Referencia equipo ".$model->idEquipo;
     <p>
     <?Php 
         //id1=idEstadoPago, id=idEquipo     
-        $estado=Estadopagoequipo::findOne(['idEstadoPago'=>$model->idEstadoPago]);
-        if($estado->idEstadoPago == 2):
+       // echo $model->idEstadoPago;die();
+        if($model->idEstadoPago == 2):
              echo Html::a('Envío email', ['enviamail','id1' => $model->idEstadoPago, 'id' => $model->idEquipo], ['class' => 'btn btn-success']);
           ?>
         <?Php endif ?>

@@ -12,22 +12,26 @@ use app\models\Estadopago;
 
  $this->title = 'Estado del pago por equipo';
   
-	 foreach($fechas as $fecha){
-        if($fecha->idTipoCarrera==1){
-          $date1 = new DateTime($fecha->fechaCarrera);
-          $date2 = new DateTime("now");
-          $diff1 = $date1->diff($date2)->days;
-         }elseif($fecha->idTipoCarrera==2){
-              $date1 = new DateTime($fecha->fechaCarrera);
-              $date2 = new DateTime("now");
-              $diff2 = $date1->diff($date2)->days;
-          }
-        }
-        //echo '<pre>';echo $diff2. " ".$diff1;echo '</pre>';die();
+ foreach($fechas as $fecha){
+  if($fecha->idTipoCarrera==1){
+    $date1 = new DateTime($fecha->fechaCarrera);
+    $date2 = new DateTime($fecha->fechaLimiteUno);
+    $date3 = new DateTime("now");
+    $diff1 = $date1->diff($date2)->days;
+    $diffB = $date1->diff($date3)->days;
+   }elseif($fecha->idTipoCarrera==2){
+        $date1 = new DateTime($fecha->fechaCarrera);
+        $date2 = new DateTime($fecha->fechaLimiteUno);
+        $date3 = new DateTime("now");
+        $diff2 = $date1->diff($date2)->days;
+        $diffB1 = $date1->diff($date3)->days;
+    }
+  }
+  //echo '<pre>';echo $diff2. " ".$diff1." ".$diffB;echo '</pre>';die();
 ?>
 <div class="estadopagoequipo-index reglamento-container">
 
-      <?Php   if($diff1<=10 && $diff2<=10):?>  
+      <?Php   if($diffB<=$diff1 && $diffB1<=$diff2):?>  
           <div  class="alert alert-danger" style='color:red'> 
             <h4><?= Html::encode("Es la fecha límite, hay que enviarle un email a los capitanes de los equipos que no terminaron de abonaron la inscripción") ?></h4>
           </div>   

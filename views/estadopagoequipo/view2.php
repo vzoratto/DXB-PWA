@@ -16,7 +16,7 @@ $this->title = "Referencia equipo ".$model->idEquipo;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Envía email', ['enviamailactiva','id1'=>"",'id' => $model->idEquipo], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Envía email', ['enviamailactiva','id' => $model->idEquipo], ['class' => 'btn btn-success']) ?>
         <?Php 
         //id1=idEstadoPago, id=idEquipo     
        // if(Permiso::requerirRol('administrador')):
@@ -98,14 +98,15 @@ $this->title = "Referencia equipo ".$model->idEquipo;
              <?php endforeach; ?>
        </table> 
 
-</div>
-<?php if(Yii::$app->session->hasFlash('email')): ?>
+
+       <?php if(Yii::$app->session->hasFlash('email')): ?>
             <div class="alert alert-success" align="center">
              El email fue enviado sin problemas :)
             </div>
-<?php elseif(Yii::$app->session->hasFlash('nousu')): ?>
+      <?php elseif(Yii::$app->session->hasFlash('nousu')): ?>
             <div class="alert alert-success" align="center">
              Hubo un problema, parece que el usuario no existe :(
             </div>
-    <?php endif ?>
+        <?php endif ?>
   
+</div>

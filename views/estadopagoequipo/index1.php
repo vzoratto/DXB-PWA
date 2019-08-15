@@ -16,18 +16,22 @@ $this->title = 'Estado de pagos no abonados';
     <h4><?= Html::encode('Antes de realizar cualquier acción a los equipos, verificar que no existan pagos pendientes para chequear.') ?></h4>
  <!-- La siguiente grilla muestra los datos en pantalla -->
  <?php 
-  foreach($fechas as $fecha){
+   foreach($fechas as $fecha){
     if($fecha->idTipoCarrera==1){
       $date1 = new DateTime($fecha->fechaCarrera);
-      $date2 = new DateTime("now");
+      $date2 = new DateTime($fecha->fechaLimiteUno);
+      $date3 = new DateTime("now");
       $diff1 = $date1->diff($date2)->days;
+      $diffB = $date1->diff($date3)->days;
      }elseif($fecha->idTipoCarrera==2){
           $date1 = new DateTime($fecha->fechaCarrera);
-          $date2 = new DateTime("now");
+          $date2 = new DateTime($fecha->fechaLimiteUno);
+          $date3 = new DateTime("now");
           $diff2 = $date1->diff($date2)->days;
+          $diffB1 = $date1->diff($date3)->days;
       }
     }
-    //echo '<pre>';echo $diff2. " ".$diff1;echo '</pre>';die();
+    //echo '<pre>';echo $diff2. " ".$diff1." ".$diffB." ".$diffB1;echo '</pre>';die();
 	$gridColumns=[
             ['class' => 'yii\grid\SerialColumn'],
            ['label'=>'Referencia equipo',
@@ -162,7 +166,7 @@ echo \kartik\grid\
      GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
-    'rowOptions'=>$diff1<=10 && $diff2<=10?['class'=>'danger']:['class'=>'success'],  
+    'rowOptions'=>$diffB <= $diff1 && $diffB1 <= $diff2?['class'=>'danger']:['class'=>'success'],  
 	'columns' => $gridColumns,
 	'options' => [
 		'class' => 'table-responsive',
