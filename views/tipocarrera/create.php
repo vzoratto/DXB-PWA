@@ -5,9 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tipocarrera */
 
-$this->title = 'Create Tipocarrera';
-$this->params['breadcrumbs'][] = ['label' => 'Tipocarreras', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Crear Tipo de carrera';
+
 ?>
 <div class="tipocarrera-create">
 

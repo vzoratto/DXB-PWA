@@ -53,6 +53,12 @@ $this->title = "Referencia equipo ".$model->idEquipo;
                return ($model->usuario->mailUsuario);
               }
           ],
+          ['label' => 'Tipo carrera',
+           'attribute' => 'idEquipo',
+           'value' => function($model) {
+               return ($model->tipoCarrera->descripcionCarrera);
+              }
+          ],
           ['label'=>'Importe Pagado',
             'attribute'=>'idEquipo',
             "contentOptions" =>["style"=>"color:red;"],
@@ -109,5 +115,6 @@ $this->title = "Referencia equipo ".$model->idEquipo;
             </div>
       
        <?php endif ?>
+      
 </div>
   

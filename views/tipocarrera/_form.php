@@ -8,20 +8,25 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="tipocarrera-form">
+<div class="tipocarrera-form reglamento-container">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'descripcionCarrera')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'reglamento')->textInput(['maxlength' => true]) ?>
+    <!--<?= $form->field($model, 'reglamento')->textInput(['maxlength' => true]) ?>-->
 
-    <?= $form->field($model, 'deshabilitado')->textInput() ?>
+    <!--<?= $form->field($model, 'deshabilitado')->textInput() ?>-->
 
     <?= $form->field($model, 'cantidadMaximaCorredores')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <?php
+          if ($model->isNewRecord) 
+             echo Html::submitButton('Ingresar', ['class' => 'btn btn-success']);
+          else	 
+		     echo Html::submitButton('Actualizar', ['class' => 'btn btn-success']);
+	     ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -41,6 +41,7 @@ $this->title = 'Participantes en lista de espera';
             ],
             [   'label' => 'Documento',
                 'attribute' => 'dniUsuario',
+                'hAlign' => 'center',
                 'value' => function($model) {
                     return ($model->persona->usuario->dniUsuario);
                 },
@@ -48,19 +49,30 @@ $this->title = 'Participantes en lista de espera';
             ],
             ['label' => 'Categoria',
                 'attribute' => 'categoria',
+                'hAlign' => 'center',
                 'value' => function($model) {
                     return ($model->tipoCarrera->descripcionCarrera);
                 },
 			'filter' => ArrayHelper::map(Tipocarrera::find()->asArray()->all(), 'idTipoCarrera', 'descripcionCarrera')
             ],
 			['label' => 'Equipo',
-			'attribute' => 'nombreEquipo',
+            'attribute' => 'nombreEquipo',
+            'hAlign' => 'center',
+            'filterInputOptions' => [
+                'class'       => 'form-control',
+                'placeholder' => 'Elije nombre...'
+               ],
                 'value' => function($model) {
                   return ($model->equipo->nombreEquipo);
                 },
             ],
-			['label' => 'Capitan',
-			'attribute' => 'dniCapitan',
+			['label' => 'DNI Capitan',
+            'attribute' => 'dniCapitan',
+            'hAlign' => 'center',
+            'filterInputOptions' => [
+                'class'       => 'form-control',
+                'placeholder' => 'Elije DNI...'
+               ],
                 'value' => function($model) {
                     return ($model->equipo->dniCapitan);
                 },

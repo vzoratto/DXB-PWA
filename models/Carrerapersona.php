@@ -113,5 +113,14 @@ class Carrerapersona extends \yii\db\ActiveRecord
         $edad = $hoy->diff($nacimiento);
         $this->edad = $edad->y; // Se puede usar también $edad->m (meses), $edad->d (días), etc.
     }
+
+    public function cuentaCorredores($idTipoCarrera){
+        $cantidadInscriptos=Carrerapersona::find() //Obtenemos la cantidad de personas habilitadas inscriptas en una carrera particular
+        ->innerJoin('persona','carrerapersona.idPersona=persona.idPersona')
+        ->where(['persona.deshabilitado'=>'<>1'])
+        ->andWhere(['carrerapersona.idTipocarrera'=>$idTipoCarrera])
+        ->count();
+        return $cantidadInscriptos;
+    }
 	
 }

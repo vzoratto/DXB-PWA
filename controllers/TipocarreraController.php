@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Tipocarrera;
 use app\models\TipocarreraSearch;
+use app\models\Permiso;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,6 +36,13 @@ class TipocarreraController extends Controller
      */
     public function actionIndex()
     {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }else{
+            return goHome();
+        }
         $searchModel = new TipocarreraSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -52,6 +60,11 @@ class TipocarreraController extends Controller
      */
     public function actionView($id)
     {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -64,6 +77,11 @@ class TipocarreraController extends Controller
      */
     public function actionCreate()
     {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $model = new Tipocarrera();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -84,6 +102,11 @@ class TipocarreraController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -104,6 +127,11 @@ class TipocarreraController extends Controller
      */
     public function actionDelete($id)
     {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

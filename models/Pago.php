@@ -206,8 +206,9 @@ class Pago extends \yii\db\ActiveRecord
                 $espera=Listadeespera::findOne(['idPersona'=>$persona->idPersona]);
                 if($espera==null){
                     $usuario=Usuario::findOne(['idUsuario'=>$persona->idUsuario]);
+                  if($usuario->idRol!=4){
                     $equipo=Equipo::findOne(['dniCapitan'=>$usuario->dniUsuario]);//para que el pago lo realice el capitan
-                   if($equipo!=null){
+                     if($equipo!=null){ 
                        $suma=Pago::sumaTotalequipo($equipo->idEquipo);
                        $importe=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
                        $costo=$importe->importe * $equipo->cantidadPersonas;
@@ -227,9 +228,12 @@ class Pago extends \yii\db\ActiveRecord
                                $estadopago=3;
                            }
                         }
-                  }else{
-                      $estadopago=3;//para el corredor que no es capitan
-                  }
+                     }else{
+                        $estadopago=3;//para el corredor que no es capitan
+                    }
+                }else{
+                    $estadopago=3;//para el corredor  es capitan un invitado
+                }
              }else{
                    $estadopago=3;//para el capitan en lista de espera
                  }

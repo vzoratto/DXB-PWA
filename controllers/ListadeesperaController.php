@@ -43,7 +43,7 @@ class ListadeesperaController extends Controller
         }
         $searchModel = new ListadeesperaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->query->orderBy(['nombreEquipo'=>SORT_ASC]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

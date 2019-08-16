@@ -58,9 +58,6 @@ class ControlpagoController extends Controller
         $searchModel = new ControlpagoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->orderBy(['nombreEquipo'=>SORT_ASC]);
-       // $dataProvider->query->leftJoin('estadopagoequipo','equipo.idEquipo=estadopagoequipo.idEquipo')
-                         //   ->andWhere(['equipo.deshabilitado' =>1])
-                         //   ->andWhere(['estadopagoequipo.idEquipo' => null]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

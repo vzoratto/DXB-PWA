@@ -56,6 +56,7 @@ class CarrerapersonaController extends Controller
         }
         $searchModel = new CarreraPersonaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->orderBy(['nombreEquipo'=>SORT_ASC]);
         $persona = new \app\models\Persona();
 		
         return $this->render('index', [
@@ -85,6 +86,7 @@ class CarrerapersonaController extends Controller
         }
         $searchModel = new CarreraPersonaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->orderBy(['nombreEquipo'=>SORT_ASC]);
         $persona = new \app\models\Persona();
 		
         return $this->render('indexkit', [

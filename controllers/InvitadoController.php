@@ -451,7 +451,7 @@ class InvitadoController extends Controller
                 //mail de confirmacion de inscripcion
                 $subject = "Inscripcion y reglamento"; // Asunto del mail
                 // Cuerpo del mail
-                $body.=
+                $body=
                     "<div style='width:100%; background:#eee; position:relative; font-family:sans-serif; padding-bottom:40px'>
                                 <div class='col-lg-12 col-xs-6' style='position:relative; margin: auto; max-width: 500px; background:white; padding:20px'>
 

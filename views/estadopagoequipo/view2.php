@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\Permiso;
 use app\models\Pago;
+use app\models\Carrerapersona;
 /* @var $this yii\web\View */
 /* @var $model app\models\Estadopagoequipo */
 
@@ -12,6 +13,9 @@ $this->title = "Referencia equipo ".$model->idEquipo;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="estadopagoequipo-view reglamento-container">
+      <?php $corredores=Carrerapersona::cuentaCorredores($model->idTipoCarrera);
+            $quedaLugar=$model->tipoCarrera->cantidadMaximaCorredores - $corredores;?>
+          <h3 style='color:blue; text-align:right;'><?= Html::encode("Tipo carrera: ".$model->tipoCarrera->descripcionCarrera."---->Cupo libre: ".$quedaLugar) ?></h3>
     <h2><?= Html::encode('Activar equipos deshabilitados')?></h2>
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -21,13 +25,14 @@ $this->title = "Referencia equipo ".$model->idEquipo;
         //id1=idEstadoPago, id=idEquipo     
        // if(Permiso::requerirRol('administrador')):
         echo Html::a('Activar equipo???', ['activar', 'idEquipo' => $model->idEquipo], [
-            'class' => 'btn btn-success',
+            'class' => 'btn btn-info',
             'data' => [
                 'confirm' => 'El equipo se activa al evento???',
                 'method' => 'post',
             ],
         ]); ?>
         <?Php //endif ?>
+        
     </p>
 
     <?= DetailView::widget([
@@ -51,6 +56,12 @@ $this->title = "Referencia equipo ".$model->idEquipo;
            'attribute' => 'mailusuario',
            'value' => function($model) {
                return ($model->usuario->mailUsuario);
+              }
+          ],
+          ['label' => 'Tipo carrera',
+           'attribute' => 'idEquipo',
+           'value' => function($model) {
+               return ($model->tipoCarrera->descripcionCarrera);
               }
           ],
           ['label'=>'Importe Pagado',

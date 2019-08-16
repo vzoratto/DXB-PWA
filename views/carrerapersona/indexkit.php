@@ -29,21 +29,35 @@ $this->title = 'Entrega De Kits ';
 	 // definimos las columnas para el gridview en la variable $gridColumn,despues solo llamamos esa variable.
 		$gridColumns = [
             ['class' => 'yii\grid\SerialColumn'],
+            ['label' => 'Equipo',
+            'attribute' => 'nombreEquipo',
+            'hAlign' => 'center',
+            'filterInputOptions' => [
+                'class'       => 'form-control',
+                'placeholder' => 'Elije nombre...'
+               ],
+                'value' => function($model) {
+                    return ($model->equipo->nombreEquipo);
+                },
+            ],
 			[   'label' => 'Corredor',
                 'attribute' => 'nombre_completo',
+                'hAlign' => 'center',
 				'value' => function($model) {
 					return ($model->nombre_completo);
                 },
             ],
             [   'label' => 'Documento',
                 'attribute' => 'dniUsuario',
+                'hAlign' => 'center',
                 'value' => function($model) {
                     return ($model->persona->usuario->dniUsuario);
                 },
 
             ],
             ['label' => 'Espera',
-			'attribute' => 'enespera',
+            'attribute' => 'enespera',
+            'hAlign' => 'center',
                 'value' => function($model) {
                     if(isset($model->listadeespera->idPersona)){
                    return ("Si");
@@ -55,6 +69,7 @@ $this->title = 'Entrega De Kits ';
             ],
 			[   'label' => 'Sexo',
                 'attribute' => 'sexoPersona',
+                'hAlign' => 'center',
                 'value' => function($model) {
                     return ($model->persona->sexoPersona);
                 },
@@ -63,6 +78,7 @@ $this->title = 'Entrega De Kits ';
             ],
             ['label' => 'Talle Remera',
                 'attribute' => 'talleRemera',
+                'hAlign' => 'center',
                 'value' => function($model) {
                     return ($model->persona->talleRemera->talleRemera);
                 },
@@ -70,6 +86,7 @@ $this->title = 'Entrega De Kits ';
             ],
 			['label' => 'Retira Kit',
                 'attribute' => 'retiraKit',
+                'hAlign' => 'center',
                 'value' => function($model) {
                     return ($model->retiraKit=== 1)? 'si':'no';
                 },

@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			[   'label' => 'Nombre Equipo',
                 //'class' => ExpandRowColumn::class,
                 'attribute' => 'nombreEquipo',
+                'hAlign' => 'center',
 				'value' => function($model) {
                     return ($model->nombreEquipo);
                 },
@@ -62,19 +63,29 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
 			],		
           ],
-		  'dniCapitan',
+		     ['label'=>' DNI capitán',
+              'attribute'=>'dniCapitan',
+              'hAlign' => 'center',
+            ],
 			['label'=>'Cantidad de Corredores',
-			   'attribute'=>'cantidadPersonas',
+               'attribute'=>'cantidadPersonas',
+               'hAlign' => 'center',
+               'filterInputOptions' => [
+                'class'       => 'form-control',
+                'placeholder' => 'Elije cantidad...'
+                ],
 			   'value'=> function($model){
 					   return($model->cantidadPersonas);
 				   }
 			],
 			['label' => 'Tipo de Carrera',
                 'attribute' => 'idTipoCarrera',
+                'hAlign' => 'center',
                 'value' => function($model) {
                     return ($model->tipoCarrera->descripcionCarrera);
                 },
-			'filter' => ArrayHelper::map(Tipocarrera::find()->asArray()->all(), 'idTipoCarrera', 'descripcionCarrera')
+            'filter' => ArrayHelper::map(Tipocarrera::find()->asArray()->all(), 'idTipoCarrera', 'descripcionCarrera'),
+            
             ],	
         ];
 

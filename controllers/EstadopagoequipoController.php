@@ -90,6 +90,9 @@ class EstadopagoequipoController extends Controller
         $searchModel = new EquipoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->leftJoin('estadopagoequipo','equipo.idEquipo=estadopagoequipo.idEquipo')
+                            ->leftJoin('persona','grupo.idPersona=persona.idPersona')
+                            ->leftJoin('usuario','persona.idUsuario=usuario.idUsuario')
+                            ->andWhere(['usuario.idRol' =>1])
                             ->andWhere(['equipo.deshabilitado' =>0])
                             ->andWhere(['estadopagoequipo.idEquipo' => null]);//Poner condicion al dataprovider para que traiga los equipos habilitados
         return $this->render('index1', [
@@ -517,7 +520,6 @@ class EstadopagoequipoController extends Controller
             return $this->goHome();
         }
             $equipo = Equipo::findOne($idEquipo);
-            //$grupo=Grupocopia::find()->Select('*')->where(['idEquipo'=>$equipo->idEquipo])->all();
             //obtiene todos los participantes del equipo en la tabla grupocopia
             $grupo=Grupocopia::find()
                 ->where(['idEquipo' => $idEquipo])
@@ -529,8 +531,6 @@ class EstadopagoequipoController extends Controller
                 $grupo->idEquipo=$persona->idEquipo;
                 $grupo->idPersona=$persona->idPersona;
                 $grupo->save();//copia grupo
-                //$grup=Grupocopia::find(['idEquipo'=>$persona->idEquipo,'idPersona'=>$persona->idPersona])->One();//baja grupocopia
-                //$grup->delete();
                 //elimino a todos los participantes del equipo, de la tabla grupocopia
                 Grupocopia::deleteAll(['idEquipo' => $equipo->idEquipo]);
                 $carrera=new Carrerapersona;
@@ -539,8 +539,6 @@ class EstadopagoequipoController extends Controller
                 $carrera->reglamentoAceptado=1;
                 $carrera->save();//copia carrera persona
                 Carrerapersonacopia::deleteAll(['idPersona' => $persona->idPersona]);
-                //$carr=Carrerapersonacopia::find(['idTipoCarrera'=>$carrera->idTipoCarrera,'idPersona'=> $carrera->idPersona])->One();//baja carrerapersonacopia
-                //$carr->delete();
             }
             $equipo->deshabilitado=0;//activa equipo
             if($equipo->save()){

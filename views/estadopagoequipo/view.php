@@ -62,6 +62,12 @@ $this->title = "Referencia equipo ".$model->idEquipo;
                return ($model->equipo->usuario->mailUsuario);
               }
           ],
+          ['label' => 'Tipo carrera',
+           'attribute' => 'idEquipo',
+           'value' => function($model) {
+               return ($model->equipo->tipoCarrera->descripcionCarrera);
+              }
+          ],
           ['label'=>'Importe Pagado',
               'attribute'=>'idEquipo',
            'value'=>function($model){

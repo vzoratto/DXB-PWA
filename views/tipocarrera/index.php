@@ -7,10 +7,10 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TipocarreraSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tipocarreras';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Tipo de carreras';
+
 ?>
-<div class="tipocarrera-index">
+<div class="tipocarrera-index reglamento-container">
 
   <div class="row mtb-20">
 
@@ -28,21 +28,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
   </div>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idTipoCarrera',
+            //'idTipoCarrera',
             'descripcionCarrera',
-            'reglamento',
-            'deshabilitado',
+           // 'reglamento',
+            //'deshabilitado',
             'cantidadMaximaCorredores',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+            'header' => 'Acciones',
+                  'contentOptions'=>
+          ['style'=>'width: 10%;'],
+                    'template'=>'{view} {update}',
+            
+           ],
         ],
     ]); ?>
 
