@@ -22,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
         <?php
+
                 //si carrepersona es null significa que fue dado de baja
                 if($carreraPersona==null){
                     ?>
@@ -46,6 +47,19 @@ $this->params['breadcrumbs'][] = $this->title;
                         </p>
 
                         <?php
+                    }
+                    //si el capitan del equipo es invitado
+                    //signfiica que todo el equipo es invitado
+                    //muestra que el equipo es invitado
+                    if($equipo->invitado()==true){
+                        ?>
+                        <p>
+                            Al dia de la fecha, el estado de pago de tu inscripción es <strong style="color:#2d6e18">INVITADO</strong>
+                            estas <strong style="color:#2d6e18">HABILITADO/A</strong> para participar de la carrera
+
+                        </p>
+
+                   <?php
                     }
 
                 //si no esta en lista de espera, ya se puede verificar si pago o no

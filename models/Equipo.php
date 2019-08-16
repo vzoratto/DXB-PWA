@@ -132,4 +132,20 @@ class Equipo extends \yii\db\ActiveRecord
         ->all(),'idEquipo','dniCapitan');
         return $lista;
     }
+
+    //comprueba si el equipo/capitan es invitado
+    public function invitado(){
+        $invitado=false;
+        //capitan del equipo
+        //$personaCap=Persona::findOne(['dniCapitan'=>$this->dniCapitan]);
+        $usuario=Usuario::findOne(['dniUsuario'=>$this->dniCapitan]);
+        //si el capitan es invitado
+        if($usuario->idRol==4){
+            $invitado=true;
+
+        }
+        return $invitado;
+
+
+    }
 }
