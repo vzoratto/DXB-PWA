@@ -12,7 +12,7 @@ $this->title = "Referencia equipo ".$model->idEquipo;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="estadopagoequipo-view reglamento-container">
-
+    <h2><?= Html::encode('Estado de pagos no abonados') ?></h2>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -66,7 +66,7 @@ $this->title = "Referencia equipo ".$model->idEquipo;
            "contentOptions" =>["style"=>"color:red;font-size:25px;"],
            'value' =>function($model){
                if(Pago::findOne(['idEquipo'=>$model->idEquipo])){
-                  return   $model='Atencion existe un pago sin chequear!!'; 
+                  return   $model='Atención existe un pago sin chequear!!'; 
                }else{
                   return   $model='impago'; 
                } 
@@ -79,8 +79,8 @@ $this->title = "Referencia equipo ".$model->idEquipo;
                 foreach($model->tipoCarrera->importeinscripcion as $importe){ 
                     $cant=$model->cantidadPersonas;
                     $costo=$importe->importe * $cant;
-                     $print.=$costo;//para importe indcripcion por persona
-                     //$print.=$importe->importe;//para importe incripcion por equipo
+                     $print.=$costo;//para importe inscripcion por persona
+                     //$print.=$importe->importe;//para importe inscripcion por equipo
                 }
             return $print;
             },   
@@ -102,14 +102,12 @@ $this->title = "Referencia equipo ".$model->idEquipo;
              <?php endforeach; ?>
        </table> 
 
+
+      <?php if(isset($mensaje)): ?>
+            <div class="alert alert-success" align="center">
+            <h4><?= Html::encode($mensaje) ?></h4>
+            </div>
+      
+       <?php endif ?>
 </div>
-<?php if(Yii::$app->session->hasFlash('email')): ?>
-            <div class="alert alert-success" align="center">
-             El email fue enviado sin problemas :)
-            </div>
-<?php elseif(Yii::$app->session->hasFlash('nousu')): ?>
-            <div class="alert alert-success" align="center">
-             Hubo un problema, parece que el usuario no existe :(
-            </div>
-    <?php endif ?>
   

@@ -12,7 +12,7 @@ $this->title = "Referencia equipo ".$model->idEquipo;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="estadopagoequipo-view reglamento-container">
-
+    <h2><?= Html::encode('Activar equipos deshabilitados')?></h2>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -99,14 +99,11 @@ $this->title = "Referencia equipo ".$model->idEquipo;
        </table> 
 
 
-       <?php if(Yii::$app->session->hasFlash('email')): ?>
+       <?php if(isset($mensaje)): ?>
             <div class="alert alert-success" align="center">
-             El email fue enviado sin problemas :)
+            <h4><?= Html::encode($mensaje) ?></h4>
             </div>
-      <?php elseif(Yii::$app->session->hasFlash('nousu')): ?>
-            <div class="alert alert-success" align="center">
-             Hubo un problema, parece que el usuario no existe :(
-            </div>
-        <?php endif ?>
+      
+       <?php endif ?>
   
 </div>

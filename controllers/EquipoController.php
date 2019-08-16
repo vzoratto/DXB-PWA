@@ -112,6 +112,11 @@ class EquipoController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

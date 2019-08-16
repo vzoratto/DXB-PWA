@@ -247,12 +247,17 @@ class EstadopagoequipoController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-        
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+        $mensaje='';
         if (Yii::$app->request->get()) {
           $idEstadoPago = Html::encode($_GET["id1"]);
-          //echo '<pre>';echo $idEstadoPago;echo'</pre>';die();
           $idEquipo = Html::encode($_GET["id"]);
           $equipo=Equipo::findOne(['idEquipo'=>$idEquipo]);
+          $model=Estadopagoequipo::findOne(['idEquipo'=>$equipo->idEquipo]);
           $suma=Pago::sumaTotalequipo($equipo->idEquipo);
           $importe=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
           $costo=$importe->importe * $equipo->cantidadPersonas;
@@ -262,7 +267,6 @@ class EstadopagoequipoController extends Controller
             $dni = urlencode($user->dniUsuario);
             $mailUsuario = $user->mailUsuario;
             $nombre=$persona->nombrePersona." ".$persona->apellidoPersona;
-           // echo '<pre>';echo $nombre;echo'</pre>';die();
             $subject = "Pago de la inscripción";// Asunto del mail
             //$host=Yii::$app->request->hostInfo;
             $body = "
@@ -272,15 +276,13 @@ class EstadopagoequipoController extends Controller
                                 <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
                                 <h2 style='font-weight:100; color:black'>DESAFIO POR BARDAS</h2>
                                 <hr style='border:1px solid #ccc; width:90%'>
-                                <h3 style='font-weight:100; color:black; padding:0 20px'><strong>Estimado ".$nombre." (DNI ".$dni.")</strong></h3><br>";
+                                <h3 style='font-weight:100; color:black; padding:0 20px'><strong>Estimado ".$nombre." (DNI ".$dni.")</strong></h3><br>
                      
-                         $body.="<h4 style='font-weight:100; color:black; padding:0 20px;'>El motivo del presente mail, es para solicitarte tengas a bien cancelar el pago de la inscripción. </h4>
+                               <h4 style='font-weight:100; color:black; padding:0 20px;'>El motivo del presente mail, es para solicitarte tengas a bien cancelar el pago de la inscripción. </h4>
                                 <h4 style='font-weight:100; color:black; padding:0 20px'>Por favor acercate a los puntos donde puedes abonar el saldo de $".$resto."</h4>
-                                <h4 style='font-weight:100; color:black; padding:0 20px'>Sin otro particular, te recordamos que la carrera se efectuará el día 08/09/2019.</h4>";
+                                <h4 style='font-weight:100; color:black; padding:0 20px'>Sin otro particular, te recordamos que la carrera se efectuará el día 08/09/2019.</h4>
                                 
-                      
-                         
-                    $body.="<br>
+                               <br>
                                 <hr style='border:1px solid #ccc; width:90%'>
                                 <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-kyzwnDvqRrA/XREB-8qtiJI/AAAAAAAAAkM/CMPVQEjwxDcHXyvMg62yuOt_bpY-SwDLgCLcBGAs/s320/placas%2B4-03.jpg'>
                                 <h5 style='font-weight:100; color:black'>Este mensaje de correo electrónico se envió a ".$mailUsuario."</h5>    
@@ -290,27 +292,23 @@ class EstadopagoequipoController extends Controller
                                 </center>
                         </div>
                 </div>"; 
-               // echo '<pre>';echo $idEstadoPago;echo'</pre>';die();  
-                if(Yii::$app->mailer->compose()
+                Yii::$app->mailer->compose()
                 //->setFrom('carreraxbarda@gmail.com')
                 ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
                 ->setTo($mailUsuario)
                 ->setSubject($subject)
                 ->setHTMLBody($body)
-                ->send()){
-                    Yii::$app->session->setFlash('email');//enviamos mensaje si mando mail
-                    return $this->refresh();
-               }else{
-                   Yii::$app->session->setFlash('nousu');
-                   return $this->refresh();
-                }           
+                ->send();
+                   
+                    $mensaje="El mail se envió sin problemas.";//envia mensaje si se envio el mail
+                    return $this->render('view',['model'=>$model,'mensaje'=>$mensaje]);        
             }else{
-                    Yii::$app->session->setFlash('nousu');//enviamos mensaje si no encontro usuario
-                    return $this->refresh();    
+                    $mensaje="El mail no se envió, el usuario no existe.";//enviamos mensaje si no encontro usuario
+                    return $this->render('view',['model'=>$model,'mensaje'=>$mensaje]);   
             }
         }else{
-                 Yii::$app->session->setFlash('nousu');//enviamos mensaje si no encontro usuario
-                 return $this->refresh();  
+                $mensaje="El mail no se envió.";//enviamos mensaje si no se epudo cargar el dato
+                return $this->render('error',['mensaje'=>$mensaje]); 
         }
   }
 
@@ -320,17 +318,20 @@ class EstadopagoequipoController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-        
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         if (Yii::$app->request->get()) {
           $idEquipo = Html::encode($_GET["id"]);
-          $equipo=Equipo::findOne(['idEquipo'=>$idEquipo]);
+          $model=Equipo::findOne(['idEquipo'=>$idEquipo]);
          
-          if($user=Usuario::findOne(['dniUsuario'=>$equipo->dniCapitan])){//verificamos que exista el usuario
+          if($user=Usuario::findOne(['dniUsuario'=>$model->dniCapitan])){//verificamos que exista el usuario
              $persona=Persona::findOne(['idUsuario'=>$user->idUsuario]);
             $dni = urlencode($user->dniUsuario);
             $mailUsuario = $user->mailUsuario;
             $nombre=$persona->nombrePersona." ".$persona->apellidoPersona;
-           // echo '<pre>';echo $nombre;echo'</pre>';die();
             $subject = "Pago de la inscripción";// Asunto del mail
             //$host=Yii::$app->request->hostInfo;
             $body = "
@@ -340,14 +341,14 @@ class EstadopagoequipoController extends Controller
                                 <img style='width: 40%' src='https://1.bp.blogspot.com/-Bwoc6FKprQ8/XRECC8jNE-I/AAAAAAAAAkQ/m_RHJ_t3w5ErKBtNPIWqhWrdeSy2pbD7wCLcBGAs/s320/logo-color.png'>                                
                                 <h2 style='font-weight:100; color:black'>DESAFIO POR BARDAS</h2>
                                 <hr style='border:1px solid #ccc; width:90%'>
-                                <h3 style='font-weight:100; color:black; padding:0 20px'><strong>Estimado ".$nombre." (DNI ".$dni.")</strong></h3><br>";
+                                <h3 style='font-weight:100; color:black; padding:0 20px'><strong>Estimado ".$nombre." (DNI ".$dni.")</strong></h3><br>
                          
-                       $body.="<h4 style='font-weight:100; color:black; padding:0 20px'>El motivo del presente mail, es para informarte que tu equipo ha sido desafectado del evento Desafío por bardas por falta del cumplimiento del pago de la inscripción. </h4>
+                                <h4 style='font-weight:100; color:black; padding:0 20px'>El motivo del presente mail, es para informarte que tu equipo ha sido desafectado del evento Desafío por bardas por falta del cumplimiento del pago de la inscripción. </h4>
                                 <h4 style='font-weight:100; color:black; padding:0 20px'>Por cualquier consulta o dudas con respecto a esta situación, por favor comunicate con el administrador</h4>
-                                <h4 style='font-weight:100; color:black; padding:0 20px'>Sin otro particular, te saludamos atte.</h4>";
+                                <h4 style='font-weight:100; color:black; padding:0 20px'>Sin otro particular, te saludamos atte.</h4>
                       
                          
-                    $body.="<br>
+                               <br>
                                 <hr style='border:1px solid #ccc; width:90%'>
                                 <img style='padding:20px; width:60%' src='https://1.bp.blogspot.com/-kyzwnDvqRrA/XREB-8qtiJI/AAAAAAAAAkM/CMPVQEjwxDcHXyvMg62yuOt_bpY-SwDLgCLcBGAs/s320/placas%2B4-03.jpg'>
                                 <h5 style='font-weight:100; color:black'>Este mensaje de correo electrónico se envió a ".$mailUsuario."</h5>    
@@ -358,27 +359,23 @@ class EstadopagoequipoController extends Controller
                         </div>
                 </div>"; 
                // echo '<pre>';echo $idEstadoPago;echo'</pre>';die();  
-                if(Yii::$app->mailer->compose()
+                Yii::$app->mailer->compose()
                 //->setFrom('carreraxbarda@gmail.com')
                 ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->params['title']])
                 ->setTo($mailUsuario)
                 ->setSubject($subject)
                 ->setHTMLBody($body)
-                ->send()){
+                ->send();
                       
-                             Yii::$app->session->setFlash('email');//enviamos mensaje si mando mail
-                             return $this->refresh();
-                 }else{
-                     Yii::$app->session->setFlash('nousu');
-                    return $this->refresh();
-                 }           
+                $mensaje="El mail se envió sin problemas.";//envia mensaje si se envio el mail
+                return $this->render('view1',['model'=>$model,'mensaje'=>$mensaje]);      
             }else{
-                Yii::$app->session->setFlash('nousu');//enviamos mensaje si no encontro usuario
-                             return $this->refresh();    
+                $mensaje="El mail no se envió, el usuario no existe.";//enviamos mensaje si no encontro usuario
+                return $this->render('view1',['model'=>$model,'mensaje'=>$mensaje]);
             }
         }else{
-                Yii::$app->session->setFlash('nousu');//enviamos mensaje si no encontro usuario
-                             return $this->refresh();  
+            $mensaje="El mail no se envió.";//enviamos mensaje si no se epudo cargar el dato
+            return $this->render('error',['mensaje'=>$mensaje]);
         }
     }
 
@@ -386,14 +383,18 @@ class EstadopagoequipoController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-        
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
         if (Yii::$app->request->get()) {
-          $idEstadoPago = Html::encode($_GET["id1"]);
           $idEquipo = Html::encode($_GET["id"]);
-          $equipo=Equipo::findOne(['idEquipo'=>$idEquipo]);
-          $importe=Importeinscripcion::findOne(['idTipoCarrera'=>$equipo->idTipoCarrera]);
-          $costo=$importe->importe * $equipo->cantidadPersonas;
-          if($user=Usuario::findOne(['dniUsuario'=>$equipo->dniCapitan])){//verificamos que exista el usuario
+          $model=Equipo::findOne(['idEquipo'=>$idEquipo]);
+          $participantesEquipo=Grupocopia::find()->where(['idEquipo' => $idEquipo]) ->all();
+          $importe=Importeinscripcion::findOne(['idTipoCarrera'=>$model->idTipoCarrera]);
+          $costo=$importe->importe * $model->cantidadPersonas;
+          if($user=Usuario::findOne(['dniUsuario'=>$model->dniCapitan])){//verificamos que exista el usuario
              $persona=Persona::findOne(['idUsuario'=>$user->idUsuario]);
             $dni = urlencode($user->dniUsuario);
             $mailUsuario = $user->mailUsuario;
@@ -433,15 +434,17 @@ class EstadopagoequipoController extends Controller
                 ->setHTMLBody($body)
                 ->send();
                       
-                    Yii::$app->session->setFlash('email');//enviamos mensaje si mando mail
-                    return $this->refresh();
-               
+                $mensaje="El mail se envió sin problemas.";//envia mensaje si se envio el mail
+                return $this->render('view2',['model'=>$model,'participantesEquipo'=>$participantesEquipo,'mensaje'=>$mensaje]);      
             }else{
-                Yii::$app->session->setFlash('nousu');//enviamos mensaje si no encontro usuario
-                             return $this->refresh();
-                
+                $mensaje="El mail no se envió, el usuario no existe.";//enviamos mensaje si no encontro usuario
+                return $this->render('view2',['model'=>$model,'participantesEquipo'=>$participantesEquipo,'mensaje'=>$mensaje]);
             }
-         }
+        }else{
+            $mensaje="El mail no se envió.";//enviamos mensaje si no se epudo cargar el dato
+            return $this->render('error',['mensaje'=>$mensaje]);
+            
+        }
     }
     /**
      * Deletes an existing Estadopagoequipo model.

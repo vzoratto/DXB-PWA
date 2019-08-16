@@ -13,7 +13,7 @@ $this->title = "Referencia equipo ".$model->idEquipo;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="estadopagoequipo-view reglamento-container">
-
+    <h2><?= Html::encode("Estado del pago por equipo") ?></h2>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -125,5 +125,10 @@ $this->title = "Referencia equipo ".$model->idEquipo;
              <?php endforeach; ?>
        </table> 
 
+       <?php if(isset($mensaje)): ?>
+            <div class="alert alert-success" align="center">
+              <h4><?= Html::encode($mensaje) ?></h4>             
+            </div>
+     
+       <?php endif ?>
 </div>
-  
