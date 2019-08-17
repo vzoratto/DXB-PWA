@@ -66,7 +66,24 @@ class EquipoController extends Controller
         $searchModel = new EquipoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->andWhere(['equipo.deshabilitado' =>0]);//Poner condicion al dataprovider para que traiga los equipos habilitados
+
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+/**
+     * Lists all Equipo models.
+     * @return mixed
+     */
+    public function actionIndex1()
+    {
+        $searchModel = new EquipoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->LEFTJOIN('tipocarrera','equipo.idTipoCarrera=tipocarrera.idTipoCarrera')
+                            ->andWhere(['equipo.deshabilitado' =>0])//Poner condicion al dataprovider para que traiga los equipos habilitados
+                            ->orderBy(['equipo.cantidadPersonas'=>SORT_ASC,'tipocarrera.descripcionCarrera'=>SORT_ASC]);
+        return $this->render('index1', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
