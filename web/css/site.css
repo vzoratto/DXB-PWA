@@ -3979,6 +3979,12 @@ a.desc:after {
     margin-bottom: 0.5em;
     font-size: 1.1em;
 }
+.titulo-lugar{
+    font-weight: 600;
+    color: #ea9242;
+    margin-bottom: 1em;
+    font-size: 1.2em;
+}
 
 
 /* ===================================

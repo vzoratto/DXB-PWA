@@ -70,6 +70,7 @@ $inscrito=$persona->inscrito();
               }
             }
           }; ?>
+
             <a href="#premios" class="btn btn-transparent-white btn-rounded margin-20px-lr sm-margin-5px-top">Conocé más</a>
           </div>
 
@@ -277,6 +278,10 @@ $inscrito=$persona->inscrito();
           <div class="row">
 
             <div class="col-xs-12 col-md-5">
+                <h3 class="titulo-lugar" >FECHA: 8 de septiembre de 2019 – 11hs</h3>
+                <h3 class="titulo-lugar" >LUGAR: Polideportivo Beto Monteros (Gimnasio Escondido)</h3>
+
+
 
               <div class="clock-container mt-ten mb-50 color-black">
 
