@@ -78,6 +78,20 @@ $inscrito=$persona->inscrito();
 
         </section>
 
+        <section class="half-section cover-background" style="background-image:url('assets/img/fondo.jpg');">
+          <!-- Seccion fecha -->
+          <div class="container">
+
+            <div class="jumbotron wow fadeIn">
+
+              <h2 class="mb-15 color-black"> Horario: 11:00hs <br> Fecha: 8 de Septiembre de 2019 <br>  Lugar: Polideportivo Beto Monteros (Gimnasio Escondido) </h2>
+
+            </div>
+
+          </div>
+
+        </section>
+
         <!-- Seccion slogan -->
         <section class="half-section">
 
