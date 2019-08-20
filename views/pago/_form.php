@@ -58,7 +58,7 @@ $valor=0;
     <?php
       if ($model->isNewRecord){
            if($check != 0){
-             echo Html::submitButton('Acreditar pago', ['class' => 'btn btn-success']);
+             echo Html::submitButton('Acreditar pago', ['class' => 'btn btn-success','id'=>'boton-pago']);
            }else{
             echo " <div class='alert alert-info' style='font-family: 'Roboto', sans-serif;font-size: 14px;color:#6A8A7C;'>";
             echo 'Cuando se realice el checking de los pagos acreditados, podrás realizar otra acreditación.<p style="color:red;">Por favor no extravíes el comprobante !!</p>';
