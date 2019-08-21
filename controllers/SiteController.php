@@ -381,4 +381,8 @@ public function actionEnviomail(){
             echo phpinfo();
 
     }
+
+    public function actionPrivacidad(){
+            return $this->render('privacidad');
+    }
 }
