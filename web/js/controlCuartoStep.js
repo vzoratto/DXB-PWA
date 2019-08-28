@@ -44,10 +44,10 @@ $('#stepwizard_step4_next').click(function() {
 //Control nombre persona de emergencia
 function controlNomPersonaEmergencia() {
     var nomPerEme = $('#personaemergencia-nombrepersonaemergencia').val(); //Valor del nombre de la persona emergencia
-    var patron = /^[a-zA-Z.,-]+(?:\s[a-zA-Z.,-]+)*$/; //Patron a respetar
+    //var patron = /^[a-zA-Z.,-]+(?:\s[a-zA-Z.,-]+)*$/; //Patron a respetar
     var cantCaracteresNombreEmergenia = nomPerEme.length; //Cantidad de caracteres del nombre persona de emergencia
     var siguiente = false;
-    if (patron.test(nomPerEme) && nomPerEme !== "" && cantCaracteresNombreEmergenia > 1) {
+    if (nomPerEme !== "" && cantCaracteresNombreEmergenia > 1) {
         //Si el valor es distinto a vacio y se respeta el patron se borra el borde para mostrar que no hay error
         $('#personaemergencia-nombrepersonaemergencia').css('border', 'none');
         $('.field-personaemergencia-nombrepersonaemergencia').removeClass('has-error');
@@ -66,10 +66,10 @@ function controlNomPersonaEmergencia() {
 //Control apellido persona de emergencia
 function controlApellidoEmergencia() {
     var appePerEme = $('#personaemergencia-apellidopersonaemergencia').val(); //Valor del apellido del nombre de la persona de emergencia
-    var patron = /^[a-zA-Z.,-]+(?:\s[a-zA-Z.,-]+)*$/; //Patron a respetar
+    //var patron = /^[a-zA-Z.,-]+(?:\s[a-zA-Z.,-]+)*$/; //Patron a respetar
     var cantCaracteresApellidoEmergenia = appePerEme.length; //Cantidad de caracteres del apellido emergencia
     var siguiente = false;
-    if (patron.test(appePerEme) && appePerEme !== "" && cantCaracteresApellidoEmergenia > 1) {
+    if (appePerEme !== "" && cantCaracteresApellidoEmergenia > 1) {
         //Si el valor es distinto a vacio y se respeta el patron se borra el borde para mostrar que no hay error
         $('#personaemergencia-apellidopersonaemergencia').css('border', 'none');
         $('.field-personaemergencia-apellidopersonaemergencia').removeClass('has-error');

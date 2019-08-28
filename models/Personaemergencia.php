@@ -35,8 +35,6 @@ class Personaemergencia extends \yii\db\ActiveRecord
             //campos requeridos
             [['nombrePersonaEmergencia','apellidoPersonaEmergencia','telefonoPersonaEmergencia','idVinculoPersonaEmergencia'],'required','message'=>'Campo obligatorio'],
             [['idVinculoPersonaEmergencia'], 'integer'],
-            //solo string para el campo nombre y apellido
-            [['nombrePersonaEmergencia','apellidoPersonaEmergencia'],'match','pattern'=>'/^[a-zA-Z.,-]+(?:\s[a-zA-Z.,-]+)*$/'],
             [['nombrePersonaEmergencia', 'apellidoPersonaEmergencia'], 'string', 'max' => 64,'message'=>'formato inválido'],
             [['nombrePersonaEmergencia', 'apellidoPersonaEmergencia'], 'string', 'min' => 2,'message'=>'formato inválido'],
             [['telefonoPersonaEmergencia'], 'string', 'max' => 32],
