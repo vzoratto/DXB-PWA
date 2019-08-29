@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <p class="subtitulo-trivia mt-25">1. ¿Qué es el plogging?</p>
         <p>
-            <strong>a. Una acción deportiva en la cual se recogen residuos mientras se trota o corre.<br></strong>
+            <strong class="trivia-resp">a. Una acción deportiva en la cual se recogen residuos mientras se trota o corre.<br></strong>
             b. Una acción deportiva donde gana aquel que recoja más residuos mientras se trota.<br>
             c. Una acción deportiva donde combina trotar/correr con recolección de residuos sólo en
             espacios urbanos.
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
         <p>
             a. Falso.<br>
-            <strong>b. Verdadero.</strong><br>
+            <strong class="trivia-resp">b. Verdadero.</strong><br>
         </p>
         <p class="subtitulo-trivia mt-25">3. En la ciudad de Neuquén, existen puntos verdes distribuidos en varios lugares de la ciudad,
             como por ejemplo:
