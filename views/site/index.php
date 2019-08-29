@@ -6,7 +6,7 @@ use app\models\Persona;
 $userLogueado=Yii::$app->user; // Obtenemos el objeto del usuario logeado
 $persona=new \app\models\Persona();
 $inscrito=$persona->inscrito();
-
+$this->title = 'Desafio X Bardas';
 
  ?>
 <div id="not-full"></div>
