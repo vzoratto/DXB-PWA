@@ -385,4 +385,8 @@ public function actionEnviomail(){
     public function actionPrivacidad(){
             return $this->render('privacidad');
     }
+
+    public function actionTrivias(){
+            return $this->render('trivias');
+    }
 }

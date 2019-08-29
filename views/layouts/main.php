@@ -47,6 +47,7 @@ $estadoequipo=$pago->buscaequipo();
       'encodeLabels' => false,
       'items' => [
           ['label' => 'Inicio', 'url' => ['/site/index', '#' => 'inicio']],
+          ['label' => 'Trivias', 'url' => ['/site/trivias', '#' => 'trivias']],
           ['label' => 'Premios', 'url' => ['/site/index', '#' => 'premios']],
           ['label' => 'Colaboradores', 'url' => ['/site/index', '#' => 'colaboradores']],
           ['label' => 'Recorrido', 'url'=> ['/site/index', '#' => 'mapa']],
