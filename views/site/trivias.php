@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
         <p>
             a. Hospital Heller, Universidad Nacional del Comahue, plaza de las banderas.<br>
-            <strong>b. Alto Comahue shopping, delegación municipal Alto Godoy, delegación municipal barrio
+            <strong class="trivia-resp">b. Alto Comahue shopping, delegación municipal Alto Godoy, delegación municipal barrio
                 El Progreso.<br></strong>
             c. Parque central-esquina Olascoaga y Sarmiento, estación terminal de ómnibus Neuquén, Portal
             de la Patagonia shopping.<br>
@@ -51,14 +51,14 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>
                 a. de 50 a 80 calorías.<br>
                 b. de 500 a 600 calorías.<br>
-                <strong>c. 240 a 360 calorías.<br></strong>
+                <strong class="trivia-resp">c. 240 a 360 calorías.<br></strong>
 
             </p>
         <p class="subtitulo-trivia mt-25">
             5. ¿Cuál es el animal existente más grande del planeta?
         </p>
         <p>
-            <strong>a. Ballena azul.<br></strong>
+            <strong class="trivia-resp">a. Ballena azul.<br></strong>
             b. Ballena franca austral.<br>
             c. Elefante africano.<br>
         </p>
@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
             <p>
                 a. Entre 5 a 15 años.<br>
-                <strong>b. Entre 100 a 1000 años.<br></strong>
+                <strong class="trivia-resp">b. Entre 100 a 1000 años.<br></strong>
 
                 c. No se degradan.<br>
             </p>
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
             7. ¿Cuánto tarda en degradarse una lata de aluminio?
         </p>
             <p>
-                <strong>a. Entre 80 a 200 años.<br></strong>
+                <strong class="trivia-resp">a. Entre 80 a 200 años.<br></strong>
 
                 b. Entre 100 a 1000 años.<br>
                 c. Entre 10 a 50 años.<br>
@@ -87,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>
                 a. Dos metros cúbicos de espacio libre en el relleno sanitario.<br>
                 b. El ahorro energético equivalente a mantener una lámpara encendida por dos años.<br>
-                <strong>c. Todas son correctas.<br></strong>
+                <strong class="trivia-resp">c. Todas son correctas.<br></strong>
             </p>
         <p class="subtitulo-trivia mt-25">
             9. Las pilas y baterías tienen múltiples componentes en su composición, entre ellos metales
@@ -95,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
             <p>
                 a. Residuos reciclables.<br>
-                <strong>b. Residuos peligrosos.<br></strong>
+                <strong class="trivia-resp">b. Residuos peligrosos.<br></strong>
 
                 c. Residuos especiales.<br>
             </p>
@@ -104,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
             <p>
                 a. Martes y jueves.<br>
-                <strong>b. Lunes y jueves.<br></strong>
+                <strong class="trivia-resp">b. Lunes y jueves.<br></strong>
                 c. Lunes y miércoles.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -112,7 +112,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
             <p>
                 <strong>a. Entre 45-50 %.<br>
-                </strong>
+                </strong class="trivia-resp">
                 b. Entre 15-20 %.<br>
                 c. Entre 60-80 %.<br>
             </p>
@@ -120,7 +120,7 @@ $this->params['breadcrumbs'][] = $this->title;
             12. Dentro de los residuos considerados secos podemos encontrar por ejemplo:
         </p>
             <p>
-                <strong>a. Paquete de yerba, cartón, papel, envases de plástico (PET), latas de aluminio, vidrio,
+                <strong class="trivia-resp">a. Paquete de yerba, cartón, papel, envases de plástico (PET), latas de aluminio, vidrio,
                     todos limpios.<br></strong>
                 b. Restos de comida, ceniza, restos de poda, saquitos de té, filtros de café.<br>
                 c. Papel higiénico, pañales, algodón, toallitas femeninas y tampones usados.<br>
@@ -130,7 +130,7 @@ $this->params['breadcrumbs'][] = $this->title;
             13. Los residuos sólidos urbanos se clasifican principalmente en:
         </p>
             <p>
-                <strong>a. Secos y húmedos.<br></strong>
+                <strong class="trivia-resp">a. Secos y húmedos.<br></strong>
                 b. Secos, húmedos, reciclables.<br>
                 c. Secos, húmedos, peligrosos.<br>
             </p>
@@ -139,7 +139,7 @@ $this->params['breadcrumbs'][] = $this->title;
             14. El ecosistema natural en el cual se encuentra ubicada la ciudad de Neuquén se denomina:
         </p>
             <p>
-                <strong>a. Monte.<br></strong>
+                <strong class="trivia-resp">a. Monte.<br></strong>
 
                 b. Estepa patagónica.<br>
                 c. Bosque andino.<br>
@@ -150,7 +150,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>
 
                 a. Tener hojas de gran tamaño.<br>
-                <strong>b. Poseer diversas adaptaciones para vivir con poca agua.<br></strong>
+                <strong class="trivia-resp">b. Poseer diversas adaptaciones para vivir con poca agua.<br></strong>
 
                 c. Ser de gran altura (mayor a 3 metros).<br>
             </p>
@@ -160,14 +160,14 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>
                 a. El aguilucho.<br>
                 b. El puma.<br>
-                <strong>c. El halcón peregrino.</strong>
+                <strong class="trivia-resp">c. El halcón peregrino.</strong>
 
             </p>
         <p class="subtitulo-trivia mt-25">
             17. ¿Qué técnica física implica el plogging para recolectar los residuos?
         </p>
             <p>
-                <strong>a. Hacer sentadillas para poder recoger los residuos, incrementando el gasto calórico.<br></strong>
+                <strong class="trivia-resp">a. Hacer sentadillas para poder recoger los residuos, incrementando el gasto calórico.<br></strong>
                 b. Curvar la espalda para levantar los residuos.<br>
                 c. Hacer &quot;burpees&quot; para recolectar los residuos.<br>
             </p>
@@ -176,7 +176,7 @@ $this->params['breadcrumbs'][] = $this->title;
             preparación técnica se lanzan a correr sin adoptar la correcta postura corporal.
         </p>
             <p>
-                <strong>a.- Verdadero.<br></strong>
+                <strong class="trivia-resp">a.- Verdadero.<br></strong>
 
                 b.- Falso.<br>
             </p>
@@ -185,7 +185,7 @@ $this->params['breadcrumbs'][] = $this->title;
             golosina ayuda a descansar de impactos con alto potencial de lesiones.
         </p>
             <p>
-                <strong>a.- Verdadero.</strong><br>
+                <strong class="trivia-resp">a.- Verdadero.</strong><br>
                 b.- Falso.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -193,14 +193,14 @@ $this->params['breadcrumbs'][] = $this->title;
             recoger los residuos, genera umbrales anaeróbicos que repercuten en la mejora cardiovascular.
         </p>
             <p>
-                <strong>a.- Verdadero.<br></strong>
+                <strong class="trivia-resp">a.- Verdadero.<br></strong>
                 b.- Falso.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
             21.¿Qué grupos musculares podrían beneficiarse al hacer plogging?
         </p>
             <p>
-                <strong>a.-Caderas y de tobillos.<br></strong>
+                <strong class="trivia-resp">a.-Caderas y de tobillos.<br></strong>
                 b.- Brazos y antebrazos.<br>
                 c.- Glúteos.<br>
             </p>
@@ -211,7 +211,7 @@ $this->params['breadcrumbs'][] = $this->title;
             extensores de:
         </p>
             <p>
-                <strong>a.- La cadera</strong><br>
+                <strong class="trivia-resp">a.- La cadera</strong><br>
                 b.- Piernas.<br>
                 c.- Rodillas.<br>
             </p>
@@ -221,7 +221,7 @@ $this->params['breadcrumbs'][] = $this->title;
             profunda de la columna)
         </p>
             <p>
-                <strong>
+                <strong class="trivia-resp">
                     a.- Verdadero.
                 </strong><br>
                 b.- Falso <br>
@@ -231,7 +231,7 @@ $this->params['breadcrumbs'][] = $this->title;
             fin de no forzar la postura para sostenerla y evitar el desequilibrio muscular.
         </p>
             <p>
-                <strong>a.- Verdadero<br></strong>
+                <strong class="trivia-resp">a.- Verdadero<br></strong>
                 b.- Falso <br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -239,14 +239,14 @@ $this->params['breadcrumbs'][] = $this->title;
             considerados:
         </p>
             <p>
-                <strong>a.- Residuos reciclables y secos.<br></strong>
+                <strong class="trivia-resp">a.- Residuos reciclables y secos.<br></strong>
                 b.- Residuos no reciclables.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
             26.- Si hicieras compost en tu casa, reducirías:
         </p>
             <p>
-                <strong>a.- 50% de tus residuos.<br></strong>
+                <strong class="trivia-resp">a.- 50% de tus residuos.<br></strong>
                 b.-35% de tus residuos.<br>
                 c.- 20% de tus residuos.<br>
             </p>
@@ -257,7 +257,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>
                 a. 2200.<br>
                 b. 2100.<br>
-                <strong>
+                <strong class="trivia-resp">
                     c. 2050.
                 </strong>
 
@@ -267,7 +267,7 @@ $this->params['breadcrumbs'][] = $this->title;
             especies vegetales y animales, un total de:
         </p>
             <p>
-                <strong>
+                <strong class="trivia-resp">
                     a. 150 especies.<br>
                 </strong>
                 b. 20 especies.<br>
@@ -279,14 +279,14 @@ $this->params['breadcrumbs'][] = $this->title;
             separación de residuos, la cual es gestionada por la Cooperativa &quot;Las Emprendedoras&quot;.
         </p>
             <p>
-                <strong>a.- Verdadero.</strong><br>
+                <strong class="trivia-resp">a.- Verdadero.</strong><br>
                 b.- Falso.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
             30. ¿En la ciudad de Neuquén existen reservas naturales destinadas a cuidar la barda?
         </p>
             <p>
-                <strong>a.- Si.<br></strong>
+                <strong class="trivia-resp">a.- Si.<br></strong>
                 b. No.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -295,7 +295,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>
                 a. Cuando todos los representantes de la misma corren el riesgo de desaparecer de la faz de la
                 Tierra.<br>
-                <strong>
+                <strong class="trivia-resp">
                     b. Cuando el 80% de los representantes de la misma especie corren riesgo de desaparecer
                     de la faz de la tierra.
                 </strong><br>
@@ -309,7 +309,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 b.-El cambio climático;<br>
                 c.- La caza y tráfico ilegal;<br>
                 d.-La introducción de especies exóticas.<br>
-                <strong>e.- Todas las anteriores. <br></strong>
+                <strong class="trivia-resp">e.- Todas las anteriores. <br></strong>
 
             </p>
 
@@ -320,7 +320,7 @@ $this->params['breadcrumbs'][] = $this->title;
             del hielo y de la extinción de muchas especies, incluidas la humana.
         </p>
             <p>
-                <strong>a. Verdadera.<br></strong>
+                <strong class="trivia-resp">a. Verdadera.<br></strong>
                 b. Falsa.<br>
             </p>
 
@@ -330,7 +330,7 @@ $this->params['breadcrumbs'][] = $this->title;
             temperatura. Se afirma que por el calentamiento global, su hábitat se destruirá en pocos años.
         </p>
             <p>
-                <strong>a. Verdadera.<br></strong>
+                <strong class="trivia-resp">a. Verdadera.<br></strong>
                 b. Falsa. <br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -340,7 +340,7 @@ $this->params['breadcrumbs'][] = $this->title;
             halló la siguiente cantidad de partículas de plástico:
         </p>
             <p>
-                <strong>a.- Hasta 10.000 partículas de plástico por litro de agua.<br></strong>
+                <strong class="trivia-resp">a.- Hasta 10.000 partículas de plástico por litro de agua.<br></strong>
                 b.- Hasta 200 partículas de plástico por litro de agua.<br>
                 c.- Ninguna partícula.<br>
             </p>
@@ -350,7 +350,7 @@ $this->params['breadcrumbs'][] = $this->title;
             plásticas en:
         </p>
         <p>
-            <strong>a.- El 90% de las empresas que embotellan agua.<br></strong>
+            <strong class="trivia-resp">a.- El 90% de las empresas que embotellan agua.<br></strong>
             b.-El 50% de las empresas que embotellan agua.<br>
             c.- El 15% de las empresas que embotellan agua.<br>
         </p>
@@ -361,7 +361,7 @@ $this->params['breadcrumbs'][] = $this->title;
             52.000 partículas según la edad y el sexo.
         </p>
             <p>
-                <strong>a.- Verdadero<br></strong>
+                <strong class="trivia-resp">a.- Verdadero<br></strong>
                 b.- Falso.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -371,7 +371,7 @@ $this->params['breadcrumbs'][] = $this->title;
             plástico y restos de envoltorios de caramelos a esa profundidad.
         </p>
             <p>
-                <strong>a.- Verdadero<br></strong>
+                <strong class="trivia-resp">a.- Verdadero<br></strong>
                 b.- Falso<br>
             </p>
 
@@ -379,7 +379,7 @@ $this->params['breadcrumbs'][] = $this->title;
             39.- ¿De dónde proviene la mayor cantidad del plástico hallada en los océanos?
         </p>
             <p>
-                <strong>a. Los ríos.<br></strong>
+                <strong class="trivia-resp">a. Los ríos.<br></strong>
 
                 b. El turismo costero.<br>
                 c. Camiones de residuos que vierten su contenido en el océano.<br>
@@ -389,7 +389,7 @@ $this->params['breadcrumbs'][] = $this->title;
             sustancias químicas tóxicas, incluidas las mujeres embarazadas y niños lactantes.
         </p>
             <p>
-                <strong>a. Verdadero.<br></strong>
+                <strong class="trivia-resp">a. Verdadero.<br></strong>
                 b. Falso.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -397,7 +397,7 @@ $this->params['breadcrumbs'][] = $this->title;
             descubrió que 1/3 de ellos contenía al menos un ingrediente vinculado el cáncer.
         </p>
             <p>
-                <strong>a. Verdadero.<br></strong>
+                <strong class="trivia-resp">a. Verdadero.<br></strong>
                 b. Falso.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -405,7 +405,7 @@ $this->params['breadcrumbs'][] = $this->title;
             de combustible, y aporta un 30 % de las emisiones de CO2 a la atmósfera.
         </p>
             <p>
-                <strong>a. Verdadero.<br></strong>
+                <strong class="trivia-resp">a. Verdadero.<br></strong>
                 b. Falso. <br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -413,7 +413,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
             <p>
                 a. 2 litros.<br>
-                <strong>b. 32 litros.<br></strong>
+                <strong class="trivia-resp">b. 32 litros.<br></strong>
                 c. 15 litros.  <br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -421,7 +421,7 @@ $this->params['breadcrumbs'][] = $this->title;
             consumimos a diario.
         </p>
             <p>
-                <strong>a. Verdadero.<br></strong>
+                <strong class="trivia-resp">a. Verdadero.<br></strong>
                 b. Falso.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -429,14 +429,14 @@ $this->params['breadcrumbs'][] = $this->title;
             de la polinización, realizada principalmente por abejas.
         </p>
             <p>
-                <strong>a. Verdadero.</strong><br>
+                <strong class="trivia-resp">a. Verdadero.</strong><br>
                 b. Falso.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
             46. Una de cada dos bocanadas de aire que respiramos proviene del océano.
         </p>
             <p>
-                <strong>
+                <strong class="trivia-resp">
                     a. Verdadero.<br>
                 </strong>
 
@@ -449,7 +449,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>
                 a. 20%.<br>
                 b. 30%.<br>
-                <strong>
+                <strong class="trivia-resp">
                     c. 3%.<br>
                 </strong>
 
@@ -459,7 +459,7 @@ $this->params['breadcrumbs'][] = $this->title;
             “encuentros” han sido con plásticos.
         </p>
             <p>
-                <strong>
+                <strong class="trivia-resp">
                     a. Verdadero.
                 </strong><br>
                 b. Falso.<br>
@@ -470,7 +470,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
             <p>
                 a. Un 15% más altas.<br>
-                <strong>b. Un 50% más altas.<br></strong>
+                <strong class="trivia-resp">b. Un 50% más altas.<br></strong>
                 c. Un 5% más altas.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -479,7 +479,7 @@ $this->params['breadcrumbs'][] = $this->title;
             en 41 países de Europa en 2014.
         </p>
             <p>
-                <strong>a. Verdadero.<br></strong>
+                <strong class="trivia-resp">a. Verdadero.<br></strong>
                 b. Falso.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -490,7 +490,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>
                 a. 25 %.<br>
                 b. 45 %.<br>
-                <strong>c. 95 %. <br></strong>
+                <strong class="trivia-resp">c. 95 %. <br></strong>
             </p>
         <p class="subtitulo-trivia mt-25">
             52. Cada semana aparece un animal (principalmente de ambientes acuáticos) muerto por acción
@@ -501,7 +501,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>
                 a. Disponer los plásticos en los puntos limpios de la ciudad.<br>
                 b. Evitar en lo posible el consumo de productos que contengan plásticos.<br>
-                <strong>c. Todas son correctas.<br></strong>
+                <strong class="trivia-resp">c. Todas son correctas.<br></strong>
 
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -510,7 +510,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
             <p>
                 a. Causas naturales (sequías, tormentas eléctricas, etc.).<br>
-                <strong>b. Expansión de la frontera agropecuaria.<br></strong>
+                <strong class="trivia-resp">b. Expansión de la frontera agropecuaria.<br></strong>
                 c. Expansión de la frontera urbana.<br>
                 d. Todas son correctas.<br>
             </p>
@@ -520,7 +520,7 @@ $this->params['breadcrumbs'][] = $this->title;
             la región del Amazonas.
         </p>
             <p>
-                <strong>a. Verdadero.<br></strong>
+                <strong class="trivia-resp">a. Verdadero.<br></strong>
                 b. Falso.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -529,7 +529,7 @@ $this->params['breadcrumbs'][] = $this->title;
             efecto invernadero causantes del calentamiento global.
         </p>
             <p>
-                <strong>a. Verdadero.<br></strong>
+                <strong class="trivia-resp">a. Verdadero.<br></strong>
                 b. Falso.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -542,8 +542,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 c. Mantenerse informado sobre las problemáticas ambientales que ocurren en la actualidad, y
                 sobre los programas y acciones de protección ambiental (a nivel global, regional y local) que se
                 vienen realizando.<br>
-                <strong>
-                    c. Todas son correctas.<br>
+                <strong class="trivia-resp">
+                    d. Todas son correctas.<br>
                 </strong>
 
             </p>
@@ -557,14 +557,14 @@ $this->params['breadcrumbs'][] = $this->title;
             hogares.
         </p>
             <p>
-                <strong>a. Verdadero <br></strong>
+                <strong class="trivia-resp">a. Verdadero <br></strong>
                 b. Falso <br>
             </p>
         <p class="subtitulo-trivia mt-25">
             58. El 90 % de los desastres naturales están relacionados con el agua.
         </p>
             <p>
-                <strong>a. Verdadero <br></strong>
+                <strong class="trivia-resp">a. Verdadero <br></strong>
                 b. Falso <br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -573,13 +573,13 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
             <p>
                 a. Verdadero<br>
-                <strong>b. Falso<br></strong>
+                <strong class="trivia-resp">b. Falso<br></strong>
             </p>
         <p class="subtitulo-trivia mt-25">
             60. Una canilla goteando puede derrochar hasta 200 litros de agua por día.
         </p>
             <p>
-                <strong>a. Verdadero<br></strong>
+                <strong class="trivia-resp">a. Verdadero<br></strong>
                 b. Falso<br>
             </p>
 
@@ -589,7 +589,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
             <p>
                 a. Más de 10 días <br>
-                <strong>b. No más de tres días<br></strong>
+                <strong class="trivia-resp">b. No más de tres días<br></strong>
                 c. Un día.<br>
             </p>
         <p class="subtitulo-trivia mt-25">
@@ -599,7 +599,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>
                 a. 30% <br>
                 b. 50%<br>
-                <strong>
+                <strong class="trivia-resp">
                     c. 66%<br>
                 </strong>
 
@@ -609,7 +609,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
             <p>
                 a. Entre 20 a 50 litros<br>
-                <strong>
+                <strong class="trivia-resp">
                     b. Entre 42 y 62 litros<br>
                 </strong>
 
@@ -621,10 +621,18 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>
                 a. 3 litros por minuto<br>
                 b. 5 litros por minuto<br>
-                <strong>
+                <strong class="trivia-resp">
                     c. 12 litros por minuto <br>
                 </strong>
 
+            </p>
+        <p class="subtitulo-trivia mt-25">
+            65. En cada hectárea quemada en los incendios provocados en el Amazonas, se podrían estar
+            perdiendo o extinguiendo especies animales o vegetales que ni siquiera se conocen.
+        </p>
+            <p>
+                <strong class="trivia-resp">a. Verdadero.</strong><br>
+                b. Falso.<br>
             </p>
 
 
