@@ -56,7 +56,15 @@ AppAsset::register($this);
 
                  ],
                 ],
-                ['label' => 'Ver Permisos','items' => [
+                ['label' => 'Estadisticas','items' => [
+                    ['label' => 'Usuarios no inscriptos', 'url' => ['/estadistica/noinscriptos']],
+                    ['label' => 'Estadisticas Generales', 'url' => ['/estadistica/generales']],
+
+                ],
+                ],
+
+
+                ['label' => 'Permisos','items' => [
                    ['label' => 'Administrador', 'url' => ['/gestores/busadmin']],
                    ['label' => 'Gestor', 'url' => ['/gestores/busgestor']],
 
