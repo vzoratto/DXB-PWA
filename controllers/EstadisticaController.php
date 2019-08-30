@@ -38,12 +38,15 @@ class EstadisticaController extends  Controller{
         $equipos=Equipo::findAll(['deshabilitado'=>0]);
         $equiposIncompletos=0;
         $personasFaltanInscribirse=0;
+        $dniCapitanes=[];
         foreach ($equipos as $equipo){
             //cuenta las personas que hay cada  equipo
             $totalParticipantesEquipo=Grupo::findAll(['idEquipo'=>$equipo->idEquipo]);
             $totalParticipantesEquipoNum=count($totalParticipantesEquipo);
             //si la cantidad de personas en el equipo es diferente a la que dice el equipo que tendra
             if($equipo->cantidadPersonas!=$totalParticipantesEquipoNum){
+                $dniCapitanes[]=$equipo->dniCapitan;
+
                 //cuenta cuantas personas le faltan al equipo y luego las suma en la variable
                 $personasFaltanInscribirse=$personasFaltanInscribirse+($equipo->cantidadPersonas-$totalParticipantesEquipoNum);
                 //suma la cantidad de equipos incompletos
@@ -52,6 +55,6 @@ class EstadisticaController extends  Controller{
             }
 
         }
-        return $this->render('generales',['equipos'=>$equipos,'equiposIncompletos'=>$equiposIncompletos,'personasFaltanInscribirse'=>$personasFaltanInscribirse]);
+        return $this->render('generales',['equipos'=>$equipos,'equiposIncompletos'=>$equiposIncompletos,'personasFaltanInscribirse'=>$personasFaltanInscribirse,'dniCapitanes'=>$dniCapitanes]);
     }
 }
