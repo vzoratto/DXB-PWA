@@ -269,9 +269,16 @@ public function actionEnviomail(){
      */
      public function actionActivarcuenta() {
      if (Yii::$app->request->get()){
+         //si ya activo la cuenta
+         if(Usuario::findOne(['dniUsuario'=>$_GET['d']])!=null && Usuario::findOne(['dniUsuario'=>$_GET['d']])->activado==1){
+             $mensaje="El usuario ya se encuentra activado!! Inicia sesión para poder inscribirte a la carrera ";
+             return $this->render('error', ['mensaje' => $mensaje]);
+
+         }
         $dni = Html::encode($_GET["d"]);
         $authkey =Html::encode($_GET["c"]);
         $usuActivar = Usuario::getElusuario($dni,$authkey);
+
        if (!empty($usuActivar)) {
             $activar = Usuario::findOne($usuActivar->idUsuario);
             $activar->activado = 1;

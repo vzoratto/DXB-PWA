@@ -21,8 +21,12 @@ class Permiso
 
     public function requerirRol($descripcionRol){
 
-        $descRol=Yii::$app->user->identity->rol->descripcionRol;
-        return $descRol==$descripcionRol?true:false;
+        if(!Yii::$app->user->identity==null){
+            $descRol=Yii::$app->user->identity->rol->descripcionRol;
+
+            return $descRol==$descripcionRol?true:false;
+        }
+
     }
     public function requerirActivo($activado){
 

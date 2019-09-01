@@ -48,17 +48,17 @@ $estadoequipo=$pago->buscaequipo();
       'items' => [
           ['label' => 'Inicio', 'url' => ['/site/index', '#' => 'inicio']],
           ['label' => 'Trivias', 'url' => ['/site/trivias', '#' => 'trivias']],
-          ['label' => 'Premios', 'url' => ['/site/index', '#' => 'premios']],
+          ['label' => 'Premios', 'url' => ['/site/index']],
           ['label' => 'Colaboradores', 'url' => ['/site/index', '#' => 'colaboradores']],
           ['label' => 'Recorrido', 'url'=> ['/site/index', '#' => 'mapa']],
           ['label' => 'Reglamento', 'url' => ['/site/index', '#' => 'reglamento']],
-          ['label'=>'Política de Privacidad','url'=>['site/privacidad']],
+          ['label'=>'Privacidad','url'=>['site/privacidad']],
           ['label' => 'Contacto', 'url' => ['/site/index', '#' => 'contacto']],
           ['label' => 'Iniciar Sesión', 'url' => 'index.php?r=site%2Flogin', 'visible' => Yii::$app->user->isGuest],
           ($inscrito==2)?['label' => 'Inscripcion', 'url' => 'index.php?r=inscripcion/index', 'visible' => !Yii::$app->user->isGuest]:'',
           ($estadoequipo==2)?['label' => 'Subir comprobante de pago', 'url' => 'index.php?r=pago/create', 'visible' => !Yii::$app->user->isGuest]:'',
           ($estadoequipo==0)?['label' => 'Subir comprobante de pago', 'url' => 'index.php?r=pago/create', 'visible' => !Yii::$app->user->isGuest]:'',
-          ($inscrito==1)?['label' => 'Estado de mi inscripción', 'url' => 'index.php?r=inscripcion/estadoinscripcion', 'visible' => !Yii::$app->user->isGuest]:'',
+          ($inscrito==1)?['label' => 'Estado de inscripción', 'url' => 'index.php?r=inscripcion/estadoinscripcion', 'visible' => !Yii::$app->user->isGuest]:'',
           !Yii::$app->user->isGuest ?(
           ['label' =>"<i class='fa fa-user-circle-o ml-30 ml-sm-0' aria-hidden='true'></i>",'items' => [
             ($inscrito==1)? ['label' => 'Mi perfil', 'url' => 'index.php?r=editar%2Feditar']:'',
