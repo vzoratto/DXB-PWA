@@ -23,7 +23,7 @@ var input_date=$('#datepicker').pickadate({
     weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
 
     min: new Date(1920,3,20),
-    max: new Date(2007,1,1),
+    max: new Date(2017,1,1),
 
 
 });
