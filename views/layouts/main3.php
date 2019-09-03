@@ -41,7 +41,11 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'encodeLabels' => false,
         'items' => [
-            ['label' => 'Equipos', 'url' => ['/equipo/index']],
+            ['label'=>'Equipos','items'=>[
+                ['label' => 'Equipos', 'url' => ['/equipo/index']],
+                ['label' => 'Equipos Invitados', 'url' => ['/equipo/invitados']],
+            ]],
+
             ['label' => 'Participantes','items' => [
                 ['label' => 'Ver Todos', 'url' => ['/carrerapersona/index']],
                 ['label' => 'En Espera', 'url' => ['/listadeespera/index']],

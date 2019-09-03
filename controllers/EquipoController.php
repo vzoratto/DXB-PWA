@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Gestores;
+use app\models\User;
 use Yii;
 use app\models\Equipo;
 use app\models\EquipoSearch;
@@ -17,6 +18,8 @@ use app\models\Estadopagoequipo;
 use app\models\Tipocarrera;
 use app\models\Grupocopia;
 use app\models\Carrerapersonacopia;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -106,6 +109,8 @@ class EquipoController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout='/main3';
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -433,5 +438,44 @@ class EquipoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionInvitados(){
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]);
+        }
+        $gestor=Gestores::findOne(['idUsuario' => $_SESSION['__id']]);
+
+        if(Persona::findOne(['idUsuario' => $_SESSION['__id']])){
+            return $this->goHome();
+        }
+        if($gestor==null){//si el usuario logueado no es gestor//lo redirecciono al home
+            return $this->goHome();
+        }
+        if(Permiso::requerirRol('administrador')){
+            $this->layout='/main2';
+        }elseif(Permiso::requerirRol('gestor')){
+            $this->layout='/main3';
+        }
+        $equipos=Equipo::findAll(['deshabilitado'=>0]);
+        $equiposInvitados=[];
+        foreach ($equipos as $equipo){
+            if($equipo->invitado()==true){
+                $equiposInvitados[]=$equipo;
+            }
+
+        }
+        //equipos invitados
+        $dataProvider=new ArrayDataProvider([
+            'allModels'=>$equiposInvitados
+        ]);
+
+
+        $searchModel = new EquipoSearch();
+        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        //$dataProvider->query->andWhere(['equipo.deshabilitado' =>0]);//Poner condicion al dataprovider para que traiga los equipos habilitados
+
+        return $this->render('invitados',['dataProvider'=>$dataProvider,'searchModel'=>$searchModel]);
+
     }
 }
