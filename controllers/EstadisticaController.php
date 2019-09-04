@@ -63,4 +63,40 @@ class EstadisticaController extends  Controller{
         }
         return $this->render('generales',['equipos'=>$equipos,'equiposIncompletos'=>$equiposIncompletos,'personasFaltanInscribirse'=>$personasFaltanInscribirse,'dniCapitanes'=>$dniCapitanes,'equiposOcupandoCuposSinPagar'=>$equiposOcupandoCuposSinPagar]);
     }
+
+    public function actionEquiposincompletosinpagar(){
+        $this->layout = '/main2';
+        $equiposDos=Equipo::findAll(['cantidadPersonas'=>2,'deshabilitado'=>0]);
+        $equiposCuatro=Equipo::findAll(['cantidadPersonas'=>4,'deshabilitado'=>0]);
+
+        $equiposDosIncompletosSinPagar=[];
+        $equiposDosIncompletosSinPagarCuatro=[];
+        //equipos de dos personas incompletos que no pagaron
+        foreach ($equiposDos as $equipoDos){
+            if($equipoDos->cantidadPersonas!=$equipoDos->cuposOcupados()){
+                if($equipoDos->pagoInscripcion()==false){
+                    if($equipoDos->capEquipoEnListaEspera()==false){
+                        $equiposDosIncompletosSinPagar[]=$equipoDos;
+                    }
+
+                }
+            }
+
+        }
+        //equipos de cuatro personas incompletos que no pagaron
+        foreach ($equiposCuatro as $equipoCuatro){
+            if($equipoCuatro->cantidadPersonas!=$equipoCuatro->cuposOcupados()){
+                if($equipoCuatro->pagoInscripcion()==false){
+                    if($equipoCuatro->capEquipoEnListaEspera()==false){
+                        $equiposDosIncompletosSinPagarCuatro[]=$equipoCuatro;
+                    }
+
+                }
+            }
+
+        }
+
+        return $this->render('equiposincompletos',['equiposIncompletosSinPagar'=>$equiposDosIncompletosSinPagar,'equiposDosIncompletosSinPagarCuatro'=>$equiposDosIncompletosSinPagarCuatro]);
+
+    }
 }

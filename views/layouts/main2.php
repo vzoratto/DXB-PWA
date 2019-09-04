@@ -59,6 +59,7 @@ AppAsset::register($this);
                 ['label' => 'Estadisticas','items' => [
                     ['label' => 'Usuarios no inscriptos', 'url' => ['/estadistica/noinscriptos']],
                     ['label' => 'Estadisticas Generales', 'url' => ['/estadistica/generales']],
+                    ['label' => 'Equipos Incompletos sin pagar', 'url' => ['/estadistica/equiposincompletosinpagar']],
 
                 ],
                 ],
