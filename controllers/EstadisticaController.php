@@ -38,6 +38,7 @@ class EstadisticaController extends  Controller{
         $equipos=Equipo::findAll(['deshabilitado'=>0]);
         $equiposIncompletos=0;
         $personasFaltanInscribirse=0;
+        $equiposOcupandoCuposSinPagar=[];
         $dniCapitanes=[];
         foreach ($equipos as $equipo){
             //cuenta las personas que hay cada  equipo
@@ -54,7 +55,12 @@ class EstadisticaController extends  Controller{
 
             }
 
+            //si el equipo no pago y esta ocupando cupo
+            if($equipo->pagoInscripcion()==false && $equipo->capEquipoEnListaEspera()==false){
+                $equiposOcupandoCuposSinPagar[]=$equipo;
+            }
+
         }
-        return $this->render('generales',['equipos'=>$equipos,'equiposIncompletos'=>$equiposIncompletos,'personasFaltanInscribirse'=>$personasFaltanInscribirse,'dniCapitanes'=>$dniCapitanes]);
+        return $this->render('generales',['equipos'=>$equipos,'equiposIncompletos'=>$equiposIncompletos,'personasFaltanInscribirse'=>$personasFaltanInscribirse,'dniCapitanes'=>$dniCapitanes,'equiposOcupandoCuposSinPagar'=>$equiposOcupandoCuposSinPagar]);
     }
 }

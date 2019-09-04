@@ -148,4 +148,51 @@ class Equipo extends \yii\db\ActiveRecord
 
 
     }
+
+    public function capEquipoEnListaEspera(){
+        $dniCapitan=$this->dniCapitan;
+        $usuarioCap=Usuario::findOne(['dniUsuario'=>$dniCapitan]);
+        $personaCap=Persona::findOne(['idUsuario'=>$usuarioCap->idUsuario]);
+
+        $listaEspera=Listadeespera::findOne(['idPersona'=>$personaCap->idPersona]);
+        if($listaEspera){
+            $enEspera=true;
+        }else{
+            $enEspera=false;
+        }
+
+        return $enEspera;
+    }
+    public function pagoInscripcion(){
+        $pagado=false;
+        $estadoDelPagoEquipo=Estadopagoequipo::findOne(['idEquipo'=>$this->idEquipo]);
+        //si noe existe es porque no pago
+        if(!$estadoDelPagoEquipo){
+            $pagado=false;
+        }
+        //si el equipo hizo un pago completo o lo cancelo en cuotas
+        elseif($estadoDelPagoEquipo->idEstadoPago==1){
+            $pagado=true;
+        }
+        //si el equipo hizo un pago completo o lo cancelo en cuotas
+        elseif ($estadoDelPagoEquipo->idEstadoPago==3){
+            $pagado=true;
+        }
+        if($this->invitado()==true){
+            $pagado=true;
+        }
+
+        return $pagado;
+
+    }
+
+    public function cuposOcupados(){
+        $participantesEquipo=Grupo::findAll(['idEquipo'=>$this->idEquipo]);
+
+        $participantesEquipo=count($participantesEquipo);
+
+        return $participantesEquipo;
+
+
+    }
 }
