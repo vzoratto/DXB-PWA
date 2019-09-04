@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     //si el capitan del equipo es invitado
                     //signfiica que todo el equipo es invitado
                     //muestra que el equipo es invitado
-                    if($equipo->invitado()==true){
+                    elseif($equipo->invitado()==true){
                         ?>
                         <p>
                             Al dia de la fecha, el estado de pago de tu inscripción es <strong style="color:#2d6e18">INVITADO</strong>
