@@ -31,6 +31,7 @@ use kartik\switchinput\SwitchInput;
 
 <!-- vista del tab datos personales del formulario-->
 <div class="datosPersonales" >
+    <p style="color: red; font-size: 28px" class="text-center">Lista de espera habilitada</p>
 
   <div class="container width-100">
 
