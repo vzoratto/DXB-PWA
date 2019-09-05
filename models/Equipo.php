@@ -163,6 +163,7 @@ class Equipo extends \yii\db\ActiveRecord
 
         return $enEspera;
     }
+    //si el equipo abono o es invitado retorna true
     public function pagoInscripcion(){
         $pagado=false;
         $estadoDelPagoEquipo=Estadopagoequipo::findOne(['idEquipo'=>$this->idEquipo]);
@@ -185,7 +186,7 @@ class Equipo extends \yii\db\ActiveRecord
         return $pagado;
 
     }
-
+    //retorna la cantidad de cuposOcupados por el equipo
     public function cuposOcupados(){
         $participantesEquipo=Grupo::findAll(['idEquipo'=>$this->idEquipo]);
 
@@ -193,6 +194,18 @@ class Equipo extends \yii\db\ActiveRecord
 
         return $participantesEquipo;
 
+
+    }
+    //retorna coleccion de personas del equipo
+    public function personasEnElEquipo(){
+        $grupo=Grupo::findAll(['idEquipo'=>$this->idEquipo]);
+        $personas=[];
+        foreach ($grupo as $g){
+            $persona=$g->persona;
+            $personas[]=$persona;
+        }
+
+        return $personas;
 
     }
 }

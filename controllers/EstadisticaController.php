@@ -99,4 +99,29 @@ class EstadisticaController extends  Controller{
         return $this->render('equiposincompletos',['equiposIncompletosSinPagar'=>$equiposDosIncompletosSinPagar,'equiposDosIncompletosSinPagarCuatro'=>$equiposDosIncompletosSinPagarCuatro]);
 
     }
+
+    //retorna los equipos abonados  que tienen participantes en espera
+    public function actionEquiposabonadosparticipanteespera(){
+        $this->layout = '/main2';
+        $equipos=Equipo::findAll(['deshabilitado'=>0]);
+        $equiposAbonadosConParticipanteEspera=[];
+        $cuposRequeridos=0;
+
+        foreach ($equipos as $equipo ){
+            if($equipo->pagoInscripcion()){
+                $personasEquipo=$equipo->personasEnElEquipo();
+                foreach ($personasEquipo as $persona){
+                    if($persona->estoyEnEspera()){
+                        $cuposRequeridos=$cuposRequeridos+1;
+                        $equiposAbonadosConParticipanteEspera[]=$equipo;
+                    }
+                }
+            }
+        }
+
+
+        return $this->render('equiposabonadosespera',['equiposAbonadosConParticipanteEspera'=>$equiposAbonadosConParticipanteEspera,'cuposRequeridos'=>$cuposRequeridos]);
+
+
+    }
 }
