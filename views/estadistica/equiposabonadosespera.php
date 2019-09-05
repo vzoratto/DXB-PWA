@@ -12,7 +12,24 @@
         echo $equipo->idEquipo. '-' . strtolower($usuario->mailUsuario);
         echo '<br>';
     }
+    echo '<hr>';
+    echo '<h3>Equipos  abonados incompletos: '. count($equiposAbonadosIncompletos).'</h3>';
+    foreach($equiposAbonadosIncompletos as $equipoInc){
+        $usuario=\app\models\Usuario::findOne(['dniUsuario'=>$equipoInc->dniCapitan]);
+        echo $equipoInc->idEquipo. '-' . strtolower($usuario->mailUsuario);
+        echo '<br>';
+    }
 
+    echo '<h3>Equipos  de cuatro abonados incompletos: '. count($equiposAbonadosIncompletos).'</h3>';
+    $cuposOcupanCuatro=0;
+
+    foreach($equiposAbonadosIncompletos as $equipoCuatroInc){
+        $cuposOcupanCuatro=$cuposOcupanCuatro+$equipoCuatroInc->cantidadPersonas-$equipoCuatroInc->cuposOcupados();
+        $usuarioCuatro=\app\models\Usuario::findOne(['dniUsuario'=>$equipoCuatroInc->dniCapitan]);
+        echo $equipoCuatroInc->idEquipo. '-' . strtolower($usuarioCuatro->mailUsuario);
+        echo '<br>';
+    }
+    echo '<h3>Cupos de cuatro que se requiere: '. $cuposOcupanCuatro.'</h3>';
 
     ?>
 

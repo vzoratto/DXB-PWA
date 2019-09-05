@@ -107,9 +107,17 @@ class EstadisticaController extends  Controller{
         $equiposAbonadosConParticipanteEspera=[];
         $cuposRequeridos=0;
         $personasOcupandoCupoDefinitivo=0;
+        $equiposAbonadosIncompletos=[];
+        $equiposCuatroPersonas=$equipos=Equipo::findAll(['deshabilitado'=>0,'cantidadPersonas'=>4]);
+        $equiposCuatroAbonadosIncompletos=[];
+
 
         foreach ($equipos as $equipo ){
             if($equipo->pagoInscripcion()){
+                if($equipo->cuposOcupados()!=$equipo->cantidadPersonas){
+                    $equiposAbonadosIncompletos[]=$equipo;
+                }
+
                 $personasEquipo=$equipo->personasEnElEquipo();
                 foreach ($personasEquipo as $persona){
                     if($persona->estoyEnEspera()){
@@ -121,9 +129,17 @@ class EstadisticaController extends  Controller{
                 }
             }
         }
+        foreach ($equiposCuatroPersonas as $equipoCuatro){
+            if($equipoCuatro->pagoInscripcion()){
+                if($equipoCuatro->cuposOcupados()!=$equipoCuatro->cantidadPersonas){
+                    $equiposAbonadosIncompletos[]=$equipoCuatro;
+                }
+            }
+
+        }
 
 
-        return $this->render('equiposabonadosespera',['equiposAbonadosConParticipanteEspera'=>$equiposAbonadosConParticipanteEspera,'cuposRequeridos'=>$cuposRequeridos,'personasOcupandoCupoDefinitivo'=>$personasOcupandoCupoDefinitivo]);
+        return $this->render('equiposabonadosespera',['equiposAbonadosConParticipanteEspera'=>$equiposAbonadosConParticipanteEspera,'cuposRequeridos'=>$cuposRequeridos,'personasOcupandoCupoDefinitivo'=>$personasOcupandoCupoDefinitivo,'equiposAbonadosIncompletos'=>$equiposAbonadosIncompletos,'equiposAbonadosIncompletos'=>$equiposAbonadosIncompletos]);
 
 
     }
