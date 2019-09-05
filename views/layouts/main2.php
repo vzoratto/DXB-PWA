@@ -61,6 +61,7 @@ AppAsset::register($this);
                     ['label' => 'Estadisticas Generales', 'url' => ['/estadistica/generales']],
                     ['label' => 'Equipos Incompletos sin pagar', 'url' => ['/estadistica/equiposincompletosinpagar']],
                     ['label' => 'Equipos Abonados con participantes en lista de espera', 'url' => ['/estadistica/equiposabonadosparticipanteespera']],
+                    ['label' => 'Email capitanes en espera', 'url' => ['/estadistica/capitanesespera']],
 
                 ],
                 ],

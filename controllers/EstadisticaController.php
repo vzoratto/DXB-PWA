@@ -127,4 +127,17 @@ class EstadisticaController extends  Controller{
 
 
     }
+
+    public function actionCapitanesespera(){
+        $this->layout = '/main2';
+        $equipos=Equipo::findAll(['deshabilitado'=>0]);
+        $equiposCapEspera=[];
+        foreach ($equipos as $equipo){
+            if($equipo->capEquipoEnListaEspera()){
+                $equiposCapEspera[]=$equipo;
+            }
+        }
+
+        return $this->render('capitanesespera',['equiposCapEspera'=>$equiposCapEspera]);
+    }
 }
