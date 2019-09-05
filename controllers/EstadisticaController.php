@@ -175,4 +175,19 @@ class EstadisticaController extends  Controller{
 
         return $this->render('definitivos',['equiposPagados'=>$equiposPagados,'cuposTotal'=>$cuposTotal]);
     }
+
+    public function actionEquiposnopagos(){
+        $equipos=Equipo::findAll(['deshabilitado'=>0]);
+        $this->layout = '/main2';
+        $equiposNoAbonados=[];
+        foreach ($equipos as $equipo){
+            if($equipo->pagoInscripcion()==false){
+                $equiposNoAbonados[]=$equipo;
+            }
+        }
+
+        return $this->render('nopagos',['equiposNoAbonados'=>$equiposNoAbonados]);
+
+
+    }
 }
