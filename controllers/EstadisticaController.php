@@ -156,4 +156,23 @@ class EstadisticaController extends  Controller{
 
         return $this->render('capitanesespera',['equiposCapEspera'=>$equiposCapEspera]);
     }
+
+    public function actionDefinitivo(){
+        $this->layout = '/main2';
+        $equipos=Equipo::findAll(['deshabilitado'=>0]);
+        $equiposPagados=[];
+        $cuposTotal=0;
+        foreach ($equipos as $equipo){
+            if($equipo->pagoInscripcion()){
+                $equiposPagados[]=$equipo;
+                $cantidadPersonasEquipo=count($cantidadPersonasEquipo=$equipo->personasEnElEquipo());
+                $cuposTotal=$cuposTotal+$cantidadPersonasEquipo;
+                //echo $cantidadPersonasEquipo;
+                //die();
+            }
+
+        }
+
+        return $this->render('definitivos',['equiposPagados'=>$equiposPagados,'cuposTotal'=>$cuposTotal]);
+    }
 }
