@@ -106,6 +106,7 @@ class EstadisticaController extends  Controller{
         $equipos=Equipo::findAll(['deshabilitado'=>0]);
         $equiposAbonadosConParticipanteEspera=[];
         $cuposRequeridos=0;
+        $personasOcupandoCupoDefinitivo=0;
 
         foreach ($equipos as $equipo ){
             if($equipo->pagoInscripcion()){
@@ -114,13 +115,15 @@ class EstadisticaController extends  Controller{
                     if($persona->estoyEnEspera()){
                         $cuposRequeridos=$cuposRequeridos+1;
                         $equiposAbonadosConParticipanteEspera[]=$equipo;
+                    }else{
+                        $personasOcupandoCupoDefinitivo=$personasOcupandoCupoDefinitivo+1;
                     }
                 }
             }
         }
 
 
-        return $this->render('equiposabonadosespera',['equiposAbonadosConParticipanteEspera'=>$equiposAbonadosConParticipanteEspera,'cuposRequeridos'=>$cuposRequeridos]);
+        return $this->render('equiposabonadosespera',['equiposAbonadosConParticipanteEspera'=>$equiposAbonadosConParticipanteEspera,'cuposRequeridos'=>$cuposRequeridos,'personasOcupandoCupoDefinitivo'=>$personasOcupandoCupoDefinitivo]);
 
 
     }
