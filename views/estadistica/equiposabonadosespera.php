@@ -20,10 +20,10 @@
         echo '<br>';
     }
 
-    echo '<h3>Equipos  de cuatro abonados incompletos: '. count($equiposAbonadosIncompletos).'</h3>';
+    echo '<h3>Equipos  de cuatro abonados incompletos: '. count($equiposCuatroAbonadosIncompletos).'</h3>';
     $cuposOcupanCuatro=0;
 
-    foreach($equiposAbonadosIncompletos as $equipoCuatroInc){
+    foreach($equiposCuatroAbonadosIncompletos as $equipoCuatroInc){
         $cuposOcupanCuatro=$cuposOcupanCuatro+$equipoCuatroInc->cantidadPersonas-$equipoCuatroInc->cuposOcupados();
         $usuarioCuatro=\app\models\Usuario::findOne(['dniUsuario'=>$equipoCuatroInc->dniCapitan]);
         echo $equipoCuatroInc->idEquipo. '-' . strtolower($usuarioCuatro->mailUsuario);

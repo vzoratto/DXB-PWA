@@ -132,14 +132,14 @@ class EstadisticaController extends  Controller{
         foreach ($equiposCuatroPersonas as $equipoCuatro){
             if($equipoCuatro->pagoInscripcion()){
                 if($equipoCuatro->cuposOcupados()!=$equipoCuatro->cantidadPersonas){
-                    $equiposAbonadosIncompletos[]=$equipoCuatro;
+                    $equiposCuatroAbonadosIncompletos[]=$equipoCuatro;
                 }
             }
 
         }
 
 
-        return $this->render('equiposabonadosespera',['equiposAbonadosConParticipanteEspera'=>$equiposAbonadosConParticipanteEspera,'cuposRequeridos'=>$cuposRequeridos,'personasOcupandoCupoDefinitivo'=>$personasOcupandoCupoDefinitivo,'equiposAbonadosIncompletos'=>$equiposAbonadosIncompletos,'equiposAbonadosIncompletos'=>$equiposAbonadosIncompletos]);
+        return $this->render('equiposabonadosespera',['equiposAbonadosConParticipanteEspera'=>$equiposAbonadosConParticipanteEspera,'cuposRequeridos'=>$cuposRequeridos,'personasOcupandoCupoDefinitivo'=>$personasOcupandoCupoDefinitivo,'equiposAbonadosIncompletos'=>$equiposAbonadosIncompletos,'equiposCuatroAbonadosIncompletos'=>$equiposCuatroAbonadosIncompletos]);
 
 
     }
