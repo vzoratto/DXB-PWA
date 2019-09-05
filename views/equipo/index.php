@@ -44,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'value' => function($model) {
                     return ($model->nombreEquipo);
                 },
+                'contentOptions' =>function($model){ return ['bgcolor' =>($model->pagoInscripcion()==true)? '#6cf58e':'#e889a4'];},
                 'column_id' => 'column-info',
                 'url' => Url::to(['view']),
             ],

@@ -28,6 +28,21 @@ $this->title = $model->idEquipo;
      $grupoEquipo=\app\models\Grupo::findAll(['idEquipo'=>$idEquipo]);
      $totalEquipos=count($grupoEquipo);
     ?>
+
+        <?php
+        if($model->invitado()){
+            echo '<h3 style="color: #00C900">INVITADO</h3>';
+        }else{
+            if($model->pagoInscripcion()){
+                echo '<h3 style="color: #00C900" >ABONADO</h3>';
+            }else{
+                echo '<h3 style="color: red">NO ABONADO</h3>';
+            }
+        }
+
+
+        ?>
+
     <strong>Integrantes del equipo</strong>
     <h4><?php echo $totalEquipos.' INTEGRANTES DE '. $model->cantidadPersonas?></h4>
     <table class="table table-responsive">
