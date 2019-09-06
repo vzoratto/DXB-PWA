@@ -373,6 +373,8 @@ class PagoController extends Controller
      */
     public function actionCreate()//para crear pagos por importe inscripcion por persona
     {
+        $mensaje='NO HAY MAS CUPOS, LA INSCRIPCIÓN FUE CERRADA';
+        return Yii::$app->response->redirect(['site/index', 'guardado' => false, 'mensaje' => $mensaje])->send();
         if (Yii::$app->user->isGuest) {
             return $this->redirect(["site/login"]); 
         }
