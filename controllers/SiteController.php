@@ -176,6 +176,7 @@ class SiteController extends Controller
      */
     public function actionRegistro()
     {
+        return $this->goHome();
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }

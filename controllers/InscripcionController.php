@@ -58,6 +58,11 @@ class InscripcionController extends Controller
      */
     public function actionIndex()
     {
+        if(!Permiso::requerirRol('gestor')){
+            $mensaje='NO HAY MAS CUPOS, LA INSCRIPCIÓN FUE CERRADA';
+            return Yii::$app->response->redirect(['site/index', 'guardado' => false, 'mensaje' => $mensaje])->send();
+        }
+
         if (Yii::$app->user->isGuest) {
             return $this->redirect(["site/login"]);
         }
@@ -69,6 +74,7 @@ class InscripcionController extends Controller
         }elseif(Permiso::requerirRol('gestor')){
             $this->layout='/main3';
         }
+
         //se instancia una variable por cada modelo a utilizar
         $listaDeEspera = new \app\models\Listadeespera();
         $persona = new \app\models\Persona(); //Instanciamos una variable
