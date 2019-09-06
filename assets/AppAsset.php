@@ -41,8 +41,11 @@ class AppAsset extends AssetBundle
         'js/controlTercerStep.js',
         'js/controlCuartoStep.js',
         'js/controlQuintoStep.js',
-        'js/justificacionSIencuesta.js'
-        ,'js/controlBotonPago.js'
+        'js/justificacionSIencuesta.js',
+        'js/controlBotonPago.js',
+        'js/vue.js',
+        'js/axios.js',
+        'js/resultados.js'
 
     ];
     public $depends = [
