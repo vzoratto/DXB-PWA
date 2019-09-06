@@ -112,8 +112,8 @@ class SiteController extends Controller
      * @return Response|string
      */
     public function actionLogin(){
-        $mensaje='NO HAY MAS CUPOS, LA INSCRIPCIÓN FUE CERRADA';
-        return Yii::$app->response->redirect(['site/index', 'guardado' => false, 'mensaje' => $mensaje])->send();
+        //$mensaje='NO HAY MAS CUPOS, LA INSCRIPCIÓN FUE CERRADA';
+        //return Yii::$app->response->redirect(['site/index', 'guardado' => false, 'mensaje' => $mensaje])->send();
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
