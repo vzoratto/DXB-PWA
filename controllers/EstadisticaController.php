@@ -190,4 +190,34 @@ class EstadisticaController extends  Controller{
 
 
     }
+
+    public function  actionConfirmados(){
+        $this->layout = '/main2';
+        //recreativa
+        $equiposCuatroRecreativa=[];
+        $equiposDosRecreativa=[];
+        //competitiva
+        $equiposDosCompetitiva=[];
+        $equiposCuatroCompetitiva=[];
+
+        $equipos=Equipo::find(['deshabilitado'=>0])->orderBy(['dniCapitan'=>SORT_ASC])->all();
+        foreach($equipos as $equipo){
+            if($equipo->pagoInscripcion()){
+                if($equipo->cantidadPersonas==2 && $equipo->idTipoCarrera==1){
+                    $equiposDosRecreativa[]=$equipo;
+                }
+                if($equipo->cantidadPersonas==4 && $equipo->idTipoCarrera==1){
+                    $equiposCuatroRecreativa[]=$equipo;
+                }
+                if($equipo->cantidadPersonas==2 && $equipo->idTipoCarrera==2){
+                    $equiposDosCompetitiva[]=$equipo;
+                }
+                if($equipo->cantidadPersonas==4 && $equipo->idTipoCarrera==2){
+                    $equiposCuatroCompetitiva[]=$equipo;
+                }
+            }
+        }
+        return $this->render('confirmadosequipos',['equiposDosRecreativa'=>$equiposDosRecreativa,'equiposCuatroRecreativa'=>$equiposCuatroRecreativa,'equiposDosCompetitiva'=>$equiposDosCompetitiva,'equiposCuatroCompetitiva'=>$equiposCuatroCompetitiva]);
+
+    }
 }

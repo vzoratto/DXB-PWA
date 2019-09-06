@@ -208,4 +208,16 @@ class Equipo extends \yii\db\ActiveRecord
         return $personas;
 
     }
+
+    public function equipoCompleto(){
+        $completo='<span style="color:red">NO COMPLETO</span>';
+        $cuposOcupados=$this->cuposOcupados();
+        $cantidadOriginalEquipo=$this->cantidadPersonas;
+        if($cantidadOriginalEquipo==$cuposOcupados){
+            $completo='<span style="color:green">COMPLETO</span>';
+
+        }
+
+        return $completo;
+    }
 }
