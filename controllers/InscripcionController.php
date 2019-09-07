@@ -282,7 +282,7 @@ class InscripcionController extends Controller
                 if ($usuario->validate() && !($existeUsuario)) {
                     // toda la entrada es válida y no existe un usuario con ese DNI
                     $usuario->save(); //Realiza el llenado de la tabla
-                    $idUsuario = Yii::$app->db->getLastInsertID(); //Obtenemos el ID del ultimo usuario ingresado
+                    $idUsuario = $usuario->idUsuario; //Obtenemos el ID del ultimo usuario ingresado
                 } else {
                     // la validación falló: $erroresPersonaDireccion es un array que contienen los mensajes de error
                     $usuario = $usuario->errors;
