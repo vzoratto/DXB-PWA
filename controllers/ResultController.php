@@ -167,7 +167,7 @@ class ResultController extends Controller
                     //$resultado->save();
                     //print_r($resultado->errors);
                 }else{
-                    echo ' no existe el equipo error' .$data['numEquipo'];
+                    echo ' no existe el equipo error';
                 }
 
             }
