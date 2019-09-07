@@ -268,4 +268,24 @@ class EstadisticaController extends  Controller{
 
 
     }
+
+    public function actionEmailpersonasconfirmadas(){
+        $this->layout = '/main2';
+        $equipos=Equipo::find(['deshabilitado'=>0])->orderBy(['dniCapitan'=>SORT_ASC])->all();
+        $personasConfirmadas=[];
+
+        foreach ($equipos as $equipo){
+            if($equipo->pagoInscripcion()){
+                $personasGrupo=$equipo->personasEnElEquipo();
+                foreach ($personasGrupo as $persona){
+                    $personasConfirmadas[]=$persona;
+                }
+
+
+            }
+        }
+
+        return $this->render('emailpersonasconfirmadas',['personasConfirmadas'=>$personasConfirmadas]);
+
+    }
 }
