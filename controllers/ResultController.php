@@ -186,18 +186,21 @@ class ResultController extends Controller
         $resultados=Result::find()->orderBy(['total'=>SORT_ASC])->all();
         //$resultadoss=Result::find();
 
-        if($_GET['tipoCarrera']==2 or $_GET['tipoCarrera']==1){
-            $tipoCarrera=$_GET['tipoCarrera'];
-            if($_GET['cantPersonas']){
-                $cantPersonas=$_GET['cantPersonas'];
-                $resultados=Result::find()->where(['categoria'=>$tipoCarrera])->andFilterWhere(['cantPersonas'=>$cantPersonas])->orderBy(['total'=>SORT_ASC])->all();
+        if(isset($_GET['tipoCarrera'])){
+            if($_GET['tipoCarrera']==2 or $_GET['tipoCarrera']==1){
+                $tipoCarrera=$_GET['tipoCarrera'];
+                if($_GET['cantPersonas']){
+                    $cantPersonas=$_GET['cantPersonas'];
+                    $resultados=Result::find()->where(['categoria'=>$tipoCarrera])->andFilterWhere(['cantPersonas'=>$cantPersonas])->orderBy(['total'=>SORT_ASC])->all();
+
+                }
+
+            }else{
+                $resultados=Result::find()->orderBy(['total'=>SORT_ASC])->all();
 
             }
-
-        }else{
-            $resultados=Result::find()->orderBy(['total'=>SORT_ASC])->all();
-
         }
+
 
         return $this->render('result',['resultados'=>$resultados]);
 

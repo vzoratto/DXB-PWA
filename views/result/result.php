@@ -48,7 +48,7 @@ use yii\helpers\Url;
                         <div class="form-group">
                             <label for="sel1">Cantidad Personas:</label>
                             <select name="cantPersonas" class="form-control" id="sel1">
-
+                                <option></option>
                                 <option value="2">2</option>
                                 <option value="4">4</option>
                             </select>
