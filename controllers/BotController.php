@@ -45,21 +45,21 @@ class BotController extends Controller{
 
         $ruta='archivo/pagoinscripcion/';
 
-        file_put_contents($ruta."webhook.log", $content, FILE_APPEND);
+        //file_put_contents($ruta."webhook.log", $content, FILE_APPEND);
 
-        $request = json_decode($request);
-        sendMessage($request->message->chat->id,'Hola '.$request->message->from->first_name);
+        //$request = json_decode($request);
+        //sendMessage($request->message->chat->id,'Hola '.$request->message->from->first_name);
 
-        $json = preg_replace("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t]//.*)|(^//.*)#", '', $request->message->text);
+        //$json = preg_replace("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t]//.*)|(^//.*)#", '', $request->message->text);
 
 
-        $jsonArr=json_decode($json);
+        //$jsonArr=json_decode($json);
 
-        $salida="";
-        foreach ($jsonArr as $value){
-            $salida.=$value->numEquipo.', ';
-        }
-        sendMessage($request->message->chat->id,'Se cargaron '.$salida. ' Equipos.');
+        //$salida="";
+        //foreach ($jsonArr as $value){
+          //  $salida.=$value->numEquipo.', ';
+        //}
+        //sendMessage($request->message->chat->id,'Se cargaron '.$salida. ' Equipos.');
         /*sendMessage($request->message->chat->id,'mensaje '.$json);
 
         sendMessage($request->message->chat->id,'mensaje '.$jsonArr[0]->numEquipo);
