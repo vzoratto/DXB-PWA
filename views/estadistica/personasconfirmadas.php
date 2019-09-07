@@ -1,7 +1,7 @@
 <br>
 <br>
 <div class="equipo-index reglamento-container">
-    <?php echo '<h3>Personas Recreativa 2 personas: '. count($personasDosRecreativo).'</h3>';?>
+    <?php echo '<h3>Recreativa 2 personas: '. count($personasDosRecreativo).'</h3>';?>
     <?php
     $contadorRecreDos=1;
     ?>
@@ -46,7 +46,7 @@
         </tbody>
     </table>
     <hr>
-    <?php echo '<h3>Personas Recreativa 4 personas: '. count($personasCuatroRecreativo).'</h3>';?>
+    <?php echo '<h3>Recreativa 4 personas: '. count($personasCuatroRecreativo).'</h3>';?>
     <?php
     $contadorRecreDos=1;
     ?>
@@ -92,7 +92,7 @@
     </table>
     <hr>
 
-    <?php echo '<h3>Personas Competitiva 2 personas: '. count($personasDosCompetitiva).'</h3>';?>
+    <?php echo '<h3>Competitiva 2 personas: '. count($personasDosCompetitiva).'</h3>';?>
     <?php
     $contadorRecreDos=1;
     ?>
@@ -138,7 +138,7 @@
     </table>
     <hr>
     <br>
-    <?php echo '<h3>Personas Competitiva 4 personas: '. count($personasCuatroCompetitiva).'</h3>';?>
+    <?php echo '<h3>Competitiva 4 personas: '. count($personasCuatroCompetitiva).'</h3>';?>
     <?php
     $contadorRecreDos=1;
     ?>
