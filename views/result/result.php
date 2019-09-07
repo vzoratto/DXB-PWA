@@ -23,17 +23,64 @@ use yii\helpers\Url;
         <div class="subtitulo text-center">
             <h2><i>Resultados</i></h2>
         </div>
-        <label>Filtrar</label>
-        <select>
-            <option></option>
-        </select>
+
+
         <div class="container">
             <div class="row">
+                <?php $form = ActiveForm::begin([
+                    'method'=>'get',
+                    "action"=>"index.php?r=result%2Fresultados",
+                    "enableClientValidation"=>true,
+                ]); ?>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="sel1">Categoria:</label>
+                            <select name="tipoCarrera" class="form-control" id="sel1">
+                                <option value="3">General</option>
+                                <option value="1">Recreativa - 4 KM</option>
+                                <option value="2">Competitiva - 8 KM</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="sel1">Cantidad Personas:</label>
+                            <select name="cantPersonas" class="form-control" id="sel1">
+
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+
+
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Clic para filtrar</label>
+                            <br>
+                            <button class="btn btn-primary btn-sm" type="submit">Filtrar</button>
+                        </div>
+
+
+
+                    </div>
+                <?php ActiveForm::end(); ?>
+
+
+            </div>
+
+            <div class="row">
                 <div class="col-6">
-                    <table class="table table-sm">
+                    <table class="table table-bordered">
                         <thead>
                         <tr>
+                            <th>Posición</th>
                             <th>Equipo</th>
+                            <th>Competencia</th>
+                            <th>Personas Equipo</th>
+                            <th>Capitán</th>
                             <th>Tiempo llegada</th>
                             <th>Bolsas Completas</th>
                             <th>Penalidad Bolsas</th>
@@ -44,10 +91,19 @@ use yii\helpers\Url;
 
                         </thead>
                         <?php
+                        $contador=1;
                          foreach ($resultados as $result){
+                                $equipo=\app\models\Equipo::findOne(['nombreEquipo'=>$result->numEquipo]);
+                                $usu=\app\models\Usuario::findOne(['dniUsuario'=>$equipo->dniCapitan]);
+                                $persona=\app\models\Persona::findOne(['idUsuario'=>$usu->idUsuario]);
+                                $nombreAp=strtolower($persona->apellidoPersona.' '.$persona->nombrePersona);
                              ?>
                              <tr>
+                                 <td><?php echo $contador;?></td>
                                  <td><?php echo $result->numEquipo;?></td>
+                                 <td><?php echo '<p>'. $equipo->tipoCarrera->descripcionCarrera.'</p>';?></td>
+                                 <td><?php echo $equipo->cantidadPersonas;?></td>
+                                 <td><?php echo $nombreAp;?></td>
                                  <td><?php echo date("H:i:s", $result->tiempoLlegada/1000);?></td>
                                  <td><?php echo $result->bolsasCompletas;?></td>
                                  <td><?php echo date("H:i:s",$result->penalizacionBolsa/1000);?></td>
@@ -56,6 +112,7 @@ use yii\helpers\Url;
                                  <td><?php echo date("H:i:s",$result->total/1000);?></td>
                              </tr>
                         <?php
+                             $contador++;
                          }
 
                         ?>
@@ -64,8 +121,7 @@ use yii\helpers\Url;
             </div>
 
         </div>
+    </div>
 
 
 
-
-    <div>

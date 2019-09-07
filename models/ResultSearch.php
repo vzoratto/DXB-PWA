@@ -17,7 +17,7 @@ class ResultSearch extends Result
     public function rules()
     {
         return [
-            [['idResultado', 'numEquipo', 'tiempoLlegada', 'respuestasCorrectas', 'bolsasCompletas', 'penalizacionBolsa', 'trivia', 'total'], 'integer'],
+            [['idResultado', 'numEquipo', 'tiempoLlegada', 'respuestasCorrectas', 'bolsasCompletas', 'penalizacionBolsa', 'trivia', 'total', 'categoria', 'cantPersonas'], 'integer'],
         ];
     }
 
@@ -65,6 +65,8 @@ class ResultSearch extends Result
             'penalizacionBolsa' => $this->penalizacionBolsa,
             'trivia' => $this->trivia,
             'total' => $this->total,
+            'categoria' => $this->categoria,
+            'cantPersonas' => $this->cantPersonas,
         ]);
 
         return $dataProvider;

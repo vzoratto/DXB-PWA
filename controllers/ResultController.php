@@ -134,6 +134,7 @@ class ResultController extends Controller
         $json=$_POST['archivo'];
         $data = json_decode($json, TRUE);
         $guardados=0;
+        $noGuardados=0;
         foreach($data as $dat){
             $resultadDelEquipo=Result::findOne(['numEquipo'=>$dat['numEquipo']]);
 
@@ -147,6 +148,8 @@ class ResultController extends Controller
                     $resultado->tiempoLlegada=$dat['tiempoLlegada'];
                     $resultado->respuestasCorrectas=$dat['respuestasCorrectas'];
                     $resultado->bolsasCompletas=$dat['bolsasCompletas'];
+                    $resultado->categoria=$equipo->idTipoCarrera;
+                    $resultado->cantPersonas=$equipo->cantidadPersonas;
                     //$resultado->cumplioRequisitoTrivia();
                     $resultado->penalidad();
                     $guardados++;
@@ -164,20 +167,37 @@ class ResultController extends Controller
                     //$resultado->save();
                     //print_r($resultado->errors);
                 }else{
-                    echo ' no existe el equipo error' .$guardados;
+                    echo ' no existe el equipo error' .$data['numEquipo'];
                 }
 
             }
+            $noGuardados++;
             //$guardados=$guardados+1;
             //echo $guardados;
         }
+
+        echo 'cargados Corectamente '. $guardados;
+        echo '<hr>';
+        //echo 'No cargados '. $noGuardados;
     }
 
     public function actionResultados(){
+
         $resultados=Result::find()->orderBy(['total'=>SORT_ASC])->all();
         //$resultadoss=Result::find();
 
+        if($_GET['tipoCarrera']==2 or $_GET['tipoCarrera']==1){
+            $tipoCarrera=$_GET['tipoCarrera'];
+            if($_GET['cantPersonas']){
+                $cantPersonas=$_GET['cantPersonas'];
+                $resultados=Result::find()->where(['categoria'=>$tipoCarrera])->andFilterWhere(['cantPersonas'=>$cantPersonas])->orderBy(['total'=>SORT_ASC])->all();
 
+            }
+
+        }else{
+            $resultados=Result::find()->orderBy(['total'=>SORT_ASC])->all();
+
+        }
 
         return $this->render('result',['resultados'=>$resultados]);
 

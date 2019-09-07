@@ -24,13 +24,19 @@ use yii\widgets\ActiveForm;
                         "action"=>"index.php?r=result%2Fprocesar",
                 ]); ?>
 
-                <div class="form-group">
+
                     <label>Archivo</label>
-                    <?= Html::input('textarea','archivo','', $options=['class'=>'form-control']) ?>
-                    <br>
+                    <div class="form-group">
+                        <?= Html::input('textarea','archivo','', ['style'=>'width: 800px; height: 200px;']) ?>
+                        <br>
+                    </div>
+
+
+
+
                     <button class="btn btn-danger btn-sm" type="submit">Cargar</button>
 
-                </div>
+
 
                 <?php ActiveForm::end(); ?>
 

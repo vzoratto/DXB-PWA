@@ -31,6 +31,10 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'total') ?>
 
+    <?php // echo $form->field($model, 'categoria') ?>
+
+    <?php // echo $form->field($model, 'cantPersonas') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>

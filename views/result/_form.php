@@ -26,6 +26,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'total')->textInput() ?>
 
+    <?= $form->field($model, 'categoria')->textInput() ?>
+
+    <?= $form->field($model, 'cantPersonas')->textInput() ?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

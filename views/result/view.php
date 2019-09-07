@@ -37,6 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'penalizacionBolsa',
             'trivia',
             'total',
+            'categoria',
+            'cantPersonas',
         ],
     ]) ?>
 
