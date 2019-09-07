@@ -43,9 +43,9 @@ class BotController extends Controller{
 
         $content = "$date\n$request\n\n";
 
+        $ruta='archivo/pagoinscripcion/';
 
-
-        file_put_contents("webhook.log", $content, FILE_APPEND);
+        file_put_contents($ruta."webhook.log", $content, FILE_APPEND);
 
         $request = json_decode($request);
         sendMessage($request->message->chat->id,'Hola '.$request->message->from->first_name);
