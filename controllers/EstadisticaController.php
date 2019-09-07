@@ -220,4 +220,52 @@ class EstadisticaController extends  Controller{
         return $this->render('confirmadosequipos',['equiposDosRecreativa'=>$equiposDosRecreativa,'equiposCuatroRecreativa'=>$equiposCuatroRecreativa,'equiposDosCompetitiva'=>$equiposDosCompetitiva,'equiposCuatroCompetitiva'=>$equiposCuatroCompetitiva]);
 
     }
+
+    public function actionPersonasconfirmadas(){
+        $this->layout = '/main2';
+        $equipos=Equipo::find(['deshabilitado'=>0])->orderBy(['dniCapitan'=>SORT_ASC])->all();
+        $personasDosRecreativo=[];
+        $personaCuatroRecreativo=[];
+        //competitiva
+        $personasDosCompetitiva=[];
+        $personasCuatroCompetitiva=[];
+        foreach ($equipos as $equipo){
+            if($equipo->pagoInscripcion()){
+                if($equipo->cantidadPersonas==2 && $equipo->idTipoCarrera==1){
+                    $personasGrupo=$equipo->personasEnElEquipo();
+                    foreach ($personasGrupo as $persona){
+                        $personasDosRecreativo[]=$persona;
+                    }
+
+                }
+                if($equipo->cantidadPersonas==4 && $equipo->idTipoCarrera==1){
+
+                    $personasGrupo=$equipo->personasEnElEquipo();
+                    foreach ($personasGrupo as $persona){
+                        $personasCuatroRecreativo[]=$persona;
+                    }
+
+                }
+                if($equipo->cantidadPersonas==2 && $equipo->idTipoCarrera==2){
+                    $personasGrupo=$equipo->personasEnElEquipo();
+                    foreach ($personasGrupo as $persona){
+                        $personasDosCompetitiva[]=$persona;
+                    }
+                }
+                if($equipo->cantidadPersonas==4 && $equipo->idTipoCarrera==2){
+                    $personasGrupo=$equipo->personasEnElEquipo();
+                    foreach ($personasGrupo as $persona){
+                        $personasCuatroCompetitiva[]=$persona;
+                    }
+                }
+
+
+            }
+        }
+
+        return $this->render('personasconfirmadas',['personasDosRecreativo'=>$personasDosRecreativo,'personasCuatroRecreativo'=>$personasCuatroRecreativo,'personasDosCompetitiva'=>$personasDosCompetitiva,'personasCuatroCompetitiva'=>$personasCuatroCompetitiva]);
+
+
+
+    }
 }

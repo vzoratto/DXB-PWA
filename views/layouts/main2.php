@@ -65,6 +65,7 @@ AppAsset::register($this);
                     ['label' => 'Cupos definitivos', 'url' => ['/estadistica/definitivo']],
                     ['label' => 'Equipos No pagos', 'url' => ['/estadistica/equiposnopagos']],
                     ['label' => 'Equipos CONFIRMADOS', 'url' => ['/estadistica/confirmados']],
+                    ['label' => 'Personas CONFIRMADAS', 'url' => ['/estadistica/personasconfirmadas']],
 
                 ],
                 ],

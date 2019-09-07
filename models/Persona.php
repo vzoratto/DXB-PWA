@@ -323,5 +323,45 @@ class Persona extends \yii\db\ActiveRecord
         return $capitan;
     }
 
+    //el equipo al que pertenezco
+    public function equipo(){
+        //busca al equipo al cual pertenezco
+        $equipoAlQuePerteneezco=Grupo::findOne(['idPersona'=>$this->idPersona]);
+
+        return $equipoAlQuePerteneezco;
+    }
+
+    public function dni(){
+        $usuario=Usuario::findOne(['idUsuario'=>$this->idUsuario]);
+        return $usuario->dniUsuario;
+
+    }
+
+    public function dniCapitan(){
+        $equipoAlQuePerteneezco=Grupo::findOne(['idPersona'=>$this->idPersona]);
+        $equipo=Equipo::findOne(['idEquipo'=>$equipoAlQuePerteneezco->idEquipo]);
+        $dniCapitan=$equipo->dniCapitan;
+
+        if($dniCapitan==$this->dni()){
+            $dniCapitan='<span style="color:green">capitán</span>';
+        }
+        return $dniCapitan;
+
+    }
+
+    public function nombreCapitan(){
+        $equipo=$this->equipo();
+        $equipo=Equipo::findOne(['idEquipo'=>$equipo->idEquipo]);
+        $dniCapitan=$equipo->dniCapitan;
+        $usuCap=Usuario::findOne(['dniUsuario'=>$dniCapitan]);
+        $personaCap=Persona::findOne(['idUsuario'=>$usuCap]);
+        if($personaCap->idPersona==$this->idPersona){
+            $nombreCap='<span style="color:green">capitán</span>';;
+        }else{
+            $nombreCap=strtolower($personaCap->apellidoPersona.' '.$personaCap->nombrePersona);
+        }
+        return $nombreCap;
+    }
+
 	
 }
