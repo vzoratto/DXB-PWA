@@ -41,7 +41,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'encodeLabels' => false,
         'items' => [
-
+            ['label' => 'Cargar Resultado', 'url'=> ['/result/cargar']],
             ['label' => 'Listados ABM','items' => [
                 ['label' => 'Usuario', 'url' => ['/usuario/index']],
                 ['label' => 'Gestor', 'url' => ['/gestores/index']],
