@@ -47,6 +47,7 @@ $estadoequipo=$pago->buscaequipo();
       'encodeLabels' => false,
       'items' => [
           ['label' => 'Inicio', 'url' => ['/site/index', '#' => 'inicio']],
+          ['label' => 'Resultados', 'url' => ['/result/resultados']],
           ['label' => 'Trivias', 'url' => ['/site/trivias', '#' => 'trivias']],
           ['label' => 'Premios', 'url' => ['/site/index']],
           ['label' => 'Colaboradores', 'url' => ['/site/index', '#' => 'colaboradores']],
@@ -55,7 +56,6 @@ $estadoequipo=$pago->buscaequipo();
           ['label'=>'Privacidad','url'=>['site/privacidad']],
           ['label' => 'Contacto', 'url' => ['/site/index', '#' => 'contacto']],
           ['label' => 'Iniciar Sesión', 'url' => 'index.php?r=site%2Flogin', 'visible' => Yii::$app->user->isGuest],
-          ['label' => 'Resultados', 'url' => ['/result/resultados']],
           ($inscrito==2)?['label' => 'Inscripcion', 'url' => 'index.php?r=inscripcion/index', 'visible' => !Yii::$app->user->isGuest]:'',
           ($estadoequipo==2)?['label' => 'Subir comprobante de pago', 'url' => 'index.php?r=pago/create', 'visible' => !Yii::$app->user->isGuest]:'',
           ($estadoequipo==0)?['label' => 'Subir comprobante de pago', 'url' => 'index.php?r=pago/create', 'visible' => !Yii::$app->user->isGuest]:'',

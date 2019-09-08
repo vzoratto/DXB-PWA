@@ -10,6 +10,9 @@ use yii\grid\GridView;
 $this->title = 'Results';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<br>
+<br>
+<br>
 <div class="result-index">
 
     <h1><?= Html::encode($this->title) ?></h1>

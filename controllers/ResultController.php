@@ -141,7 +141,7 @@ class ResultController extends Controller
             //si no existe el equipo en la base se carga
             if(!$resultadDelEquipo){
 
-                $equipo=Equipo::findOne(['idEquipo'=>$dat['numEquipo']]);
+                $equipo=Equipo::findOne(['nombreEquipo'=>$dat['numEquipo']]);
                 if($equipo){
                     $resultado=new Result();
                     $resultado->numEquipo=$dat['numEquipo'];
@@ -183,26 +183,89 @@ class ResultController extends Controller
 
     public function actionResultados(){
 
-        $resultados=Result::find()->orderBy(['total'=>SORT_ASC])->all();
+        //$resultados=Result::find()->orderBy(['total'=>SORT_ASC])->all();
         //$resultadoss=Result::find();
+        $tipoCarrera=null;
+        $cantPersonas=null;
+        $resultados=Result::find()->where(['categoria'=>1])->andFilterWhere(['cantPersonas'=>2])->orderBy(['total'=>SORT_ASC])->all();
+            if(isset($_GET['tipoCarrera'])){
+                if($_GET['tipoCarrera']==2 or $_GET['tipoCarrera']==1){
+                    $tipoCarrera=$_GET['tipoCarrera'];
+                    if($_GET['cantPersonas']){
+                        $cantPersonas=$_GET['cantPersonas'];
+                        $resultados=Result::find()->where(['categoria'=>$tipoCarrera])->andFilterWhere(['cantPersonas'=>$cantPersonas])->orderBy(['total'=>SORT_ASC])->all();
 
-        if(isset($_GET['tipoCarrera'])){
-            if($_GET['tipoCarrera']==2 or $_GET['tipoCarrera']==1){
-                $tipoCarrera=$_GET['tipoCarrera'];
-                if($_GET['cantPersonas']){
-                    $cantPersonas=$_GET['cantPersonas'];
-                    $resultados=Result::find()->where(['categoria'=>$tipoCarrera])->andFilterWhere(['cantPersonas'=>$cantPersonas])->orderBy(['total'=>SORT_ASC])->all();
+                    }
+
+                }else{
+                    $resultados=Result::find()->orderBy(['total'=>SORT_ASC])->all();
+
 
                 }
-
-            }else{
-                $resultados=Result::find()->orderBy(['total'=>SORT_ASC])->all();
-
             }
+
+
+
+
+        return $this->render('result',['resultados'=>$resultados,'tipoCarrera'=>$tipoCarrera,'cantPersonas'=>$cantPersonas]);
+
+    }
+
+    public function actionIndividual(){
+        $this->layout='main2';
+        return $this->render('individual');
+    }
+
+    public function actionProcesarindividual(){
+        $guardados=0;
+        $noGuardados=0;
+        $numEquipo=Yii::$app->request->post()['numEquipo'];
+        $tiempoLlegada=Yii::$app->request->post()['tiempoLlegada'];
+        $respuestasCorrectas=Yii::$app->request->post()['respuestasCorrectas'];
+        $bolsasCompletas=Yii::$app->request->post()['bolsasCompletas'];
+        $resultadDelEquipo=Result::findOne(['numEquipo'=>$numEquipo]);
+
+        //si no existe el equipo en la base se carga
+        if(!$resultadDelEquipo){
+
+            $equipo=Equipo::findOne(['nombreEquipo'=>$numEquipo]);
+            if($equipo){
+                $resultado=new Result();
+                $resultado->numEquipo=$numEquipo;
+                $resultado->tiempoLlegada=$tiempoLlegada;
+                $resultado->respuestasCorrectas=$respuestasCorrectas;
+                $resultado->bolsasCompletas=$bolsasCompletas;
+                $resultado->categoria=$equipo->idTipoCarrera;
+                $resultado->cantPersonas=$equipo->cantidadPersonas;
+                //$resultado->cumplioRequisitoTrivia();
+                $resultado->penalidad();
+                $guardados++;
+
+                $final = $resultado->total / 1000;
+                $llegada = $resultado->tiempoLlegada / 1000;
+                $PenalidadTrivia=$resultado->trivia / 1000;
+                $penalidadBolsa=$resultado->penalizacionBolsa/1000;
+                echo 'equipo'.$resultado['numEquipo'] .'Tiempo LLegada'.  date("H:i:s", $llegada) .'Penalidad Trivia '.date("H:i:s", $PenalidadTrivia) .'Penalidad Bolsa'.date("H:i:s", $penalidadBolsa).'Tiempo Final'.date("H:i:s", $final);
+                echo '<hr>';
+                //echo 'equipo-'. $dat['numEquipo']. '-Trivias-'. var_dump($resultado->cumplioRequisitoTrivia());
+                //echo '<hr>';
+                //echo 'equipo-'.$dat['numEquipo'].'-Bolsas-'. var_dump($resultado->cumplioRequisitoBolsa());
+                //die();
+                //$resultado->save();
+                //print_r($resultado->errors);
+            }else{
+                echo ' no existe el equipo error';
+            }
+
         }
+        $noGuardados++;
+        //$guardados=$guardados+1;
+        //echo $guardados;
+        echo 'cargados Corectamente '. $guardados;
+        echo '<hr>';
+        //echo 'No cargados '. $noGuardados;
 
 
-        return $this->render('result',['resultados'=>$resultados]);
 
     }
 }
