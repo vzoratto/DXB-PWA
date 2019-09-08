@@ -327,8 +327,9 @@ class Persona extends \yii\db\ActiveRecord
     public function equipo(){
         //busca al equipo al cual pertenezco
         $equipoAlQuePerteneezco=Grupo::findOne(['idPersona'=>$this->idPersona]);
+        $equipo=Equipo::findOne(['idEquipo'=>$equipoAlQuePerteneezco->idEquipo]);
 
-        return $equipoAlQuePerteneezco;
+        return $equipo;
     }
 
     public function dni(){

@@ -200,7 +200,7 @@ class EstadisticaController extends  Controller{
         $equiposDosCompetitiva=[];
         $equiposCuatroCompetitiva=[];
 
-        $equipos=Equipo::find(['deshabilitado'=>0])->orderBy(['dniCapitan'=>SORT_ASC])->all();
+        $equipos=Equipo::find()->where(['deshabilitado'=>0])->orderBy(['dniCapitan'=>SORT_ASC])->all();
         foreach($equipos as $equipo){
             if($equipo->pagoInscripcion()){
                 if($equipo->cantidadPersonas==2 && $equipo->idTipoCarrera==1){
@@ -223,7 +223,7 @@ class EstadisticaController extends  Controller{
 
     public function actionPersonasconfirmadas(){
         $this->layout = '/main2';
-        $equipos=Equipo::find(['deshabilitado'=>0])->orderBy(['dniCapitan'=>SORT_ASC])->all();
+        $equipos=Equipo::find()->where(['deshabilitado'=>0])->orderBy(['dniCapitan'=>SORT_ASC])->all();
         $personasDosRecreativo=[];
         $personaCuatroRecreativo=[];
         //competitiva
@@ -271,7 +271,7 @@ class EstadisticaController extends  Controller{
 
     public function actionEmailpersonasconfirmadas(){
         $this->layout = '/main2';
-        $equipos=Equipo::find(['deshabilitado'=>0])->orderBy(['dniCapitan'=>SORT_ASC])->all();
+        $equipos=Equipo::find()->where(['deshabilitado'=>0])->orderBy(['dniCapitan'=>SORT_ASC])->all();
         $personasConfirmadas=[];
 
         foreach ($equipos as $equipo){

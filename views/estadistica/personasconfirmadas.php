@@ -8,7 +8,7 @@
     <table class="table table-sm">
         <tr>
             <th></th>
-            <th>ID equipo sistema</th>
+            <th>Nuevo Numero</th>
             <th>DNI</th>
             <th>nombre y apellido</th>
             <th>DNI Capitan</th>
@@ -26,7 +26,7 @@
             ?>
             <tr>
                 <td><?php echo $contadorRecreDos; ?></td>
-                <td><?php echo $persona->equipo()->idEquipo; ?></td>
+                <td><?php echo $persona->equipo()->nombreEquipo; ?></td>
                 <td><?php echo $persona->dni(); ?></td>
                 <td><?php echo strtolower($persona->apellidoPersona.' '.$persona->nombrePersona); ?></td>
                 <td><?php echo $persona->dniCapitan(); ?></td>
@@ -53,7 +53,7 @@
     <table class="table table-sm">
         <tr>
             <th></th>
-            <th>ID equipo sistema</th>
+            <th>Nuevo Numero</th>
             <th>DNI</th>
             <th>nombre y apellido</th>
             <th>DNI Capitan</th>
@@ -71,7 +71,7 @@
             ?>
             <tr>
                 <td><?php echo $contadorRecreDos; ?></td>
-                <td><?php echo $persona->equipo()->idEquipo; ?></td>
+                <td><?php echo $persona->equipo()->nombreEquipo; ?></td>
                 <td><?php echo $persona->dni(); ?></td>
                 <td><?php echo strtolower($persona->apellidoPersona.' '.$persona->nombrePersona); ?></td>
                 <td><?php echo $persona->dniCapitan(); ?></td>
@@ -99,7 +99,7 @@
     <table class="table table-sm">
         <tr>
             <th></th>
-            <th>ID equipo sistema</th>
+            <th>Nuevo Numero</th>
             <th>DNI</th>
             <th>nombre y apellido</th>
             <th>DNI Capitan</th>
@@ -117,7 +117,7 @@
             ?>
             <tr>
                 <td><?php echo $contadorRecreDos; ?></td>
-                <td><?php echo $persona->equipo()->idEquipo; ?></td>
+                <td><?php echo $persona->equipo()->nombreEquipo; ?></td>
                 <td><?php echo $persona->dni(); ?></td>
                 <td><?php echo strtolower($persona->apellidoPersona.' '.$persona->nombrePersona); ?></td>
                 <td><?php echo $persona->dniCapitan(); ?></td>
@@ -145,7 +145,7 @@
     <table class="table table-sm">
         <tr>
             <th></th>
-            <th>ID equipo sistema</th>
+            <th>Nuevo Numero</th>
             <th>DNI</th>
             <th>nombre y apellido</th>
             <th>DNI Capitan</th>
@@ -163,7 +163,7 @@
             ?>
             <tr>
                 <td><?php echo $contadorRecreDos; ?></td>
-                <td><?php echo $persona->equipo()->idEquipo; ?></td>
+                <td><?php echo $persona->equipo()->nombreEquipo; ?></td>
                 <td><?php echo $persona->dni(); ?></td>
                 <td><?php echo strtolower($persona->apellidoPersona.' '.$persona->nombrePersona); ?></td>
                 <td><?php echo $persona->dniCapitan(); ?></td>

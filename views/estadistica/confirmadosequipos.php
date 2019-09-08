@@ -8,7 +8,7 @@
     <table class="table table-sm">
         <tr>
             <th></th>
-            <th>Id Equipo Sistema</th>
+            <th>Nuevo Numero</th>
             <th>DNI Capitan</th>
             <th>Nombre Capitan</th>
             <th>Equipo Completo</th>
@@ -24,7 +24,7 @@
             ?>
             <tr>
                 <td><?php echo $contadorRecreDos ?></td>
-                <td><?php echo $equipoDosRecre->idEquipo ?></td>
+                <td><?php echo $equipoDosRecre->nombreEquipo ?></td>
                 <td><?php echo strtolower($usuario->dniUsuario) ?></td>
                 <td><?php echo strtolower($persona->apellidoPersona. ' '.$persona->nombrePersona) ?></td>
                 <td><?php echo $equipoDosRecre->equipoCompleto();?></td>
@@ -47,7 +47,7 @@
     <table class="table table-sm">
         <tr>
             <th></th>
-            <th>Id Equipo Sistema</th>
+            <th>Nuevo Numero</th>
             <th>DNI Capitan</th>
             <th>Nombre Capitan</th>
             <th>Equipo Completo</th>
@@ -63,7 +63,7 @@
             ?>
             <tr>
                 <td><?php echo $contadorRecreCuatro ?></td>
-                <td><?php echo $equipoCuatroRecre->idEquipo ?></td>
+                <td><?php echo $equipoCuatroRecre->nombreEquipo ?></td>
                 <td><?php echo strtolower($usuario->dniUsuario) ?></td>
                 <td><?php echo strtolower($persona->apellidoPersona. ' '.$persona->nombrePersona) ?></td>
                 <td><?php echo $equipoCuatroRecre->equipoCompleto();?></td>
@@ -86,7 +86,7 @@
     <table class="table table-sm">
         <tr>
             <th></th>
-            <th>Id Equipo Sistema</th>
+            <th>Nuevo Numero</th>
             <th>DNI Capitan</th>
             <th>Nombre Capitan</th>
             <th>Equipo Completo</th>
@@ -102,7 +102,7 @@
             ?>
             <tr>
                 <td><?php echo $contadorCompeDos ?></td>
-                <td><?php echo $equipoDosCompe->idEquipo ?></td>
+                <td><?php echo $equipoDosCompe->nombreEquipo ?></td>
                 <td><?php echo strtolower($usuario->dniUsuario) ?></td>
                 <td><?php echo strtolower($persona->apellidoPersona. ' '.$persona->nombrePersona) ?></td>
                 <td><?php echo $equipoDosCompe->equipoCompleto();?></td>
@@ -124,7 +124,7 @@
     <table class="table table-sm">
         <tr>
             <th></th>
-            <th>Id Equipo Sistema</th>
+            <th>Nuevo Numero</th>
             <th>DNI Capitan</th>
             <th>Nombre Capitan</th>
             <th>Equipo Completo</th>
@@ -140,7 +140,7 @@
             ?>
             <tr>
                 <td><?php echo $contadorCompeCuatro ?></td>
-                <td><?php echo $equipoCuatroCompe->idEquipo ?></td>
+                <td><?php echo $equipoCuatroCompe->nombreEquipo ?></td>
                 <td><?php echo strtolower($usuario->dniUsuario) ?></td>
                 <td><?php echo strtolower($persona->apellidoPersona. ' '.$persona->nombrePersona) ?></td>
                 <td><?php echo $equipoCuatroCompe->equipoCompleto();?></td>
