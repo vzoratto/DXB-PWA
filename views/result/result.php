@@ -76,7 +76,7 @@ use yii\helpers\Url;
                         <tr>
                             <th>Posición</th>
                             <th>Equipo</th>
-                            <th>Total</th>
+                            <th>Tiempo Final</th>
                             <th>Tiempo llegada</th>
                             <th>Total Penalidades</th>
                             <th>Bolsas Completas</th>

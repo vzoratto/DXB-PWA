@@ -288,4 +288,23 @@ class EstadisticaController extends  Controller{
         return $this->render('emailpersonasconfirmadas',['personasConfirmadas'=>$personasConfirmadas]);
 
     }
+
+    public function actionSeguro(){
+        $this->layout = '/main2';
+        $equipos=Equipo::find()->where(['deshabilitado'=>0])->orderBy(['dniCapitan'=>SORT_ASC])->all();
+        $personasConfirmadas=[];
+        foreach ($equipos as $equipo){
+            if($equipo->pagoInscripcion()){
+                $personasGrupo=$equipo->personasEnElEquipo();
+                foreach ($personasGrupo as $persona){
+                    $personasConfirmadas[]=$persona;
+                }
+
+
+            }
+        }
+        return $this->render('seguro',['personasConfirmadas'=>$personasConfirmadas]);
+
+
+    }
 }

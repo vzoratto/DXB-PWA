@@ -68,6 +68,7 @@ AppAsset::register($this);
                     ['label' => 'Equipos CONFIRMADOS', 'url' => ['/estadistica/confirmados']],
                     ['label' => 'Personas CONFIRMADAS', 'url' => ['/estadistica/personasconfirmadas']],
                     ['label' => 'email Personas CONFIRMADAS', 'url' => ['/estadistica/emailpersonasconfirmadas']],
+                    ['label' => 'seguro', 'url' => ['/estadistica/seguro']]
 
                 ],
                 ],
