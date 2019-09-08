@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\models\Equipo;
+use app\models\Gestores;
+use app\models\Usuario;
 use Yii;
 use app\models\Result;
 use app\models\ResultSearch;
@@ -36,6 +38,19 @@ class ResultController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]);
+        }
+        $usuarioLogin=Usuario::findOne(['idUsuario' => $_SESSION['__id']]);
+
+        $gestor=Gestores::findOne(['idUsuario' => $_SESSION['__id']]);
+        if($usuarioLogin->idRol!=2){
+            return $this->goHome();
+        }
+
+        if($gestor==null){//si el usuario logueado no es gestor//lo redirecciono al home
+            return $this->goHome();
+        }
         $searchModel = new ResultSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -126,6 +141,19 @@ class ResultController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
     public function actionCargar(){
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]);
+        }
+        $usuarioLogin=Usuario::findOne(['idUsuario' => $_SESSION['__id']]);
+
+        $gestor=Gestores::findOne(['idUsuario' => $_SESSION['__id']]);
+        if($usuarioLogin->idRol!=2){
+            return $this->goHome();
+        }
+
+        if($gestor==null){//si el usuario logueado no es gestor//lo redirecciono al home
+            return $this->goHome();
+        }
         $this->layout='main2';
         return $this->render('cargar');
     }
@@ -212,6 +240,19 @@ class ResultController extends Controller
     }
 
     public function actionIndividual(){
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(["site/login"]);
+        }
+        $usuarioLogin=Usuario::findOne(['idUsuario' => $_SESSION['__id']]);
+
+        $gestor=Gestores::findOne(['idUsuario' => $_SESSION['__id']]);
+        if($usuarioLogin->idRol!=2){
+            return $this->goHome();
+        }
+
+        if($gestor==null){//si el usuario logueado no es gestor//lo redirecciono al home
+            return $this->goHome();
+        }
         $this->layout='main2';
         return $this->render('individual');
     }
