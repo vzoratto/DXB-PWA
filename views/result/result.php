@@ -74,8 +74,9 @@ use yii\helpers\Url;
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>Posición</th>
+                            <th>Pos.</th>
                             <th>Equipo</th>
+                            <th>Capitán</th>
                             <th>Tiempo Final</th>
                             <th>Tiempo llegada</th>
                             <th>Total Penalidades</th>
@@ -83,7 +84,6 @@ use yii\helpers\Url;
                             <th>Respuestas Correctas</th>
                             <th>Penalidad Bolsas</th>
                             <th>Penalidad Trivia</th>
-                            <th>Capitán</th>
                             <th>Competencia</th>
                             <th>Personas Equipo</th>
 
@@ -107,6 +107,7 @@ use yii\helpers\Url;
                              <tr>
                                  <td><?php echo $contador;?></td>
                                  <td><?php echo $result->numEquipo;?></td>
+                                 <td><?php echo $nombreAp;?></td>
                                  <td><?php echo date("H:i:s",$result->total/1000);?></td>
                                  <td><?php echo date("H:i:s", $result->tiempoLlegada/1000);?></td>
                                  <td><?php echo date("H:i:s",$totalPenalidad/1000);?></td>
@@ -114,7 +115,6 @@ use yii\helpers\Url;
                                  <td><?php echo $result->respuestasCorrectas;?></td>
                                  <td><?php echo date("H:i:s",$result->penalizacionBolsa/1000);?></td>
                                  <td><?php echo date("H:i:s",$result->trivia/1000);?></td>
-                                 <td><?php echo $nombreAp;?></td>
                                  <td><?php echo '<p>'. $equipo->tipoCarrera->descripcionCarrera.'</p>';?></td>
                                  <td><?php echo $equipo->cantidadPersonas;?></td>
 
