@@ -105,18 +105,18 @@ use yii\helpers\Url;
                                 $totalPenalidad=$result->penalizacionBolsa+$result->trivia;
                              ?>
                              <tr <?php echo ($contador==1 or $contador==2 or $contador==3) ? 'bgcolor="#08ff52"' :'' ?>>
-                                 <td><?php echo $contador;?></td>
-                                 <td><?php echo $result->numEquipo;?></td>
-                                 <td style="font-size: 15px;"><?php echo $nombreAp;?></td>
-                                 <td><?php echo date("H:i:s",$result->total/1000);?></td>
-                                 <td><?php echo date("H:i:s", $result->tiempoLlegada/1000);?></td>
-                                 <td><?php echo date("H:i:s",$totalPenalidad/1000);?></td>
-                                 <td><?php echo $result->bolsasCompletas;?></td>
-                                 <td><?php echo $result->respuestasCorrectas;?></td>
-                                 <td><?php echo date("H:i:s",$result->penalizacionBolsa/1000);?></td>
-                                 <td><?php echo date("H:i:s",$result->trivia/1000);?></td>
-                                 <td><?php echo '<p>'. $equipo->tipoCarrera->descripcionCarrera.'</p>';?></td>
-                                 <td><?php echo $equipo->cantidadPersonas;?></td>
+                                 <td style="font-weight: bold"><?php echo $contador;?></td>
+                                 <td style="font-weight: bold"><?php echo $result->numEquipo;?></td>
+                                 <td style="font-size: 15px; font-weight: bold"><?php echo $nombreAp;?></td>
+                                 <td style="font-weight: bold"><?php echo date("H:i:s",$result->total/1000);?></td>
+                                 <td style="font-weight: bold"><?php echo date("H:i:s", $result->tiempoLlegada/1000);?></td>
+                                 <td style="font-weight: bold"><?php echo date("H:i:s",$totalPenalidad/1000);?></td>
+                                 <td style="font-weight: bold"><?php echo $result->bolsasCompletas;?></td>
+                                 <td style="font-weight: bold"><?php echo $result->respuestasCorrectas;?></td>
+                                 <td style="font-weight: bold"><?php echo date("H:i:s",$result->penalizacionBolsa/1000);?></td>
+                                 <td style="font-weight: bold"><?php echo date("H:i:s",$result->trivia/1000);?></td>
+                                 <td style="font-weight: bold; font-size: 12px"><?php echo strtoupper($equipo->tipoCarrera->descripcionCarrera);?></td>
+                                 <td style="font-weight: bold"><?php echo $equipo->cantidadPersonas;?></td>
 
 
 
