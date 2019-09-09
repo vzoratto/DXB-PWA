@@ -210,6 +210,7 @@ class ResultController extends Controller
     }
 
     public function actionResultados(){
+        return $this->goBack();
 
         //$resultados=Result::find()->orderBy(['total'=>SORT_ASC])->all();
         //$resultadoss=Result::find();
@@ -308,5 +309,32 @@ class ResultController extends Controller
 
 
 
+    }
+
+    public function actionListar(){
+        $this->layout='main2';
+        $resultados=Result::find()->orderBy(['idResultado'=>SORT_DESC])->all();
+
+        return $this->render('listar',['resultados'=>$resultados]);
+
+    }
+
+    public function actionBusc(){
+        //print_r($_GET);
+        $this->layout='main2';
+        $numEquipo=$_GET['numEquipo'];
+        $resultado=Result::findOne(['numEquipo'=>$numEquipo]);
+
+        return $this->render('modificar',['resultado'=>$resultado]);
+
+    }
+
+    public function actionProcesarmodi()
+    {
+        $numEquipo = $_GET['numEquipo'];
+        if (isset($numEquipo)) {
+
+
+        }
     }
 }
