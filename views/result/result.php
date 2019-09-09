@@ -101,13 +101,13 @@ use yii\helpers\Url;
                                 $equipo=\app\models\Equipo::findOne(['nombreEquipo'=>$result->numEquipo]);
                                 $usu=\app\models\Usuario::findOne(['dniUsuario'=>$equipo->dniCapitan]);
                                 $persona=\app\models\Persona::findOne(['idUsuario'=>$usu->idUsuario]);
-                                $nombreAp=strtolower($persona->apellidoPersona.' '.$persona->nombrePersona);
+                                $nombreAp=strtoupper($persona->apellidoPersona.' '.$persona->nombrePersona);
                                 $totalPenalidad=$result->penalizacionBolsa+$result->trivia;
                              ?>
-                             <tr>
+                             <tr <?php echo ($contador==1 or $contador==2 or $contador==3) ? 'bgcolor="#08ff52"' :'' ?>>
                                  <td><?php echo $contador;?></td>
                                  <td><?php echo $result->numEquipo;?></td>
-                                 <td><?php echo $nombreAp;?></td>
+                                 <td style="font-size: 15px;"><?php echo $nombreAp;?></td>
                                  <td><?php echo date("H:i:s",$result->total/1000);?></td>
                                  <td><?php echo date("H:i:s", $result->tiempoLlegada/1000);?></td>
                                  <td><?php echo date("H:i:s",$totalPenalidad/1000);?></td>
