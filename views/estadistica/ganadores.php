@@ -78,7 +78,7 @@ use yii\helpers\Url;
                     $tipoCarrera=\app\models\Tipocarrera::findOne(['idTipoCarrera'=>$tipoCarrera]);
 
                 ?>
-                <h3><?php echo $tipoCarrera->descripcionCarrera .' - '. $cantPersonas .' Personas';?></h3>
+                <h3><?php echo (isset($tipoCarrera) && isset($cantPersonas)) ? $tipoCarrera->descripcionCarrera .' - '. $cantPersonas .' Personas' :'';?></h3>
                 <table class="table table-bordered">
                     <thead>
                     <tr>
