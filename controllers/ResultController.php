@@ -210,7 +210,7 @@ class ResultController extends Controller
     }
 
     public function actionResultados(){
-        return $this->goBack();
+        //return $this->goBack();
 
         //$resultados=Result::find()->orderBy(['total'=>SORT_ASC])->all();
         //$resultadoss=Result::find();
