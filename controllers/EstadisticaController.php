@@ -11,6 +11,7 @@ use app\models\Equipo;
 use app\models\Gestores;
 use app\models\Grupo;
 use app\models\Persona;
+use app\models\Result;
 use app\models\Usuario;
 use yii\web\Controller;
 
@@ -306,5 +307,34 @@ class EstadisticaController extends  Controller{
         return $this->render('seguro',['personasConfirmadas'=>$personasConfirmadas]);
 
 
+    }
+    public function actionGanadores(){
+        //return $this->goBack();
+
+        //$resultados=Result::find()->orderBy(['total'=>SORT_ASC])->all();
+        //$resultadoss=Result::find();
+        $tipoCarrera=null;
+        $cantPersonas=null;
+        $resultados=Result::find()->where(['categoria'=>1])->andFilterWhere(['cantPersonas'=>2])->orderBy(['total'=>SORT_ASC])->all();
+        if(isset($_GET['tipoCarrera'])){
+            if($_GET['tipoCarrera']==2 or $_GET['tipoCarrera']==1){
+                $tipoCarrera=$_GET['tipoCarrera'];
+                if($_GET['cantPersonas']){
+                    $cantPersonas=$_GET['cantPersonas'];
+                    $resultados=Result::find()->where(['categoria'=>$tipoCarrera])->andFilterWhere(['cantPersonas'=>$cantPersonas])->orderBy(['total'=>SORT_ASC])->all();
+
+                }
+
+            }else{
+                $resultados=Result::find()->orderBy(['total'=>SORT_ASC])->all();
+
+
+            }
+        }
+
+
+
+
+        return $this->render('ganadores',['resultados'=>$resultados,'tipoCarrera'=>$tipoCarrera,'cantPersonas'=>$cantPersonas]);
     }
 }

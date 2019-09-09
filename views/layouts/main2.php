@@ -43,6 +43,7 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Cargar Resultado JSON', 'url'=> ['/result/cargar']],
             ['label' => 'Cargar Resultado INDIVIDUAL', 'url'=> ['/result/individual']],
+            ['label' => 'listar Resultados', 'url'=> ['/result/listar']],
             ['label' => 'Listados ABM','items' => [
                 ['label' => 'Usuario', 'url' => ['/usuario/index']],
                 ['label' => 'Gestor', 'url' => ['/gestores/index']],
@@ -68,7 +69,8 @@ AppAsset::register($this);
                     ['label' => 'Equipos CONFIRMADOS', 'url' => ['/estadistica/confirmados']],
                     ['label' => 'Personas CONFIRMADAS', 'url' => ['/estadistica/personasconfirmadas']],
                     ['label' => 'email Personas CONFIRMADAS', 'url' => ['/estadistica/emailpersonasconfirmadas']],
-                    ['label' => 'seguro', 'url' => ['/estadistica/seguro']]
+                    ['label' => 'seguro', 'url' => ['/estadistica/seguro']],
+                    ['label' => 'excel ganadores', 'url' => ['/estadistica/ganadores']]
 
                 ],
                 ],
