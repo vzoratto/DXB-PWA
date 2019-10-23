@@ -70,7 +70,8 @@ AppAsset::register($this);
                     ['label' => 'Personas CONFIRMADAS', 'url' => ['/estadistica/personasconfirmadas']],
                     ['label' => 'email Personas CONFIRMADAS', 'url' => ['/estadistica/emailpersonasconfirmadas']],
                     ['label' => 'seguro', 'url' => ['/estadistica/seguro']],
-                    ['label' => 'excel ganadores', 'url' => ['/estadistica/ganadores']]
+                    ['label' => 'excel ganadores', 'url' => ['/estadistica/ganadores']],
+                    ['label' => 'Pagos transferencias', 'url' => ['/estadistica/pagostransferencias']]
 
                 ],
                 ],
