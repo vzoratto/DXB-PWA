@@ -7,6 +7,7 @@
  */
 namespace app\controllers;
 
+use app\models\Controlpago;
 use app\models\Equipo;
 use app\models\Gestores;
 use app\models\Grupo;
@@ -336,5 +337,27 @@ class EstadisticaController extends  Controller{
 
 
         return $this->render('ganadores',['resultados'=>$resultados,'tipoCarrera'=>$tipoCarrera,'cantPersonas'=>$cantPersonas]);
+    }
+
+    public function actionPagostransferencias(){
+        $this->layout = '/main2';
+        $cont=1;
+        //$list= BaseYii::$app->db->createCommand('select p.idPago, p.importePagado,p.entidadPago,controlpago.fechaPago,controlpago.fechachequeado,persona.nombrePersona,persona.apellidoPersona,equipo.nombreEquipo from controlpago INNER JOIN pago as p ON controlpago.idPago=p.idPago INNER JOIN persona ON p.idPersona=persona.idPersona INNER JOIN equipo ON p.idEquipo=equipo.idEquipo where controlpago.chequeado=1 AND p.entidadPago!="Universidad nacional del comahue" AND p.entidadPago!="ByB indumentaria deportiva"')->queryAll();
+        $pagosChequeados=Controlpago::findAll(['chequeado'=>1]);
+        $pagos=[];
+        //print_r($list);
+        foreach ($pagosChequeados as $pago){
+            if($pago->pago->entidadPago!="Universidad nacional del comahue"){
+                if($pago->pago->entidadPago!="ByB indumentaria deportiva"){
+                    if($pago->pago->entidadPago!='ByB Indumentaria Deportiva-Gimnacio Terra'){
+                        $pagos[]=$pago;
+                    }
+
+                }
+            }
+
+        }
+        return $this->render('pagostransferencias',['pagos'=>$pagos]);
+
     }
 }
