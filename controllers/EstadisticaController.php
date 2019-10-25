@@ -350,7 +350,72 @@ class EstadisticaController extends  Controller{
             if($pago->pago->entidadPago!="Universidad nacional del comahue"){
                 if($pago->pago->entidadPago!="ByB indumentaria deportiva"){
                     if($pago->pago->entidadPago!='ByB Indumentaria Deportiva-Gimnacio Terra'){
-                        $pagos[]=$pago;
+                        if($pago->pago->entidadPago!='UNCo'){
+                            if($pago->pago->entidadPago!='Universidad Nacional del Comahue'){
+                                if($pago->pago->entidadPago!='Universidas nacional del comahue'){
+                                    if($pago->pago->entidadPago!='UNIVERSIDAD NACIONAL DEL COMAHUE'){
+                                        if($pago->pago->entidadPago!='B%B indumentaria deportiva'){
+                                            if($pago->pago->entidadPago!='GIMNASIO ESCONDIDO'){
+                                                if($pago->pago->entidadPago!='Byb'){
+                                                    if($pago->pago->entidadPago!='byb'){
+                                                        if($pago->pago->entidadPago!='Unco'){
+                                                            if($pago->pago->entidadPago!='universidad nacional del comahue'){
+                                                                if($pago->pago->entidadPago!='universidad'){
+                                                                    if($pago->pago->entidadPago!='BB Indumetaria -Gimnasio Terra Centro'){
+                                                                        if($pago->pago->entidadPago!='Efectivo'){
+                                                                            if($pago->pago->entidadPago!='Gimnasio Terra'){
+                                                                                if($pago->pago->entidadPago!='Efectivo en gimnasio'){
+                                                                                    if($pago->pago->entidadPago!='Terra'){
+                                                                                        if($pago->pago->entidadPago!='Polideportivo'){
+                                                                                            if($pago->pago->entidadPago!='Universidad nacional del comahue 2 equipos'){
+                                                                                                if($pago->pago->entidadPago!='Terra'){
+                                                                                                    if($pago->pago->entidadPago!='Escondido'){
+                                                                                                        $pagos[]=$pago;
+                                                                                                        $porciones = explode("/", $pago->pago->imagenComprobante);
+                                                                                                        $nombreArchivo=$porciones[2];
+                                                                                                        $path= \Yii::getAlias('@webroot');
+                                                                                                        if (!copy($path."/archivo/pagoinscripcion/$nombreArchivo", $path."/archivo/pagoinscripcion/pagostransferencias/$nombreArchivo")) {
+                                                                                                            echo "Error al copiar". $pago->pago->imagenComprobante;
+                                                                                                        }
+                                                                                                    }
+
+                                                                                                }
+                                                                                            }
+
+                                                                                        }
+
+                                                                                    }
+
+                                                                                }
+
+                                                                            }
+
+                                                                        }
+
+                                                                    }
+
+                                                                }
+
+                                                            }
+
+                                                        }
+
+                                                    }
+
+                                                }
+
+                                            }
+
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+
+                        }
+
                     }
 
                 }
