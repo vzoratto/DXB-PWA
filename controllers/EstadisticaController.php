@@ -371,12 +371,12 @@ class EstadisticaController extends  Controller{
                                                                                                 if($pago->pago->entidadPago!='Terra'){
                                                                                                     if($pago->pago->entidadPago!='Escondido'){
                                                                                                         $pagos[]=$pago;
-                                                                                                        $porciones = explode("/", $pago->pago->imagenComprobante);
+                                                                                                        /*$porciones = explode("/", $pago->pago->imagenComprobante);
                                                                                                         $nombreArchivo=$porciones[2];
                                                                                                         $path= \Yii::getAlias('@webroot');
                                                                                                         if (!copy($path."/archivo/pagoinscripcion/$nombreArchivo", $path."/archivo/pagoinscripcion/pagostransferencias/$nombreArchivo")) {
                                                                                                             echo "Error al copiar". $pago->pago->imagenComprobante;
-                                                                                                        }
+                                                                                                        }*/
                                                                                                     }
 
                                                                                                 }
