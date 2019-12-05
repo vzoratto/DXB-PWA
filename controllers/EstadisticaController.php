@@ -11,6 +11,7 @@ use app\models\Controlpago;
 use app\models\Equipo;
 use app\models\Gestores;
 use app\models\Grupo;
+use app\models\Pago;
 use app\models\Persona;
 use app\models\Result;
 use app\models\Usuario;
@@ -342,6 +343,32 @@ class EstadisticaController extends  Controller{
     public function actionPagostransferencias(){
         $this->layout = '/main2';
         $cont=1;
+        $entidad=null;
+        $importe_pagado=null;
+        if(isset($_GET['entidad']) && $_GET['entidad']!=null){
+            $entidad=$_GET['entidad'];
+            $pagosFiltro=Pago::find()->where(['like','entidadPago','%'.$_GET['entidad'].'%',false])->all();
+            $pagos=[];
+            foreach ($pagosFiltro as $pago){
+                $controlPago=Controlpago::findOne(['idPago'=>$pago->idPago]);
+                if($controlPago!=null && $controlPago->chequeado){
+                    if($_GET['importe_pagado']!=null){
+                        if($controlPago->pago->importePagado==$_GET['importe_pagado']){
+                            $pagos[]=$controlPago;
+                            $importe_pagado=$_GET['importe_pagado'];
+                        }
+                    }else{
+                        $pagos[]=$controlPago;
+                    }
+                }
+
+
+            }
+
+            return $this->render('pagostransferencias',['pagos'=>$pagos,'entidad'=>$entidad,'importe_pagado'=>$importe_pagado]);
+        }
+
+
         //$list= BaseYii::$app->db->createCommand('select p.idPago, p.importePagado,p.entidadPago,controlpago.fechaPago,controlpago.fechachequeado,persona.nombrePersona,persona.apellidoPersona,equipo.nombreEquipo from controlpago INNER JOIN pago as p ON controlpago.idPago=p.idPago INNER JOIN persona ON p.idPersona=persona.idPersona INNER JOIN equipo ON p.idEquipo=equipo.idEquipo where controlpago.chequeado=1 AND p.entidadPago!="Universidad nacional del comahue" AND p.entidadPago!="ByB indumentaria deportiva"')->queryAll();
         $pagosChequeados=Controlpago::findAll(['chequeado'=>1]);
         $pagos=[];
